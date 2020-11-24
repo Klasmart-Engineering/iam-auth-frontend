@@ -79,6 +79,10 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./index.html"
+        }),
+        new webpack.EnvironmentPlugin({
+            "API_ENDPOINT": "https://api.kidsloop.net/",
+            "AUTH_ENDPOINT": "https://auth.kidsloop.net/",
         })
     ],
     devServer: {

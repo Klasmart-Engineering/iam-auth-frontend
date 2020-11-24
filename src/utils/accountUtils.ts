@@ -20,7 +20,7 @@ export async function redirectIfUnauthorized(continueParam?: string) {
     const headers = new Headers();
     headers.append("Accept", "application/json");
     headers.append("Content-Type", "application/json");
-    const response = await fetch("https://api.kidsloop.net/user/", {
+    const response = await fetch(`${process.env.API_ENDPOINT}user/`, {
         body: JSON.stringify({ query: GET_SELF }),
         credentials: "include",
         headers,
@@ -33,9 +33,9 @@ export async function redirectIfUnauthorized(continueParam?: string) {
             const me: User = response.data.me;
             console.log(me);
             if (me === null) {
-                if (window.location.origin === "https://auth.kidsloop.net") { return; }
+                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { return; }
                 const stringifiedQuery = queryString.stringify({ continue: continueParam ? continueParam : window.location.href });
-                window.location.href = `https://auth.kidsloop.net/?${stringifiedQuery}#/`
+                window.location.href = `${process.env.AUTH_ENDPOINT}?${stringifiedQuery}#/`
             }
             return;
         });
