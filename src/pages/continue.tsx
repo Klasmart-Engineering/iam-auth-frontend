@@ -10,7 +10,7 @@ import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 
-const DEFAULT_REDIRECT_LINK = "https://kidsloop.net";
+const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://kidsloop.net";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
@@ -51,7 +51,7 @@ export function Continue() {
 
     const [continueError, setContinueError] = useState<JSX.Element | null>(null);
 
-    const regex = /((https?:\/\/(.+?\.))?kidsloop\.net(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/;
+    const regex = new RegExp(`(https?:\\/\\/(.+?\\.))?${process.env.SLD}\\.${process.env.TLD}(\\/[A-Za-z0-9\\-\\._~:\\/\\?#\\[\\]@!$&'\\(\\)\\*\\+,;\\=]*)?`);
     if (regex.test(continueLink)) {}
     else {
         setContinueLink(DEFAULT_REDIRECT_LINK);

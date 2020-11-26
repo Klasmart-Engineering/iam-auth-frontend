@@ -83,6 +83,9 @@ module.exports = {
         new webpack.EnvironmentPlugin({
             "API_ENDPOINT": "https://api.kidsloop.cn/",
             "AUTH_ENDPOINT": "https://auth.kidsloop.cn/",
+            "REDIRECT_LINK": "https://kidsloop.cn/",
+            "SLD": "kidsloop",
+            "TLD": "cn",
         })
     ],
     devServer: {
