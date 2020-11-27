@@ -20,6 +20,7 @@ import { Verify } from "./pages/verify";
 import { ResetPassword } from "./pages/resetPassword";
 import { NotFound } from "./pages/notFound";
 import { redirectIfUnauthorized } from "./utils/accountUtils";
+import { DeepLink } from "./pages/deeplink";
 
 const routes = [
     // { path: "/reset", Component: ResetPassword},
@@ -60,6 +61,11 @@ function ClientSide() {
                                 )}
                             </Route>
                         ))}
+                        <Route exact path="/deeplink">
+                            <Layout centerLogo={true}>
+                                <DeepLink />
+                            </Layout>
+                        </Route>
                         <Route>
                             <Layout centerLogo={true}>
                                 <NotFound />

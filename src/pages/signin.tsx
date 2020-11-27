@@ -121,19 +121,29 @@ export function SignIn() {
     }
 
     async function transferLogin(token: string) {
-        const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
-        const response = await fetch("/transfer", {
-            body: JSON.stringify({ token }),
-            headers,
-            method: "POST",
-        });
-        console.log(response);
-        await response.text()
-        if (response.ok) {
-            history.push('/continue');
+        const url = new URL(window.location.href);
+        const uaParam = url.searchParams.get("ua");
+
+        console.log(uaParam);
+        if (uaParam === "cordova") {
+            alert(`kidsloopstudent://?token=${token}`);
+            window.open(`kidsloopstudent://?token=${token}`, "_system");
             return true;
+        } else {
+            const headers = new Headers();
+            headers.append("Accept", "application/json");
+            headers.append("Content-Type", "application/json");
+            const response = await fetch("/transfer", {
+                body: JSON.stringify({ token }),
+                headers,
+                method: "POST",
+            });
+            console.log(response);
+            await response.text()
+            if (response.ok) {
+                history.push('/continue');
+                return true;
+            }
         }
         return false
 
