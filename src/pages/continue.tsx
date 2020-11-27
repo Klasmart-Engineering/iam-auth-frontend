@@ -4,11 +4,13 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
+import { useLocation } from "react-router";
 import StyledButton from "../components/button";
 import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
+import { useContext } from "react";
+import { TokenContext } from "../entry";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://kidsloop.net";
 
@@ -44,6 +46,7 @@ const useStyles = makeStyles((theme) => createStyles({
 export function Continue() {
     const classes = useStyles();
     const theme = useTheme();
+    const location: any = useLocation(); 
 
     const url = new URL(window.location.href)
     const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
@@ -70,23 +73,34 @@ export function Continue() {
     }
 
     useEffect(() => {
+        console.log("location: ", location.state.token)
+    }, [location])
+
+    useEffect(() => {
         if (!seconds) return;
 
         const interval = setInterval(() => {
             setSeconds(seconds - 1);
         }, 1000);
 
+        if (location.state.token !== "") {
+            clearInterval(interval);
+        }
+
         if (seconds === 5) { handleSuccess() }
 
         return () => clearInterval(interval);
-    }, [seconds])
+    }, [seconds, location.state.token])
 
     function handleSuccess() {
-        console.log("continueLink " + continueLink)
-        console.log("document.referrer " + document.referrer)
+        console.log("token " + location.state.token);
+        console.log("continueLink " + continueLink);
+        console.log("document.referrer " + document.referrer);
 
         if (window.self !== window.top) {
             window.parent.postMessage({message: "message"}, "*");
+        } else if (location.state.token !== "") {
+            window.open(`kidsloopstudent://?token=${location.state.token}`, "_system");
         } else {
             if (document.referrer) { window.location.replace(document.referrer); }
             window.location.replace(continueLink);
@@ -102,32 +116,36 @@ export function Continue() {
                     <FormattedMessage id={"continue_signInSuccess"} />
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
-                <Typography variant="body2" align="center">
-                    <FormattedMessage
-                        id={"continue_continuePrompt"}
-                        values={{ 
-                            em: (...chunks: any[]) => <em>{chunks}</em>,
-                            continueLink: continueLink 
-                        }}
-                    />
-                </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant="body2" align="center">
-                    <FormattedMessage
-                        id={"continue_countdownToContinue"}
-                        values={{ seconds: seconds }}
-                    />
-                </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                { continueError === null ? null :
-                        <Typography align="left" variant="body2">
-                            {continueError}
+            { location.state.token === "" &&
+                <>
+                    <Grid item xs={12}>
+                        <Typography variant="body2" align="center">
+                            <FormattedMessage
+                                id={"continue_continuePrompt"}
+                                values={{ 
+                                    em: (...chunks: any[]) => <em>{chunks}</em>,
+                                    continueLink: continueLink 
+                                }}
+                            />
                         </Typography>
-                }
-            </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="body2" align="center">
+                            <FormattedMessage
+                                id={"continue_countdownToContinue"}
+                                values={{ seconds: seconds }}
+                            />
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        { continueError === null ? null :
+                                <Typography align="left" variant="body2">
+                                    {continueError}
+                                </Typography>
+                        }
+                    </Grid>
+                </>
+            }   
             <Grid item xs={12} className={classes.link}>
                 <StyledButton
                     extendedOnly

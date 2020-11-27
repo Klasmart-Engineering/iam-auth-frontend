@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import * as restApi from "../restapi";
@@ -24,6 +24,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import Collapse from '@material-ui/core/Collapse';
 import BadanamuLogo from "../../assets/img/badanamu_logo.png";
+import { TokenContext } from "../entry";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -117,7 +118,7 @@ export function SignIn() {
 
     async function googleLoginSuccess(response: GoogleLoginResponse | GoogleLoginResponseOffline) {
         if (!("tokenId" in response)) { return }
-        const result = await transferLogin(response.tokenId);
+        const result = await transferLogin(response.tokenId, true);
     }
 
     function googleLoginFailure(error: any) {
@@ -125,10 +126,12 @@ export function SignIn() {
         setInFlight(false)
     }
 
-    async function transferLogin(token: string) {
+    async function transferLogin(token: string, sso = false) {
         if (uaParam === "cordova") {
-            alert(`kidsloopstudent://?token=${token}`);
-            window.open(`kidsloopstudent://?token=${token}`, "_system");
+            // alert(`kidsloopstudent://?token=${token}`);
+            { sso ? 
+                history.push({ pathname: '/continue', state: { token: token }})
+                : window.open(`kidsloopstudent://?token=${token}`, "_system") }
             return true;
         } else {
             const headers = new Headers();
