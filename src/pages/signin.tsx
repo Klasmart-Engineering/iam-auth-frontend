@@ -81,6 +81,11 @@ export function SignIn() {
 
     const history = useHistory();
 
+    const url = new URL(window.location.href);
+    console.log("url", url);
+    const uaParam = url.searchParams.get("ua");
+    console.log(uaParam);
+
     async function login() {
         setEmailError(null);
         setPasswordError(null);
@@ -121,10 +126,6 @@ export function SignIn() {
     }
 
     async function transferLogin(token: string) {
-        const url = new URL(window.location.href);
-        const uaParam = url.searchParams.get("ua");
-
-        console.log(uaParam);
         if (uaParam === "cordova") {
             alert(`kidsloopstudent://?token=${token}`);
             window.open(`kidsloopstudent://?token=${token}`, "_system");
