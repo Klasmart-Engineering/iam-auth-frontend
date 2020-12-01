@@ -32,19 +32,7 @@ const routes = [
     { path: "/", Component: SignIn },
 ]
 
-export interface ITokenContext {
-    token: string,
-    setToken: React.Dispatch<React.SetStateAction<string>>
-}
-export const TokenContext = createContext<ITokenContext>({ token: "", setToken: () => null } as any as ITokenContext);
-
 function ClientSide() {
-    const [token, setToken] = useState("");
-    const tokenContext = useMemo<ITokenContext>(() => ({
-        token,
-        setToken,
-    }), [token, setToken]);
-
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
         return { hostName: url.hostname };
@@ -59,7 +47,6 @@ function ClientSide() {
     const locale = getLanguage(languageCode);
 
     return (
-        <TokenContext.Provider value={tokenContext}>
             <RawIntlProvider value={locale}>
                 <ThemeProvider theme={themeProvider()}>
                     <CssBaseline />
@@ -86,7 +73,6 @@ function ClientSide() {
                         </Switch>
                 </ThemeProvider>
             </RawIntlProvider>
-        </TokenContext.Provider>
     );
 }
 

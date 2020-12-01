@@ -10,7 +10,6 @@ import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useContext } from "react";
-import { TokenContext } from "../entry";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://kidsloop.net";
 
@@ -49,6 +48,7 @@ export function Continue() {
     const location: any = useLocation(); 
 
     const url = new URL(window.location.href)
+    const [cordova, _] = useState(url.searchParams.get("ua"));
     const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
     const [seconds, setSeconds] = useState(10);
 
@@ -73,33 +73,28 @@ export function Continue() {
     }
 
     useEffect(() => {
-        console.log("location: ", location.state.token)
+        console.log("location: ", location?.state?.token)
     }, [location])
 
     useEffect(() => {
-        if (!seconds) return;
+        if (!seconds || cordova) return;
 
         const interval = setInterval(() => {
             setSeconds(seconds - 1);
         }, 1000);
 
-        if (location.state.token !== "") {
-            clearInterval(interval);
-        }
-
         if (seconds === 5) { handleSuccess() }
 
         return () => clearInterval(interval);
-    }, [seconds, location.state.token])
+    }, [seconds])
 
     function handleSuccess() {
-        console.log("token " + location.state.token);
         console.log("continueLink " + continueLink);
         console.log("document.referrer " + document.referrer);
 
         if (window.self !== window.top) {
             window.parent.postMessage({message: "message"}, "*");
-        } else if (location.state.token !== "") {
+        } else if (cordova) {
             window.open(`kidsloopstudent://?token=${location.state.token}`, "_system");
         } else {
             if (document.referrer) { window.location.replace(document.referrer); }
@@ -116,7 +111,7 @@ export function Continue() {
                     <FormattedMessage id={"continue_signInSuccess"} />
                 </Typography>
             </Grid>
-            { location.state.token === "" &&
+            { !cordova &&
                 <>
                     <Grid item xs={12}>
                         <Typography variant="body2" align="center">

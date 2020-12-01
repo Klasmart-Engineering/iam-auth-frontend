@@ -24,7 +24,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import Collapse from '@material-ui/core/Collapse';
 import BadanamuLogo from "../../assets/img/badanamu_logo.png";
-import { TokenContext } from "../entry";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -116,9 +115,9 @@ export function SignIn() {
         return;
     }
 
-    async function googleLoginSuccess(response: GoogleLoginResponse | GoogleLoginResponseOffline) {
-        if (!("tokenId" in response)) { return }
-        const result = await transferLogin(response.tokenId, true);
+    async function googleLoginSuccess(token: GoogleLoginResponse | GoogleLoginResponseOffline) {
+        if (!("tokenId" in token)) { return }
+        const result = await transferLogin(token.tokenId, true);
     }
 
     function googleLoginFailure(error: any) {
@@ -128,9 +127,8 @@ export function SignIn() {
 
     async function transferLogin(token: string, sso = false) {
         if (uaParam === "cordova") {
-            // alert(`kidsloopstudent://?token=${token}`);
             { sso ? 
-                history.push({ pathname: '/continue', state: { token: token }})
+                history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }})
                 : window.open(`kidsloopstudent://?token=${token}`, "_system") }
             return true;
         } else {
