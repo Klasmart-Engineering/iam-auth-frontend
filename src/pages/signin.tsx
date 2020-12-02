@@ -204,7 +204,7 @@ export function SignIn() {
                     />
                 </Typography>
             </Grid>
-            { navigator.userAgent.includes("Cordova") || navigator.userAgent.includes("cordova") ? null :
+            { uaParam === "cordova" ? null :
                 <>
                     <Grid item xs={12}>
                         <GoogleLogin
