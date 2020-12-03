@@ -15,7 +15,6 @@ import { SignIn } from "./pages/signin";
 import { getLanguage } from "./locale/locale";
 import { Continue } from "./pages/continue";
 import { Layout } from "./pages/layout";
-import { SignUp } from "./pages/signup";
 import { Verify } from "./pages/verify";
 import { ResetPassword } from "./pages/resetPassword";
 import { NotFound } from "./pages/notFound";
@@ -25,7 +24,7 @@ import { DeepLink } from "./pages/deeplink";
 const routes = [
     // { path: "/reset", Component: ResetPassword},
     // { path: "/verify", Component: Verify },
-    // { path: "/signup", Component: SignUp },
+    // { path: "/signup", Component: Signup },
     { path: "/signin", Component: SignIn },
     { path: "/login", Component: SignIn },
     { path: "/continue", Component: Continue },
