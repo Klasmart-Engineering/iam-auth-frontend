@@ -7,6 +7,7 @@
     "build": "rm dist/*;webpack --config webpack.config.js",
     "build:prod": "rm dist/*;webpack --config webpack.prod.config.js",
     "build:prod:cn": "rm dist/*;webpack --config webpack.prod.cn.config.js",
+    "build:prod:vn": "rm dist/*;webpack --config webpack.prod.vn.config.js",
     "start": "webpack-dev-server"
   },
   "author": "",
