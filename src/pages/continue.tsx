@@ -11,7 +11,7 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useContext } from "react";
 
-const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://kidsloop.net";
+const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
