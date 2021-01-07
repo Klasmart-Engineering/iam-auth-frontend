@@ -7,9 +7,24 @@ import * as React from "react";
 import { useHistory } from "react-router";
 import PolicyLink from "../components/policyLinks";
 import useTheme from "@material-ui/core/styles/useTheme";
-import LanguageSelect from "../components/languageSelect";
 
 import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
+import LanguageSelect, { Language } from "../components/languageSelect";
+
+const LANGUAGES_LABEL: Language[] = [
+    {
+        code: "en",
+        text: "English",
+    },
+    {
+        code: "ko",
+        text: "한국어",
+    },
+    {
+        code: "zh-CN",
+        text: "汉语 (简体)",
+    },
+];
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
@@ -32,6 +47,7 @@ interface Props {
 
 export function Layout(props: Props) {
     const classes = useStyles();
+    const domain = process.env.SLD + "." + process.env.TLD;
 
     return (
         <Grid
@@ -57,7 +73,7 @@ export function Layout(props: Props) {
                         <Lightswitch iconOnly />
                     </Grid> */}
                     <Grid item xs={5}>
-                        <LanguageSelect noIcon />
+                        <LanguageSelect languages={LANGUAGES_LABEL} noIcon />
                     </Grid>
                     <Grid item xs={6}>
                         <PolicyLink />

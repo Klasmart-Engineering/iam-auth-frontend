@@ -265,7 +265,7 @@ export function SignIn() {
                                     onChange={() => setChecked(!checked)}
                                 />
                             }
-                            label={<Typography variant="caption">I accept to the Kidsloop Privacy Policy</Typography>}
+                            label={<Typography variant="caption"><FormattedMessage id="login_acceptPrivacyPolicy" /></Typography>}
                         />
                         <Grid item xs={12}>
                             {checkmarkError === null ? null :

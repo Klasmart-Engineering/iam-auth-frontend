@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 export function NotFound() {
     const classes = useStyles();
-    const theme = useTheme();
     const history = useHistory();
 
     return (
@@ -61,25 +60,11 @@ export function NotFound() {
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                {/* <Typography variant="body2" align="center">
-                    <FormattedMessage
-                        id={"continue_continuePrompt"}
-                        values={{ 
-                            em: (...chunks: any[]) => <em>{chunks}</em>,
-                            continueLink: continueLink 
-                        }}
-                    />
-                </Typography> */}
             </Grid>
             <Grid item xs={12}>
                 <img src={NOT_FOUND_IMAGES[((Math.floor(Math.random() * 10)) % NOT_FOUND_IMAGES.length)]} width="80%" />
             </Grid>
             <Grid item xs={12}>
-                {/* { continueError === null ? null :
-                        <Typography align="left" variant="body2">
-                            {continueError}
-                        </Typography>
-                } */}
             </Grid>
             <Grid item xs={12} className={classes.link}>
                 <StyledButton

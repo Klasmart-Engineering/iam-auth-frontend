@@ -1,13 +1,11 @@
 // en.ts
 const messages: Record<string, string> = {
-    button_create: "Create",
     button_continue: "Continue",
 
     component_switchDark: "dark",
     component_switchLight: "light",
 
     continue_signInSuccess: "Sign In Successful",
-    continue_signUpSuccess: "Sign Up Successful",
     continue_continuePrompt: "Taking you automatically to <em>{continueLink}</em>!",
     continue_countdownToContinue: "If nothing happens in {seconds} seconds, click \"Continue\".",
 
@@ -17,13 +15,13 @@ const messages: Record<string, string> = {
     error_invalidRedirectLink: "Seems like <em>{continueLink}</em> is not part of KidsLoop! For your safety, we'll take you to <em>{defaultLink}</em>.",
 
     form_emailLabel: "Email or phone",
-    form_nameLabel: "What's your name?",
     form_passwordLabel: "Password",
     form_verificationLabel: "Verification Code",
 
     locale_select: "Select Language",
     locale_tooltip: "Change Language",
 
+    login_acceptPrivacyPolicy: "I accept to the Kidsloop Privacy Policy",
     login_createAccount: "Create an account",
     login_forgotPassword: "Forgot Password?",
     login_loginButton: "Sign In",
@@ -33,10 +31,8 @@ const messages: Record<string, string> = {
     notFound_notFoundDescription: "Let's take you home.",
     notFound_homeButton: "Home",
 
-    signup_createAccount: "Create your account",
     signup_signIn: "Sign in instead",
     signup_signUpNextButton: "Next",
-    signup_signUpFinishedButton: "Go to your account",
     signup_signUpPrompt: "Sign Up",
 
     verify_backButton: "Go Back",

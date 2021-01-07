@@ -20,6 +20,8 @@ import { ResetPassword } from "./pages/resetPassword";
 import { NotFound } from "./pages/notFound";
 import { redirectIfUnauthorized } from "./utils/accountUtils";
 import { DeepLink } from "./pages/deeplink";
+import Cookies, { useCookies } from "react-cookie";
+import { useEffect } from "react";
 
 const routes = [
     // { path: "/reset", Component: ResetPassword},
@@ -34,15 +36,17 @@ const routes = [
 function ClientSide() {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
-        return { hostName: url.hostname };
+        const locale = url.searchParams.get("iso");
+        return { hostName: url.hostname, locale };
     }, []);
 
-    const testing = memos.hostName === "localhost";
+    const testing = memos.hostName === "localhost" || memos.hostName === "0.0.0.0";
     if (!testing) {
         redirectIfUnauthorized();
     }
 
-    const languageCode = "en"
+    const [cookies] = useCookies(["locale"]);
+    const languageCode = memos.locale ?? cookies.locale ?? "en";
     const locale = getLanguage(languageCode);
 
     return (

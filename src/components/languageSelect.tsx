@@ -7,33 +7,24 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LanguageIcon from "@material-ui/icons/Translate";
 import { useState } from "react";
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
-import Cookies from "js-cookie";
-import { getDefaultLanguageCode } from "../locale/locale";
 import clsx from "clsx";
+import { useCookies } from "react-cookie";
 
-const LANGUAGES_LABEL: Language[] = [
-    {
-        code: "en",
-        text: "English",
-    },
-    {
-        code: "ko",
-        text: "한국어",
-    },
-    {
-        code: "zh-CN",
-        text: "汉语 (简体)",
-    },
-];
-
-interface Props {
-    noIcon?: boolean;
+export interface LanguageSelectLocalization {
+    select?: string;
+    tooltip?: string;
 }
 
 export interface Language {
     code: string;
     text: string;
+}
+
+interface Props {
+    cookieDomain?: string;
+    languages: Language[];
+    localization?: LanguageSelectLocalization;
+    noIcon?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
             transform: "rotate(180deg)",
         },
         language: {
-            margin: theme.spacing(0, 0.5, 0, 1),
+            margin: theme.spacing(0, 1),
             display: "block",
         }
     }),
@@ -72,39 +63,74 @@ const StyledMenu = withStyles({})((props: MenuProps) => (
 
 export default function LanguageSelect(props: Props) {
     const classes = useStyles();
+    let {
+        languages
+    } = props;
+    const {
+        cookieDomain,
+        localization,
+        noIcon,
+        ...other
+    } = props;
+
+    if (languages.length === 0) {
+        languages = [{
+            code: "en",
+            text: "English",
+        }]
+    }
+    const localeCodes = languages.map(l => l.code);
+
+    function getDefaultLanguageCode() {
+        const browserLanguages = navigator.languages || [
+            (navigator as any).language,
+            (navigator as any).browerLanguage,
+            (navigator as any).userLanguage,
+            (navigator as any).systemLanguage,
+        ];
+
+        for (const l of browserLanguages) {
+            if (localeCodes.indexOf(l) !== -1) {
+                return l;
+            }
+        }
+        return "en";
+    }
 
     const url = new URL(window.location.href);
     const localeParam = url.searchParams.get("iso");
-    const locale = localeParam || Cookies.get("locale") || getDefaultLanguageCode();
-    if (!Cookies.get("locale")) {
-        Cookies.set("locale", locale, { path: "/", domain: ".kidsloop.net" });
+    const [cookies, setCookies] = useCookies(["locale"]);
+
+    const locale = localeParam || cookies.locale || getDefaultLanguageCode();
+
+    if (!cookies.locale) {
+        setCookies("locale", locale, { path: "/", domain: cookieDomain || "kidsloop.net" });
     }
-    const langText = LANGUAGES_LABEL.find((element) => element.code === locale);
-    const [languageText, setLanguageText] = useState<string>(langText ? langText.text : "");
+
+    const language = languages.find((l) => l.code === locale) || { code: "en", text: "English" };
+    const [languageText, setLanguageText] = useState<string>(language.text);
     const [languageMenuElement, setLanguageMenuElement] = useState<null | HTMLElement>(null);
 
-    function languageSelect(language: { code: string, text: string }) {
-        Cookies.set('locale', language.code, { path: "/", domain: "kidsloop.net" });
+    function languageSelect(language: Language) {
+        setCookies('locale', language.code, { path: "/", domain: cookieDomain || "kidsloop.net" });
         setLanguageText(language.text);
         setLanguageMenuElement(null);
     }
 
     return(
         <React.Fragment>
-            <Tooltip title={<FormattedMessage id="locale_tooltip" />} enterDelay={300}>
+            <Tooltip title={localization?.tooltip ?? "Change Language"} enterDelay={300}>
                 <Button
                     color="inherit"
                     aria-owns={languageMenuElement ? "language-menu" : undefined}
                     aria-haspopup="true"
-                    data-ga-event-category="AppBar"
-                    data-ga-event-action="language"
                     onClick={(e) => setLanguageMenuElement(e.currentTarget)}
                     size="small"
                 >
-                    { props.noIcon ? null : <LanguageIcon fontSize="inherit" />}
+                    { !noIcon && <LanguageIcon fontSize="inherit" />}
                     <span className={classes.language}>
                         { locale === "" ?
-                            <FormattedMessage id="locale_select" /> :
+                            (localization?.select ?? "Select Language") :
                             languageText
                         }
                     </span>
@@ -124,13 +150,13 @@ export default function LanguageSelect(props: Props) {
                 onClose={() => setLanguageMenuElement(null)}
             >
                 {
-                    LANGUAGES_LABEL.map((language) => (
+                    languages.map((l) => (
                         <MenuItem
-                            key={language.code}
-                            selected={locale === language.code}
-                            onClick={() => languageSelect(language)}
+                            key={l.code}
+                            selected={locale === l.code}
+                            onClick={() => languageSelect(l)}
                         >
-                            {language.text}
+                            {l.text}
                         </MenuItem>
                     ))
                 }
