@@ -24,6 +24,10 @@ const LANGUAGES_LABEL: Language[] = [
         code: "zh-CN",
         text: "汉语 (简体)",
     },
+    {
+        code: "vi",
+        text: "Tiếng Việt",
+    },
 ];
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -73,7 +77,7 @@ export function Layout(props: Props) {
                         <Lightswitch iconOnly />
                     </Grid> */}
                     <Grid item xs={5}>
-                        <LanguageSelect languages={LANGUAGES_LABEL} noIcon />
+                        <LanguageSelect cookieDomain={domain} languages={LANGUAGES_LABEL} noIcon />
                     </Grid>
                     <Grid item xs={6}>
                         <PolicyLink />
