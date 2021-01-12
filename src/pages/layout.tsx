@@ -4,12 +4,11 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import * as React from "react";
-import { useHistory } from "react-router";
 import PolicyLink from "../components/policyLinks";
-import useTheme from "@material-ui/core/styles/useTheme";
+import { LanguageSelect } from "kidsloop-px";
+import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";
 
 import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
-import LanguageSelect, { Language } from "../components/languageSelect";
 
 const LANGUAGES_LABEL: Language[] = [
     {
