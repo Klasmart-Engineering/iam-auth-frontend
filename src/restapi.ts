@@ -30,7 +30,7 @@ export async function migrateKl1dot5(id: string, password: string) {
         if (!email) {
             return false;
         }
-        const response = await authCall(
+        const response = await accountCall(
             "/v2/kl15/migrate",
             JSON.stringify({
                 email,
@@ -54,6 +54,10 @@ function phoneOrEmail(str: string): { phoneNr?: string, email?: string } {
 
 function authCall(route: string, body: string) {
     return fetchRoute("POST", "https://prod.auth.badanamu.net", route, body)
+}
+
+function accountCall(route: string, body: string) {
+    return fetchRoute("POST", "https://prod.account.badanamu.net", route, body)
 }
 
 async function fetchRoute(method: string, prefix: string, route: string, body?: string) {
