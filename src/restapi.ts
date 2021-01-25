@@ -40,7 +40,9 @@ export async function migrateKl1dot5(id: string, password: string) {
         const body = await response.json();
         console.log(body)
     } catch (e) {
-        throw e;
+        console.log(`/v2/kl15/migrate didn't respond 200`)
+        console.log(e)
+        return;
     }
 }
 
