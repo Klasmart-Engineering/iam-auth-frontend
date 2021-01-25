@@ -24,6 +24,26 @@ export async function login(id: string, password: string) {
     }
 }
 
+export async function migrateKl1dot5(id: string, password: string) {
+    try {
+        const { email } = phoneOrEmail(id);
+        if (!email) {
+            return false;
+        }
+        const response = await authCall(
+            "/v2/kl15/migrate",
+            JSON.stringify({
+                email,
+                pw: password,
+            }),
+        );
+        const body = await response.json();
+        console.log(body)
+    } catch (e) {
+        throw e;
+    }
+}
+
 function phoneOrEmail(str: string): { phoneNr?: string, email?: string } {
     if (str.indexOf("@") === -1) {
         return { phoneNr: str };
