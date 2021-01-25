@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 npm i
-npm run build:prod
+npm run build:dev
 aws s3 sync dist s3://auth.kidsloop.net/stage --dryrun
 sleep 5
 aws s3 sync dist s3://auth.kidsloop.net/stage
