@@ -24,6 +24,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import Collapse from '@material-ui/core/Collapse';
 import BadanamuLogo from "../../assets/img/badanamu_logo.png";
+import Cookies, { useCookies } from "react-cookie";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -37,12 +38,6 @@ const useStyles = makeStyles((theme) => createStyles({
         marginRight: theme.spacing(1),
     },
     formContainer: {
-        width: "100%",
-    },
-    googleSSO: {
-        borderRadius: "12px !important",
-        fontFamily: "inherit !important",
-        justifyContent: "center",
         width: "100%",
     },
     pageWrapper: {
@@ -66,10 +61,10 @@ const StyledCheckbox = withStyles({
 export function SignIn() {
     const classes = useStyles();
     const theme = useTheme();
+    const [cookies, setCookies] = useCookies(["privacy"]);
 
     const [inFlight, setInFlight] = useState(false);
-    const [checked, setChecked] = useState(false);
-    const [collapse, setCollapse] = useState(false);
+    const [checked, setChecked] = useState(cookies.privacy || false);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -117,21 +112,12 @@ export function SignIn() {
         return;
     }
 
-    async function googleLoginSuccess(token: GoogleLoginResponse | GoogleLoginResponseOffline) {
-        if (!("tokenId" in token)) { return }
-        const result = await transferLogin(token.tokenId, true);
-    }
-
-    function googleLoginFailure(error: any) {
-        console.error(error)
-        setInFlight(false)
-    }
-
-    async function transferLogin(token: string, sso = false) {
+    async function transferLogin(token: string) {
         if (uaParam === "cordova") {
-            { sso ? 
-                history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }})
-                : window.open(`kidsloopstudent://?token=${token}`, "_system") }
+            window.open(`kidsloopstudent://?token=${token}`, "_system");
+            return true;
+        } else if (uaParam === "cordovaios") {
+            history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }});
             return true;
         } else {
             const headers = new Headers();
@@ -149,8 +135,7 @@ export function SignIn() {
                 return true;
             }
         }
-        return false
-
+        return false;
     }
 
     function handleError(e: RestAPIError | Error) {
@@ -194,6 +179,14 @@ export function SignIn() {
                 setGeneralError(errorMessage);
                 break;
         }
+    }
+
+    const handleCheckbox = () => {
+        const isChecked = checked;
+        const domain = process.env.SLD + "." + process.env.TLD;
+
+        setCookies("privacy", !isChecked, { path: "/", domain: domain || "kidsloop.net" });
+        setChecked(!isChecked);
     }
 
     return (
@@ -264,7 +257,7 @@ export function SignIn() {
                                     checkedIcon={<CheckBoxIcon fontSize="small" />}
                                     icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
                                     inputProps={{ 'aria-label': 'policy-checkbox' }}
-                                    onChange={() => setChecked(!checked)}
+                                    onChange={() => handleCheckbox()}
                                 />
                             }
                             label={<Typography variant="caption"><FormattedMessage id="login_acceptPrivacyPolicy" /></Typography>}
