@@ -64,7 +64,7 @@ export function SignIn() {
     const [cookies, setCookies] = useCookies(["privacy"]);
 
     const [inFlight, setInFlight] = useState(false);
-    const [checked, setChecked] = useState(cookies.privacy || false);
+    const [checked, setChecked] = useState((cookies.privacy === "true") || false);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
