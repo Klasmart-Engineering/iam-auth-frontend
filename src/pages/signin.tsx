@@ -25,6 +25,8 @@ import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import Collapse from '@material-ui/core/Collapse';
 import BadanamuLogo from "../../assets/img/badanamu_logo.png";
 import Cookies, { useCookies } from "react-cookie";
+import { getMyInformation } from "../api/getMyInformation";
+import { refreshToken } from "../api/restapi";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -77,9 +79,17 @@ export function SignIn() {
     const history = useHistory();
 
     const url = new URL(window.location.href);
-    console.log("url", url);
     const uaParam = url.searchParams.get("ua");
-    console.log(uaParam);
+
+    const { loading, data, error } = getMyInformation();
+
+    useEffect(() => {
+        refreshToken();
+
+        if (data?.me) {
+            history.push('/signinselect')
+        }
+    }, [data]);
 
     async function login() {
         setEmailError(null);

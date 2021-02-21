@@ -3,10 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     entry: {
         ui: "./src/entry.tsx",
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {

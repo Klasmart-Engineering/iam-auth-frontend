@@ -2,12 +2,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles, useTheme } from "@material-ui/core/styles";
 import * as React from "react";
 import PolicyLink from "../components/policyLinks";
 import { LanguageSelect } from "kidsloop-px";
 import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
+import BackgroundImage from "../../assets/img/test.png";
 import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
 
 const LANGUAGES_LABEL: Language[] = [
@@ -35,14 +37,34 @@ const LANGUAGES_LABEL: Language[] = [
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
+        boxShadow: "8px 8px 20px #c4c4c4, -8px -8px 20px #eaf5f8",
+        borderRadius: 12,
+    },
+    cardContent: {
         alignItems: "center",
         display: "flex",
         padding: "48px 40px !important",
+        [theme.breakpoints.down("xs")]: {
+            padding: "24px 20px !important",
+        },
     },
     pageWrapper: {
         display: "flex",
         flexGrow: 1,
         height: "100vh",
+        '&::before': {
+            content: "''",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            zIndex: -999,
+            width: "100%",
+            height: "100%",
+            background: `url(${BackgroundImage}) no-repeat center`,
+            backgroundSize: "cover",
+            filter: `blur(8px)`,
+            WebkitFilter: `blur(8px)`,
+        }
     },
 }),
 );
@@ -54,6 +76,7 @@ interface Props {
 
 export function Layout(props: Props) {
     const classes = useStyles();
+    const theme = useTheme();
     const domain = process.env.SLD + "." + process.env.TLD;
 
     return (
@@ -65,8 +88,8 @@ export function Layout(props: Props) {
             className={classes.pageWrapper}
         >
             <Container maxWidth="xs">
-                <Card>
-                    <CardContent className={classes.card}>
+                <Card className={classes.card}>
+                    <CardContent className={classes.cardContent}>
                         <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                             <Grid item xs={12} style={{ textAlign: props.centerLogo ? "center" : "left" }}>
                                 <img alt="KidsLoop Logo" src={KidsloopIcon} height="50px" />

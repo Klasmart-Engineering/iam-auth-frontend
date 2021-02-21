@@ -4,12 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import StyledButton from "../components/button";
 import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useContext } from "react";
+import { getMyInformation } from "../api/getMyInformation";
+import QueryString from "query-string";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -45,7 +47,8 @@ const useStyles = makeStyles((theme) => createStyles({
 export function Continue() {
     const classes = useStyles();
     const theme = useTheme();
-    const location: any = useLocation(); 
+    const history = useHistory();
+    const location: any = useLocation();
 
     const url = new URL(window.location.href)
     const [cordova, _] = useState(url.searchParams.get("ua"));
@@ -83,7 +86,7 @@ export function Continue() {
             setSeconds(seconds - 1);
         }, 1000);
 
-        if (seconds === 5) { handleSuccess() }
+        if (seconds === 6) { handleSuccess() }
 
         return () => clearInterval(interval);
     }, [seconds])

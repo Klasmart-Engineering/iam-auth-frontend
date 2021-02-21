@@ -1,4 +1,5 @@
 import queryString from "query-string";
+import { useHistory } from "react-router-dom";
 
 interface User {
     avatar: string,
@@ -8,6 +9,7 @@ interface User {
 }
 
 export async function redirectIfUnauthorized(continueParam?: string) {
+    const history = useHistory();
     const GET_SELF = `query {
         me { 
             avatar
@@ -29,11 +31,11 @@ export async function redirectIfUnauthorized(continueParam?: string) {
         .then(r => r.json())
         .then(data => {
             const response = data;
-            console.log(response);
+            console.log(`response: `, response);
             const me: User = response.data.me;
-            console.log(me);
+            console.log(`me: `, me);
             if (me === null) {
-                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { return; }
+                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { history.push("/signin"); return; }
                 const stringifiedQuery = queryString.stringify({ continue: continueParam ? continueParam : window.location.href });
                 window.location.href = `${process.env.AUTH_ENDPOINT}?${stringifiedQuery}#/`
             }

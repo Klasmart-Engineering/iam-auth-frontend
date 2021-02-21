@@ -99,7 +99,7 @@ module.exports = {
             },
 
             "/refresh": {
-                target: "http://localhost:8081",
+                target: "http://auth.kidsloop.net",
                 secure: false,
             },
         }
