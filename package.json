@@ -29,7 +29,7 @@
     "babel-loader": "^8.1.0",
     "clsx": "^1.1.1",
     "css-modules-typescript-loader": "^4.0.1",
-    "kidsloop-px": "bitbucket:calmisland/kidsloop-px#1.0.3",
+    "kidsloop-px": "bitbucket:calmisland/kidsloop-px#1.0.5",
     "node-source-han-sans-sc": "^1.1.0-2.001R",
     "query-string": "^6.13.6",
     "react": "^16.13.1",
