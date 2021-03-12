@@ -87,7 +87,7 @@ export function SignIn() {
         refreshToken();
 
         if (data?.me) {
-            history.push('/signinselect')
+            history.push('/continue')
         }
     }, [data]);
 
