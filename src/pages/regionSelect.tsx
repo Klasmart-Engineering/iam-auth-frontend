@@ -18,56 +18,73 @@ import Vietnam from "../../assets/img/region/vietnam.svg";
 import { useContext, useMemo } from "react";
 import { URLContext } from "../entry";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import QueryString from "qs";
 
 interface Region {
     img: string;
-    link: string;
+    domain: string;
+    path: string,
     primaryText: string;
     secondaryText: string;
+    locale: string,
 }
 
 const regions: Region[] = [
     {
         img: China,
-        link: `https://auth.kidsloop.cn/#/log-in`,
+        domain: "https://auth.kidsloop.cn/",
+        path: `/log-in`,
         primaryText: "中国大陆",
         secondaryText: ``,
+        locale: "zh", 
     },
     {
         img: India,
-        link: `https://auth.kidsloop.net/#/signin`,
+        domain: "https://auth.kidsloop.net/",
+        path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
-        secondaryText: ``
+        secondaryText: `Coming Soon`,
+        locale: "en",
     },
     {
         img: Indonesia,
-        link: `https://auth.kidsloop.co.id/#/signin`,
+        domain: "https://auth.kidsloop.co.id/",
+        path: `/signin`,
         primaryText: "Republik Indonesia",
-        secondaryText: `Coming Soon`
+        secondaryText: `Coming Soon`,
+        locale: "id",
     },
     {
         img: Korea,
-        link: `https://auth.kidsloop.net/#/signin`,
+        domain: "https://auth.kidsloop.net/",
+        path: `/signin`,
         primaryText: "대한민국",
-        secondaryText: ``
+        secondaryText: ``,
+        locale: "ko",
     },
     {
         img: UnitedKingdom,
-        link: `https://auth.kidsloop.net/#/signin`,
+        domain: "https://auth.kidsloop.net/",
+        path: `/signin`,
         primaryText: "United Kingdom",
-        secondaryText: ``
+        secondaryText: ``,
+        locale: "en",
     },
     {
         img: UnitedStates,
-        link: `https://auth.kidsloop.net/#/signin`,
+        domain: "https://auth.kidsloop.net/",
+        path: `/signin`,
         primaryText: "United States",
-        secondaryText: ``
+        secondaryText: ``,
+        locale: "en",
     },
     {
         img: Vietnam,
-        link: `https://auth.kidsloop.vn/#/signin`,
+        domain: "https://auth.kidsloop.vn/",
+        path: `/signin`,
         primaryText: "Việt Nam",
-        secondaryText: `Coming Soon`
+        secondaryText: ``,
+        locale: "vi",
     },
 ]
 
@@ -105,8 +122,20 @@ export function RegionSelect() {
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
+    const url = useContext(URLContext);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
+
+    const handleRegionSelect = (domain: string, path: string, locale: string) => {
+        const queries = {
+            iso: locale,
+            ua: url.uaParam,
+            continue: url.continueParam,
+        }
+        const queryString = QueryString.stringify(queries, { skipNulls: true });
+        console.log(queryString);
+        window.location.href = `${domain}?${queryString}#${path}`
+    };
 
     return (
         <React.Fragment>
@@ -129,7 +158,7 @@ export function RegionSelect() {
                                 key={region.primaryText}
                                 disabled={region.secondaryText !== ``} 
                                 style={{ height: 72 }}
-                                onClick={() => window.location.href = region.link}
+                                onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                             >
                                 <img src={region.img} height={32} />
                                 <ListItemText 
@@ -150,7 +179,7 @@ export function RegionSelect() {
                                     key={region.primaryText}
                                     disabled={region.secondaryText !== ``} 
                                     style={{ height: 72 }}
-                                    onClick={() => window.location.href = region.link}
+                                    onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                                 >
                                     <img src={region.img} height={32} />
                                     <ListItemText 
