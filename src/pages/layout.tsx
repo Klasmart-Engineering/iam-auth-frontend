@@ -51,7 +51,10 @@ const useStyles = makeStyles((theme) => createStyles({
     pageWrapper: {
         display: "flex",
         flexGrow: 1,
-        height: "100vh",
+        // height: "100vh",
+        [theme.breakpoints.down("xs")]: {
+            padding: "0 !important",
+        },
         '&::before': {
             content: "''",
             position: "absolute",
@@ -64,20 +67,28 @@ const useStyles = makeStyles((theme) => createStyles({
             backgroundSize: "cover",
             filter: `blur(8px)`,
             WebkitFilter: `blur(8px)`,
+            [theme.breakpoints.down("sm")]: {
+                background: "white"
+            },
         }
     },
 }),
 );
 
 interface Props {
-    centerLogo: boolean;
+    centerLogo?: boolean;
     children: React.ReactNode;
+    maxWidth: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
+    logo?: boolean;
 }
 
 export function Layout(props: Props) {
     const classes = useStyles();
     const theme = useTheme();
     const domain = process.env.SLD + "." + process.env.TLD;
+    const logo = props.logo ?? true;
+
+    const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     return (
         <Grid
@@ -87,17 +98,19 @@ export function Layout(props: Props) {
             alignItems="center"
             className={classes.pageWrapper}
         >
-            <Container maxWidth="xs">
-                <Card className={classes.card}>
-                    <CardContent className={classes.cardContent}>
-                        <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
-                            <Grid item xs={12} style={{ textAlign: props.centerLogo ? "center" : "left" }}>
-                                <img alt="KidsLoop Logo" src={KidsloopIcon} height="50px" />
+            <Container maxWidth={props.maxWidth}>
+                    <Card elevation={ isXsDown ? 0 : 1 } className={ isXsDown ? `` : classes.card}>
+                        <CardContent className={classes.cardContent}>
+                            <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
+                                { logo &&
+                                    <Grid item xs={12} style={{ textAlign: props.centerLogo ? "center" : "left" }}>
+                                        <img alt="KidsLoop Logo" src={KidsloopIcon} height="50px" />
+                                    </Grid>
+                                }
+                                { props.children }
                             </Grid>
-                            { props.children }
-                        </Grid>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
                 <Grid container direction="row" justify="space-between" alignItems="center">
                     {/* <Grid item xs={1}>
                         <Lightswitch iconOnly />

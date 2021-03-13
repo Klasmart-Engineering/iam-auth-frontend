@@ -75,5 +75,8 @@ const messages: Record<string, string> = {
     name_buttonNext: "Next",
     name_buttonBack: "Back",
 
+    region_comingSoon: "Coming Soon",
+    region_cantFind: "Can\'t find your region? Click here."
+
 };
 export default messages;

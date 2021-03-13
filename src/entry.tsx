@@ -7,7 +7,7 @@ import "typeface-nanum-square-round";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-import React, { createContext, useMemo, useState } from "react";
+import React, { Context, createContext, useMemo, useState } from "react";
 import * as ReactDOM from "react-dom";
 import { RawIntlProvider } from "react-intl";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -24,21 +24,45 @@ import { useEffect } from "react";
 import { ApolloProviderHOC } from "../apolloProvider";
 import { SelectUser } from "./pages/selectUser";
 import SetProfile from "./pages/profile/setProfileLayout";
+import { RegionSelect } from "./pages/regionSelect";
 
-const routes = [
-    { path: "/selectprofile", Component: SelectUser },
-    { path: "/signinselect", Component: SelectUser },
-    { path: "/signin", Component: SignIn },
-    { path: "/login", Component: SignIn },
-    { path: "/continue", Component: Continue },
-    { path: "/", Component: SignIn },
+interface URLContext {
+    hostName: string;
+    locale: string | null;
+    uaParam: string | null;
+    continueParam: string | null;
+}
+
+export const URLContext = React.createContext<Partial<URLContext>>({});
+
+interface RouteDetails {
+    path: string;
+    Component: () => JSX.Element;
+    size: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
+    centerLogo: boolean;
+}
+
+const routes: RouteDetails[] = [
+    { path: "/region", Component: RegionSelect, size: "sm", centerLogo: false },
+    { path: "/deeplink", Component: DeepLink, size: "xs", centerLogo: true },
+    { path: "/selectprofile", Component: SelectUser, size: "xs", centerLogo: true },
+    { path: "/signinselect", Component: SelectUser, size: "xs", centerLogo: true },
+    { path: "/signin", Component: SignIn, size: "xs", centerLogo: false },
+    { path: "/login", Component: SignIn, size: "xs", centerLogo: false },
+    { path: "/continue", Component: Continue, size: "xs", centerLogo: true },
 ]
 
 function ClientSide() {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
+        console.log("url", url);
         const locale = url.searchParams.get("iso");
-        return { hostName: url.hostname, locale };
+        console.log("iso", locale);
+        const uaParam = url.searchParams.get("ua");
+        console.log("ua", uaParam);
+        const continueParam = url.searchParams.get("continue");
+        console.log("ua", continueParam);
+        return { hostName: url.hostname, locale, uaParam, continueParam };
     }, []);
 
     const testing = memos.hostName === "localhost" || memos.hostName === "0.0.0.0";
@@ -51,37 +75,39 @@ function ClientSide() {
     const locale = getLanguage(languageCode);
 
     return (
-        <ApolloProviderHOC>
-            <RawIntlProvider value={locale}>
-                <ThemeProvider theme={themeProvider()}>
-                    <CssBaseline />
-                        <Switch>
-                            { routes.map(({ path, Component }) => (
-                                <Route key={path} exact path={path}>
-                                    {({ match }) => (
-                                        <Layout centerLogo={path === "/continue" || path === "/signinselect" || path === "/selectprofile" }>
-                                            <Component />
-                                        </Layout>
-                                    )}
+        <URLContext.Provider value={memos}>
+            <ApolloProviderHOC>
+                <RawIntlProvider value={locale}>
+                    <ThemeProvider theme={themeProvider()}>
+                        <CssBaseline />
+                            <Switch>
+                                <Route exact path="/">
+                                    <Layout maxWidth={"sm"}>
+                                        <RegionSelect />
+                                    </Layout>
                                 </Route>
-                            ))}
-                            <Route path="/createprofile">
-                                <SetProfile />
-                            </Route>
-                            <Route exact path="/deeplink">
-                                <Layout centerLogo={true}>
-                                    <DeepLink />
-                                </Layout>
-                            </Route>
-                            <Route>
-                                <Layout centerLogo={true}>
-                                    <NotFound />
-                                </Layout>
-                            </Route>
-                        </Switch>
-                </ThemeProvider>
-            </RawIntlProvider>
-        </ApolloProviderHOC>
+                                { routes.map(({ path, Component, size, centerLogo }) => (
+                                    <Route key={path} path={path}>
+                                        {({ match }) => (
+                                            <Layout maxWidth={size} centerLogo={centerLogo}>
+                                                <Component />
+                                            </Layout>
+                                        )}
+                                    </Route>
+                                ))}
+                                <Route path="/createprofile">
+                                    <SetProfile />
+                                </Route>
+                                <Route>
+                                    <Layout maxWidth={"xs"} centerLogo={true}>
+                                        <NotFound />
+                                    </Layout>
+                                </Route>
+                            </Switch>
+                    </ThemeProvider>
+                </RawIntlProvider>
+            </ApolloProviderHOC>
+        </URLContext.Provider>
     );
 }
 

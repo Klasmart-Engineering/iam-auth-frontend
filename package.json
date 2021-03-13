@@ -34,6 +34,7 @@
     "clsx": "^1.1.1",
     "css-modules-typescript-loader": "^4.0.1",
     "graphql": "^15.5.0",
+    "inter-ui": "^3.15.0",
     "kidsloop-px": "bitbucket:calmisland/kidsloop-px#1.0.8",
     "moment": "^2.29.1",
     "node-source-han-sans-sc": "^1.1.0-2.001R",

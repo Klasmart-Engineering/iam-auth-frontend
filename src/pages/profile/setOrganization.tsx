@@ -29,6 +29,8 @@ import { getMyUsers, myUserSampleResponse } from '../../api/getMyUsers';
 import { User } from '../../api/queries/me';
 import { utils } from 'kidsloop-px';
 import clsx from 'clsx';
+import { URLContext } from '../../entry';
+import { useContext } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     imgHeader: {
@@ -77,22 +79,14 @@ export default function SetOrganization() {
     const classes = useStyles();
     const history = useHistory();
     const theme = useTheme();
+    const url = useContext(URLContext);
     const [expanded, setExpanded] = useState<string | false>(false);
     const [users, setUsers] = useState<User[]>([]);
 
     const { loading, data } = getMyUsers();
 
-    const { url, uaParam } = useMemo(() => {
-        const url = new URL(window.location.href);
-        console.log("url", url);
-        const uaParam = url.searchParams.get("ua");
-        console.log(uaParam);
-
-        return { url, uaParam };
-    }, [])
-
     useEffect(() => {
-        if (url.hostname === "0.0.0.0" || url.hostname === "localhost") {
+        if (url.hostName === "0.0.0.0" || url.hostName === "localhost") {
             setUsers(myUserSampleResponse.my_users);
             setExpanded(myUserSampleResponse.my_users[0].user_id);
             return;

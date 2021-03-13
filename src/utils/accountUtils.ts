@@ -35,7 +35,8 @@ export async function redirectIfUnauthorized(continueParam?: string) {
             const me: User = response.data.me;
             console.log(`me: `, me);
             if (me === null) {
-                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { history.push("/signin"); return; }
+                const url = new URL(window.location.href);
+                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { history.push({ pathname: "/", search: url.search }); return; }
                 const stringifiedQuery = queryString.stringify({ continue: continueParam ? continueParam : window.location.href });
                 window.location.href = `${process.env.AUTH_ENDPOINT}?${stringifiedQuery}#/`
             }

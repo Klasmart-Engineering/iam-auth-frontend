@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import * as restApi from "../restapi";
@@ -27,6 +27,8 @@ import BadanamuLogo from "../../assets/img/badanamu_logo.png";
 import Cookies, { useCookies } from "react-cookie";
 import { getMyInformation } from "../api/getMyInformation";
 import { refreshToken } from "../api/restapi";
+import QueryString from "query-string"
+import { URLContext } from "../entry";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -63,6 +65,8 @@ const StyledCheckbox = withStyles({
 export function SignIn() {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory();
+    const url = useContext(URLContext);
     const [cookies, setCookies] = useCookies(["privacy"]);
 
     const [inFlight, setInFlight] = useState(false);
@@ -75,11 +79,6 @@ export function SignIn() {
     const [emailError, setEmailError] = useState<JSX.Element | null>(null);
     const [generalError, setGeneralError] = useState<JSX.Element | null>(null);
     const [checkmarkError, setCheckmarkError] = useState<JSX.Element | null>(null);
-
-    const history = useHistory();
-
-    const url = new URL(window.location.href);
-    const uaParam = url.searchParams.get("ua");
 
     const { loading, data, error } = getMyInformation();
 
@@ -123,10 +122,15 @@ export function SignIn() {
     }
 
     async function transferLogin(token: string) {
-        if (uaParam === "cordova") {
-            window.open(`kidsloopstudent://?token=${token}`, "_system");
+        if (url.uaParam === "cordova") {
+            const queryParams: { token: string; region?: string; } = { token: token };
+            if (url.hostName === "kidsloop.co.uk") {
+                queryParams.region = "uk";
+            }
+            const queryString = QueryString.stringify(queryParams);
+            window.open(`kidsloopstudent://?${queryString}`, "_system");
             return true;
-        } else if (uaParam === "cordovaios") {
+        } else if (url.uaParam === "cordovaios") {
             history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }});
             return true;
         } else {

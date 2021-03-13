@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     pageWrapper: {
         display: "flex",
         flexGrow: 1,
-        height: "100vh",
+        // height: "100vh",
         [theme.breakpoints.down("xs")]: {
             padding: "0 !important",
         },
@@ -76,11 +76,8 @@ export default function SetProfile() {
     const history = useHistory();
     const theme = useTheme();
     const params = useParams();
-    console.log(params);
-
 
     let { path, url } = useRouteMatch();
-
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     return (
@@ -93,7 +90,7 @@ export default function SetProfile() {
                 className={classes.pageWrapper}
             >
                 <Container maxWidth="sm">
-                    <Card elevation={ isXsDown ? 0 : 1 } className={classes.card}>
+                    <Card elevation={ isXsDown ? 0 : 1 } className={ isXsDown ? `` : classes.card}>
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 <Grid item xs={12} style={{ textAlign: "center" }}>

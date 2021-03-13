@@ -34,24 +34,15 @@ export function SelectUser() {
     const [users, setUsers] = useState<User[]>([]);
 
     const { loading, data, refetch } = getMyUsers();
-    const [ switchUser ] = setSwitchUser();
-
-    const { url, uaParam } = useMemo(() => {
-        const url = new URL(window.location.href);
-        console.log("url", url);
-        const uaParam = url.searchParams.get("ua");
-        console.log(uaParam);
-
-        return { url, uaParam };
-    }, [])
 
     useEffect(() => {
-        refetch();
         if (url.hostname === "0.0.0.0" || url.hostname === "localhost") {
             setUsers(myUserSampleResponse.my_users);
-            return;
         } else if (data) {
             setUsers(data.my_users);
+        }
+        if (data?.my_users.length === 1) {
+            handleClick(data?.my_users[0].user_id)
         }
     }, [data])
 

@@ -1,30 +1,38 @@
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
 import "typeface-nanum-square-round";
-import "../assets/css/index.min.css";
+import "inter-ui"
 
 import { createMuiTheme, responsiveFontSizes, Theme } from "@material-ui/core/styles";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+import { useCookies } from "react-cookie";
+import { useMemo } from "react";
 
 // import { getLanguage } from "./locale";
 // import { useSelector } from "react-redux";
 // import { State } from "./store/store";
 
 export function themeProvider() {
-    const themeMode = "light" //useSelector((state: State) => state.ui.darkMode);
-    // const languageCode = useSelector((state: State) => state.ui.locale || "");
-    const locale = "en" as string //getLanguage(languageCode);
+    const themeMode = "light";
+
+    const memos = useMemo(() => {
+        const url = new URL(window.location.href);
+        const locale = url.searchParams.get("iso");
+        return { hostName: url.hostname, locale };
+    }, []);
+    const [cookies] = useCookies(["locale"]);
+    const languageCode = memos.locale ?? cookies.locale ?? "en";
 
     function setTypography() {
-        let localeFontFamily = "Circular Std";
+        let localeFontFamily = "Inter";
         const localeWeightLight = 400;
         const localeWeightMedium = 600;
-        let localeWeightRegular = 400;
+        let localeWeightRegular = 500;
         const localeWeightBold = 700;
 
-        switch (locale) {
+        switch (languageCode) {
         case "en":
-            localeFontFamily = "Circular Std";
-            localeWeightRegular = 400;
+            localeFontFamily = "Inter";
+            localeWeightRegular = 500;
             break;
         case "ko":
             localeFontFamily = "NanumSquareRound";

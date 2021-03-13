@@ -2,16 +2,14 @@ import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory, useLocation } from "react-router";
 import StyledButton from "../components/button";
 import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
-import { redirectIfUnauthorized } from "../utils/accountUtils";
-import { useContext } from "react";
-import { getMyInformation } from "../api/getMyInformation";
 import QueryString from "query-string";
+import { URLContext } from "../entry";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -47,11 +45,11 @@ const useStyles = makeStyles((theme) => createStyles({
 export function Continue() {
     const classes = useStyles();
     const theme = useTheme();
-    const history = useHistory();
     const location: any = useLocation();
+    const urlContext = useContext(URLContext);
 
     const url = new URL(window.location.href)
-    const [cordova, _] = useState(url.searchParams.get("ua"));
+    const [cordova, _] = useState(urlContext.uaParam);
     const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
     const [seconds, setSeconds] = useState(10);
 
@@ -98,7 +96,12 @@ export function Continue() {
         if (window.self !== window.top) {
             window.parent.postMessage({message: "message"}, "*");
         } else if (cordova) {
-            window.open(`kidsloopstudent://?token=${location.state.token}`, "_system");
+            const queryParams: { token: string; region?: string; } = { token: location.state.token };
+            if (url.hostname === "kidsloop.co.uk") {
+                queryParams.region = "uk";
+            }
+            const queryString = QueryString.stringify(queryParams);
+            window.open(`kidsloopstudent://?${queryString}`, "_system");
         } else {
             if (document.referrer) { window.location.replace(document.referrer); }
             window.location.replace(continueLink);
