@@ -75,6 +75,9 @@ const messages: Record<string, string> = {
     name_buttonNext: "다음",
     name_buttonBack: "뒤로",
 
+    region_cantFind: "Can\'t find your country or region? Click here.",
+    region_comingSoon: "Coming Soon",
+    region_selectCountryRegion: "Select your country or region",
 };
 
 export default messages;

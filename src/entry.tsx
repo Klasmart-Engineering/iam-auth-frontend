@@ -70,8 +70,15 @@ function ClientSide() {
         redirectIfUnauthorized();
     }
 
-    const [cookies] = useCookies(["locale"]);
+    const [cookies, setCookies] = useCookies(["locale"]);
     const languageCode = memos.locale ?? cookies.locale ?? "en";
+    if (memos.locale !== cookies.locale) {
+        const cookieDomain = process.env.SLD + "." + process.env.TLD;
+        setCookies(`locale`, languageCode ?? memos.locale, {
+            path: `/`,
+            domain: cookieDomain || `kidsloop.net`,
+        });
+    }
     const locale = getLanguage(languageCode);
 
     return (
@@ -83,7 +90,10 @@ function ClientSide() {
                             <Switch>
                                 <Route exact path="/">
                                     <Layout maxWidth={"sm"}>
-                                        <RegionSelect />
+                                        { testing || memos.hostName === "auth.kidsloop.net" ? 
+                                            <RegionSelect /> :
+                                            <SignIn />
+                                        }
                                     </Layout>
                                 </Route>
                                 { routes.map(({ path, Component, size, centerLogo }) => (

@@ -12,20 +12,21 @@ import China from "../../assets/img/region/china.svg";
 import India from "../../assets/img/region/india.svg";
 import Indonesia from "../../assets/img/region/indonesia.svg";
 import Korea from "../../assets/img/region/korea.svg";
-import UnitedKingdom from "../../assets/img/region/uk.svg";
+import Europe from "../../assets/img/region/europe.svg";
 import UnitedStates from "../../assets/img/region/usa.svg";
 import Vietnam from "../../assets/img/region/vietnam.svg";
 import { useContext, useMemo } from "react";
 import { URLContext } from "../entry";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import QueryString from "qs";
+import { FormattedMessage } from "react-intl";
 
 interface Region {
     img: string;
     domain: string;
     path: string,
     primaryText: string;
-    secondaryText: string;
+    secondaryText: string | React.ReactElement;
     locale: string,
 }
 
@@ -39,11 +40,19 @@ const regions: Region[] = [
         locale: "zh", 
     },
     {
+        img: Europe,
+        domain: "https://auth.kidsloop.co.uk/",
+        path: `/signin`,
+        primaryText: "Europe",
+        secondaryText: ``,
+        locale: "en",
+    },
+    {
         img: India,
         domain: "https://auth.kidsloop.net/",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
-        secondaryText: `Coming Soon`,
+        secondaryText: <FormattedMessage id="region_comingSoon" />,
         locale: "en",
     },
     {
@@ -51,7 +60,7 @@ const regions: Region[] = [
         domain: "https://auth.kidsloop.co.id/",
         path: `/signin`,
         primaryText: "Republik Indonesia",
-        secondaryText: `Coming Soon`,
+        secondaryText: <FormattedMessage id="region_comingSoon" />,
         locale: "id",
     },
     {
@@ -61,14 +70,6 @@ const regions: Region[] = [
         primaryText: "대한민국",
         secondaryText: ``,
         locale: "ko",
-    },
-    {
-        img: UnitedKingdom,
-        domain: "https://auth.kidsloop.net/",
-        path: `/signin`,
-        primaryText: "United Kingdom",
-        secondaryText: ``,
-        locale: "en",
     },
     {
         img: UnitedStates,
@@ -140,9 +141,8 @@ export function RegionSelect() {
     return (
         <React.Fragment>
             <Grid item xs={12}>
-                <Typography variant="h4">
-                    {/* <FormattedMessage id="selectProfile_title" /> */}
-                    Select your region
+                <Typography variant="h5">
+                    <FormattedMessage id="region_selectCountryRegion" />
                 </Typography>
             </Grid>
             <Grid
@@ -195,7 +195,7 @@ export function RegionSelect() {
                 <Grid item xs={12}>
                     <List>
                         <ListItem button onClick={() => history.push("/signin")}>
-                            <ListItemText primary="Can't find your region? Click here." />
+                            <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
                         </ListItem>
                     </List>
                 </Grid>

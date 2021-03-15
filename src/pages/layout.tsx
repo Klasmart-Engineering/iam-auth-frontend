@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => createStyles({
             backgroundSize: "cover",
             filter: `blur(8px)`,
             WebkitFilter: `blur(8px)`,
-            [theme.breakpoints.down("sm")]: {
+            [theme.breakpoints.down("xs")]: {
                 background: "white"
             },
         }
