@@ -31,6 +31,7 @@ interface URLContext {
     locale: string | null;
     uaParam: string | null;
     continueParam: string | null;
+    testing: boolean;
 }
 
 export const URLContext = React.createContext<Partial<URLContext>>({});
@@ -62,13 +63,10 @@ function ClientSide() {
         console.log("ua", uaParam);
         const continueParam = url.searchParams.get("continue");
         console.log("ua", continueParam);
-        return { hostName: url.hostname, locale, uaParam, continueParam };
+        const testing = (url.hostname === "localhost" || url.hostname === "0.0.0.0");
+        console.log("testing", testing);
+        return { hostName: url.hostname, locale, uaParam, continueParam, testing };
     }, []);
-
-    const testing = memos.hostName === "localhost" || memos.hostName === "0.0.0.0";
-    if (!testing) {
-        redirectIfUnauthorized();
-    }
 
     const [cookies, setCookies] = useCookies(["locale"]);
     const languageCode = memos.locale ?? cookies.locale ?? "en";
@@ -88,14 +86,6 @@ function ClientSide() {
                     <ThemeProvider theme={themeProvider()}>
                         <CssBaseline />
                             <Switch>
-                                <Route exact path="/">
-                                    <Layout maxWidth={"sm"}>
-                                        { testing || memos.hostName === "auth.kidsloop.net" ? 
-                                            <RegionSelect /> :
-                                            <SignIn />
-                                        }
-                                    </Layout>
-                                </Route>
                                 { routes.map(({ path, Component, size, centerLogo }) => (
                                     <Route key={path} path={path}>
                                         {({ match }) => (
@@ -107,6 +97,11 @@ function ClientSide() {
                                 ))}
                                 <Route path="/createprofile">
                                     <SetProfile />
+                                </Route>
+                                <Route exact path="/">
+                                    <Layout maxWidth={"sm"}>
+                                        <RegionSelect />
+                                    </Layout>
                                 </Route>
                                 <Route>
                                     <Layout maxWidth={"xs"} centerLogo={true}>

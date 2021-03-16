@@ -10,6 +10,7 @@ import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
 import QueryString from "query-string";
 import { URLContext } from "../entry";
+import { redirectIfUnauthorized } from "../utils/accountUtils";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -47,6 +48,10 @@ export function Continue() {
     const theme = useTheme();
     const location: any = useLocation();
     const urlContext = useContext(URLContext);
+
+    if (!urlContext.testing) {
+        redirectIfUnauthorized();
+    }
 
     const url = new URL(window.location.href)
     const [cordova, _] = useState(urlContext.uaParam);

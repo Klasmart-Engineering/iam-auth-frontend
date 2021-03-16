@@ -235,6 +235,12 @@ export function SignIn() {
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     value={password}
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") { 
+                            login(); 
+                            e.preventDefault(); 
+                        };
+                    }}
                 />
                 <Grid container justify="space-between" style={{ paddingTop: theme.spacing(1) }}>
                     <Grid item>

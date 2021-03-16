@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slide from '@material-ui/core/Slide';
@@ -25,6 +25,8 @@ import SetProfileComplete from './profileFinished';
 
 import KidsloopIcon from "../../../assets/img/kidsloop_icon.svg";
 import BackgroundImage from "../../../assets/img/test.png";
+import { URLContext } from '../../entry';
+import { redirectIfUnauthorized } from '../../utils/accountUtils';
 
 const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
@@ -76,9 +78,14 @@ export default function SetProfile() {
     const history = useHistory();
     const theme = useTheme();
     const params = useParams();
+    const urlContext = useContext(URLContext);
 
     let { path, url } = useRouteMatch();
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
+
+    if (!urlContext.testing) {
+        redirectIfUnauthorized();
+    }
 
     return (
         <MuiPickersUtilsProvider utils={MomentUtils}>

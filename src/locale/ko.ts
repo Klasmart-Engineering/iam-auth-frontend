@@ -74,10 +74,10 @@ const messages: Record<string, string> = {
     name_buttonSave: "저장하기",
     name_buttonNext: "다음",
     name_buttonBack: "뒤로",
-
-    region_cantFind: "Can\'t find your country or region? Click here.",
-    region_comingSoon: "Coming Soon",
-    region_selectCountryRegion: "Select your country or region",
+    
+    region_cantFind: "국가나 지역을 찾을 수 없나요? 여기를 누르세요.",
+    region_comingSoon: "곧 열립니다",
+    region_selectCountryRegion: "국가나 지역을 선택해주세요",
 };
 
 export default messages;

@@ -20,6 +20,7 @@ import { URLContext } from "../entry";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import QueryString from "qs";
 import { FormattedMessage } from "react-intl";
+import { useCookies } from "react-cookie";
 
 interface Region {
     img: string;
@@ -49,7 +50,7 @@ const regions: Region[] = [
     },
     {
         img: India,
-        domain: "https://auth.kidsloop.net/",
+        domain: "/",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
@@ -65,7 +66,7 @@ const regions: Region[] = [
     },
     {
         img: Korea,
-        domain: "https://auth.kidsloop.net/",
+        domain: "/",
         path: `/signin`,
         primaryText: "대한민국",
         secondaryText: ``,
@@ -73,7 +74,7 @@ const regions: Region[] = [
     },
     {
         img: UnitedStates,
-        domain: "https://auth.kidsloop.net/",
+        domain: "/",
         path: `/signin`,
         primaryText: "United States",
         secondaryText: ``,
@@ -84,7 +85,7 @@ const regions: Region[] = [
         domain: "https://auth.kidsloop.vn/",
         path: `/signin`,
         primaryText: "Việt Nam",
-        secondaryText: ``,
+        secondaryText: <FormattedMessage id="region_comingSoon" />,
         locale: "vi",
     },
 ]
@@ -124,18 +125,28 @@ export function RegionSelect() {
     const theme = useTheme();
     const history = useHistory();
     const url = useContext(URLContext);
+    const [_, setCookies] = useCookies(["locale"]);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     const handleRegionSelect = (domain: string, path: string, locale: string) => {
-        const queries = {
-            iso: locale,
-            ua: url.uaParam,
-            continue: url.continueParam,
+        if (domain === "/") {
+            const cookieDomain = process.env.SLD + "." + process.env.TLD;
+            setCookies(`locale`, locale, {
+                path: `/`,
+                domain: cookieDomain || `kidsloop.net`,
+            });
+            history.push(path);
+        } else {
+            const queries = {
+                iso: locale,
+                ua: url.uaParam,
+                continue: url.continueParam,
+            }
+            const queryString = QueryString.stringify(queries, { skipNulls: true });
+            console.log(queryString);
+            window.location.href = `${domain}?${queryString}#${path}`
         }
-        const queryString = QueryString.stringify(queries, { skipNulls: true });
-        console.log(queryString);
-        window.location.href = `${domain}?${queryString}#${path}`
     };
 
     return (

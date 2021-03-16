@@ -75,8 +75,8 @@ const messages: Record<string, string> = {
     name_buttonNext: "Sau",
     name_buttonBack: "Trước",
 
-    region_cantFind: "Can\'t find your country or region? Click here.",
-    region_comingSoon: "Coming Soon",
-    region_selectCountryRegion: "Select your country or region",
+    region_cantFind: "Không tìm thấy quốc gia và khu vực của bạn? Nhấn vào đây.",
+    region_comingSoon: "Sắp diễn ra",
+    region_selectCountryRegion: "Chọn quốc gia hoặc khu vực",
 };
 export default messages;

@@ -75,8 +75,8 @@ const messages: Record<string, string> = {
     name_buttonNext: "下一个",
     name_buttonBack: "返回",
 
-    region_cantFind: "Can\'t find your country or region? Click here.",
-    region_comingSoon: "Coming Soon",
-    region_selectCountryRegion: "Select your country or region",
+    region_cantFind: "找不到你的国家或地区？请点击这里",
+    region_comingSoon: "即将推出",
+    region_selectCountryRegion: "请选择你的国家或地区",
 };
 export default messages;
