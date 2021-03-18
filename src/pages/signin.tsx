@@ -84,8 +84,9 @@ export function SignIn() {
 
     useEffect(() => {
         refreshToken();
+        console.log(url.uaParam)
 
-        if (data?.me) {
+        if (data?.me && url.uaParam === null) {
             history.push('/continue')
         }
     }, [data]);
