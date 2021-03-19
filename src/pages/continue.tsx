@@ -49,14 +49,15 @@ export function Continue() {
     const location: any = useLocation();
     const urlContext = useContext(URLContext);
 
-    if (!urlContext.testing) {
-        redirectIfUnauthorized();
-    }
 
     const url = new URL(window.location.href)
     const [cordova, _] = useState(urlContext.uaParam);
     const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
     const [seconds, setSeconds] = useState(10);
+
+    if (!urlContext.testing && !cordova) {
+        redirectIfUnauthorized();
+    }
 
     const [continueError, setContinueError] = useState<JSX.Element | null>(null);
 

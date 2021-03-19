@@ -79,12 +79,19 @@ export function SignIn() {
     const [emailError, setEmailError] = useState<JSX.Element | null>(null);
     const [generalError, setGeneralError] = useState<JSX.Element | null>(null);
     const [checkmarkError, setCheckmarkError] = useState<JSX.Element | null>(null);
+    const [ skip, setSkip ] = useState(false);
 
-    const { loading, data, error } = getMyInformation();
+    const { loading, data, error } = getMyInformation({
+        skip
+    });
 
     useEffect(() => {
-        refreshToken();
+        if (skip) refreshToken();
         console.log(url.uaParam)
+
+        if (data?.me) {
+            setSkip(true);
+        }
 
         if (data?.me && url.uaParam === null) {
             history.push('/continue')
