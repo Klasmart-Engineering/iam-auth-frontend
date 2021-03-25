@@ -15,6 +15,7 @@ import Korea from "../../assets/img/region/korea.svg";
 import Europe from "../../assets/img/region/europe.svg";
 import UnitedStates from "../../assets/img/region/usa.svg";
 import Vietnam from "../../assets/img/region/vietnam.svg";
+import Pakistan from "../../assets/img/region/pakistan.svg";
 import { useContext, useMemo } from "react";
 import { URLContext } from "../entry";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -63,6 +64,14 @@ const regions: Region[] = [
         primaryText: "Republik Indonesia",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
         locale: "id",
+    },
+    {
+        img: Pakistan,
+        domain: "https://auth.kidsloop.pk/",
+        path: `/signin`,
+        primaryText: "اِسلامی جمہوریہ پاكِستان",
+        secondaryText: <FormattedMessage id="region_comingSoon" />,
+        locale: "vi",
     },
     {
         img: Korea,
