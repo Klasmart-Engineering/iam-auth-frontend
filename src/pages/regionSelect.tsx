@@ -50,7 +50,7 @@ const regions: Region[] = [
     },
     {
         img: India,
-        domain: "/",
+        domain: "https://auth.kidsloop.in/",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
