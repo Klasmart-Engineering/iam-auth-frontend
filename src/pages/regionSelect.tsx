@@ -35,7 +35,7 @@ interface Region {
 const regions: Region[] = [
     {
         img: China,
-        domain: "https://auth.kidsloop.cn/",
+        domain: "auth.kidsloop.cn",
         path: `/log-in`,
         primaryText: "中国大陆",
         secondaryText: ``,
@@ -43,7 +43,7 @@ const regions: Region[] = [
     },
     {
         img: Europe,
-        domain: "https://auth.kidsloop.co.uk/",
+        domain: "auth.kidsloop.co.uk",
         path: `/signin`,
         primaryText: "Europe",
         secondaryText: ``,
@@ -51,7 +51,7 @@ const regions: Region[] = [
     },
     {
         img: India,
-        domain: "https://auth.kidsloop.in/",
+        domain: "auth.kidsloop.in",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
@@ -59,7 +59,7 @@ const regions: Region[] = [
     },
     {
         img: Indonesia,
-        domain: "https://auth.kidsloop.co.id/",
+        domain: "auth.kidsloop.co.id",
         path: `/signin`,
         primaryText: "Republik Indonesia",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
@@ -67,7 +67,7 @@ const regions: Region[] = [
     },
     {
         img: Pakistan,
-        domain: "https://auth.kidsloop.pk/",
+        domain: "auth.kidsloop.pk",
         path: `/signin`,
         primaryText: "اِسلامی جمہوریہ پاكِستان",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
@@ -75,7 +75,7 @@ const regions: Region[] = [
     },
     {
         img: Korea,
-        domain: "/",
+        domain: "auth.kidsloop.net",
         path: `/signin`,
         primaryText: "대한민국",
         secondaryText: ``,
@@ -83,7 +83,7 @@ const regions: Region[] = [
     },
     {
         img: UnitedStates,
-        domain: "/",
+        domain: "auth.kidsloop.net",
         path: `/signin`,
         primaryText: "United States",
         secondaryText: ``,
@@ -91,7 +91,7 @@ const regions: Region[] = [
     },
     {
         img: Vietnam,
-        domain: "https://auth.kidsloop.vn/",
+        domain: "auth.kidsloop.vn",
         path: `/signin`,
         primaryText: "Việt Nam",
         secondaryText: <FormattedMessage id="region_comingSoon" />,
@@ -139,7 +139,7 @@ export function RegionSelect() {
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     const handleRegionSelect = (domain: string, path: string, locale: string) => {
-        if (domain === "/") {
+        if (domain === url.hostName) {
             const cookieDomain = process.env.SLD + "." + process.env.TLD;
             setCookies(`locale`, locale, {
                 path: `/`,
@@ -154,7 +154,7 @@ export function RegionSelect() {
             }
             const queryString = QueryString.stringify(queries, { skipNulls: true });
             console.log(queryString);
-            window.location.href = `${domain}?${queryString}#${path}`
+            window.location.href = `https://${domain}/?${queryString}#${path}`
         }
     };
 
