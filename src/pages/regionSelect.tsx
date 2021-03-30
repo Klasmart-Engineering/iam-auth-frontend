@@ -138,7 +138,7 @@ export function RegionSelect() {
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const handleRegionSelect = (domain: string, path: string, locale: string) => {
+    const handleRegionSelect = (domain = "auth.kidsloop.net", path = "/", locale = "en") => {
         if (domain === url.hostName) {
             const cookieDomain = process.env.SLD + "." + process.env.TLD;
             setCookies(`locale`, locale, {
@@ -214,7 +214,7 @@ export function RegionSelect() {
                 }
                 <Grid item xs={12}>
                     <List>
-                        <ListItem button onClick={() => history.push("/signin")}>
+                        <ListItem button onClick={() => handleRegionSelect()}>
                             <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
                         </ListItem>
                     </List>
