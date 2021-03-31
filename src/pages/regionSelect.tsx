@@ -138,7 +138,7 @@ export function RegionSelect() {
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const handleRegionSelect = (domain = "auth.kidsloop.net", path = "/", locale = "en") => {
+    const handleRegionSelect = (domain = "auth.kidsloop.net", path = "/signin", locale = "en") => {
         if (domain === url.hostName) {
             const cookieDomain = process.env.SLD + "." + process.env.TLD;
             setCookies(`locale`, locale, {
