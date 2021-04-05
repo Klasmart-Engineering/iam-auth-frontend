@@ -26,7 +26,7 @@ import Collapse from '@material-ui/core/Collapse';
 import BadanamuLogo from "../../assets/img/badanamu_logo.png";
 import Cookies, { useCookies } from "react-cookie";
 import { getMyInformation } from "../api/getMyInformation";
-import { refreshToken } from "../api/restapi";
+import { refreshToken, transferSession } from "../api/restapi";
 import QueryString from "query-string"
 import { URLContext } from "../entry";
 
@@ -86,7 +86,6 @@ export function SignIn() {
     });
 
     useEffect(() => {
-        if (skip) refreshToken();
         console.log(url.uaParam)
 
         if (data?.me) {
@@ -94,7 +93,7 @@ export function SignIn() {
         }
 
         if (data?.me && url.uaParam === null) {
-            history.push('/continue')
+            history.push('/selectprofile')
         }
     }, [data]);
 
@@ -142,18 +141,9 @@ export function SignIn() {
             history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }});
             return true;
         } else {
-            const headers = new Headers();
-            headers.append("Accept", "application/json");
-            headers.append("Content-Type", "application/json");
-            const response = await fetch("/transfer", {
-                body: JSON.stringify({ token }),
-                headers,
-                method: "POST",
-            });
-            console.log(response);
-            await response.text()
-            if (response.ok) {
-                history.push('/continue');
+            const transfer = await transferSession(token)
+            if (transfer) {
+                history.push('/selectprofile');
                 return true;
             }
         }

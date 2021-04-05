@@ -6,6 +6,5 @@ import { USER, GetUserInformationResponse, GetUserInformationRequest } from "./q
 import { refreshToken } from "./restapi";
 
 export const getUserInformation = (options?: QueryHookOptions<GetUserInformationResponse, GetUserInformationRequest>) => {
-    refreshToken();
     return useQuery<GetUserInformationResponse, GetUserInformationRequest>(USER, options);
 };

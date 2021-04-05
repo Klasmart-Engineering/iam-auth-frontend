@@ -23,6 +23,8 @@ import QueryString from "qs";
 import { FormattedMessage } from "react-intl";
 import { useCookies } from "react-cookie";
 
+const DOMAIN = process.env.SLD + "." + process.env.TLD
+
 interface Region {
     img: string;
     domain: string;
@@ -138,12 +140,11 @@ export function RegionSelect() {
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const handleRegionSelect = (domain = "auth.kidsloop.net", path = "/signin", locale = "en") => {
+    const handleRegionSelect = (domain = window.location.host, path = "/signin", locale = "en") => {
         if (domain === url.hostName) {
-            const cookieDomain = process.env.SLD + "." + process.env.TLD;
             setCookies(`locale`, locale, {
                 path: `/`,
-                domain: cookieDomain || `kidsloop.net`,
+                domain: DOMAIN || `kidsloop.net`,
             });
             history.push(path);
         } else {

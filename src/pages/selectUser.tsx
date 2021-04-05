@@ -14,11 +14,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Skeleton from '@material-ui/lab/Skeleton';
 import QueryString from "query-string";
 
-import { AddCircleOutline as AddCircleIcon } from "@styled-icons/material/AddCircleOutline";
 import { useEffect, useMemo, useState } from "react";
 import { User } from "../api/queries/me";
 import { utils } from "kidsloop-px";
-import { setSwitchUser } from "../api/setSwitchUser";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -26,6 +24,8 @@ import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import Tooltip from "@material-ui/core/Tooltip";
 import { FormattedMessage } from "react-intl";
+import { refreshToken, switchUser } from "../api/restapi";
+import { useQuery } from "@apollo/client/react/hooks/useQuery";
 
 const useStyles = makeStyles((theme) => createStyles({}));
 
@@ -33,12 +33,10 @@ export function SelectUser() {
     const history = useHistory();
     const [users, setUsers] = useState<User[]>([]);
 
-    const { loading, data, refetch } = getMyUsers();
+    const { loading, data, refetch } = getMyUsers()
 
     useEffect(() => {
-        if (url.hostname === "0.0.0.0" || url.hostname === "localhost") {
-            setUsers(myUserSampleResponse.my_users);
-        } else if (data) {
+        if (data) {
             setUsers(data.my_users);
         }
         if (data?.my_users.length === 1) {
@@ -48,11 +46,7 @@ export function SelectUser() {
 
     const switchUsers = async (userId: string) => {
         try {
-            const response = await switchUser({
-                variables: {
-                    user_id: userId,
-                }
-            })
+            const response = await switchUser(userId)
             return response;
         } catch (error) {
             console.log("Error switching user: ", error);
