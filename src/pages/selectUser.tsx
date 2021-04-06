@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Skeleton from '@material-ui/lab/Skeleton';
 import QueryString from "query-string";
+import EditAttributesIcon from '@material-ui/icons/EditAttributes';
 
 import { useEffect, useMemo, useState } from "react";
 import { User } from "../api/queries/me";
@@ -40,7 +41,7 @@ export function SelectUser() {
             setUsers(data.my_users);
         }
         if (data?.my_users.length === 1) {
-            handleClick(data?.my_users[0].user_id)
+            handleClick(data?.my_users[0])
         }
     }, [data])
 
@@ -53,13 +54,23 @@ export function SelectUser() {
         }
     }
 
-    const handleClick = (userId: string, edit?: string) => {
+    const handleClick = (user: User, edit?: string) => {
+        const userId = user.user_id;
         const queryString = QueryString.stringify({ userId })
+
+        console.log(`handleClick`, user)
+
+        if (!(user.given_name || user.username)) {
+            history.push(`/createprofile/name?${queryString}`)
+            return;
+        }
 
         if (edit === "name") {
             history.push(`/createprofile/name?${queryString}`)
+            return;
         } else if (edit === "birthday") {
-            history.push(`/createprofile/birthday?${queryString}`)  
+            history.push(`/createprofile/birthday?${queryString}`)
+            return;  
         } else {
             switchUsers(userId)
                 .then((response) => {
@@ -68,12 +79,13 @@ export function SelectUser() {
                 .catch((error) => {
                     console.log(`Error handling click: `, error);
                 })
+            return;
         }
     }
 
     function handleName(user: User) {
         const name = user.given_name === null ? user.username : (user.given_name + " " + user.family_name);
-        return name ?? `Name undefined`;
+        return name ?? `Name not set`;
     }
 
     return (
@@ -99,9 +111,9 @@ export function SelectUser() {
                         </ListItem>
                         : users.map((user) => 
                             <ListItem 
-                                button 
+                                button
                                 key={user.user_id} 
-                                onClick={() => handleClick(user.user_id) }
+                                onClick={() => handleClick(user) }
                             >
                                 <ListItemAvatar>
                                     <Avatar 
@@ -122,7 +134,7 @@ export function SelectUser() {
                                                 <IconButton 
                                                     aria-label="birthday" 
                                                     edge="end"
-                                                    onClick={() => handleClick(user.user_id, "birthday")}
+                                                    onClick={() => handleClick(user, "birthday")}
                                                     style={{ color: "#9e9e9e" }}
                                                 >
                                                     <EventRoundedIcon />
@@ -134,13 +146,25 @@ export function SelectUser() {
                                                 <IconButton 
                                                     aria-label="warning" 
                                                     edge="end"
-                                                    onClick={() => handleClick(user.user_id, "name")}
+                                                    onClick={() => handleClick(user, "name")}
                                                     style={{ color: "#F4970A" }}
                                                 >
                                                     <WarningRoundedIcon />
                                                 </IconButton>
                                             </Tooltip>
                                         }
+                                        {/* { (user.given_name || user.username) && user.date_of_birth && 
+                                            <Tooltip title={<FormattedMessage id="Edit Profile" />}>
+                                                <IconButton 
+                                                    aria-label="change info" 
+                                                    edge="end"
+                                                    onClick={() => handleClick(user, "name")}
+                                                    style={{ color: "#9e9e9e" }}
+                                                >
+                                                    <EditAttributesIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        } */}
                                     </ListItemSecondaryAction>
                             </ListItem>
                         )

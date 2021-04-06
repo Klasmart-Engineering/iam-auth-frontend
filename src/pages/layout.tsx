@@ -8,9 +8,14 @@ import PolicyLink from "../components/policyLinks";
 import { LanguageSelect } from "kidsloop-px";
 import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Snackbar, SnackbarContent, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import ConfettiExplosion from '@reonomy/react-confetti-explosion';
+
 
 import BackgroundImage from "../../assets/img/test.png";
 import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
+const { version } = require(`../../package.json`);
 
 const LANGUAGES_LABEL: Language[] = [
     {
@@ -88,7 +93,16 @@ export function Layout(props: Props) {
     const domain = process.env.SLD + "." + process.env.TLD;
     const logo = props.logo ?? true;
 
+    const [ isVersionVisible, setVersionVisible ] = useState(false);
+    const [ clicks, setClicks ] = useState(0);
+
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
+
+    useEffect(() => {
+        if (!(clicks % 5) && clicks > 0) {
+            setVersionVisible(true);
+        }
+    }, [clicks])
 
     return (
         <Grid
@@ -103,7 +117,12 @@ export function Layout(props: Props) {
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 { logo &&
-                                    <Grid item xs={12} style={{ textAlign: props.centerLogo ? "center" : "left" }}>
+                                    <Grid 
+                                        item 
+                                        xs={12} 
+                                        style={{ textAlign: props.centerLogo ? "center" : "left" }}
+                                        onClick={() => setClicks(clicks + 1)}
+                                    >
                                         <img alt="KidsLoop Logo" src={KidsloopIcon} height="50px" />
                                     </Grid>
                                 }
@@ -123,6 +142,18 @@ export function Layout(props: Props) {
                     </Grid>
                 </Grid>
             </Container>
+            <Snackbar open={isVersionVisible} onClose={() => setVersionVisible(false)} autoHideDuration={4000}>
+                <SnackbarContent
+                    message={
+                        <>
+                            <Typography variant="caption">
+                                { `v${version}-${process.env.API_ENDPOINT}` }
+                            </Typography>
+                            { isVersionVisible && <ConfettiExplosion /> }
+                        </>
+                    }
+                />
+            </Snackbar>
         </Grid>
     );
 }
