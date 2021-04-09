@@ -21,7 +21,7 @@ import { redirectIfUnauthorized } from "./utils/accountUtils";
 import { DeepLink } from "./pages/deeplink";
 import Cookies, { useCookies } from "react-cookie";
 import { useEffect } from "react";
-import { ApolloProviderHOC } from "../apolloProvider";
+import { ApolloProviderHOC } from "./apolloProvider";
 import { SelectUser } from "./pages/selectUser";
 import SetProfile from "./pages/profile/setProfileLayout";
 import { RegionSelect } from "./pages/regionSelect";

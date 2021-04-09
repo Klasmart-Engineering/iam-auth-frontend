@@ -7,7 +7,7 @@ import {
 import { ApolloProvider } from "@apollo/client"
 import { createUploadLink } from "apollo-upload-client";
 import { RetryLink } from "@apollo/client/link/retry";
-import { refreshToken } from "./src/api/restapi";
+import { refreshToken } from "./api/restapi";
 
 
 export function ApolloProviderHOC({ children }: {children: JSX.Element}) {
