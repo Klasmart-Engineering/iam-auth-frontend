@@ -34,16 +34,23 @@ export function SelectUser() {
     const history = useHistory();
     const [users, setUsers] = useState<User[]>([]);
 
-    const { loading, data, refetch } = getMyUsers()
+    const { loading, data, refetch, error } = getMyUsers({
+        fetchPolicy: `network-only`,
+    })
 
     useEffect(() => {
+        if (error) {
+            refreshToken().then(() => {
+                refetch();
+            });
+        }
         if (data) {
             setUsers(data.my_users);
         }
         if (data?.my_users.length === 1) {
             handleClick(data?.my_users[0])
         }
-    }, [data])
+    }, [loading, data])
 
     const switchUsers = async (userId: string) => {
         try {
@@ -84,8 +91,13 @@ export function SelectUser() {
     }
 
     function handleName(user: User) {
-        const name = user.given_name === null ? user.username : (user.given_name + " " + user.family_name);
-        return name ?? `Name not set`;
+        if (user.given_name) {
+            return `${user.given_name}` + user.family_name ? ` ${user.family_name}` : ``;
+        } else if (user.username) {
+            return user.username;
+        } else {
+            return `Name not set`;
+        }
     }
 
     return (

@@ -172,12 +172,15 @@ export function RegionSelect() {
                 alignItems="flex-start"
             >
                 <Grid item xs={isXsDown ? 12 : 6}>
-                    <List className={classes.list} style={{ maxHeight: isXsDown ? window.innerHeight - 320 : undefined, overflow: "auto" }}> 
+                    <List 
+                        className={classes.list} 
+                        style={{ maxHeight: isXsDown ? window.innerHeight - 320 : undefined, overflow: "auto" }}
+                    > 
                         { regions.slice(0, isXsDown ? regions.length : Math.round(regions.length / 2)).map((region) => 
                             <ListItem 
                                 button
                                 key={region.primaryText}
-                                disabled={region.secondaryText !== ``} 
+                                disabled={region.secondaryText !== `` || (process.env.SLD === "alpha.kidsloop")} 
                                 style={{ height: 72 }}
                                 onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                             >
@@ -198,7 +201,7 @@ export function RegionSelect() {
                                 <ListItem 
                                     button
                                     key={region.primaryText}
-                                    disabled={region.secondaryText !== ``} 
+                                    disabled={region.secondaryText !== `` || (process.env.SLD === "alpha.kidsloop")} 
                                     style={{ height: 72 }}
                                     onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                                 >

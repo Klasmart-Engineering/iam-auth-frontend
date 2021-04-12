@@ -28,7 +28,7 @@ export async function refreshToken() {
         });
         return request.ok
     } catch (e) {
-        console.error(e);
+        console.error(`refreshToken`, e);
         return false;
     }
 }
