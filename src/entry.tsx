@@ -56,15 +56,10 @@ const routes: RouteDetails[] = [
 function ClientSide() {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
-        console.log("url", url);
         const locale = url.searchParams.get("iso");
-        console.log("iso", locale);
         const uaParam = url.searchParams.get("ua");
-        console.log("ua", uaParam);
         const continueParam = url.searchParams.get("continue");
-        console.log("ua", continueParam);
         const testing = (url.hostname === "localhost" || url.hostname === "0.0.0.0");
-        console.log("testing", testing);
         return { hostName: url.hostname, locale, uaParam, continueParam, testing };
     }, []);
 
