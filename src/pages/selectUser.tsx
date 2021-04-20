@@ -92,11 +92,7 @@ export function SelectUser() {
 
     function handleName(user: User) {
         if (user.given_name) {
-<<<<<<< Updated upstream
-            return `${user.given_name}` + user.family_name ? ` ${user.family_name}` : ``;
-=======
             return `${user.given_name}` + (user.family_name ? ` ${user.family_name}` : ``);
->>>>>>> Stashed changes
         } else if (user.username) {
             return user.username;
         } else {

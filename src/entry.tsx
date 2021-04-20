@@ -59,7 +59,7 @@ function ClientSide() {
         const locale = url.searchParams.get("iso");
         const uaParam = url.searchParams.get("ua");
         const continueParam = url.searchParams.get("continue");
-        const testing = (url.hostname === "localhost" || url.hostname === "0.0.0.0");
+        const testing = (url.hostname === "localhost" || url.hostname === "0.0.0.0" || url.hostname === "fe.kidsloop.net");
         return { hostName: url.hostname, locale, uaParam, continueParam, testing };
     }, []);
 

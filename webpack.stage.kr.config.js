@@ -86,7 +86,7 @@ module.exports = {
             "AUTH_ENDPOINT": "https://auth.kidsloop.net/",
             "REDIRECT_LINK": "https://hub.kidsloop.net/",
             "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
-            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.prod.badanamu.net",
+            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.badanamu.net",
             "SLD": "kidsloop",
             "TLD": "net",
         })
