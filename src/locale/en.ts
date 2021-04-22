@@ -79,5 +79,7 @@ const messages: Record<string, string> = {
     region_comingSoon: "Coming Soon",
     region_selectCountryRegion: "Select your country or region",
 
+    selectProfile_noOrgTitle: "You are not part of an organization.",
+    selectProfile_noOrgSubtitle: "Please join an organization to use KidsLoop.",
 };
 export default messages;

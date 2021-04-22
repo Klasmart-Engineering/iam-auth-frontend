@@ -78,5 +78,8 @@ const messages: Record<string, string> = {
     region_cantFind: "Can\'t find your country or region? Click here.",
     region_comingSoon: "Coming Soon",
     region_selectCountryRegion: "Select your country or region",
+
+    selectProfile_noOrgTitle: "You are not part of an organization.",
+    selectProfile_noOrgSubtitle: "Please join an organization to use KidsLoop.",
 };
 export default messages;

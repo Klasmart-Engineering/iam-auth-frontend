@@ -90,7 +90,7 @@ export function SelectUser() {
         }
     }
 
-    function handleName(user: User) {
+    const handleName = (user: User) => {
         if (user.given_name) {
             return `${user.given_name}` + (user.family_name ? ` ${user.family_name}` : ``);
         } else if (user.username) {
@@ -100,87 +100,105 @@ export function SelectUser() {
         }
     }
 
+    function renderList() {
+        if (loading) {
+            return (
+                <ListItem>
+                    <ListItemAvatar>
+                        <Skeleton animation="wave" variant="circle">
+                            <Avatar />
+                        </Skeleton>
+                    </ListItemAvatar>
+                    <ListItemText 
+                        primary={<Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />} 
+                        secondary={<Skeleton animation="wave" height={10} width="40%" />} 
+                    />
+                </ListItem>
+            )
+        } else if (users.length > 0) {
+            return (
+                users.map((user) => 
+                    <ListItem 
+                        button
+                        key={user.user_id} 
+                        onClick={() => handleClick(user) }
+                    >
+                        <ListItemAvatar>
+                            <Avatar 
+                                style={{ 
+                                    backgroundColor: utils.stringToColor(user.given_name + " " + user.family_name),
+                                    color: "white"
+                                }}
+                            >
+                                <Typography variant="caption">
+                                    { utils.nameToInitials(handleName(user), 3) }
+                                </Typography>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={handleName(user)} secondary={user.date_of_birth} />
+                            <ListItemSecondaryAction>
+                                { (user.given_name || user.username) && !user.date_of_birth &&  
+                                    <Tooltip title={<FormattedMessage id="selectProfile_tooltipBirthday" />}>
+                                        <IconButton 
+                                            aria-label="birthday" 
+                                            edge="end"
+                                            onClick={() => handleClick(user, "birthday")}
+                                            style={{ color: "#9e9e9e" }}
+                                        >
+                                            <EventRoundedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                                { !(user.given_name || user.username) &&
+                                    <Tooltip title={<FormattedMessage id="selectProfile_tooltipName" />}>
+                                        <IconButton 
+                                            aria-label="warning" 
+                                            edge="end"
+                                            onClick={() => handleClick(user, "name")}
+                                            style={{ color: "#F4970A" }}
+                                        >
+                                            <WarningRoundedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                                {/* { (user.given_name || user.username) && user.date_of_birth && 
+                                    <Tooltip title={<FormattedMessage id="Edit Profile" />}>
+                                        <IconButton 
+                                            aria-label="change info" 
+                                            edge="end"
+                                            onClick={() => handleClick(user, "name")}
+                                            style={{ color: "#9e9e9e" }}
+                                        >
+                                            <EditAttributesIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                } */}
+                            </ListItemSecondaryAction>
+                    </ListItem>
+                )
+            )
+        } else {
+            return (
+                <Typography variant="body2" align="center">Please join an organization to use KidsLoop.</Typography>
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Grid item xs={12}>
-                <Typography variant="h4" align="center">
-                    <FormattedMessage id="selectProfile_title" />
-                </Typography>
+                { !loading && 
+                    <Typography variant="h4" align="center">
+                        { (users.length > 0) ? 
+                            <FormattedMessage id="selectProfile_title" /> :
+                            "You are not part of an organization."
+                        }
+                    </Typography>
+                }
             </Grid>
             <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <List>
-                    { loading ? 
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Skeleton animation="wave" variant="circle">
-                                    <Avatar />
-                                </Skeleton>
-                            </ListItemAvatar>
-                            <ListItemText 
-                                primary={<Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />} 
-                                secondary={<Skeleton animation="wave" height={10} width="40%" />} 
-                            />
-                        </ListItem>
-                        : users.map((user) => 
-                            <ListItem 
-                                button
-                                key={user.user_id} 
-                                onClick={() => handleClick(user) }
-                            >
-                                <ListItemAvatar>
-                                    <Avatar 
-                                        style={{ 
-                                            backgroundColor: utils.stringToColor(user.given_name + " " + user.family_name),
-                                            color: "white"
-                                        }}
-                                    >
-                                        <Typography variant="caption">
-                                            { utils.nameToInitials(handleName(user), 3) }
-                                        </Typography>
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={handleName(user)} secondary={user.date_of_birth} />
-                                    <ListItemSecondaryAction>
-                                        { (user.given_name || user.username) && !user.date_of_birth &&  
-                                            <Tooltip title={<FormattedMessage id="selectProfile_tooltipBirthday" />}>
-                                                <IconButton 
-                                                    aria-label="birthday" 
-                                                    edge="end"
-                                                    onClick={() => handleClick(user, "birthday")}
-                                                    style={{ color: "#9e9e9e" }}
-                                                >
-                                                    <EventRoundedIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        }
-                                        { !(user.given_name || user.username) &&
-                                            <Tooltip title={<FormattedMessage id="selectProfile_tooltipName" />}>
-                                                <IconButton 
-                                                    aria-label="warning" 
-                                                    edge="end"
-                                                    onClick={() => handleClick(user, "name")}
-                                                    style={{ color: "#F4970A" }}
-                                                >
-                                                    <WarningRoundedIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        }
-                                        {/* { (user.given_name || user.username) && user.date_of_birth && 
-                                            <Tooltip title={<FormattedMessage id="Edit Profile" />}>
-                                                <IconButton 
-                                                    aria-label="change info" 
-                                                    edge="end"
-                                                    onClick={() => handleClick(user, "name")}
-                                                    style={{ color: "#9e9e9e" }}
-                                                >
-                                                    <EditAttributesIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        } */}
-                                    </ListItemSecondaryAction>
-                            </ListItem>
-                        )
-                    }
+                    { renderList() }
                 </List>
             </Grid>
         </React.Fragment>

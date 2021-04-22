@@ -78,5 +78,8 @@ const messages: Record<string, string> = {
     region_cantFind: "找不到你的国家或地区？请点击这里",
     region_comingSoon: "即将推出",
     region_selectCountryRegion: "请选择你的国家或地区",
+
+    selectProfile_noOrgTitle: "You are not part of an organization.",
+    selectProfile_noOrgSubtitle: "Please join an organization to use KidsLoop.",
 };
 export default messages;

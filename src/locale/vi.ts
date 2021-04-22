@@ -78,5 +78,8 @@ const messages: Record<string, string> = {
     region_cantFind: "Không tìm thấy quốc gia và khu vực của bạn? Nhấn vào đây.",
     region_comingSoon: "Sắp diễn ra",
     region_selectCountryRegion: "Chọn quốc gia hoặc khu vực",
+
+    selectProfile_noOrgTitle: "You are not part of an organization.",
+    selectProfile_noOrgSubtitle: "Please join an organization to use KidsLoop.",
 };
 export default messages;
