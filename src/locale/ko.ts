@@ -79,8 +79,8 @@ const messages: Record<string, string> = {
     region_comingSoon: "곧 열립니다",
     region_selectCountryRegion: "국가나 지역을 선택해주세요",
 
-    selectProfile_noOrgTitle: "You are not part of an organization.",
-    selectProfile_noOrgSubtitle: "Please join an organization to use KidsLoop.",
+    selectProfile_noOrgTitle: "기관 소속이 아닙니다.",
+    selectProfile_noOrgSubtitle: "KidsLoop을 사용하기 위해 기관에 가입하세요.",
 };
 
 export default messages;
