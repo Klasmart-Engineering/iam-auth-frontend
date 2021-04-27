@@ -40,6 +40,7 @@ export async function switchUser(user_id: string, retry = true): Promise<boolean
         headers.append("Content-Type", "application/json");
         const response = await fetch("/switch", {
             body: JSON.stringify({ user_id }),
+            credentials: "include",
             headers,
             method: "POST",
         });
