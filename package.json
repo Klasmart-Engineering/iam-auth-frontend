@@ -13,6 +13,7 @@
     "build:prod-uk": "rm dist/*;webpack --config webpack.prod.uk.config.js",
     "build:prod-cn": "rm dist/*;webpack --config webpack.prod.cn.config.js",
     "build:prod-vn": "rm dist/*;webpack --config webpack.prod.vn.config.js",
+    "build:prod-id": "rm dist/*;webpack --config webpack.prod.id.config.js",
     "start": "webpack-dev-server"
   },
   "author": "",
