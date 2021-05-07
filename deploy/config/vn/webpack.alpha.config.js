@@ -81,7 +81,7 @@ module.exports = {
             template: "./index.html"
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.kidsloop.vn/",
+            "API_ENDPOINT": "https://api.alpha.kidsloop.vn/",
             "AUTH_ENDPOINT": "https://auth.kidsloop.vn/",
             "REDIRECT_LINK": "https://kidsloop.vn/",
             "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
