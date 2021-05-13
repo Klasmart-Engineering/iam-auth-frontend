@@ -73,9 +73,9 @@ module.exports = {
             template: "./index.html"
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.klpsre.com/",
-            "AUTH_ENDPOINT": "https://auth.klpsre.com/",
-            "REDIRECT_LINK": "https://hub.klpsre.com/",
+            "API_ENDPOINT": "https://api.alpha.klpsre.com/",
+            "AUTH_ENDPOINT": "https://auth.alpha.klpsre.com/",
+            "REDIRECT_LINK": "https://hub.alpha.klpsre.com/",
             "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
             "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.prod.badanamu.net",
             "SLD": "kidsloop",
