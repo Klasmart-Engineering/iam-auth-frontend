@@ -50,18 +50,20 @@ pipelines:
           - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
           - export TAG=$BRANCH_TAG-$KIDSLOOP_REGION-$KIDSLOOP_ENV
           - export REPO=$DOCKER_REPO_URL/kidsloop-auth-frontend   # DOCKER_REPO_URL is workspace wide variable
-        
+          - export COMMIT_TAG=$(git rev-parse --short HEAD)
+
           - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $DOCKER_REPO_URL
           - docker build -t auth-frontend deploy/
           
           - docker tag auth-frontend:latest $REPO:$TAG
           - docker tag auth-frontend:latest $REPO:$TAG-latest
           - docker tag auth-frontend:latest $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
+          - docker tag auth-frontend:latest $REPO:$TAG-$COMMIT_TAG
 
           - docker push $REPO:$TAG
           - docker push $REPO:$TAG-latest
           - docker push $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
-
+          - docker push $REPO:$TAG-$COMMIT_TAG
 
         services:
           - docker
