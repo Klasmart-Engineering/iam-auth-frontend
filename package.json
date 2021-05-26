@@ -14,6 +14,7 @@
     "build:prod-cn": "rm dist/*;webpack --config webpack.prod.cn.config.js",
     "build:prod-vn": "rm dist/*;webpack --config webpack.prod.vn.config.js",
     "build:prod-id": "rm dist/*;webpack --config webpack.prod.id.config.js",
+    "build:prod-in": "rm dist/*;webpack --config webpack.prod.in.config.js",
     "start": "webpack-dev-server"
   },
   "author": "",
