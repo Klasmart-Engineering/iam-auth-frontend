@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 git submodule update --init --recursive --force
-npm i
+npm i --no-progress
 npm audit fix
 API_ENDPOINT="https://api-prod.kidsloop.in/" \
 AUTH_ENDPOINT="https://auth-prod.alpha.kidsloop.in/" \

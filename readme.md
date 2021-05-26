@@ -27,8 +27,15 @@ Test the following lines by replacing your current ssh key
 ```
 > eval `ssh-agent -s`
 > ssh-add ~/.ssh/id_ecdsa
-> npm install ssh://git@bitbucket.org/calmisland/kidsloop-px.git#1.0.8 --verbose
+> npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-px.git#1.0.8 --verbose
 ```
 
 Once the prerequisites are sorted, you can successfully run an npm install.
+Npm install will trigger some post install script.
+As of now you will require on ubuntu:
+```
+> sudo apt-get install autoconf automake g++ make
+```
+
+This is the minimum set of packages required from a fresh install to build successfully all the dependencies at the time of writing.
 
