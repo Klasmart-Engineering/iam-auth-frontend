@@ -12,4 +12,4 @@ AUTH_ENDPOINT="https://auth-prod.alpha.kidsloop.in/" \
 REDIRECT_LINK="https://hub-prod.alpha.kidsloop.in/" \
 SLD="kidsloop" \
 TLD="in" \
-npm run build:prod:in
+npm run build:prod-in

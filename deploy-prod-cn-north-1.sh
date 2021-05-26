@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 npm i
-npm run build:prod:cn
+npm run build:prod-cn
 aws s3 sync dist s3://kidsloop-auth-cn-north-1-prod --dryrun --region cn-north-1
 echo "Dryrun complete waiting 60s before deployment to prod"
 sleep 60
