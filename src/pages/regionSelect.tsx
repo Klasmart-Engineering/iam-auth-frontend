@@ -56,7 +56,7 @@ const regions: Region[] = [
         domain: "auth.kidsloop.in",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
+        secondaryText: ``,
         locale: "en",
     },
     {
