@@ -4,6 +4,7 @@ pipelines:
     - variables:
           - name: KIDSLOOP_REGION
           - name: KIDSLOOP_ENV
+          - name: KIDSLOOP_PASS_ENV
     
     - step:
         name: 'Clone Kidsloop Pass'    
@@ -32,7 +33,7 @@ pipelines:
         script:
           - cd src/pages/account/kidsloop-pass-frontend/client
           - npm i
-          - npm run build:$KIDSLOOP_ENV
+          - npm run build:$KIDSLOOP_PASS_ENV
         caches:
           - accountnodemodules
         artifacts:

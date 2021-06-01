@@ -56,15 +56,15 @@ const regions: Region[] = [
         domain: "auth.kidsloop.in",
         path: `/signin`,
         primaryText: "Bhārat Gaṇarājya",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
+        secondaryText: ``,
         locale: "en",
     },
     {
         img: Indonesia,
-        domain: "auth.kidsloop.co.id",
+        domain: "auth.kidsloop.id",
         path: `/signin`,
         primaryText: "Republik Indonesia",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
+        secondaryText: ``,
         locale: "id",
     },
     {
@@ -96,7 +96,7 @@ const regions: Region[] = [
         domain: "auth.kidsloop.vn",
         path: `/signin`,
         primaryText: "Việt Nam",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
+        secondaryText: ``,
         locale: "vi",
     },
 ]
