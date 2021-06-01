@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm dist/*;webpack --config webpack.config.js",
+    "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
     "build:dev": "rm dist/*;webpack --config webpack.stage.kr.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
@@ -12,8 +13,6 @@
     "build:prod-kr": "rm dist/*;webpack --config webpack.prod.kr.config.js",
     "build:prod-uk": "rm dist/*;webpack --config webpack.prod.uk.config.js",
     "build:prod-cn": "rm dist/*;webpack --config webpack.prod.cn.config.js",
-    "build:prod-vn": "rm dist/*;webpack --config webpack.prod.vn.config.js",
-    "build:prod-id": "rm dist/*;webpack --config webpack.prod.id.config.js",
     "build:prod-in": "rm dist/*;webpack --config webpack.prod.in.config.js",
     "start": "webpack-dev-server"
   },
