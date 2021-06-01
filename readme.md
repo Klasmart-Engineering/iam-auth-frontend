@@ -39,3 +39,41 @@ As of now you will require on ubuntu:
 
 This is the minimum set of packages required from a fresh install to build successfully all the dependencies at the time of writing.
 
+### Building
+
+This is a bit of a convoluted process, we will need to build the main project, followed by the `kidsloop-pass-frontend`. 
+
+Following example is a full build for India
+
+```
+# basic dependencies installation
+npm ci --no-progress
+npm audit fix
+
+# config hack and package build
+API_ENDPOINT="https://api.kidsloop.in/" \
+AUTH_ENDPOINT="https://auth.kidsloop.in/" \
+REDIRECT_LINK="https://hub.kidsloop.in/" \
+ACCOUNT_ENDPOINT_BADANAMU="https://ams-account.badanamu.net" \
+AUTH_ENDPOINT_BADANAMU="https://ams-auth.badanamu.net" \
+SLD="kidsloop" \
+TLD="in" \
+npm run build:prod
+
+# install deps for deps
+pushd src/pages/account/kidsloop-pass-frontend/client
+npm ci --no-progress
+npm audit fix
+npm run build:prod
+popd
+
+# bundle deps build and main build
+mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
+```
+
+Now you have a full build in the dist folder for the India region with a production build.
+
+
+
+
+
