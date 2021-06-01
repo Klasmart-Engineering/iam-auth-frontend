@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-npm i
+npm ci --no-progress
+npm audit fix
 npm run build:prod
 aws s3 sync dist s3://auth.kidsloop.net/ --dryrun
 sleep 15

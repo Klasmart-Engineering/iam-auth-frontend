@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-npm i
+npm ci --no-progress
 npm audit fix
+
 API_ENDPOINT="https://api.alpha.kidsloop.net/" \
 AUTH_ENDPOINT="https://auth.alpha.kidsloop.net/" \
 REDIRECT_LINK="https://hub.alpha.kidsloop.net/" \
