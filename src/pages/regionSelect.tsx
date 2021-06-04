@@ -136,13 +136,14 @@ export function RegionSelect() {
     const theme = useTheme();
     const history = useHistory();
     const url = useContext(URLContext);
-    const [_, setCookies] = useCookies(["locale"]);
+    const [cookies, setCookies] = useCookies(["locale"]);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     const handleRegionSelect = (domain = window.location.host, path = "/signin", locale = "en") => {
         if (domain === url.hostName) {
-            setCookies(`locale`, locale, {
+            const lang = cookies?.locale ?? locale;
+            setCookies(`locale`, lang, {
                 path: `/`,
                 domain: DOMAIN || `kidsloop.net`,
             });

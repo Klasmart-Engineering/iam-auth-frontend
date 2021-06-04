@@ -64,10 +64,10 @@ function ClientSide() {
     }, []);
 
     const [cookies, setCookies] = useCookies(["locale"]);
-    const languageCode = memos.locale ?? cookies.locale ?? "en";
-    if (memos.locale !== cookies.locale) {
+    const languageCode = cookies.locale ?? memos.locale ?? "en";
+    if (memos.locale && !cookies.locale) {
         const cookieDomain = process.env.SLD + "." + process.env.TLD;
-        setCookies(`locale`, languageCode ?? memos.locale, {
+        setCookies(`locale`, languageCode, {
             path: `/`,
             domain: cookieDomain || `kidsloop.net`,
         });
