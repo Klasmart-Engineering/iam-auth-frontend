@@ -6,7 +6,6 @@
   "scripts": {
     "build": "rm dist/*;webpack --config webpack.config.js",
     "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
-    "build:dev": "rm dist/*;webpack --config webpack.stage.kr.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
     "build:prod": "rm dist/*;webpack --config webpack.prod.config.js",
