@@ -69,11 +69,11 @@ const regions: Region[] = [
     },
     {
         img: Pakistan,
-        domain: "auth.kidsloop.pk",
+        domain: "auth.kidsloop.net",
         path: `/signin`,
         primaryText: "اِسلامی جمہوریہ پاكِستان",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
-        locale: "vi",
+        secondaryText: ``,
+        locale: "en",
     },
     {
         img: Korea,
