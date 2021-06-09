@@ -55,7 +55,7 @@ const regions: Region[] = [
         img: India,
         domain: "auth.kidsloop.in",
         path: `/signin`,
-        primaryText: "Bhārat Gaṇarājya",
+        primaryText: "India",
         secondaryText: ``,
         locale: "en",
     },
