@@ -141,7 +141,10 @@ export function RegionSelect() {
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     const handleRegionSelect = (domain = window.location.host, path = "/signin", locale = "en") => {
-        if (domain === url.hostName) {
+        const protocol = window.location.protocol;
+        const port = window.location.port;
+        const urlHostName = port === "" ? url.hostName : `${url.hostName}:${port}`
+        if (domain === urlHostName) {
             const lang = cookies?.locale ?? locale;
             setCookies(`locale`, lang, {
                 path: `/`,
@@ -156,7 +159,7 @@ export function RegionSelect() {
             }
             const queryString = QueryString.stringify(queries, { skipNulls: true });
             console.log(queryString);
-            window.location.href = `https://${domain}/?${queryString}#${path}`
+            window.location.href = `${protocol}://${domain}/?${queryString}#${path}`
         }
     };
 

@@ -6,8 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import { Button, Fab, FullScreenDialog as Dialog } from "kidsloop-px";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -27,8 +25,6 @@ import KidsloopIcon from "../../../assets/img/kidsloop_icon.svg";
 import BackgroundImage from "../../../assets/img/test.png";
 import { URLContext } from '../../entry';
 import { redirectIfUnauthorized } from '../../utils/accountUtils';
-
-const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
 const useStyles = makeStyles((theme: Theme) => ({
     backButton: {

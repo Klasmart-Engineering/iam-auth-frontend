@@ -6,8 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import { Button, Fab, FullScreenDialog as Dialog } from "kidsloop-px";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useHistory, useParams } from 'react-router';

@@ -73,7 +73,7 @@ module.exports = {
         },
     },
     output: {
-        filename: "[name].js",
+        filename: "[name].[hash].js",
         path: path.resolve(__dirname, "dist"),
     },
     plugins: [
@@ -81,26 +81,39 @@ module.exports = {
             template: "./index.html"
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.kidsloop.net/",
-            "AUTH_ENDPOINT": "https://auth.kidsloop.net/",
-            "REDIRECT_LINK": "https://hub.kidsloop.net/",
+            "API_ENDPOINT": "https://api.alpha.kidsloop.net/",
+            "AUTH_ENDPOINT": "https://auth.alpha.kidsloop.net/",
+            "AUTH_ENDPOINT_BADANAMU": "https://prod.auth.badanamu.net",
+            "REDIRECT_LINK": "https://hub.alpha.kidsloop.net/",
             "SLD": "kidsloop",
             "TLD": "net",
         })
     ],
     devServer: {
-        host: "0.0.0.0",
-        disableHostCheck: true,
+        host: "fe.alpha.kidsloop.net",
+        port: 8081,
+        https: true,
         historyApiFallback: true,
         proxy: {
             "/transfer": {
-                target: "http://localhost:8081",
-                secure: false,
+                target: "https://auth.alpha.kidsloop.net/",
+                secure: true,
+                changeOrigin: true,
             },
-
             "/refresh": {
-                target: "http://auth.kidsloop.net",
-                secure: false,
+                target: "https://auth.alpha.kidsloop.net/",
+                secure: true,
+                changeOrigin: true,
+            },
+            "/switch": {
+                target: "https://auth.alpha.kidsloop.net/",
+                secure: true,
+                changeOrigin: true,
+            },
+            "/signout": {
+                target: "https://auth.alpha.kidsloop.net/",
+                secure: true,
+                changeOrigin: true,
             },
         }
     },
