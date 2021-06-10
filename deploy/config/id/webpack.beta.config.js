@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: {
         ui: "./src/entry.tsx",
     },
@@ -83,7 +83,7 @@ module.exports = {
         new webpack.EnvironmentPlugin({
             "API_ENDPOINT": "https://api.beta.kidsloop.id/",
             "AUTH_ENDPOINT": "https://auth.beta.kidsloop.id/",
-            "REDIRECT_LINK": "https://hub.kidsloop.id/",
+            "REDIRECT_LINK": "https://hub.beta.kidsloop.id/",
             "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
             "AUTH_ENDPOINT_BADANAMU": "https://prod.auth.badanamu.net",
             "SLD": "kidsloop",
