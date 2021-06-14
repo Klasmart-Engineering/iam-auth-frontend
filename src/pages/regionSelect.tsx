@@ -171,7 +171,7 @@ export function RegionSelect() {
             }
             const queryString = QueryString.stringify(queries, { skipNulls: true });
             console.log(queryString);
-            window.location.href = `${protocol}://${domain}/?${queryString}#${path}`
+            window.location.href = `${protocol}//${domain}/?${queryString}#${path}`
         }
     };
 
