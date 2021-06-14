@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: {
         ui: "./src/entry.tsx",
     },
@@ -73,7 +73,7 @@ module.exports = {
         },
     },
     output: {
-        filename: "[name].[fullhash].js",
+        filename: "[name][fullhash].js",
         path: path.resolve(__dirname, "dist"),
     },
     plugins: [
@@ -83,43 +83,11 @@ module.exports = {
         new webpack.EnvironmentPlugin({
             "API_ENDPOINT": "https://api.alpha.kidsloop.net/",
             "AUTH_ENDPOINT": "https://auth.alpha.kidsloop.net/",
-            "AUTH_ENDPOINT_BADANAMU": "https://prod.auth.badanamu.net",
             "REDIRECT_LINK": "https://hub.alpha.kidsloop.net/",
+            "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
+            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.badanamu.net",
             "SLD": "kidsloop",
             "TLD": "net",
         })
     ],
-    devServer: {
-        host: "fe.alpha.kidsloop.net",
-        port: 8081,
-        https: true,
-        historyApiFallback: true,
-        proxy: {
-            "/user": {
-                target: "https://api.alpha.kidsloop.net/",
-                secure: true,
-                changeOrigin: true,
-            },
-            "/transfer": {
-                target: "https://auth.alpha.kidsloop.net/",
-                secure: true,
-                changeOrigin: true,
-            },
-            "/refresh": {
-                target: "https://auth.alpha.kidsloop.net/",
-                secure: true,
-                changeOrigin: true,
-            },
-            "/switch": {
-                target: "https://auth.alpha.kidsloop.net/",
-                secure: true,
-                changeOrigin: true,
-            },
-            "/signout": {
-                target: "https://auth.alpha.kidsloop.net/",
-                secure: true,
-                changeOrigin: true,
-            },
-        }
-    },
 };

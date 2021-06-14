@@ -3,7 +3,6 @@ import "regenerator-runtime/runtime";
 
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
 import "typeface-nanum-square-round";
-// import "./assets/css/index.min.css";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";

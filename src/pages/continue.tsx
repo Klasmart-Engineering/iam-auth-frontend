@@ -11,6 +11,7 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import QueryString from "query-string";
 import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
+import { Domain, DOMAINS } from "./regionSelect";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -103,8 +104,9 @@ export function Continue() {
             window.parent.postMessage({message: "message"}, "*");
         } else if (cordova) {
             const queryParams: { token: string; region?: string; } = { token: location.state.token };
-            if (url.hostname === "kidsloop.co.uk") {
-                queryParams.region = "uk";
+            const domain = url.hostname as Domain;
+            if (DOMAINS.includes(domain)) {
+                queryParams.region = domain;
             }
             const queryString = QueryString.stringify(queryParams);
             window.open(`kidsloopstudent://?${queryString}`, "_system");

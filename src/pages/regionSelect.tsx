@@ -25,9 +25,21 @@ import { useCookies } from "react-cookie";
 
 const DOMAIN = process.env.SLD + "." + process.env.TLD
 
+export const DOMAINS = [
+    `auth.kidsloop.cn`,
+    `auth.kidsloop.co.uk`,
+    `auth.kidsloop.in`,
+    `auth.kidsloop.id`,
+    `auth.kidsloop.pk`,
+    `auth.kidsloop.net`,
+    `auth.kidsloop.vn`,
+] as const;
+
+export type Domain = typeof DOMAINS[number];
+
 interface Region {
     img: string;
-    domain: string;
+    domain: Domain;
     path: string,
     primaryText: string;
     secondaryText: string | React.ReactElement;
