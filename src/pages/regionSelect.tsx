@@ -156,12 +156,14 @@ export function RegionSelect() {
         const protocol = window.location.protocol;
         const port = window.location.port;
         const urlHostName = port === "" ? url.hostName : `${url.hostName}:${port}`
+        const lang = cookies?.locale ?? locale;
+
+        setCookies(`locale`, lang, {
+            path: `/`,
+            domain: DOMAIN || `kidsloop.net`,
+        });
+
         if (domain === urlHostName) {
-            const lang = cookies?.locale ?? locale;
-            setCookies(`locale`, lang, {
-                path: `/`,
-                domain: DOMAIN || `kidsloop.net`,
-            });
             history.push(path);
         } else {
             const queries = {
@@ -170,8 +172,7 @@ export function RegionSelect() {
                 continue: url.continueParam,
             }
             const queryString = QueryString.stringify(queries, { skipNulls: true });
-            console.log(queryString);
-            window.location.href = `${protocol}//${domain}/?${queryString}#${path}`
+            window.location.href = `${protocol}//${domain}/?${queryString}#${path}`;
         }
     };
 
