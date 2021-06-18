@@ -18,7 +18,7 @@ npm run build:prod
 pushd src/pages/account/kidsloop-pass-frontend/client
 npm ci --no-progress
 npm audit fix
-npm run build:prod
+npm run build:prod-in
 popd
 
 # bundle deps build and main build
