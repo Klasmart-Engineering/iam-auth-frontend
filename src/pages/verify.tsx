@@ -22,7 +22,6 @@ import Divider from '@material-ui/core/Divider';
 import useTheme from "@material-ui/core/styles/useTheme";
 import LanguageSelect from "../components/languageSelect";
 
-import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
 import { getIdentityType, IdentityType } from "../utils/accountType";
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -118,7 +117,7 @@ export function Verify() {
                 setVerificationError(
                     <span style={{ display: "flex", alignItems: "center" }}>
                         <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage 
+                        <FormattedMessage
                             id="error_emptyVerificationCode"
                             values={{
                                 device: deviceFromIdentity,

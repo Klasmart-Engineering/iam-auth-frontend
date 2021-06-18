@@ -24,7 +24,6 @@ import { getMyInformation } from '../../api/getMyInformation';
 import Birthday from "../../../assets/img/create_profile/birthday.svg";
 import Name from "../../../assets/img/create_profile/name.svg";
 import Progress from "../../../assets/img/create_profile/progress.svg";
-import KidsloopIcon from "../../../assets/img/kidsloop_icon.svg";
 import { getMyUsers, myUserSampleResponse } from '../../api/getMyUsers';
 import { User } from '../../api/queries/me';
 import { utils } from 'kidsloop-px';
@@ -125,9 +124,9 @@ export default function SetOrganization() {
                 spacing={1}
             >
                 <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                    { users.map((user) => 
-                        <Accordion 
-                            expanded={expanded === user.user_id} 
+                    { users.map((user) =>
+                        <Accordion
+                            expanded={expanded === user.user_id}
                             onChange={handleChange(user.user_id)}
                             key={user.user_id}
                         >
@@ -144,8 +143,8 @@ export default function SetOrganization() {
                                     spacing={1}
                                 >
                                     <Grid item>
-                                        <Avatar 
-                                            style={{ 
+                                        <Avatar
+                                            style={{
                                                 backgroundColor: utils.stringToColor(user.given_name + " " + user.family_name),
                                                 color: "white"
                                             }}
@@ -165,7 +164,7 @@ export default function SetOrganization() {
                             <AccordionDetails className={classes.details}>
                                 <List>
                                     <ListItem>
-                                        
+
                                     </ListItem>
                                 </List>
                             </AccordionDetails>

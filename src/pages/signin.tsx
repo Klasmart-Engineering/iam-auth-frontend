@@ -23,7 +23,6 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import withStyles from "@material-ui/core/styles/withStyles";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import Collapse from '@material-ui/core/Collapse';
-import BadanamuLogo from "../../assets/img/badanamu_logo.png";
 import Cookies, { useCookies } from "react-cookie";
 import { getMyInformation } from "../api/getMyInformation";
 import { refreshToken, transferSession } from "../api/restapi";
@@ -236,9 +235,9 @@ export function SignIn() {
                     type="password"
                     value={password}
                     onKeyPress={(e) => {
-                        if (e.key === "Enter") { 
-                            login(); 
-                            e.preventDefault(); 
+                        if (e.key === "Enter") {
+                            login();
+                            e.preventDefault();
                         };
                     }}
                 />

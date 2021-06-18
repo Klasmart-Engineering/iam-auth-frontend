@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import KidsloopLogo from "../../assets/img/kidsloop_icon.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -22,8 +22,6 @@ import Divider from '@material-ui/core/Divider';
 import useTheme from "@material-ui/core/styles/useTheme";
 import LanguageSelect from "../components/languageSelect";
 
-import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
-
 const useStyles = makeStyles((theme) => createStyles({
     card: {
         alignItems: "center",
