@@ -28,7 +28,7 @@ import { redirectIfUnauthorized } from '../../utils/accountUtils';
 
 const useStyles = makeStyles((theme: Theme) => ({
     backButton: {
-        paddingTop: theme.spacing(1), 
+        paddingTop: theme.spacing(1),
         fontSize: 12,
     },
     card: {
@@ -97,7 +97,7 @@ export default function SetProfile() {
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 <Grid item xs={12} style={{ textAlign: "center" }}>
-                                    <img alt="KidsLoop Logo" src={KidsloopIcon} height="24px" />
+                                    <img alt="Primary Logo" src={KidsloopIcon} height="24px" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Switch>

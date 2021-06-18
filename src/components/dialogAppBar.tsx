@@ -40,7 +40,7 @@ export default function DialogAppBar(props: Props) {
                         <CloseIcon />
                     </IconButton>
                     <Grid container item wrap="nowrap">
-                        <img alt="kidsloop logo" className={classes.title} src={KidsloopLogo} height={32} />
+                        <img alt="Primary Logo" className={classes.title} src={KidsloopLogo} height={32} />
                         <Typography id="nav-menu-title" variant="h6">
                             {titleID}
                         </Typography>

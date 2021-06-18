@@ -117,13 +117,13 @@ export function Layout(props: Props) {
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 { logo &&
-                                    <Grid 
-                                        item 
-                                        xs={12} 
+                                    <Grid
+                                        item
+                                        xs={12}
                                         style={{ textAlign: props.centerLogo ? "center" : "left" }}
                                         onClick={() => setClicks(clicks + 1)}
                                     >
-                                        <img alt="KidsLoop Logo" src={KidsloopIcon} height="50px" />
+                                        <img alt="Primary Logo" src={KidsloopIcon} height="50px" />
                                     </Grid>
                                 }
                                 { props.children }
