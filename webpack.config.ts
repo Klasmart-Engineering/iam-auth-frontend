@@ -2,6 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
+import { loadBrandingOptions, BrandingOptions } from "kidsloop-branding";
+
+const brandingOptions: BrandingOptions = loadBrandingOptions(process.env.BRAND);
+
 module.exports = {
     mode: "development",
     entry: {
@@ -14,7 +18,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
-                }
+                },
             },
             {
                 test: /\.css$/i,
@@ -26,9 +30,9 @@ module.exports = {
                     {
                         loader: "css-loader",
                         options: {
-                            modules: true
-                        }
-                    }
+                            modules: true,
+                        },
+                    },
                 ],
             },
             {
@@ -47,18 +51,16 @@ module.exports = {
                             //     enabled: false,
                             // },
                             pngquant: {
-                                quality: [0.65, 0.90],
-                                speed: 4
+                                quality: [0.65, 0.9],
+                                speed: 4,
                             },
-                        }
+                        },
                     },
                 ],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    "file-loader",
-                ],
+                use: ["file-loader"],
             },
             {
                 test: /\.mp4$/,
@@ -70,6 +72,7 @@ module.exports = {
         extensions: [".js", ".jsx", ".tsx", ".ts"],
         alias: {
             react: path.resolve("./node_modules/react"),
+            ...brandingOptions.webpack.resolve.alias,
         },
     },
     output: {
@@ -78,17 +81,18 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./index.html"
+            template: "./index.html",
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.alpha.kidsloop.net/",
-            "AUTH_ENDPOINT": "https://auth.alpha.kidsloop.net/",
-            "AUTH_ENDPOINT_BADANAMU": "https://prod.auth.badanamu.net",
-            "REDIRECT_LINK": "https://hub.alpha.kidsloop.net/",
-            "SLD": "kidsloop",
-            "TLD": "net",
-        })
+            API_ENDPOINT: "https://api.alpha.kidsloop.net/",
+            AUTH_ENDPOINT: "https://auth.alpha.kidsloop.net/",
+            AUTH_ENDPOINT_BADANAMU: "https://prod.auth.badanamu.net",
+            REDIRECT_LINK: "https://hub.alpha.kidsloop.net/",
+            SLD: "kidsloop",
+            TLD: "net",
+        }),
     ],
+    stats: { errorDetails: true },
     devServer: {
         host: "fe.alpha.kidsloop.net",
         port: 8081,
@@ -120,6 +124,6 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-        }
+        },
     },
 };
