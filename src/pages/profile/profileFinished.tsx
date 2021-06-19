@@ -13,10 +13,11 @@ import { useHistory, useParams } from 'react-router';
 import { getMyInformation } from '../../api/getMyInformation';
 
 import Progress from "../../../assets/img/create_profile/progress.svg";
+import config from '../../config';
 
 const useStyles = makeStyles((theme: Theme) => ({
     backButton: {
-        paddingTop: theme.spacing(1), 
+        paddingTop: theme.spacing(1),
         fontSize: 12,
     },
     card: {
@@ -88,7 +89,7 @@ export default function SetProfileComplete() {
             </Grid>
             <Grid item>
                 <Typography variant="h4" align="center">
-                    Welcome to KidsLoop
+                    Welcome to {config.branding.company.name}
                 </Typography>
             </Grid>
             <Grid item>
