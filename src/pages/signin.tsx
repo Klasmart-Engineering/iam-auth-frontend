@@ -29,6 +29,7 @@ import { refreshToken, transferSession } from "../api/restapi";
 import QueryString from "query-string"
 import { URLContext } from "../entry";
 import { Domain, DOMAINS } from "./regionSelect";
+import config from "../config";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -279,7 +280,17 @@ export function SignIn() {
                                     onChange={() => handleCheckbox()}
                                 />
                             }
-                            label={<Typography variant="caption"><FormattedMessage id="login_acceptPrivacyPolicy" /></Typography>}
+                            label={
+                                <Typography variant="caption">
+                                    <FormattedMessage
+                                        id="login_acceptPrivacyPolicy"
+                                        values={{
+                                            companyName:
+                                                config.branding.company.name,
+                                        }}
+                                    />
+                                </Typography>
+                            }
                         />
                         <Grid item xs={12}>
                             {checkmarkError === null ? null :

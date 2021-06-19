@@ -12,6 +12,7 @@ import QueryString from "query-string";
 import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { Domain, DOMAINS } from "./regionSelect";
+import config from "../config";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -74,6 +75,7 @@ export function Continue() {
                         em: (...chunks: any[]) => <em>{chunks}</em>,
                         continueLink: continueLink,
                         defaultLink: DEFAULT_REDIRECT_LINK,
+                        platformName: config.branding.company.name
                     }}
                 />
             </Alert>

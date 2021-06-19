@@ -27,6 +27,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { FormattedMessage } from "react-intl";
 import { refreshToken, switchUser } from "../api/restapi";
 import { useQuery } from "@apollo/client/react/hooks/useQuery";
+import config from "../config"
 
 const useStyles = makeStyles((theme) => createStyles({}));
 
@@ -179,19 +180,24 @@ export function SelectUser() {
             )
         } else {
             return (
-                <Typography variant="body2" align="center">Please join an organization to use KidsLoop.</Typography>
-            )
+                <Typography variant="body2" align="center">
+                    <FormattedMessage
+                        id="selectProfile_noOrgSubtitle"
+                        values={{ platformName: config.branding.company.name }}
+                    />
+                </Typography>
+            );
         }
     }
 
     return (
         <React.Fragment>
             <Grid item xs={12}>
-                { !loading && 
+                { !loading &&
                     <Typography variant="h4" align="center">
-                        { (users.length > 0) ? 
+                        { (users.length > 0) ?
                             <FormattedMessage id="selectProfile_title" /> :
-                            "You are not part of an organization."
+                            <FormattedMessage id="selectProfile_noOrgTitle"/>
                         }
                     </Typography>
                 }

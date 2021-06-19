@@ -8,13 +8,13 @@
     "error_emptyEmail":"Enter an email or phone number",
     "error_emptyPassword":"Enter your password",
     "error_emptyVerificationCode":"Please enter the verification code from your {device}.",
-    "error_invalidRedirectLink":"Seems like <em>{continueLink}</em> is not part of KidsLoop! For your safety, we'll take you to <em>{defaultLink}</em>.",
+    "error_invalidRedirectLink":"Seems like <em>{continueLink}</em> is not part of {platformName}! For your safety, we'll take you to <em>{defaultLink}</em>.",
     "form_emailLabel":"Email or phone",
     "form_passwordLabel":"Password",
     "form_verificationLabel":"Verification Code",
     "locale_select":"Select Language",
     "locale_tooltip":"Change Language",
-    "login_acceptPrivacyPolicy":"I accept to the Kidsloop Privacy Policy",
+    "login_acceptPrivacyPolicy":"I accept the {companyName} Privacy Policy",
     "login_createAccount":"Create an account",
     "login_forgotPassword":"Forgot Password?",
     "login_loginButton":"Sign In",
@@ -38,7 +38,7 @@
     "birthday_titleCreate":"What's your learner's birthday?",
     "birthday_prompt":"Add a birthday to your account.",
     "birthday_promptUpdate":"Add a birthday to {account}.",
-    "birthday_promptCreate":"We will customize KidsLoop for you and your learner's age. Only you and your learner can see this information.",
+    "birthday_promptCreate":"We will customize {platformName} for you and your learner's age. Only you and your learner can see this information.",
     "birthday_datePickerHelper":"Month and Year (optional)",
     "birthday_buttonSkip":"Skip",
     "birthday_buttonSave":"Save",
@@ -64,5 +64,5 @@
     "region_comingSoon":"Coming Soon",
     "region_selectCountryRegion":"Select your country or region",
     "selectProfile_noOrgTitle":"You are not part of an organization.",
-    "selectProfile_noOrgSubtitle":"Please join an organization to use KidsLoop."
+    "selectProfile_noOrgSubtitle":"Please join an organization to use {platformName}."
 }

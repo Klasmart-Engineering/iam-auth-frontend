@@ -17,6 +17,7 @@ import { updateUser } from '../../api/updateUser';
 import Birthday from "../../../assets/img/create_profile/birthday.svg";
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
+import config from '../../config';
 
 const useStyles = makeStyles((theme: Theme) => ({
     backButton: {
@@ -168,7 +169,7 @@ export default function SetBirthday() {
                                 <FormattedMessage id="birthday_prompt" /> :
                                 <FormattedMessage id="birthday_promptUpdate" values={{ account: userInfo?.email ?? userInfo?.phone }}/>
                         }
-                        {" "}<FormattedMessage id="birthday_promptCreate" />
+                        {" "}<FormattedMessage id="birthday_promptCreate" values={{platformName: config.branding.company.name }}/>
                     </Typography>
                 </Grid>
                 <div style={{ height: theme.spacing(2) }}/>
