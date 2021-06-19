@@ -90,6 +90,7 @@ module.exports = {
             REDIRECT_LINK: "https://hub.alpha.kidsloop.net/",
             SLD: "kidsloop",
             TLD: "net",
+            BRAND: process.env.BRAND,
         }),
     ],
     stats: { errorDetails: true },
