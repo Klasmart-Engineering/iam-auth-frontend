@@ -21,7 +21,7 @@ import SetName from './setName';
 import SetOrganization from './setOrganization';
 import SetProfileComplete from './profileFinished';
 
-import KidsloopIcon from "../../../assets/img/kidsloop_icon.svg";
+import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import BackgroundImage from "../../../assets/img/test.png";
 import { URLContext } from '../../entry';
 import { redirectIfUnauthorized } from '../../utils/accountUtils';
@@ -97,7 +97,7 @@ export default function SetProfile() {
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 <Grid item xs={12} style={{ textAlign: "center" }}>
-                                    <img alt="Primary Logo" src={KidsloopIcon} height="24px" />
+                                    <img alt="Primary Logo" src={PrimaryLogo} height="24px" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Switch>

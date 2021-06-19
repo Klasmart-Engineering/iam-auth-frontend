@@ -14,7 +14,7 @@ import ConfettiExplosion from '@reonomy/react-confetti-explosion';
 
 
 import BackgroundImage from "../../assets/img/test.png";
-import KidsloopIcon from "../../assets/img/kidsloop_icon.svg";
+import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 const { version } = require(`../../package.json`);
 
 const LANGUAGES_LABEL: Language[] = [
@@ -123,7 +123,7 @@ export function Layout(props: Props) {
                                         style={{ textAlign: props.centerLogo ? "center" : "left" }}
                                         onClick={() => setClicks(clicks + 1)}
                                     >
-                                        <img alt="Primary Logo" src={KidsloopIcon} height="50px" />
+                                        <img alt="Primary Logo" src={PrimaryLogo} height="50px" />
                                     </Grid>
                                 }
                                 { props.children }
