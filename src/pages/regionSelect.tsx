@@ -25,9 +25,21 @@ import { useCookies } from "react-cookie";
 
 const DOMAIN = process.env.SLD + "." + process.env.TLD
 
+export const DOMAINS = [
+    `auth.kidsloop.cn`,
+    `auth.kidsloop.co.uk`,
+    `auth.kidsloop.in`,
+    `auth.kidsloop.id`,
+    `auth.kidsloop.pk`,
+    `auth.kidsloop.net`,
+    `auth.kidsloop.vn`,
+] as const;
+
+export type Domain = typeof DOMAINS[number];
+
 interface Region {
     img: string;
-    domain: string;
+    domain: Domain;
     path: string,
     primaryText: string;
     secondaryText: string | React.ReactElement;
@@ -55,7 +67,7 @@ const regions: Region[] = [
         img: India,
         domain: "auth.kidsloop.in",
         path: `/signin`,
-        primaryText: "Bhārat Gaṇarājya",
+        primaryText: "India",
         secondaryText: ``,
         locale: "en",
     },
@@ -69,11 +81,11 @@ const regions: Region[] = [
     },
     {
         img: Pakistan,
-        domain: "auth.kidsloop.pk",
+        domain: "auth.kidsloop.net",
         path: `/signin`,
         primaryText: "اِسلامی جمہوریہ پاكِستان",
-        secondaryText: <FormattedMessage id="region_comingSoon" />,
-        locale: "vi",
+        secondaryText: ``,
+        locale: "en",
     },
     {
         img: Korea,
@@ -136,16 +148,22 @@ export function RegionSelect() {
     const theme = useTheme();
     const history = useHistory();
     const url = useContext(URLContext);
-    const [_, setCookies] = useCookies(["locale"]);
+    const [cookies, setCookies] = useCookies(["locale"]);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down("xs"));
 
     const handleRegionSelect = (domain = window.location.host, path = "/signin", locale = "en") => {
-        if (domain === url.hostName) {
-            setCookies(`locale`, locale, {
-                path: `/`,
-                domain: DOMAIN || `kidsloop.net`,
-            });
+        const protocol = window.location.protocol;
+        const port = window.location.port;
+        const urlHostName = port === "" ? url.hostName : `${url.hostName}:${port}`
+        const lang = cookies?.locale ?? locale;
+
+        setCookies(`locale`, lang, {
+            path: `/`,
+            domain: DOMAIN || `kidsloop.net`,
+        });
+
+        if (domain === urlHostName) {
             history.push(path);
         } else {
             const queries = {
@@ -154,8 +172,7 @@ export function RegionSelect() {
                 continue: url.continueParam,
             }
             const queryString = QueryString.stringify(queries, { skipNulls: true });
-            console.log(queryString);
-            window.location.href = `https://${domain}/?${queryString}#${path}`
+            window.location.href = `${protocol}//${domain}/?${queryString}#${path}`;
         }
     };
 

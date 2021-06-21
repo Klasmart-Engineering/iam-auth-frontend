@@ -73,7 +73,7 @@ module.exports = {
         },
     },
     output: {
-        filename: "[name].js",
+        filename: "[name][fullhash].js",
         path: path.resolve(__dirname, "dist"),
     },
     plugins: [
@@ -81,29 +81,13 @@ module.exports = {
             template: "./index.html"
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.beta.kidsloop.id/",
-            "AUTH_ENDPOINT": "https://auth.beta.kidsloop.id/",
-            "REDIRECT_LINK": "https://hub.beta.kidsloop.id/",
+            "API_ENDPOINT": "https://api.alpha.kidsloop.net/",
+            "AUTH_ENDPOINT": "https://auth.alpha.kidsloop.net/",
+            "REDIRECT_LINK": "https://hub.alpha.kidsloop.net/",
             "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
-            "AUTH_ENDPOINT_BADANAMU": "https://prod.auth.badanamu.net",
+            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.badanamu.net",
             "SLD": "kidsloop",
-            "TLD": "id",
+            "TLD": "net",
         })
     ],
-    devServer: {
-        host: "0.0.0.0",
-        disableHostCheck: true,
-        historyApiFallback: true,
-        proxy: {
-            "/transfer": {
-                target: "http://localhost:8081",
-                secure: false,
-            },
-
-            "/refresh": {
-                target: "http://localhost:8081",
-                secure: false,
-            },
-        }
-    },
 };

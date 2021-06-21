@@ -29,6 +29,7 @@ import { getMyInformation } from "../api/getMyInformation";
 import { refreshToken, transferSession } from "../api/restapi";
 import QueryString from "query-string"
 import { URLContext } from "../entry";
+import { Domain, DOMAINS } from "./regionSelect";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -131,8 +132,9 @@ export function SignIn() {
     async function transferLogin(token: string) {
         if (url.uaParam === "cordova") {
             const queryParams: { token: string; region?: string; } = { token: token };
-            if (url.hostName === "kidsloop.co.uk") {
-                queryParams.region = "uk";
+            const domain = url.hostName as Domain;
+            if (DOMAINS.includes(domain)) {
+                queryParams.region = domain;
             }
             const queryString = QueryString.stringify(queryParams);
             window.open(`kidsloopstudent://?${queryString}`, "_system");
