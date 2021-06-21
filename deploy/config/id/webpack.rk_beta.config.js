@@ -2,6 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
+const { loadBrandingOptions } = require("kidsloop-branding");
+
+const brandingOptions = loadBrandingOptions("RUMAH_KISAH");
+
 module.exports = {
     mode: "production",
     entry: {
@@ -70,6 +74,7 @@ module.exports = {
         extensions: [".js", ".jsx", ".tsx", ".ts"],
         alias: {
             react: path.resolve("./node_modules/react"),
+            ...brandingOptions.webpack.resolve.alias,
         },
     },
     output: {
