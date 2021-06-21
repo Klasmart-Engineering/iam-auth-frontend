@@ -24,6 +24,8 @@ import { ApolloProviderHOC } from "./apolloProvider";
 import { SelectUser } from "./pages/selectUser";
 import SetProfile from "./pages/profile/setProfileLayout";
 import { RegionSelect } from "./pages/regionSelect";
+import config from "./config";
+import RegionLocked from "./pages/RegionLocked";
 
 interface URLContext {
     hostName: string;
@@ -43,14 +45,22 @@ interface RouteDetails {
 }
 
 const routes: RouteDetails[] = [
-    { path: "/region", Component: RegionSelect, size: "sm", centerLogo: false },
     { path: "/deeplink", Component: DeepLink, size: "xs", centerLogo: true },
     { path: "/selectprofile", Component: SelectUser, size: "xs", centerLogo: true },
     { path: "/signinselect", Component: SelectUser, size: "xs", centerLogo: true },
     { path: "/signin", Component: SignIn, size: "xs", centerLogo: false },
     { path: "/login", Component: SignIn, size: "xs", centerLogo: false },
     { path: "/continue", Component: Continue, size: "xs", centerLogo: true },
-]
+];
+
+if (config.branding.auth.showRegionSelect) {
+    routes.push({
+        path: "/region",
+        Component: RegionSelect,
+        size: "sm",
+        centerLogo: false,
+    });
+}
 
 function ClientSide() {
     const memos = useMemo(() => {
@@ -79,30 +89,39 @@ function ClientSide() {
                 <RawIntlProvider value={locale}>
                     <ThemeProvider theme={themeProvider()}>
                         <CssBaseline />
-                            <Switch>
-                                { routes.map(({ path, Component, size, centerLogo }) => (
+                        <Switch>
+                            {routes.map(
+                                ({ path, Component, size, centerLogo }) => (
                                     <Route key={path} path={path}>
                                         {({ match }) => (
-                                            <Layout maxWidth={size} centerLogo={centerLogo}>
+                                            <Layout
+                                                maxWidth={size}
+                                                centerLogo={centerLogo}
+                                            >
                                                 <Component />
                                             </Layout>
                                         )}
                                     </Route>
-                                ))}
-                                <Route path="/createprofile">
-                                    <SetProfile />
-                                </Route>
-                                <Route exact path="/">
+                                )
+                            )}
+                            <Route path="/createprofile">
+                                <SetProfile />
+                            </Route>
+                            <Route exact path="/">
+                                {config.branding.auth.showRegionSelect ? (
                                     <Layout maxWidth={"sm"}>
                                         <RegionSelect />
                                     </Layout>
-                                </Route>
-                                <Route>
-                                    <Layout maxWidth={"xs"} centerLogo={true}>
-                                        <NotFound />
-                                    </Layout>
-                                </Route>
-                            </Switch>
+                                ) : (
+                                    <RegionLocked />
+                                )}
+                            </Route>
+                            <Route>
+                                <Layout maxWidth={"xs"} centerLogo={true}>
+                                    <NotFound />
+                                </Layout>
+                            </Route>
+                        </Switch>
                     </ThemeProvider>
                 </RawIntlProvider>
             </ApolloProviderHOC>
@@ -116,7 +135,8 @@ async function main() {
         <HashRouter>
             <ClientSide />
         </HashRouter>,
-        div);
+        div
+    );
 }
 
 main();
