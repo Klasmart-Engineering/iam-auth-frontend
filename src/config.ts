@@ -1,9 +1,10 @@
-import { loadBrandingOptions, BrandingOptions } from "kidsloop-branding";
+import { BrandingOptions } from "kidsloop-branding";
+import { brandingConfig } from "@branding";
 
 const config: {
     branding: BrandingOptions;
 } = {
-    branding: loadBrandingOptions(process.env.BRAND),
+    branding: brandingConfig,
 };
 
 export default config;

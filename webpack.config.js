@@ -2,9 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
-import { loadBrandingOptions, BrandingOptions } from "kidsloop-branding";
+const { loadBrandingOptions } = require("kidsloop-branding");
 
-const brandingOptions: BrandingOptions = loadBrandingOptions(process.env.BRAND);
+const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
 module.exports = {
     mode: "development",
@@ -90,7 +90,6 @@ module.exports = {
             REDIRECT_LINK: "https://hub.alpha.kidsloop.net/",
             SLD: "kidsloop",
             TLD: "net",
-            BRAND: process.env.BRAND,
         }),
     ],
     stats: { errorDetails: true },

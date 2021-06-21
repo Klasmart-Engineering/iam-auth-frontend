@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm dist/*;webpack --config webpack.config.ts",
+    "build": "rm dist/*;webpack --config webpack.config.js",
     "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
@@ -51,7 +51,6 @@
     "typeface-nanum-square-round": "^1.0.2"
   },
   "devDependencies": {
-    "@babel/register": "7.14.5",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/react-dom": "^17.0.5",
     "@types/react-router": "^5.1.14",
