@@ -9,6 +9,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg"
+import config from "../config"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,7 +41,7 @@ export default function DialogAppBar(props: Props) {
                         <CloseIcon />
                     </IconButton>
                     <Grid container item wrap="nowrap">
-                        <img alt="Primary Logo" className={classes.title} src={PrimaryLogo} height={32} />
+                        <img alt={`${config.branding.company.name} Logo`} className={classes.title} src={PrimaryLogo} height={32} />
                         <Typography id="nav-menu-title" variant="h6">
                             {titleID}
                         </Typography>

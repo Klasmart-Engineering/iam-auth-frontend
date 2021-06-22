@@ -25,6 +25,7 @@ import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import BackgroundImage from "../../../assets/img/test.png";
 import { URLContext } from '../../entry';
 import { redirectIfUnauthorized } from '../../utils/accountUtils';
+import config from "../../config"
 
 const useStyles = makeStyles((theme: Theme) => ({
     backButton: {
@@ -97,7 +98,7 @@ export default function SetProfile() {
                         <CardContent className={classes.cardContent}>
                             <Grid container direction="row" justify="center" alignItems="center" spacing={4}>
                                 <Grid item xs={12} style={{ textAlign: "center" }}>
-                                    <img alt="Primary Logo" src={PrimaryLogo} height="24px" />
+                                    <img alt={`${config.branding.company.name} Logo`} src={PrimaryLogo} height="24px" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Switch>
