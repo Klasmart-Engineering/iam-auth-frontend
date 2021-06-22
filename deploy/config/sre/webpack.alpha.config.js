@@ -75,7 +75,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./index.html"
+            template: "./index.html",
+            ...brandingOptions.webpack.html,
         }),
         new webpack.EnvironmentPlugin({
             "API_ENDPOINT": "https://api.alpha.klpsre.com/",
