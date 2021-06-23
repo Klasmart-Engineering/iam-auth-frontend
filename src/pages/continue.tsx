@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import StyledButton from "../components/button";
 import Alert from "@material-ui/lab/Alert";
 import useTheme from "@material-ui/core/styles/useTheme";
@@ -13,6 +13,7 @@ import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { Domain, DOMAINS } from "./regionSelect";
 import config from "../config";
+import { useLocaleState } from "../utils/localeState";
 
 const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
 
@@ -51,11 +52,12 @@ export function Continue() {
     const location: any = useLocation();
     const urlContext = useContext(URLContext);
 
-
     const url = new URL(window.location.href)
     const [cordova, _] = useState(urlContext.uaParam);
     const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
     const [seconds, setSeconds] = useState(10);
+
+    const { locale } = useLocaleState();
 
     if (!urlContext.testing && !cordova) {
         redirectIfUnauthorized();
@@ -83,10 +85,6 @@ export function Continue() {
     }
 
     useEffect(() => {
-        console.log("location: ", location?.state?.token)
-    }, [location])
-
-    useEffect(() => {
         if (!seconds || cordova) return;
 
         const interval = setInterval(() => {
@@ -105,7 +103,9 @@ export function Continue() {
         if (window.self !== window.top) {
             window.parent.postMessage({message: "message"}, "*");
         } else if (cordova) {
-            const queryParams: { token: string; region?: string; } = { token: location.state.token };
+            // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
+            const queryParams: { token: string; region?: string; iso?: string; locale?: string; } = 
+                { token: location.state.token, iso: locale, locale: locale };
             const domain = url.hostname as Domain;
             if (DOMAINS.includes(domain)) {
                 queryParams.region = domain;

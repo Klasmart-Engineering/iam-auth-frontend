@@ -164,10 +164,10 @@ export function RegionSelect() {
         });
 
         if (domain === urlHostName) {
-            history.push(path);
+            history.push(path, { locale });
         } else {
             const queries = {
-                iso: locale,
+                locale: locale,
                 ua: url.uaParam,
                 continue: url.continueParam,
             }

@@ -6,6 +6,7 @@ import { createMuiTheme, responsiveFontSizes, Theme } from "@material-ui/core/st
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 import { useCookies } from "react-cookie";
 import { useMemo } from "react";
+import { useLocaleState } from "./utils/localeState";
 
 // import { getLanguage } from "./locale";
 // import { useSelector } from "react-redux";
@@ -14,13 +15,7 @@ import { useMemo } from "react";
 export function themeProvider() {
     const themeMode = "light";
 
-    const memos = useMemo(() => {
-        const url = new URL(window.location.href);
-        const locale = url.searchParams.get("iso");
-        return { hostName: url.hostname, locale };
-    }, []);
-    const [cookies] = useCookies(["locale"]);
-    const languageCode = memos.locale ?? cookies.locale ?? "en";
+    const { locale: languageCode } = useLocaleState();
 
     function setTypography() {
         let localeFontFamily = "Inter";

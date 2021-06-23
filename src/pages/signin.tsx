@@ -30,6 +30,7 @@ import QueryString from "query-string"
 import { URLContext } from "../entry";
 import { Domain, DOMAINS } from "./regionSelect";
 import config from "../config";
+import { useLocaleState } from "../utils/localeState";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -69,6 +70,8 @@ export function SignIn() {
     const history = useHistory();
     const url = useContext(URLContext);
     const [cookies, setCookies] = useCookies(["privacy"]);
+
+    const { locale } = useLocaleState();
 
     const [inFlight, setInFlight] = useState(false);
     const [checked, setChecked] = useState((cookies.privacy === "true") || false);
@@ -131,7 +134,8 @@ export function SignIn() {
 
     async function transferLogin(token: string) {
         if (url.uaParam === "cordova") {
-            const queryParams: { token: string; region?: string; } = { token: token };
+            // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
+            const queryParams: { token: string; region?: string; iso?: string; locale?: string; } = { token: token, iso: locale, locale: locale };
             const domain = url.hostName as Domain;
             if (DOMAINS.includes(domain)) {
                 queryParams.region = domain;
@@ -140,7 +144,7 @@ export function SignIn() {
             window.open(`kidsloopstudent://?${queryString}`, "_system");
             return true;
         } else if (url.uaParam === "cordovaios") {
-            history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token }});
+            history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token, locale: locale }});
             return true;
         } else {
             const transfer = await transferSession(token)

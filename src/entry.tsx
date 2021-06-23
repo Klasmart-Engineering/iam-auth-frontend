@@ -65,7 +65,7 @@ if (config.branding.auth.showRegionSelect) {
 function ClientSide() {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
-        const locale = url.searchParams.get("iso");
+        const locale = url.searchParams.get("locale");
         const uaParam = url.searchParams.get("ua");
         const continueParam = url.searchParams.get("continue");
         const testing = (url.hostname === "localhost" || url.hostname === "0.0.0.0" || url.hostname === "fe.kidsloop.net");
