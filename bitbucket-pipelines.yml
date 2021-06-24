@@ -18,7 +18,7 @@ pipelines:
         name: 'Build NPM'
         image: node:lts
         script:
-          - npm i
+          - npm ci --no-progress
           - mv deploy/config/$KIDSLOOP_REGION/webpack.$KIDSLOOP_ENV.config.js ./webpack.bitbucket.config.js
           - npm run build:bitbucket
         caches:
@@ -32,7 +32,7 @@ pipelines:
         image: node:lts
         script:
           - cd src/pages/account/kidsloop-pass-frontend/client
-          - npm i
+          - npm ci --no-progress
           - npm run build:$KIDSLOOP_PASS_ENV
         caches:
           - accountnodemodules
