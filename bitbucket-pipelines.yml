@@ -32,6 +32,7 @@ pipelines:
         image: node:lts
         script:
           - cd src/pages/account/kidsloop-pass-frontend/client
+          - git init
           - npm i
           - npm run build:$KIDSLOOP_PASS_ENV
         caches:
