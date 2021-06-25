@@ -27,12 +27,14 @@ Enable submodule configuration
 ```
 
 Assuming you have an ssh key with passphrase, running NPM successfully can be tricky.
-Test the following lines by replacing your current ssh key
+Test the following lines by replacing your current ssh key,
+and add the desired tag (prefixed with "#") after the `.git` links for each kidsloop package e.g. `...kidsloop-branding.git#1.0.0`.
 
-```
-> eval `ssh-agent -s`
-> ssh-add ~/.ssh/id_ecdsa
-> npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-px.git#1.0.8 --verbose
+```shell
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_ecdsa
+npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-px.git --verbose
+npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-branding.git --verbose
 ```
 
 Once the prerequisites are sorted, you can successfully run an npm install.
