@@ -5,8 +5,14 @@
 There are the following dependencies:
 - git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
 
-- npm package dependency on package json on 
-  "kidsloop-px": "bitbucket:calmisland/kidsloop-px#1.0.8",
+- npm package dependency on package json on:
+    - "kidsloop-px": "bitbucket:calmisland/kidsloop-px"
+    - "kidsloop-branding": "bitbucket:calmisland/kidsloop-branding"
+
+Both packages are not on NPM, and only available on Bitbucket.
+To install these successfully, you will need to setup SSH keys.
+
+NB: If you haven't already setup SSH keys with Bitbucket, follow the Bitbucket [instructions](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/).
 
 ### Windows
 
