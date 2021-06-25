@@ -3,11 +3,12 @@
 ## Dependencies
 
 There are the following dependencies:
-- git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
 
-- npm package dependency on package json on:
-    - "kidsloop-px": "bitbucket:calmisland/kidsloop-px"
-    - "kidsloop-branding": "bitbucket:calmisland/kidsloop-branding"
+-   git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
+
+-   npm package dependency on package json on:
+    -   "kidsloop-px": "bitbucket:calmisland/kidsloop-px"
+    -   "kidsloop-branding": "bitbucket:calmisland/kidsloop-branding"
 
 Both packages are not on NPM, and only available on Bitbucket.
 To install these successfully, you will need to setup SSH keys.
@@ -40,6 +41,7 @@ npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-branding.g
 Once the prerequisites are sorted, you can successfully run an npm install.
 Npm install will trigger some post install script.
 As of now you will require on ubuntu:
+
 ```
 > sudo apt-get install autoconf automake g++ make
 ```
@@ -48,7 +50,7 @@ This is the minimum set of packages required from a fresh install to build succe
 
 ### Building
 
-This is a bit of a convoluted process, we will need to build the main project, followed by the `kidsloop-pass-frontend`. 
+This is a bit of a convoluted process, we will need to build the main project, followed by the `kidsloop-pass-frontend`.
 
 Following example is a full build for India
 
