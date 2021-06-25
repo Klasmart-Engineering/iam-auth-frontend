@@ -3,8 +3,7 @@
 ## Dependencies
 
 There are the following dependencies:
-- git submodule pointing at 
- a895c6e739265295be7e287d53630761b05f274b src/pages/account/kidsloop-pass-frontend (remotes/origin/kidsloop/master)
+- git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
 
 - npm package dependency on package json on 
   "kidsloop-px": "bitbucket:calmisland/kidsloop-px#1.0.8",
