@@ -1,6 +1,23 @@
-# Local Build
+# kidsloop-auth-frontend
 
-## Dependencies
+Frontend counterpart to backend [kidsloop-auth-server](https://bitbucket.org/calmisland/kidsloop-auth-server/).
+
+Contains pages:
+
+-   region select
+-   sign in
+-   select profile
+-   edit profile (set birthday and name)
+
+Includes git submodule of [kidsloop-pass-frontend](https://bitbucket.org/calmisland/kidsloop-pass-frontend),
+which contains pages:
+
+-   creating an account
+-   forgot/reset password
+
+## Local Build
+
+### Dependencies
 
 There are the following dependencies:
 
