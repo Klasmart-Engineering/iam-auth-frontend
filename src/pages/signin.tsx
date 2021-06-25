@@ -226,6 +226,7 @@ export function SignIn() {
                     helperText={emailError}
                     id="email-input"
                     label={<FormattedMessage id="form_emailLabel" />}
+                    onBlur={(e) => setEmail(e.target.value.trim())}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                 />

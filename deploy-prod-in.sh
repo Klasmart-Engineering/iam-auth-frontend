@@ -3,7 +3,6 @@ git submodule update --init --recursive --force
 
 # install main js deps
 npm ci --no-progress
-npm audit fix
 # config hack and package build
 API_ENDPOINT="https://api.kidsloop.in/" \
 AUTH_ENDPOINT="https://auth.kidsloop.in/" \
@@ -17,7 +16,6 @@ npm run build:prod
 # install deps for deps
 pushd src/pages/account/kidsloop-pass-frontend/client
 npm ci --no-progress
-npm audit fix
 npm run build:prod-in
 popd
 

@@ -8,10 +8,19 @@ import { ApolloProvider } from "@apollo/client"
 import { createUploadLink } from "apollo-upload-client";
 import { RetryLink } from "@apollo/client/link/retry";
 import { refreshToken } from "./api/restapi";
+import { utils } from "kidsloop-px";
 
 
 export function ApolloProviderHOC({ children }: {children: JSX.Element}) {
     
+    const objectCleanerLink = new ApolloLink((operation, forward) => {
+        operation.variables = utils.trimStrings(operation.variables); // clean request data
+        return forward(operation).map((value) => utils.trimStrings(value)); // clean response data
+    });
+    const uploadLink = createUploadLink({
+        credentials: `include`,
+        uri: `${process.env.API_ENDPOINT}user/`,
+    });
     const retryLink = new RetryLink({
         attempts: {
             max: 2,
@@ -21,14 +30,10 @@ export function ApolloProviderHOC({ children }: {children: JSX.Element}) {
             }
         }
     });
-    const uploadLink = createUploadLink({
-        credentials: `include`,
-        uri: `${process.env.API_ENDPOINT}user/`,
-    });
     
     const client = new ApolloClient({
         credentials: `include`,
-        link: ApolloLink.from([ uploadLink, retryLink ]),
+        link: ApolloLink.from([ objectCleanerLink, uploadLink, retryLink ]),
         cache: new InMemoryCache(),
     });    
 

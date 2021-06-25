@@ -48,7 +48,6 @@ Following example is a full build for India
 ```
 # basic dependencies installation
 npm ci --no-progress
-npm audit fix
 
 # config hack and package build
 API_ENDPOINT="https://api.kidsloop.in/" \
@@ -63,7 +62,6 @@ npm run build:prod
 # install deps for deps
 pushd src/pages/account/kidsloop-pass-frontend/client
 npm ci --no-progress
-npm audit fix
 npm run build:prod
 popd
 
@@ -72,8 +70,3 @@ mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
 ```
 
 Now you have a full build in the dist folder for the India region with a production build.
-
-
-
-
-
