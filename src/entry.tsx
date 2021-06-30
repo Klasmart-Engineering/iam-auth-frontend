@@ -68,7 +68,7 @@ function ClientSide() {
         const cookieDomain = process.env.SLD + "." + process.env.TLD;
         setCookies(`locale`, languageCode, {
             path: `/`,
-            domain: cookieDomain || `kidsloop.net`,
+            domain: cookieDomain || `kidsloop.live`,
         });
     }
     const locale = getLanguage(languageCode);

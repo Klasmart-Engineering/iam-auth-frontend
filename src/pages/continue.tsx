@@ -13,7 +13,7 @@ import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { Domain, DOMAINS } from "./regionSelect";
 
-const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
+const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.live";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {

@@ -31,7 +31,7 @@ export const DOMAINS = [
     `auth.kidsloop.in`,
     `auth.kidsloop.id`,
     `auth.kidsloop.pk`,
-    `auth.kidsloop.net`,
+    `auth.kidsloop.live`,
     `auth.kidsloop.vn`,
 ] as const;
 
@@ -81,7 +81,7 @@ const regions: Region[] = [
     },
     {
         img: Pakistan,
-        domain: "auth.kidsloop.net",
+        domain: "auth.kidsloop.live",
         path: `/signin`,
         primaryText: "اِسلامی جمہوریہ پاكِستان",
         secondaryText: ``,
@@ -89,7 +89,7 @@ const regions: Region[] = [
     },
     {
         img: Korea,
-        domain: "auth.kidsloop.net",
+        domain: "auth.kidsloop.live",
         path: `/signin`,
         primaryText: "대한민국",
         secondaryText: ``,
@@ -97,7 +97,7 @@ const regions: Region[] = [
     },
     {
         img: UnitedStates,
-        domain: "auth.kidsloop.net",
+        domain: "auth.kidsloop.live",
         path: `/signin`,
         primaryText: "United States",
         secondaryText: ``,
@@ -160,7 +160,7 @@ export function RegionSelect() {
             const lang = cookies?.locale ?? locale;
             setCookies(`locale`, lang, {
                 path: `/`,
-                domain: DOMAIN || `kidsloop.net`,
+                domain: DOMAIN || `kidsloop.live`,
             });
             history.push(path);
         } else {

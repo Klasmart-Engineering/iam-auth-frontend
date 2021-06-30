@@ -199,7 +199,7 @@ export function SignIn() {
         const isChecked = checked;
         const domain = process.env.SLD + "." + process.env.TLD;
 
-        setCookies("privacy", !isChecked, { path: "/", domain: domain || "kidsloop.net" });
+        setCookies("privacy", !isChecked, { path: "/", domain: domain || "kidsloop.live" });
         setChecked(!isChecked);
     }
 
