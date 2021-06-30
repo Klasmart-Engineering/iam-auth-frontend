@@ -115,7 +115,7 @@ export function SignUp() {
                 setEmailError(
                     <span style={{ display: "flex", alignItems: "center" }}>
                         <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage id="error_emptyEmail" />
+                        <FormattedMessage id="emailOrPhone.empty" />
                     </span>,
                 );
             } else {
@@ -184,7 +184,7 @@ export function SignUp() {
                     fullWidth
                     helperText={emailError}
                     id="email-input"
-                    label={<FormattedMessage id="form_emailLabel" />}
+                    label={<FormattedMessage id="emailOrPhone.label" />}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                 />

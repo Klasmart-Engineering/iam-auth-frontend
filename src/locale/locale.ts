@@ -5,6 +5,18 @@ import chinese from "./zh_CN.json";
 import vietnamese from "./vi.json";
 import indonesian from "./id.json";
 
+import brandedEnglish from "@branding/locale/en.json";
+import brandedKorean from "@branding/locale/ko.json";
+import brandedChinese from "@branding/locale/zh_CN.json";
+import brandedVietnamese from "@branding/locale/vi.json";
+import brandedIndonesian from "@branding/locale/id.json";
+
+Object.assign(english, brandedEnglish);
+Object.assign(korean, brandedKorean);
+Object.assign(chinese, brandedChinese);
+Object.assign(vietnamese, brandedVietnamese);
+Object.assign(indonesian, brandedIndonesian);
+
 export const localeCodes = ["en", "ko", "zh-CN", "vi", "id"];
 
 const intlCache = createIntlCache();

@@ -162,7 +162,7 @@ export function SignIn() {
                 setEmailError(
                     <span style={{ display: "flex", alignItems: "center" }}>
                         <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage id="error_emptyEmail" />
+                        <FormattedMessage id="emailOrPhone.empty" />
                     </span>,
                 );
             } else if (e.toString().search("EMPTY_PASSWORD") !== -1) {
@@ -225,7 +225,7 @@ export function SignIn() {
                     fullWidth
                     helperText={emailError}
                     id="email-input"
-                    label={<FormattedMessage id="form_emailLabel" />}
+                    label={<FormattedMessage id="emailOrPhone.label" />}
                     onBlur={(e) => setEmail(e.target.value.trim())}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
