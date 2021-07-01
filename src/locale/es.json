@@ -8,13 +8,12 @@
     "emailOrPhone.empty": "Escribe un correo electrónico o número de teléfono",
     "error_emptyPassword": "Escribe la contraseña",
     "error_emptyVerificationCode": "Escribe el código de verificación desde tu {device}.",
-    "error_invalidRedirectLink": "Al parecer <em>{continueLink}</em> no forma parte de tu KidsLoop. Por seguridad te redirigiremos a <em>{defaultLink}</em>.",
-    "emailOrPhone.label": "Correo electrónico o teléfono",
+    "error_invalidRedirectLink": "Al parecer <em>{continueLink}</em> no forma parte de tu {platformName}. Por seguridad te redirigiremos a <em>{defaultLink}</em>.",
     "form_passwordLabel": "Contraseña",
     "form_verificationLabel": "Código de verificación",
     "locale_select": "Seleccionar idioma",
     "locale_tooltip": "Cambiar idioma",
-    "login_acceptPrivacyPolicy": "Acepto la política de privacidad de KidsLoop",
+    "login_acceptPrivacyPolicy": "Acepto la política de privacidad de {companyName}",
     "login_createAccount": "Crear una cuenta",
     "login_forgotPassword": "¿Olvidaste tu contraseña?",
     "login_loginButton": "Iniciar sesión",
@@ -38,7 +37,7 @@
     "birthday_titleCreate": "¿Cuál es la fecha de nacimiento del estudiante?",
     "birthday_prompt": "Agrega una fecha de nacimiento a la cuenta.",
     "birthday_promptUpdate": "Agrega una fecha de nacimiento para {account}.",
-    "birthday_promptCreate": "Personalizaremos KidsLoop para ti según la edad del estudiante. Solo el/la estudiante y tú pueden ver esta información.",
+    "birthday_promptCreate": "Personalizaremos {platformName} para ti según la edad del estudiante. Solo el/la estudiante y tú pueden ver esta información.",
     "birthday_datePickerHelper": "Mes y año (opcional)",
     "birthday_buttonSkip": "Omitir",
     "birthday_buttonSave": "Guardar",
@@ -64,5 +63,6 @@
     "region_comingSoon": "Próximamente",
     "region_selectCountryRegion": "Selecciona tu país o región",
     "selectProfile_noOrgTitle": "No formas parte de una organización.",
-    "selectProfile_noOrgSubtitle": "Únete a una organización para usar KidsLoop."
+    "selectProfile_noOrgSubtitle": "Únete a una organización para usar {platformName}.",
+    "emailOrPhone.label": "Correo electrónico o teléfono"
 }
