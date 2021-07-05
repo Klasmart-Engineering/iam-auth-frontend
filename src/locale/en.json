@@ -64,5 +64,10 @@
     "region_selectCountryRegion": "Select your country or region",
     "selectProfile_noOrgTitle": "You are not part of an organization.",
     "selectProfile_noOrgSubtitle": "Please join an organization to use {platformName}.",
-    "emailOrPhone.label": "Email or phone"
+    "emailOrPhone.label": "Email or phone",
+    "ERROR_INVALID_LOGIN": "Invalid login",
+    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
+    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
+    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
+    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
 }

@@ -64,5 +64,10 @@
     "region_selectCountryRegion": "请选择你的国家或地区",
     "selectProfile_noOrgTitle": "您尚未加入任何一个组织",
     "selectProfile_noOrgSubtitle": "请加入一个组织，以使用{platformName}.",
-    "emailOrPhone.label": "邮箱或手机"
+    "emailOrPhone.label": "邮箱或手机",
+    "ERROR_INVALID_LOGIN": "Invalid login",
+    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
+    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
+    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
+    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
 }

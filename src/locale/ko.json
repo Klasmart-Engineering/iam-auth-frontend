@@ -64,5 +64,10 @@
     "region_selectCountryRegion": "국가나 지역을 선택해주세요",
     "selectProfile_noOrgTitle": "기관 소속이 아닙니다.",
     "selectProfile_noOrgSubtitle": "{platformName}을 사용하기 위해 기관에 가입하세요.",
-    "emailOrPhone.label": "이메일 또는 핸드폰 번호"
+    "emailOrPhone.label": "이메일 또는 핸드폰 번호",
+    "ERROR_INVALID_LOGIN": "Invalid login",
+    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
+    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
+    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
+    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
 }
