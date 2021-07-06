@@ -181,6 +181,7 @@ export function SignIn() {
         const errorMessage = <FormattedMessage id={id} />;
         switch (e.getErrorMessageType()) {
             case RestAPIErrorType.INVALID_LOGIN:
+            case RestAPIErrorType.INPUT_INVALID_FORMAT:
                 setEmailError(errorMessage);
                 break;
             case RestAPIErrorType.INVALID_PASSWORD:
