@@ -105,6 +105,7 @@ export function SignIn() {
         setEmailError(null);
         setPasswordError(null);
         setCheckmarkError(null);
+        setGeneralError(null);
         if (inFlight) { return; }
 
         try {
