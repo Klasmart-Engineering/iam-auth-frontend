@@ -3,13 +3,13 @@ git submodule update --init --recursive --force
 
 npm ci --no-progress
 
-API_ENDPOINT="https://api.kidsloop.net/" \
-AUTH_ENDPOINT="https://auth.kidsloop.net/" \
-REDIRECT_LINK="https://hub.kidsloop.net/" \
+API_ENDPOINT="https://api.kidsloop.live/" \
+AUTH_ENDPOINT="https://auth.kidsloop.live/" \
+REDIRECT_LINK="https://hub.kidsloop.live/" \
 ACCOUNT_ENDPOINT_BADANAMU="https://ams-account.badanamu.net" \
 AUTH_ENDPOINT_BADANAMU="https://ams-auth.badanamu.net" \
 SLD="kidsloop" \
-TLD="net" \
+TLD="live" \
 npm run build:prod
 
 # install deps for deps
@@ -21,8 +21,8 @@ popd
 # bundle deps build and main build
 mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
 
-aws s3 sync dist s3://auth.kidsloop.net/ --dryrun
+aws s3 sync dist s3://klglobal-prod-auth/latest --dryrun
 sleep 15
-aws s3 sync s3://auth.kidsloop.net/ backup
-aws s3 sync dist s3://auth.kidsloop.net/
-aws cloudfront create-invalidation --paths "/*" --distribution-id E134FIUH68FUOQ #auth.kidsloop.net
+aws s3 sync s3://klglobal-prod-auth/ backup
+aws s3 sync dist s3://klglobal-prod-auth/latest
+aws cloudfront create-invalidation --paths "/*" --distribution-id E155GPCPCEB7UZ #auth.kidsloop.live

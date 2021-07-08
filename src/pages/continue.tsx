@@ -15,7 +15,7 @@ import { Domain, DOMAINS } from "./regionSelect";
 import config from "../config";
 import { useLocaleState } from "../utils/localeState";
 
-const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.net";
+const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.live";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
