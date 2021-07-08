@@ -1,54 +1,58 @@
-export async function transferSession(token: string) {
+export async function transferSession (token: string) {
     try {
         const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
-        const response = await fetch("/transfer", {
-            body: JSON.stringify({ token }),
+        headers.append(`Accept`, `application/json`);
+        headers.append(`Content-Type`, `application/json`);
+        const response = await fetch(`/transfer`, {
+            body: JSON.stringify({
+                token,
+            }),
             headers,
-            method: "POST",
+            method: `POST`,
         });
         console.log(response);
-        return response.ok
+        return response.ok;
     } catch(e) {
-        console.error(e)
-        return false
+        console.error(e);
+        return false;
     }
 }
 
-export async function refreshToken() {
+export async function refreshToken () {
     try {
         const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
+        headers.append(`Accept`, `application/json`);
+        headers.append(`Content-Type`, `application/json`);
         const request = await fetch(`/refresh`, {
-            credentials: "include",
+            credentials: `include`,
             headers,
-            method: "GET",
+            method: `GET`,
         });
-        return request.ok
+        return request.ok;
     } catch (e) {
         console.error(`refreshToken`, e);
         return false;
     }
 }
 
-export async function switchUser(user_id: string, retry = true): Promise<boolean> {
+export async function switchUser (userId: string, retry = true): Promise<boolean> {
     try {
         const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
-        const response = await fetch("/switch", {
-            body: JSON.stringify({ user_id }),
-            credentials: "include",
+        headers.append(`Accept`, `application/json`);
+        headers.append(`Content-Type`, `application/json`);
+        const response = await fetch(`/switch`, {
+            body: JSON.stringify({
+                user_id: userId,
+            }),
+            credentials: `include`,
             headers,
-            method: "POST",
+            method: `POST`,
         });
-        await response.text()
-        return response.ok
+        await response.text();
+        return response.ok;
     } catch(e) {
-        if(!retry) { return false }
+        if(!retry) { return false; }
         await refreshToken();
-        return switchUser(user_id, false)
+        return switchUser(userId, false);
     }
-};
+}

@@ -9,7 +9,8 @@
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
     "build:prod": "rm dist/*;webpack --config webpack.prod.config.js",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx"
   },
   "author": "",
   "license": "ISC",
@@ -58,12 +59,12 @@
     "@types/react-router": "^5.1.14",
     "@types/react-router-dom": "^5.1.7",
     "css-loader": "^5.2.6",
-    "eslint": "^7.27.0",
+    "eslint": "^7.30.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "image-webpack-loader": "^7.0.1",
     "style-loader": "^2.0.0",
-    "typescript": "^4.3.2",
+    "typescript": "^4.3.5",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"

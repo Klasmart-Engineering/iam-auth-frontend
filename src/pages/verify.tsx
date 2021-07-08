@@ -1,87 +1,76 @@
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import StyledButton from "../components/button";
+import StyledTextField from "../components/textfield";
+import { RestAPIError } from "../restapi_errors";
+import { getIdentityType } from "../utils/accountType";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import {
+    createStyles,
+    makeStyles,
+} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { RouteComponentProps, useHistory } from "react-router";
-import * as restApi from "../restapi";
-import { RestAPIError, RestAPIErrorType } from "../restapi_errors";
-import CenterAlignChildren from "../components/centerAlignChildren";
-import PolicyLink from "../components/policyLinks";
-import StyledButton from "../components/button";
-import StyledTextField from "../components/textfield";
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
-import Divider from '@material-ui/core/Divider';
-import useTheme from "@material-ui/core/styles/useTheme";
-import LanguageSelect from "../components/languageSelect";
-
-import { getIdentityType, IdentityType } from "../utils/accountType";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
-        alignItems: "center",
-        display: "flex",
-        padding: "48px 40px !important",
+        alignItems: `center`,
+        display: `flex`,
+        padding: `48px 40px !important`,
     },
     errorIcon: {
-        fontSize: "1em",
+        fontSize: `1em`,
         marginRight: theme.spacing(1),
     },
     formContainer: {
-        width: "100%",
+        width: `100%`,
     },
     googleSSO: {
-        justifyContent: "center",
-        width: "100%",
-        fontFamily: "inherit !important",
+        justifyContent: `center`,
+        width: `100%`,
+        fontFamily: `inherit !important`,
     },
     link: {
-        textAlign: "right",
+        textAlign: `right`,
     },
     pageWrapper: {
-        display: "flex",
+        display: `flex`,
         flexGrow: 1,
-        height: "100vh",
+        height: `100vh`,
     },
-}),
-);
+}));
 
-export function Verify() {
+export function Verify () {
     const classes = useStyles();
-    const theme = useTheme();
 
-    const [inFlight, setInFlight] = useState(false);
+    const [ inFlight, setInFlight ] = useState(false);
 
     const url = new URL(window.location.href);
-    const identityParam = url.searchParams.get("id");
-    let deviceFromIdentity = "";
+    const identityParam = url.searchParams.get(`id`);
+    let deviceFromIdentity = ``;
     if (!identityParam) {
         // Display textfield to enter identity
     } else {
-        deviceFromIdentity = getIdentityType(identityParam) ? "phone" : "email";
+        deviceFromIdentity = getIdentityType(identityParam) ? `phone` : `email`;
     }
 
-    const [identity, setIdentity] = useState(identityParam);
-    const [verificationCode, setVerificationCode] = useState("");
-    const [verificationError, setVerificationError] = useState<JSX.Element | null>(null);
-    const [generalError, setGeneralError] = useState<JSX.Element | null>(null);
+    const [ verificationCode, setVerificationCode ] = useState(``);
+    const [ verificationError, setVerificationError ] = useState<JSX.Element | null>(null);
+    const [ generalError ] = useState<JSX.Element | null>(null);
 
     const history = useHistory();
 
-    async function verify() {
+    async function verify () {
         setVerificationError(null);
         if (inFlight) { return; }
 
         try {
             setInFlight(true);
-            if (verificationCode === "") { throw new Error("EMPTY_VERIFICATION_CODE"); }
+            if (verificationCode === ``) { throw new Error(`EMPTY_VERIFICATION_CODE`); }
             // const token = await restApi.verify(verificationCode);
             // await transferLogin(token);
         } catch (e) {
@@ -92,39 +81,21 @@ export function Verify() {
         return;
     }
 
-    async function transferLogin(token: string) {
-        const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
-        const response = await fetch("/transfer", {
-            body: JSON.stringify({ token }),
-            headers,
-            method: "POST",
-        });
-        console.log(response);
-        await response.text()
-        if (response.ok) {
-            history.push('/continue');
-            return true;
-        }
-        return false
-
-    }
-
-    function handleError(e: RestAPIError | Error) {
+    function handleError (e: RestAPIError | Error) {
         if (!(e instanceof RestAPIError)) {
-            if (e.toString().search("EMPTY_VERIFICATION_CODE") !== -1) {
-                setVerificationError(
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                        <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage
-                            id="error_emptyVerificationCode"
-                            values={{
-                                device: deviceFromIdentity,
-                            }}
-                        />
-                    </span>,
-                );
+            if (e.toString().search(`EMPTY_VERIFICATION_CODE`) !== -1) {
+                setVerificationError(<span style={{
+                    display: `flex`,
+                    alignItems: `center`,
+                }}>
+                    <ErrorIcon className={classes.errorIcon} />
+                    <FormattedMessage
+                        id="error_emptyVerificationCode"
+                        values={{
+                            device: deviceFromIdentity,
+                        }}
+                    />
+                </span>);
             } else {
                 console.error(e);
             }
@@ -154,37 +125,46 @@ export function Verify() {
 
     return (
         <React.Fragment>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 <Typography variant="h4">
-                    <FormattedMessage id={"verify_verifyPrompt"} />
+                    <FormattedMessage id={`verify_verifyPrompt`} />
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 <StyledTextField
-                    error={verificationError !== null}
                     fullWidth
+                    error={verificationError !== null}
                     helperText={verificationError}
                     id="verification-code-input"
                     label={<FormattedMessage id="form_verificationLabel" />}
-                    onChange={(e) => setVerificationCode(e.target.value)}
                     value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value)}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid
+                item
+                xs={6}>
                 <Link
                     href="#"
                     variant="subtitle2"
-                    onClick={(e: React.MouseEvent) => { history.push("/signup"); e.preventDefault(); }}
+                    onClick={(e: React.MouseEvent) => { history.push(`/signup`); e.preventDefault(); }}
                 >
                     <FormattedMessage id="verify_backButton" />
                 </Link>
             </Grid>
-            <Grid item xs={6} className={classes.link}>
+            <Grid
+                item
+                xs={6}
+                className={classes.link}>
                 <StyledButton
                     disabled={inFlight}
-                    onClick={() => verify()}
                     size="medium"
                     type="submit"
+                    onClick={() => verify()}
                 >
                     {
                         inFlight ?
@@ -193,11 +173,16 @@ export function Verify() {
                     }
                 </StyledButton>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 { generalError === null ? null :
-                        <Typography align="left" color="error" variant="body2">
-                            {generalError}
-                        </Typography>
+                    <Typography
+                        align="left"
+                        color="error"
+                        variant="body2">
+                        {generalError}
+                    </Typography>
                 }
             </Grid>
         </React.Fragment>

@@ -5,11 +5,21 @@ interface Props {
     className?: string;
 }
 
-export default function CenterAlignChildren(props: Props) {
-    const {children, className,  ...other } = props;
+export default function CenterAlignChildren (props: Props) {
+    const {
+        children,
+        className,
+        ...other
+    } = props;
 
     return (
-        <span style={{ display: "flex", alignItems: "center" }} className={className} {...other}>
+        <span
+            style={{
+                display: `flex`,
+                alignItems: `center`,
+            }}
+            className={className}
+            {...other}>
             { children || null}
         </span>
     );

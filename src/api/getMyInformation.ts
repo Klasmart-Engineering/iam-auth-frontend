@@ -1,9 +1,11 @@
 import {
+    GetMyInformationResponse,
+    ME,
+} from "./queries/me";
+import {
     QueryHookOptions,
     useQuery,
 } from "@apollo/client";
-import { ME, GetMyInformationResponse } from "./queries/me";
-import { refreshToken } from "./restapi";
 
 export const getMyInformation = (options?: QueryHookOptions<GetMyInformationResponse>) => {
     return useQuery<GetMyInformationResponse>(ME, options);

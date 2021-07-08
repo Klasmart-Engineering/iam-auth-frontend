@@ -1,32 +1,33 @@
-import queryString from "query-string";
 import { useHistory } from "react-router-dom";
 
 interface User {
-    avatar: string,
-    email: string,
-    user_id: string,
-    user_name: string,
+    avatar: string;
+    email: string;
+    user_id: string;
+    user_name: string;
 }
 
-export async function redirectIfUnauthorized(continueParam?: string) {
+export async function redirectIfUnauthorized () {
     const history = useHistory();
     const GET_SELF = `query {
-        me { 
+        me {
             avatar
             email
             user_id
             user_name
         }
-    }`
+    }`;
 
     const headers = new Headers();
-    headers.append("Accept", "application/json");
-    headers.append("Content-Type", "application/json");
-    const response = await fetch(`${process.env.API_ENDPOINT}user/`, {
-        body: JSON.stringify({ query: GET_SELF }),
-        credentials: "include",
+    headers.append(`Accept`, `application/json`);
+    headers.append(`Content-Type`, `application/json`);
+    await fetch(`${process.env.API_ENDPOINT}user/`, {
+        body: JSON.stringify({
+            query: GET_SELF,
+        }),
+        credentials: `include`,
         headers,
-        method: "POST",
+        method: `POST`,
     })
         .then(r => r.json())
         .then(data => {
@@ -35,16 +36,14 @@ export async function redirectIfUnauthorized(continueParam?: string) {
             const me: User = response.data.me;
             console.log(`me: `, me);
             if (me === null) {
-                const url = new URL(window.location.href);
-                if ((window.location.origin + "/") === process.env.AUTH_ENDPOINT) { 
+                if ((window.location.origin + `/`) === process.env.AUTH_ENDPOINT) {
                     if (history.length > 1) {
                         history.goBack();
                     } else {
-                        history.push("/")
+                        history.push(`/`);
                     }
                 }
             }
             return;
         });
 }
-

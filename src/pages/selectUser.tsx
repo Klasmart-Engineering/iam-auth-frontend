@@ -1,43 +1,45 @@
+import { getMyUsers } from "../api/getMyUsers";
+import { User } from "../api/queries/me";
+import {
+    refreshToken,
+    switchUser,
+} from "../api/restapi";
+import config from "../config";
+import Avatar from '@material-ui/core/Avatar';
 import Grid from "@material-ui/core/Grid";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import * as React from "react";
-import { useHistory } from "react-router";
-import useTheme from "@material-ui/core/styles/useTheme";
-import { getMyUsers, myUserSampleResponse } from "../api/getMyUsers";
+import IconButton from "@material-ui/core/IconButton";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Skeleton from '@material-ui/lab/Skeleton';
-import QueryString from "query-string";
-import EditAttributesIcon from '@material-ui/icons/EditAttributes';
-
-import { useEffect, useMemo, useState } from "react";
-import { User } from "../api/queries/me";
-import { utils } from "kidsloop-px";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-
+import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-import Tooltip from "@material-ui/core/Tooltip";
+import Skeleton from '@material-ui/lab/Skeleton';
+import { utils } from "kidsloop-px";
+import QueryString from "query-string";
+import * as React from "react";
+import {
+    useEffect,
+    useState,
+} from "react";
 import { FormattedMessage } from "react-intl";
-import { refreshToken, switchUser } from "../api/restapi";
-import { useQuery } from "@apollo/client/react/hooks/useQuery";
-import config from "../config"
+import { useHistory } from "react-router";
 
-const useStyles = makeStyles((theme) => createStyles({}));
-
-export function SelectUser() {
+export function SelectUser () {
     const history = useHistory();
-    const [users, setUsers] = useState<User[]>([]);
+    const [ users, setUsers ] = useState<User[]>([]);
 
-    const { loading, data, refetch, error } = getMyUsers({
+    const {
+        loading,
+        data,
+        refetch,
+        error,
+    } = getMyUsers({
         fetchPolicy: `network-only`,
-    })
+    });
 
     useEffect(() => {
         if (error) {
@@ -49,47 +51,49 @@ export function SelectUser() {
             setUsers(data.my_users);
         }
         if (data?.my_users.length === 1) {
-            handleClick(data?.my_users[0])
+            handleClick(data?.my_users[0]);
         }
-    }, [loading, data])
+    }, [ loading, data ]);
 
     const switchUsers = async (userId: string) => {
         try {
-            const response = await switchUser(userId)
+            const response = await switchUser(userId);
             return response;
         } catch (error) {
-            console.log("Error switching user: ", error);
+            console.log(`Error switching user: `, error);
         }
-    }
+    };
 
     const handleClick = (user: User, edit?: string) => {
         const userId = user.user_id;
-        const queryString = QueryString.stringify({ userId })
+        const queryString = QueryString.stringify({
+            userId,
+        });
 
-        console.log(`handleClick`, user)
+        console.log(`handleClick`, user);
 
         if (!(user.given_name || user.username)) {
-            history.push(`/createprofile/name?${queryString}`)
+            history.push(`/createprofile/name?${queryString}`);
             return;
         }
 
-        if (edit === "name") {
-            history.push(`/createprofile/name?${queryString}`)
+        if (edit === `name`) {
+            history.push(`/createprofile/name?${queryString}`);
             return;
-        } else if (edit === "birthday") {
-            history.push(`/createprofile/birthday?${queryString}`)
-            return;  
+        } else if (edit === `birthday`) {
+            history.push(`/createprofile/birthday?${queryString}`);
+            return;
         } else {
             switchUsers(userId)
-                .then((response) => {
-                    history.push(`/continue?${queryString}`)
+                .then(() => {
+                    history.push(`/continue?${queryString}`);
                 })
                 .catch((error) => {
                     console.log(`Error handling click: `, error);
-                })
+                });
             return;
         }
-    }
+    };
 
     const handleName = (user: User) => {
         if (user.given_name) {
@@ -99,36 +103,47 @@ export function SelectUser() {
         } else {
             return `Name not set`;
         }
-    }
+    };
 
-    function renderList() {
+    function renderList () {
         if (loading) {
             return (
                 <ListItem>
                     <ListItemAvatar>
-                        <Skeleton animation="wave" variant="circle">
+                        <Skeleton
+                            animation="wave"
+                            variant="circle">
                             <Avatar />
                         </Skeleton>
                     </ListItemAvatar>
-                    <ListItemText 
-                        primary={<Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />} 
-                        secondary={<Skeleton animation="wave" height={10} width="40%" />} 
+                    <ListItemText
+                        primary={<Skeleton
+                            animation="wave"
+                            height={10}
+                            width="80%"
+                            style={{
+                                marginBottom: 6,
+                            }} />}
+                        secondary={<Skeleton
+                            animation="wave"
+                            height={10}
+                            width="40%" />}
                     />
                 </ListItem>
-            )
+            );
         } else if (users.length > 0) {
             return (
-                users.map((user) => 
-                    <ListItem 
+                users.map((user) =>
+                    <ListItem
+                        key={user.user_id}
                         button
-                        key={user.user_id} 
                         onClick={() => handleClick(user) }
                     >
                         <ListItemAvatar>
-                            <Avatar 
-                                style={{ 
-                                    backgroundColor: utils.stringToColor(user.given_name + " " + user.family_name),
-                                    color: "white"
+                            <Avatar
+                                style={{
+                                    backgroundColor: utils.stringToColor(user.given_name + ` ` + user.family_name),
+                                    color: `white`,
                                 }}
                             >
                                 <Typography variant="caption">
@@ -136,36 +151,42 @@ export function SelectUser() {
                                 </Typography>
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={handleName(user)} secondary={user.date_of_birth} />
-                            <ListItemSecondaryAction>
-                                { (user.given_name || user.username) && !user.date_of_birth &&  
+                        <ListItemText
+                            primary={handleName(user)}
+                            secondary={user.date_of_birth} />
+                        <ListItemSecondaryAction>
+                            { (user.given_name || user.username) && !user.date_of_birth &&
                                     <Tooltip title={<FormattedMessage id="selectProfile_tooltipBirthday" />}>
-                                        <IconButton 
-                                            aria-label="birthday" 
+                                        <IconButton
+                                            aria-label="birthday"
                                             edge="end"
-                                            onClick={() => handleClick(user, "birthday")}
-                                            style={{ color: "#9e9e9e" }}
+                                            style={{
+                                                color: `#9e9e9e`,
+                                            }}
+                                            onClick={() => handleClick(user, `birthday`)}
                                         >
                                             <EventRoundedIcon />
                                         </IconButton>
                                     </Tooltip>
-                                }
-                                { !(user.given_name || user.username) &&
+                            }
+                            { !(user.given_name || user.username) &&
                                     <Tooltip title={<FormattedMessage id="selectProfile_tooltipName" />}>
-                                        <IconButton 
-                                            aria-label="warning" 
+                                        <IconButton
+                                            aria-label="warning"
                                             edge="end"
-                                            onClick={() => handleClick(user, "name")}
-                                            style={{ color: "#F4970A" }}
+                                            style={{
+                                                color: `#F4970A`,
+                                            }}
+                                            onClick={() => handleClick(user, `name`)}
                                         >
                                             <WarningRoundedIcon />
                                         </IconButton>
                                     </Tooltip>
-                                }
-                                {/* { (user.given_name || user.username) && user.date_of_birth && 
+                            }
+                            {/* { (user.given_name || user.username) && user.date_of_birth &&
                                     <Tooltip title={<FormattedMessage id="Edit Profile" />}>
-                                        <IconButton 
-                                            aria-label="change info" 
+                                        <IconButton
+                                            aria-label="change info"
                                             edge="end"
                                             onClick={() => handleClick(user, "name")}
                                             style={{ color: "#9e9e9e" }}
@@ -174,16 +195,19 @@ export function SelectUser() {
                                         </IconButton>
                                     </Tooltip>
                                 } */}
-                            </ListItemSecondaryAction>
-                    </ListItem>
-                )
-            )
+                        </ListItemSecondaryAction>
+                    </ListItem>)
+            );
         } else {
             return (
-                <Typography variant="body2" align="center">
+                <Typography
+                    variant="body2"
+                    align="center">
                     <FormattedMessage
                         id="selectProfile_noOrgSubtitle"
-                        values={{ platformName: config.branding.company.name }}
+                        values={{
+                            platformName: config.branding.company.name,
+                        }}
                     />
                 </Typography>
             );
@@ -192,9 +216,13 @@ export function SelectUser() {
 
     return (
         <React.Fragment>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 { !loading &&
-                    <Typography variant="h4" align="center">
+                    <Typography
+                        variant="h4"
+                        align="center">
                         { (users.length > 0) ?
                             <FormattedMessage id="selectProfile_title" /> :
                             <FormattedMessage id="selectProfile_noOrgTitle"/>
@@ -202,7 +230,13 @@ export function SelectUser() {
                     </Typography>
                 }
             </Grid>
-            <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Grid
+                item
+                xs={12}
+                style={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                }}>
                 <List>
                     { renderList() }
                 </List>

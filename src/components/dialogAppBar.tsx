@@ -1,20 +1,24 @@
+import config from "../config";
+import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import {
+    createStyles,
+    makeStyles,
+    Theme,
+} from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import PrimaryLogo from "@branding/assets/img/primary_logo.svg"
-import config from "../config"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appBar: {
-            position: "relative",
+            position: `relative`,
         },
         title: {
             marginLeft: theme.spacing(2),
@@ -29,20 +33,40 @@ interface Props {
     toolbarBtn?: React.ReactNode;
 }
 
-export default function DialogAppBar(props: Props) {
+export default function DialogAppBar (props: Props) {
     const classes = useStyles();
-    const { handleClose, subtitleID, titleID, toolbarBtn } = props;
+    const {
+        handleClose,
+        subtitleID,
+        titleID,
+        toolbarBtn,
+    } = props;
 
     return (
         <>
-            <AppBar color="inherit" className={classes.appBar}>
+            <AppBar
+                color="inherit"
+                className={classes.appBar}>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="close"
+                        onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>
-                    <Grid container item wrap="nowrap">
-                        <img alt={`${config.branding.company.name} Logo`} className={classes.title} src={PrimaryLogo} height={32} />
-                        <Typography id="nav-menu-title" variant="h6">
+                    <Grid
+                        container
+                        item
+                        wrap="nowrap">
+                        <img
+                            alt={`${config.branding.company.name} Logo`}
+                            className={classes.title}
+                            src={PrimaryLogo}
+                            height={32} />
+                        <Typography
+                            id="nav-menu-title"
+                            variant="h6">
                             {titleID}
                         </Typography>
                     </Grid>
@@ -54,9 +78,16 @@ export default function DialogAppBar(props: Props) {
                     container
                     direction="row"
                 >
-                    <Paper square style={{ flex: 1, height: "100%" }}>
+                    <Paper
+                        square
+                        style={{
+                            flex: 1,
+                            height: `100%`,
+                        }}>
                         <Toolbar variant="dense">
-                            <Typography id="nav-menu-description" variant="body2">
+                            <Typography
+                                id="nav-menu-description"
+                                variant="body2">
                                 <FormattedMessage id={subtitleID} />
                             </Typography>
                         </Toolbar>

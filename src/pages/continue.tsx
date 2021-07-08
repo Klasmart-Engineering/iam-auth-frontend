@@ -1,61 +1,72 @@
-import Grid from "@material-ui/core/Grid";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import * as React from "react";
-import { useContext, useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
-import { useLocation } from "react-router";
 import StyledButton from "../components/button";
-import Alert from "@material-ui/lab/Alert";
-import useTheme from "@material-ui/core/styles/useTheme";
-import QueryString from "query-string";
+import config from "../config";
 import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
-import { Domain, DOMAINS } from "./regionSelect";
-import config from "../config";
 import { useLocaleState } from "../utils/localeState";
+import {
+    Domain,
+    DOMAINS,
+} from "./regionSelect";
+import Grid from "@material-ui/core/Grid";
+import {
+    createStyles,
+    makeStyles,
+} from "@material-ui/core/styles";
+import useTheme from "@material-ui/core/styles/useTheme";
+import Typography from "@material-ui/core/Typography";
+import Alert from "@material-ui/lab/Alert";
+import QueryString from "query-string";
+import * as React from "react";
+import {
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+import { FormattedMessage } from "react-intl";
+import { useLocation } from "react-router";
 
-const DEFAULT_REDIRECT_LINK = process.env.REDIRECT_LINK || "https://hub.kidsloop.live";
+const DEFAULT_REDIRECT_LINK =
+    process.env.REDIRECT_LINK || `https://hub.kidsloop.live`;
 
-const useStyles = makeStyles((theme) => createStyles({
-    card: {
-        alignItems: "center",
-        display: "flex",
-        padding: "48px 40px !important",
-    },
-    errorIcon: {
-        fontSize: "1em",
-        marginRight: theme.spacing(1),
-    },
-    formContainer: {
-        width: "100%",
-    },
-    googleSSO: {
-        justifyContent: "center",
-        width: "100%",
-        fontFamily: "inherit !important",
-    },
-    link: {
-        textAlign: "center",
-    },
-    pageWrapper: {
-        display: "flex",
-        flexGrow: 1,
-        height: "100vh",
-    },
-}),
-);
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        card: {
+            alignItems: `center`,
+            display: `flex`,
+            padding: `48px 40px !important`,
+        },
+        errorIcon: {
+            fontSize: `1em`,
+            marginRight: theme.spacing(1),
+        },
+        formContainer: {
+            width: `100%`,
+        },
+        googleSSO: {
+            justifyContent: `center`,
+            width: `100%`,
+            fontFamily: `inherit !important`,
+        },
+        link: {
+            textAlign: `center`,
+        },
+        pageWrapper: {
+            display: `flex`,
+            flexGrow: 1,
+            height: `100vh`,
+        },
+    }));
 
-export function Continue() {
+export function Continue () {
     const classes = useStyles();
     const theme = useTheme();
     const location: any = useLocation();
     const urlContext = useContext(URLContext);
 
-    const url = new URL(window.location.href)
-    const [cordova, _] = useState(urlContext.uaParam);
-    const [continueLink, setContinueLink] = useState(url.searchParams.get("continue") || DEFAULT_REDIRECT_LINK);
-    const [seconds, setSeconds] = useState(10);
+    const url = new URL(window.location.href);
+    const [ cordova ] = useState(urlContext.uaParam);
+    const [ continueLink, setContinueLink ] = useState(url.searchParams.get(`continue`) || DEFAULT_REDIRECT_LINK);
+    const [ seconds, setSeconds ] = useState(10);
 
     const { locale } = useLocaleState();
 
@@ -63,25 +74,27 @@ export function Continue() {
         redirectIfUnauthorized();
     }
 
-    const [continueError, setContinueError] = useState<JSX.Element | null>(null);
+    const [ continueError, setContinueError ] = useState<JSX.Element | null>(null);
 
     const regex = new RegExp(`(https?:\\/\\/(.+?\\.))?${process.env.SLD}\\.${process.env.TLD}(\\/[A-Za-z0-9\\-\\._~:\\/\\?#\\[\\]@!$&'\\(\\)\\*\\+,;\\=]*)?`);
-    if (regex.test(continueLink)) {}
-    else {
+    if (!regex.test(continueLink)) {
         setContinueLink(DEFAULT_REDIRECT_LINK);
-        setContinueError(
-            <Alert severity="warning" style={{ padding: theme.spacing(1, 2) }}>
-                <FormattedMessage
-                    id={"error_invalidRedirectLink"}
-                    values={{
-                        em: (...chunks: any[]) => <em>{chunks}</em>,
-                        continueLink: continueLink,
-                        defaultLink: DEFAULT_REDIRECT_LINK,
-                        platformName: config.branding.company.name
-                    }}
-                />
-            </Alert>
-        )    
+        setContinueError(<Alert
+            severity="warning"
+            style={{
+                padding: theme.spacing(1, 2),
+            }}
+        >
+            <FormattedMessage
+                id={`error_invalidRedirectLink`}
+                values={{
+                    em: (...chunks: any[]) => <em>{chunks}</em>,
+                    continueLink: continueLink,
+                    defaultLink: DEFAULT_REDIRECT_LINK,
+                    platformName: config.branding.company.name,
+                }}
+            />
+        </Alert>);
     }
 
     useEffect(() => {
@@ -91,29 +104,43 @@ export function Continue() {
             setSeconds(seconds - 1);
         }, 1000);
 
-        if (seconds === 6) { handleSuccess() }
+        if (seconds === 6) {
+            handleSuccess();
+        }
 
         return () => clearInterval(interval);
-    }, [seconds])
+    }, [ seconds ]);
 
-    function handleSuccess() {
-        console.log("continueLink " + continueLink);
-        console.log("document.referrer " + document.referrer);
+    function handleSuccess () {
+        console.log(`continueLink ` + continueLink);
+        console.log(`document.referrer ` + document.referrer);
 
         if (window.self !== window.top) {
-            window.parent.postMessage({message: "message"}, "*");
+            window.parent.postMessage({
+                message: `message`,
+            }, `*`);
         } else if (cordova) {
             // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
-            const queryParams: { token: string; region?: string; iso?: string; locale?: string; } = 
-                { token: location.state.token, iso: locale, locale: locale };
+            const queryParams: {
+                token: string;
+                region?: string;
+                iso?: string;
+                locale?: string;
+            } = {
+                token: location.state.token,
+                iso: locale,
+                locale: locale,
+            };
             const domain = url.hostname as Domain;
             if (DOMAINS.includes(domain)) {
                 queryParams.region = domain;
             }
             const queryString = QueryString.stringify(queryParams);
-            window.open(`kidsloopstudent://?${queryString}`, "_system");
+            window.open(`kidsloopstudent://?${queryString}`, `_system`);
         } else {
-            if (document.referrer) { window.location.replace(document.referrer); }
+            if (document.referrer) {
+                window.location.replace(document.referrer);
+            }
             window.location.replace(continueLink);
         }
 
@@ -122,47 +149,70 @@ export function Continue() {
 
     return (
         <React.Fragment>
-            <Grid item xs={12}>
-                <Typography variant="h4" align="center">
-                    <FormattedMessage id={"continue_signInSuccess"} />
+            <Grid
+                item
+                xs={12}>
+                <Typography
+                    variant="h4"
+                    align="center">
+                    <FormattedMessage id={`continue_signInSuccess`} />
                 </Typography>
             </Grid>
-            { !cordova &&
+            {!cordova && (
                 <>
-                    <Grid item xs={12}>
-                        <Typography variant="body2" align="center">
+                    <Grid
+                        item
+                        xs={12}>
+                        <Typography
+                            variant="body2"
+                            align="center">
                             <FormattedMessage
-                                id={"continue_continuePrompt"}
-                                values={{ 
+                                id={`continue_continuePrompt`}
+                                values={{
                                     em: (...chunks: any[]) => <em>{chunks}</em>,
-                                    continueLink: continueLink 
+                                    continueLink: continueLink,
                                 }}
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="body2" align="center">
+                    <Grid
+                        item
+                        xs={12}>
+                        <Typography
+                            variant="body2"
+                            align="center">
                             <FormattedMessage
-                                id={"continue_countdownToContinue"}
-                                values={{ seconds: seconds }}
+                                id={`continue_countdownToContinue`}
+                                values={{
+                                    seconds: seconds,
+                                }}
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                        { continueError === null ? null :
-                                <Typography align="left" variant="body2">
-                                    {continueError}
-                                </Typography>
-                        }
+                    <Grid
+                        item
+                        xs={12}>
+                        {continueError === null ? null : (
+                            <Typography
+                                align="left"
+                                variant="body2">
+                                {continueError}
+                            </Typography>
+                        )}
                     </Grid>
                 </>
-            }   
-            <Grid item xs={12} className={classes.link}>
+            )}
+            <Grid
+                item
+                xs={12}
+                className={classes.link}>
                 <StyledButton
                     extendedOnly
                     size="medium"
                     type="submit"
-                    onClick={() => {handleSuccess()}}
+                    onClick={() => {
+                        handleSuccess();
+                    }}
                 >
                     <FormattedMessage id="button_continue" />
                 </StyledButton>

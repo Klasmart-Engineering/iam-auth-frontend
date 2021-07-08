@@ -1,15 +1,15 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
+const path = require(`path`);
+const HtmlWebpackPlugin = require(`html-webpack-plugin`);
+const webpack = require(`webpack`);
 
-const { loadBrandingOptions } = require("kidsloop-branding");
+const { loadBrandingOptions } = require(`kidsloop-branding`);
 
 const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
 module.exports = {
-    mode: "production",
+    mode: `production`,
     entry: {
-        ui: "./src/entry.tsx",
+        ui: `./src/entry.tsx`,
     },
     module: {
         rules: [
@@ -17,30 +17,30 @@ module.exports = {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
-                }
+                    loader: `babel-loader`,
+                },
             },
             {
                 test: /\.css$/i,
                 use: [
                     {
-                        loader: "style-loader",
+                        loader: `style-loader`,
                     },
-                    "css-modules-typescript-loader",
+                    `css-modules-typescript-loader`,
                     {
-                        loader: "css-loader",
+                        loader: `css-loader`,
                         options: {
-                            modules: true
-                        }
-                    }
+                            modules: true,
+                        },
+                    },
                 ],
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
                 use: [
-                    "file-loader",
+                    `file-loader`,
                     {
-                        loader: "image-webpack-loader",
+                        loader: `image-webpack-loader`,
                         options: {
                             // mozjpeg: {
                             //     progressive: true,
@@ -51,49 +51,52 @@ module.exports = {
                             //     enabled: false,
                             // },
                             pngquant: {
-                                quality: [0.65, 0.90],
-                                speed: 4
+                                quality: [ 0.65, 0.90 ],
+                                speed: 4,
                             },
-                        }
+                        },
                     },
                 ],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    "file-loader",
-                ],
+                use: [ `file-loader` ],
             },
             {
                 test: /\.mp4$/,
-                use: "file-loader?name=videos/[name].[ext]",
+                use: `file-loader?name=videos/[name].[ext]`,
             },
         ],
     },
     resolve: {
-        extensions: [".js", ".jsx", ".tsx", ".ts"],
+        extensions: [
+            `.js`,
+            `.jsx`,
+            `.tsx`,
+            `.ts`,
+        ],
         alias: {
-            react: path.resolve("./node_modules/react"),
+            react: path.resolve(`./node_modules/react`),
             ...brandingOptions.webpack.resolve.alias,
         },
     },
     output: {
-        filename: "[name][fullhash].js",
-        path: path.resolve(__dirname, "dist"),
+        filename: `[name][fullhash].js`,
+        path: path.resolve(__dirname, `dist`),
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./index.html",
+            template: `./index.html`,
             ...brandingOptions.webpack.html,
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.alpha.kidsloop.net/",
-            "AUTH_ENDPOINT": "https://auth.alpha.kidsloop.net/",
-            "REDIRECT_LINK": "https://hub.alpha.kidsloop.net/",
-            "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
-            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.badanamu.net",
-            "SLD": "kidsloop",
-            "TLD": "net",
-        })
+            API_ENDPOINT: `https://api.alpha.kidsloop.net/`,
+            AUTH_ENDPOINT: `https://auth.alpha.kidsloop.net/`,
+            REDIRECT_LINK: `https://hub.alpha.kidsloop.net/`,
+            ACCOUNT_ENDPOINT_BADANAMU: `https://ams-account.badanamu.net`,
+            AUTH_ENDPOINT_BADANAMU: `https://ams-auth.badanamu.net`,
+            SLD: `kidsloop`,
+            TLD: `net`,
+        }),
     ],
 };

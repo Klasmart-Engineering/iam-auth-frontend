@@ -1,5 +1,5 @@
-import { BrandingOptions } from "kidsloop-branding";
 import { brandingConfig } from "@branding";
+import { BrandingOptions } from "kidsloop-branding";
 
 const config: {
     branding: BrandingOptions;
@@ -12,7 +12,7 @@ const config: {
         domain:
             process.env.SLD && process.env.TLD
                 ? `${process.env.SLD}.${process.env.TLD}`
-                : "kidsloop.net",
+                : `kidsloop.net`,
     },
 };
 

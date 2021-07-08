@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client";
 import { User } from "./me";
+import { gql } from "@apollo/client";
 
 export interface GetMyUsersResponse {
     my_users: User[];

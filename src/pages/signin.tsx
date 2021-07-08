@@ -1,107 +1,117 @@
+import { getMyInformation } from "../api/getMyInformation";
+import { transferSession } from "../api/restapi";
+import StyledButton from "../components/button";
+import CenterAlignChildren from "../components/centerAlignChildren";
+import StyledTextField from "../components/textfield";
+import config from "../config";
+import { URLContext } from "../entry";
+import * as restApi from "../restapi";
+import {
+    RestAPIError,
+    RestAPIErrorType,
+} from "../restapi_errors";
+import { useLocaleState } from "../utils/localeState";
+import {
+    Domain,
+    DOMAINS,
+} from "./regionSelect";
+import Checkbox from "@material-ui/core/Checkbox";
+import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import {
+    createStyles,
+    makeStyles,
+} from "@material-ui/core/styles";
+import useTheme from "@material-ui/core/styles/useTheme";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import ErrorIcon from "@material-ui/icons/Error";
+import QueryString from "query-string";
 import * as React from "react";
-import { useContext, useEffect, useMemo, useState } from "react";
+import {
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
-import * as restApi from "../restapi";
-import { RestAPIError, RestAPIErrorType } from "../restapi_errors";
-import CenterAlignChildren from "../components/centerAlignChildren";
-import StyledButton from "../components/button";
-import StyledTextField from "../components/textfield";
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
-import Divider from '@material-ui/core/Divider';
-import useTheme from "@material-ui/core/styles/useTheme";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import withStyles from "@material-ui/core/styles/withStyles";
-import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
-import Collapse from '@material-ui/core/Collapse';
-import Cookies, { useCookies } from "react-cookie";
-import { getMyInformation } from "../api/getMyInformation";
-import { refreshToken, transferSession } from "../api/restapi";
-import QueryString from "query-string"
-import { URLContext } from "../entry";
-import { Domain, DOMAINS } from "./regionSelect";
-import config from "../config";
-import { useLocaleState } from "../utils/localeState";
-
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
-        alignItems: "center",
-        display: "flex",
-        padding: "48px 40px !important",
+        alignItems: `center`,
+        display: `flex`,
+        padding: `48px 40px !important`,
     },
     errorIcon: {
-        fontSize: "1em",
+        fontSize: `1em`,
         marginRight: theme.spacing(1),
     },
     formContainer: {
-        width: "100%",
+        width: `100%`,
     },
     pageWrapper: {
-        display: "flex",
+        display: `flex`,
         flexGrow: 1,
-        height: "100vh",
+        height: `100vh`,
     },
-}),
-);
+}));
 
 const StyledCheckbox = withStyles({
     root: {
-        color: "#0E78D5",
+        color: `#0E78D5`,
         '&$checked': {
-            color: "#0E78D5",
+            color: `#0E78D5`,
         },
     },
     checked: {},
-})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+})((props: CheckboxProps) => <Checkbox
+    color="default"
+    {...props} />);
 
-export function SignIn() {
+export function SignIn () {
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
     const url = useContext(URLContext);
-    const [cookies, setCookies] = useCookies(["privacy"]);
+    const [ cookies, setCookies ] = useCookies([ `privacy` ]);
 
     const { locale } = useLocaleState();
 
-    const [inFlight, setInFlight] = useState(false);
-    const [checked, setChecked] = useState((cookies.privacy === "true") || false);
+    const [ inFlight, setInFlight ] = useState(false);
+    const [ checked, setChecked ] = useState((cookies.privacy === `true`) || false);
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [ email, setEmail ] = useState(``);
+    const [ password, setPassword ] = useState(``);
 
-    const [passwordError, setPasswordError] = useState<JSX.Element | null>(null);
-    const [emailError, setEmailError] = useState<JSX.Element | null>(null);
-    const [generalError, setGeneralError] = useState<JSX.Element | null>(null);
-    const [checkmarkError, setCheckmarkError] = useState<JSX.Element | null>(null);
+    const [ passwordError, setPasswordError ] = useState<JSX.Element | null>(null);
+    const [ emailError, setEmailError ] = useState<JSX.Element | null>(null);
+    const [ generalError, setGeneralError ] = useState<JSX.Element | null>(null);
+    const [ checkmarkError, setCheckmarkError ] = useState<JSX.Element | null>(null);
     const [ skip, setSkip ] = useState(false);
 
-    const { loading, data, error } = getMyInformation({
-        skip
+    const { data } = getMyInformation({
+        skip,
     });
 
     useEffect(() => {
-        console.log(url.uaParam)
+        console.log(url.uaParam);
 
         if (data?.me) {
             setSkip(true);
         }
 
         if (data?.me && url.uaParam === null) {
-            history.push('/selectprofile')
+            history.push(`/selectprofile`);
         }
-    }, [data]);
+    }, [ data ]);
 
-    async function login() {
+    async function login () {
         setEmailError(null);
         setPasswordError(null);
         setCheckmarkError(null);
@@ -110,15 +120,13 @@ export function SignIn() {
 
         try {
             setInFlight(true);
-            if (email === "") { throw new Error("EMPTY_EMAIL"); }
-            if (password === "") { throw new Error("EMPTY_PASSWORD"); }
+            if (email === ``) { throw new Error(`EMPTY_EMAIL`); }
+            if (password === ``) { throw new Error(`EMPTY_PASSWORD`); }
             if (!checked) {
-                setCheckmarkError(
-                    <CenterAlignChildren>
-                        <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage id={"Please accept the Privacy Policy to sign in."} />
-                    </CenterAlignChildren>
-                );
+                setCheckmarkError(<CenterAlignChildren>
+                    <ErrorIcon className={classes.errorIcon} />
+                    <FormattedMessage id={`Please accept the Privacy Policy to sign in.`} />
+                </CenterAlignChildren>);
                 return;
             }
 
@@ -133,46 +141,56 @@ export function SignIn() {
         return;
     }
 
-    async function transferLogin(token: string) {
-        if (url.uaParam === "cordova") {
+    async function transferLogin (token: string) {
+        if (url.uaParam === `cordova`) {
             // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
-            const queryParams: { token: string; region?: string; iso?: string; locale?: string; } = { token: token, iso: locale, locale: locale };
+            const queryParams: { token: string; region?: string; iso?: string; locale?: string } = {
+                token: token,
+                iso: locale,
+                locale: locale,
+            };
             const domain = url.hostName as Domain;
             if (DOMAINS.includes(domain)) {
                 queryParams.region = domain;
             }
             const queryString = QueryString.stringify(queryParams);
-            window.open(`kidsloopstudent://?${queryString}`, "_system");
+            window.open(`kidsloopstudent://?${queryString}`, `_system`);
             return true;
-        } else if (url.uaParam === "cordovaios") {
-            history.push({ pathname: "/continue", search: "?ua=cordova", state: { token: token, locale: locale }});
+        } else if (url.uaParam === `cordovaios`) {
+            history.push({
+                pathname: `/continue`,
+                search: `?ua=cordova`,
+                state: {
+                    token: token,
+                    locale: locale,
+                },
+            });
             return true;
         } else {
-            const transfer = await transferSession(token)
+            const transfer = await transferSession(token);
             if (transfer) {
-                history.push('/selectprofile');
+                history.push(`/selectprofile`);
                 return true;
             }
         }
         return false;
     }
 
-    function handleError(e: RestAPIError | Error) {
+    function handleError (e: RestAPIError | Error) {
         if (!(e instanceof RestAPIError)) {
-            if (e.toString().search("EMPTY_EMAIL") !== -1) {
-                setEmailError(
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                        <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage id="emailOrPhone.empty" />
-                    </span>,
-                );
-            } else if (e.toString().search("EMPTY_PASSWORD") !== -1) {
-                setPasswordError(
-                    <CenterAlignChildren>
-                        <ErrorIcon className={classes.errorIcon} />
-                        <FormattedMessage id="error_emptyPassword" />
-                    </CenterAlignChildren>,
-                );
+            if (e.toString().search(`EMPTY_EMAIL`) !== -1) {
+                setEmailError(<span style={{
+                    display: `flex`,
+                    alignItems: `center`,
+                }}>
+                    <ErrorIcon className={classes.errorIcon} />
+                    <FormattedMessage id="emailOrPhone.empty" />
+                </span>);
+            } else if (e.toString().search(`EMPTY_PASSWORD`) !== -1) {
+                setPasswordError(<CenterAlignChildren>
+                    <ErrorIcon className={classes.errorIcon} />
+                    <FormattedMessage id="error_emptyPassword" />
+                </CenterAlignChildren>);
             } else {
                 console.error(e);
             }
@@ -181,81 +199,95 @@ export function SignIn() {
         const id = e.getErrorMessageID();
         const errorMessage = <FormattedMessage id={id} />;
         switch (e.getErrorMessageType()) {
-            case RestAPIErrorType.INVALID_LOGIN:
-            case RestAPIErrorType.INPUT_INVALID_FORMAT:
-                setEmailError(errorMessage);
-                break;
-            case RestAPIErrorType.INVALID_PASSWORD:
-                setPasswordError(errorMessage);
-                break;
-            case RestAPIErrorType.EMAIL_NOT_VERIFIED:
-                history.push("/verify-email");
-                break;
-            case RestAPIErrorType.EMAIL_NOT_VERIFIED:
-                history.push("/verify-phone");
-                break;
-            case RestAPIErrorType.ACCOUNT_BANNED:
-            default:
-                setGeneralError(errorMessage);
-                break;
+        case RestAPIErrorType.INVALID_LOGIN:
+        case RestAPIErrorType.INPUT_INVALID_FORMAT:
+            setEmailError(errorMessage);
+            break;
+        case RestAPIErrorType.INVALID_PASSWORD:
+            setPasswordError(errorMessage);
+            break;
+        case RestAPIErrorType.EMAIL_NOT_VERIFIED:
+            history.push(`/verify-email`);
+            break;
+        case RestAPIErrorType.PHONE_NUMBER_NOT_VERIFIED:
+            history.push(`/verify-phone`);
+            break;
+        case RestAPIErrorType.ACCOUNT_BANNED:
+        default:
+            setGeneralError(errorMessage);
+            break;
         }
     }
 
     const handleCheckbox = () => {
         const isChecked = checked;
-        const domain = process.env.SLD + "." + process.env.TLD;
+        const domain = process.env.SLD + `.` + process.env.TLD;
 
-        setCookies("privacy", !isChecked, { path: "/", domain: domain || "kidsloop.live" });
+        setCookies(`privacy`, !isChecked, {
+            path: `/`,
+            domain: domain || `kidsloop.live`,
+        });
         setChecked(!isChecked);
-    }
+    };
 
     return (
         <React.Fragment>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 <Typography variant="h4">
                     <FormattedMessage
-                        id={"login_loginPrompt"}
-                        values={{ b: (...chunks: any[]) => <strong>{chunks}</strong> }}
+                        id={`login_loginPrompt`}
+                        values={{
+                            b: (...chunks: any[]) => <strong>{chunks}</strong>,
+                        }}
                     />
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 <StyledTextField
-                    autoComplete="email"
                     autoFocus
-                    error={emailError !== null}
                     fullWidth
+                    autoComplete="email"
+                    error={emailError !== null}
                     helperText={emailError}
                     id="email-input"
                     label={<FormattedMessage id="emailOrPhone.label" />}
+                    value={email}
                     onBlur={(e) => setEmail(e.target.value.trim())}
                     onChange={(e) => setEmail(e.target.value)}
-                    value={email}
                 />
                 <StyledTextField
+                    fullWidth
                     autoComplete="current-password"
                     error={passwordError !== null}
-                    fullWidth
                     helperText={passwordError}
                     id="password-input"
                     label={<FormattedMessage id="form_passwordLabel" />}
-                    onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     onKeyPress={(e) => {
-                        if (e.key === "Enter") {
+                        if (e.key === `Enter`) {
                             login();
                             e.preventDefault();
-                        };
+                        }
                     }}
                 />
-                <Grid container justify="space-between" style={{ paddingTop: theme.spacing(1) }}>
+                <Grid
+                    container
+                    justify="space-between"
+                    style={{
+                        paddingTop: theme.spacing(1),
+                    }}>
                     <Grid item>
                         <Link
                             href="#"
                             variant="subtitle2"
                             onClick={(e: React.MouseEvent) => {
-                                window.location.href="/account/#/password-forgot";
+                                window.location.href=`/account/#/password-forgot`;
                                 e.preventDefault();
                             }}
                         >
@@ -267,7 +299,7 @@ export function SignIn() {
                             href="#"
                             variant="subtitle2"
                             onClick={(e: React.MouseEvent) => {
-                                window.location.href="/account/#/signup";
+                                window.location.href=`/account/#/signup`;
                                 e.preventDefault();
                             }}
                         >
@@ -275,15 +307,28 @@ export function SignIn() {
                         </Link>
                     </Grid>
                 </Grid>
-                <Grid container justify="space-between" style={{ padding: theme.spacing(1, 0) }}>
-                    <Grid item xs={12} style={{ paddingTop: 0, paddingBottom: 0 }}>
+                <Grid
+                    container
+                    justify="space-between"
+                    style={{
+                        padding: theme.spacing(1, 0),
+                    }}>
+                    <Grid
+                        item
+                        xs={12}
+                        style={{
+                            paddingTop: 0,
+                            paddingBottom: 0,
+                        }}>
                         <FormControlLabel
                             control={
                                 <StyledCheckbox
                                     checked={checked}
                                     checkedIcon={<CheckBoxIcon fontSize="small" />}
                                     icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                                    inputProps={{ 'aria-label': 'policy-checkbox' }}
+                                    inputProps={{
+                                        'aria-label': `policy-checkbox`,
+                                    }}
                                     onChange={() => handleCheckbox()}
                                 />
                             }
@@ -299,9 +344,14 @@ export function SignIn() {
                                 </Typography>
                             }
                         />
-                        <Grid item xs={12}>
+                        <Grid
+                            item
+                            xs={12}>
                             {checkmarkError === null ? null :
-                                <Typography align="left" color="error" variant="caption">
+                                <Typography
+                                    align="left"
+                                    color="error"
+                                    variant="caption">
                                     {checkmarkError}
                                 </Typography>
                             }
@@ -309,12 +359,14 @@ export function SignIn() {
                     </Grid>
                 </Grid>
                 <StyledButton
-                    disabled={inFlight}
                     fullWidth
-                    onClick={() => login()}
+                    disabled={inFlight}
                     size="medium"
-                    style={{ marginTop: theme.spacing(1) }}
+                    style={{
+                        marginTop: theme.spacing(1),
+                    }}
                     type="submit"
+                    onClick={() => login()}
                 >
                     {
                         inFlight ?
@@ -323,9 +375,14 @@ export function SignIn() {
                     }
                 </StyledButton>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
                 {generalError === null ? null :
-                    <Typography align="left" color="error" variant="body2">
+                    <Typography
+                        align="left"
+                        color="error"
+                        variant="body2">
                         {generalError}
                     </Typography>
                 }

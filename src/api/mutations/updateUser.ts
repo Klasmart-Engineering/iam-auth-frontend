@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client";
 import { User } from "../queries/me";
+import { gql } from "@apollo/client";
 
 export interface UpdateUserRequest {
     user_id: string;

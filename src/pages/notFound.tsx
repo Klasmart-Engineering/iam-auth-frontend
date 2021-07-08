@@ -1,77 +1,97 @@
-import Grid from "@material-ui/core/Grid";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
-import StyledButton from "../components/button";
-import Alert from "@material-ui/lab/Alert";
-import useTheme from "@material-ui/core/styles/useTheme";
-
 import NotFound1 from "../../assets/img/not_found/1.png";
 import NotFound2 from "../../assets/img/not_found/2.png";
 import NotFound3 from "../../assets/img/not_found/3.png";
 import NotFound4 from "../../assets/img/not_found/4.png";
+import StyledButton from "../components/button";
+import Grid from "@material-ui/core/Grid";
+import {
+    createStyles,
+    makeStyles,
+} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import * as React from "react";
+import { FormattedMessage } from "react-intl";
+import { useHistory } from "react-router";
 
-const NOT_FOUND_IMAGES = [NotFound1, NotFound2, NotFound3, NotFound4];
+const NOT_FOUND_IMAGES = [
+    NotFound1,
+    NotFound2,
+    NotFound3,
+    NotFound4,
+];
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
-        alignItems: "center",
-        display: "flex",
-        padding: "48px 40px !important",
+        alignItems: `center`,
+        display: `flex`,
+        padding: `48px 40px !important`,
     },
     errorIcon: {
-        fontSize: "1em",
+        fontSize: `1em`,
         marginRight: theme.spacing(1),
     },
     formContainer: {
-        width: "100%",
+        width: `100%`,
     },
     googleSSO: {
-        justifyContent: "center",
-        width: "100%",
-        fontFamily: "inherit !important",
+        justifyContent: `center`,
+        width: `100%`,
+        fontFamily: `inherit !important`,
     },
     link: {
-        textAlign: "center",
+        textAlign: `center`,
     },
     pageWrapper: {
-        display: "flex",
+        display: `flex`,
         flexGrow: 1,
-        height: "100vh",
+        height: `100vh`,
     },
-}),
-);
+}));
 
-export function NotFound() {
+export function NotFound () {
     const classes = useStyles();
     const history = useHistory();
 
     return (
         <React.Fragment>
-            <Grid item xs={12}>
-                <Typography variant="h4" align="center">
-                    <FormattedMessage id={"notFound_notFoundPrompt"} />
+            <Grid
+                item
+                xs={12}>
+                <Typography
+                    variant="h4"
+                    align="center">
+                    <FormattedMessage id={`notFound_notFoundPrompt`} />
                 </Typography>
-                <Typography variant="h6" align="center">
-                    <FormattedMessage id={"notFound_notFoundDescription"} />
+                <Typography
+                    variant="h6"
+                    align="center">
+                    <FormattedMessage id={`notFound_notFoundDescription`} />
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
             </Grid>
-            <Grid item xs={12}>
-                <img src={NOT_FOUND_IMAGES[((Math.floor(Math.random() * 10)) % NOT_FOUND_IMAGES.length)]} width="80%" />
+            <Grid
+                item
+                xs={12}>
+                <img
+                    src={NOT_FOUND_IMAGES[((Math.floor(Math.random() * 10)) % NOT_FOUND_IMAGES.length)]}
+                    width="80%" />
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                item
+                xs={12}>
             </Grid>
-            <Grid item xs={12} className={classes.link}>
+            <Grid
+                item
+                xs={12}
+                className={classes.link}>
                 <StyledButton
                     extendedOnly
                     size="medium"
                     type="submit"
-                    onClick={() => { history.push("/")}}
+                    onClick={() => { history.push(`/`);}}
                 >
                     <FormattedMessage id="notFound_homeButton" />
                 </StyledButton>
