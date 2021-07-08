@@ -1,11 +1,11 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
+const path = require(`path`);
+const HtmlWebpackPlugin = require(`html-webpack-plugin`);
+const webpack = require(`webpack`);
 
 module.exports = {
-    mode: "production",
+    mode: `production`,
     entry: {
-        ui: "./src/entry.tsx",
+        ui: `./src/entry.tsx`,
     },
     module: {
         rules: [
@@ -13,89 +13,92 @@ module.exports = {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
-                }
+                    loader: `babel-loader`,
+                },
             },
             {
                 test: /\.css$/i,
                 use: [
                     {
-                        loader: "style-loader",
+                        loader: `style-loader`,
                     },
-                    "css-modules-typescript-loader",
+                    `css-modules-typescript-loader`,
                     {
-                        loader: "css-loader",
+                        loader: `css-loader`,
                         options: {
-                            modules: true
-                        }
-                    }
+                            modules: true,
+                        },
+                    },
                 ],
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
                 use: [
-                    "file-loader",
+                    `file-loader`,
                     {
-                        loader: "image-webpack-loader",
+                        loader: `image-webpack-loader`,
                         options: {
                             pngquant: {
-                                quality: [0.65, 0.90],
-                                speed: 4
+                                quality: [ 0.65, 0.90 ],
+                                speed: 4,
                             },
-                        }
+                        },
                     },
                 ],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    "file-loader",
-                ],
+                use: [ `file-loader` ],
             },
             {
                 test: /\.mp4$/,
-                use: "file-loader?name=videos/[name].[ext]",
+                use: `file-loader?name=videos/[name].[ext]`,
             },
         ],
     },
     resolve: {
-        extensions: [".js", ".jsx", ".tsx", ".ts"],
+        extensions: [
+            `.js`,
+            `.jsx`,
+            `.tsx`,
+            `.ts`,
+        ],
         alias: {
-            react: path.resolve("./node_modules/react"),
+            react: path.resolve(`./node_modules/react`),
         },
     },
     output: {
-        filename: "[name].js",
-        path: path.resolve(__dirname, "dist"),
+        filename: `[name].js`,
+        path: path.resolve(__dirname, `dist`),
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./index.html"
+            template: `./index.html`,
         }),
         new webpack.EnvironmentPlugin({
-            "API_ENDPOINT": "https://api.kidsloop.in/",
-            "AUTH_ENDPOINT": "https://auth.kidsloop.in/",
-            "REDIRECT_LINK": "https://hub.kidsloop.in/",
-            "ACCOUNT_ENDPOINT_BADANAMU": "https://ams-account.badanamu.net",
-            "AUTH_ENDPOINT_BADANAMU": "https://ams-auth.prod.badanamu.net",
-            "SLD": "kidsloop",
-            "TLD": "in",
-        })
+            API_ENDPOINT: `https://api.kidsloop.in/`,
+            AUTH_ENDPOINT: `https://auth.kidsloop.in/`,
+            REDIRECT_LINK: `https://hub.kidsloop.in/`,
+            ACCOUNT_ENDPOINT_BADANAMU: `https://ams-account.badanamu.net`,
+            AUTH_ENDPOINT_BADANAMU: `https://ams-auth.prod.badanamu.net`,
+            SLD: `kidsloop`,
+            TLD: `in`,
+        }),
     ],
     devServer: {
-        host: "0.0.0.0",
+        host: `0.0.0.0`,
         disableHostCheck: true,
         historyApiFallback: true,
         proxy: {
             "/transfer": {
-                target: "http://localhost:8081",
+                target: `http://localhost:8081`,
                 secure: false,
             },
 
             "/refresh": {
-                target: "http://localhost:8081",
+                target: `http://localhost:8081`,
                 secure: false,
             },
-        }
+        },
     },
 };

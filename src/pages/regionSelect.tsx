@@ -162,7 +162,7 @@ export function RegionSelect () {
 
         setCookies(`locale`, lang, {
             path: `/`,
-                domain: DOMAIN || `kidsloop.live`,
+            domain: DOMAIN || `kidsloop.live`,
         });
 
         if (domain === urlHostName) {
