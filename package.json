@@ -8,7 +8,9 @@
     "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "start": "webpack serve",
-    "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx"
+    "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx",
+    "preversion": "git checkout dev && git pull origin dev && npm i",
+    "postversion": "git push && git push --tags"
   },
   "author": "",
   "license": "ISC",
