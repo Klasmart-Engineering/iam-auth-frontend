@@ -43,7 +43,7 @@ module.exports = {
                         loader: `image-webpack-loader`,
                         options: {
                             pngquant: {
-                                quality: [ 0.65, 0.9 ],
+                                quality: [ 0.65, 0.90 ],
                                 speed: 4,
                             },
                         },

@@ -42,14 +42,6 @@ module.exports = {
                     {
                         loader: `image-webpack-loader`,
                         options: {
-                            // mozjpeg: {
-                            //     progressive: true,
-                            //     quality: 65
-                            // },
-                            // // optipng.enabled: false will disable optipng
-                            // optipng: {
-                            //     enabled: false,
-                            // },
                             pngquant: {
                                 quality: [ 0.65, 0.90 ],
                                 speed: 4,
@@ -90,12 +82,12 @@ module.exports = {
             ...brandingOptions.webpack.html,
         }),
         new webpack.EnvironmentPlugin({
-            API_ENDPOINT: `https://api.kidsloop.live/`,
-            AUTH_ENDPOINT: `https://auth.kidsloop.live/`,
-            REDIRECT_LINK: `https://hub.kidsloop.live/`,
+            API_ENDPOINT: `https://api.stage.kidsloop.live/`,
+            AUTH_ENDPOINT: `https://auth.stage.kidsloop.live/`,
+            REDIRECT_LINK: `https://hub.stage.kidsloop.live/`,
             ACCOUNT_ENDPOINT_BADANAMU: `https://ams-account.badanamu.net`,
             AUTH_ENDPOINT_BADANAMU: `https://ams-auth.badanamu.net`,
-            SLD: `kidsloop`,
+            SLD: `stage.kidsloop`,
             TLD: `live`,
         }),
     ],

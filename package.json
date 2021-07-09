@@ -7,8 +7,6 @@
     "build": "rm dist/*;webpack --config webpack.config.js",
     "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
-    "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
-    "build:prod": "rm dist/*;webpack --config webpack.prod.config.js",
     "start": "webpack serve",
     "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx"
   },
