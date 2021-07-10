@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm dist/*;webpack --config webpack.config.js",
+    "build:ghost": "rm dist/*;webpack --config webpack.ghost.config.js",
     "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
     "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
     "build:beta": "rm dist/*;webpack --config webpack.beta.config.js",
