@@ -130,7 +130,6 @@ export function SignIn () {
                 return;
             }
 
-            await restApi.migrateKl1dot5(email, password);
             const token = await restApi.login(email, password);
             await transferLogin(token.accessToken);
         } catch (e) {
