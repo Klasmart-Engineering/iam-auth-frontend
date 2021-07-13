@@ -8,7 +8,7 @@ AUTH_ENDPOINT="https://auth.alpha.kidsloop.net/" \
 REDIRECT_LINK="https://hub.alpha.kidsloop.net/" \
 SLD="kidsloop" \
 TLD="net" \
-npm run build:prod
+npm run build:alpha
 
 # install deps for deps
 pushd src/pages/account/kidsloop-pass-frontend/client
