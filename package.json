@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm dist/*;webpack --config webpack.config.js",
-    "build:bitbucket": "rm dist/*;webpack --config webpack.bitbucket.config.js",
-    "build:alpha": "rm dist/*;webpack --config webpack.alpha.config.js",
+    "build": "rm -r dist;webpack --config webpack.config.js",
+    "build:bitbucket": "rm -r dist;webpack --config webpack.bitbucket.config.js",
+    "build:alpha": "rm -r dist;webpack --config webpack.alpha.config.js",
     "start": "webpack serve",
     "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx",
     "preversion": "git checkout dev && git pull origin dev && npm i",
