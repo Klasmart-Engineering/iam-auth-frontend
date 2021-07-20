@@ -65,9 +65,9 @@
     "selectProfile_noOrgTitle": "Kamu bukan bagian dari organisasi.",
     "selectProfile_noOrgSubtitle": "Silakan gabung ke organisasi untuk dapat menggunakan {platformName}.",
     "emailOrPhone.label": "Email atau Telepon",
-    "ERROR_INVALID_LOGIN": "Invalid login",
-    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
-    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
-    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INVALID_LOGIN": "Login tidak valid",
+    "ERROR_EMAIL_NOT_VERIFIED": "Email Anda belum diverifikasi",
+    "PHONE_NUMBER_NOT_VERIFIED": "Nomor telepon Anda belum diverifikasi",
+    "ERROR_ACCOUNT_BANNED": "Akun Anda sudah diblokir",
+    "ERROR_INPUT_INVALID_FORMAT": "Email/nomor telepon yang dimasukkan tidak valid"
 }

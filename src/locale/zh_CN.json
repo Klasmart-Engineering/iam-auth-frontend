@@ -65,9 +65,9 @@
     "selectProfile_noOrgTitle": "您尚未加入任何一个组织",
     "selectProfile_noOrgSubtitle": "请加入一个组织，以使用{platformName}.",
     "emailOrPhone.label": "邮箱或手机",
-    "ERROR_INVALID_LOGIN": "Invalid login",
-    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
-    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
-    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INVALID_LOGIN": "无效登录",
+    "ERROR_EMAIL_NOT_VERIFIED": "您的邮箱尚未经过验证",
+    "PHONE_NUMBER_NOT_VERIFIED": "您的电话号码尚未经过验证",
+    "ERROR_ACCOUNT_BANNED": "账号已被禁用",
+    "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码"
 }

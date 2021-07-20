@@ -65,9 +65,9 @@
     "selectProfile_noOrgTitle": "Bạn không thuộc tổ chức nào",
     "selectProfile_noOrgSubtitle": "Vui lòng tham gia vào một tổ chức để sử dụng {platformName}.",
     "emailOrPhone.label": "Email hoặc điện thoại",
-    "ERROR_INVALID_LOGIN": "Invalid login",
-    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
-    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
-    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INVALID_LOGIN": "Đăng nhập không hợp lệ",
+    "ERROR_EMAIL_NOT_VERIFIED": "Email của bạn chưa được xác minh",
+    "PHONE_NUMBER_NOT_VERIFIED": "Số điện thoại của bạn chưa được xác minh",
+    "ERROR_ACCOUNT_BANNED": "Tài khoản của bạn đã bị cấm",
+    "ERROR_INPUT_INVALID_FORMAT": "Bạn đã nhập email/số điện thoại không hợp lệ"
 }

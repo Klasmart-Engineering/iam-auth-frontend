@@ -65,9 +65,9 @@
     "selectProfile_noOrgTitle": "No formas parte de una organización.",
     "selectProfile_noOrgSubtitle": "Únete a una organización para usar {platformName}.",
     "emailOrPhone.label": "Correo electrónico o teléfono",
-    "ERROR_INVALID_LOGIN": "Invalid login",
-    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
-    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
-    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INVALID_LOGIN": "Inicio de sesión no válido",
+    "ERROR_EMAIL_NOT_VERIFIED": "Su correo electrónico no ha sido verificado",
+    "PHONE_NUMBER_NOT_VERIFIED": "Su número de teléfono no ha sido verificado",
+    "ERROR_ACCOUNT_BANNED": "Se ha prohibido su cuenta.",
+    "ERROR_INPUT_INVALID_FORMAT": "El correo electrónico o número de teléfono que ha introducido no es válido"
 }

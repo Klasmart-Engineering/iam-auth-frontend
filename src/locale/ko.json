@@ -65,9 +65,9 @@
     "selectProfile_noOrgTitle": "기관 소속이 아닙니다.",
     "selectProfile_noOrgSubtitle": "{platformName}을 사용하기 위해 기관에 가입하세요.",
     "emailOrPhone.label": "이메일 또는 핸드폰 번호",
-    "ERROR_INVALID_LOGIN": "Invalid login",
-    "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
-    "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
-    "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INVALID_LOGIN": "잘못된 로그인",
+    "ERROR_EMAIL_NOT_VERIFIED": "이메일 주소가 인증되지 않았습니다.",
+    "PHONE_NUMBER_NOT_VERIFIED": "전화 번호가 인증되지 않았습니다.",
+    "ERROR_ACCOUNT_BANNED": "계정이 차단되었습니다",
+    "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다."
 }
