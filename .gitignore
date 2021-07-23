@@ -4,4 +4,5 @@
 .idea/
 **/.DS_Store
 /backup
-**/.vscode/settings.json
+**/.vscode/*
+!**/.vscode/launch.json

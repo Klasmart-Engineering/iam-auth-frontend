@@ -8,6 +8,7 @@ const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
 module.exports = {
     mode: `development`,
+    devtool: `eval-cheap-module-source-map`,
     entry: {
         ui: `./src/entry.tsx`,
     },
