@@ -34,6 +34,10 @@ const LANGUAGES_LABEL: Language[] = [
         text: `English`,
     },
     {
+        code: `es`,
+        text: `Español`,
+    },
+    {
         code: `ko`,
         text: `한국어`,
     },

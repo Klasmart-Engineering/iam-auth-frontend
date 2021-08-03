@@ -95,7 +95,7 @@ module.exports = {
             REDIRECT_LINK: `https://hub.alpha.kidsloop.net/`,
             ACCOUNT_ENDPOINT_BADANAMU: `https://ams-account.badanamu.net`,
             AUTH_ENDPOINT_BADANAMU: `https://ams-auth.badanamu.net`,
-            SLD: `kidsloop`,
+            SLD: `alpha.kidsloop`,
             TLD: `net`,
         }),
     ],

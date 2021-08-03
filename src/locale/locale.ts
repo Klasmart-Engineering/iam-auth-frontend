@@ -1,9 +1,11 @@
 import english from "./en.json";
+import spanish from "./es.json";
 import indonesian from "./id.json";
 import korean from "./ko.json";
 import vietnamese from "./vi.json";
 import chinese from "./zh_CN.json";
 import brandedEnglish from "@branding/locale/en.json";
+import brandedSpanish from "@branding/locale/es.json";
 import brandedIndonesian from "@branding/locale/id.json";
 import brandedKorean from "@branding/locale/ko.json";
 import brandedVietnamese from "@branding/locale/vi.json";
@@ -14,6 +16,7 @@ import {
 } from "react-intl";
 
 Object.assign(english, brandedEnglish);
+Object.assign(spanish, brandedSpanish);
 Object.assign(korean, brandedKorean);
 Object.assign(chinese, brandedChinese);
 Object.assign(vietnamese, brandedVietnamese);
@@ -21,6 +24,7 @@ Object.assign(indonesian, brandedIndonesian);
 
 export const localeCodes = [
     `en`,
+    `es`,
     `ko`,
     `zh-CN`,
     `vi`,
@@ -48,6 +52,11 @@ export function getIntl (locale: string) {
         return createIntl({
             locale: `en`,
             messages: english,
+        }, intlCache);
+    case `es`:
+        return createIntl({
+            locale: `es`,
+            messages: spanish,
         }, intlCache);
     case `vi`:
         return createIntl({
