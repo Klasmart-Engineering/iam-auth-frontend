@@ -6,7 +6,7 @@ npm ci --no-progress
 API_ENDPOINT="https://api.alpha.kidsloop.net/" \
 AUTH_ENDPOINT="https://auth.alpha.kidsloop.net/" \
 REDIRECT_LINK="https://hub.alpha.kidsloop.net/" \
-SLD="kidsloop" \
+SLD="alpha.kidsloop" \
 TLD="net" \
 npm run build:alpha
 
