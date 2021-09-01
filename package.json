@@ -53,7 +53,7 @@
     "typeface-nanum-square-round": "^1.0.2"
   },
   "devDependencies": {
-    "@kidsloop/eslint-config": "bitbucket:calmisland/kidsloop-eslint-config#1.0.0",
+    "@kidsloop/eslint-config": "bitbucket:calmisland/kidsloop-eslint-config#1.1.1",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/react-dom": "^17.0.5",
     "@types/react-router": "^5.1.14",
