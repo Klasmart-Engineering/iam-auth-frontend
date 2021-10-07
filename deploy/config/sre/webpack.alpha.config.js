@@ -80,6 +80,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: `./index.html`,
             ...brandingOptions.webpack.html,
+            newRelicAccountID: `3286825`,
+            newRelicAgentID: `322534651`,
+            newRelicTrustKey: `3286825`,
+            newRelicLicenseKey: `NRJS-eff8c9c844416a5083f`,
+            newRelicApplicationID: `322534651`,
         }),
         new webpack.EnvironmentPlugin({
             API_ENDPOINT: `https://api.alpha.klpsre.com/`,

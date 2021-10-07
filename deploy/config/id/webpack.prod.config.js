@@ -78,6 +78,11 @@ module.exports = {
         alias: {
             react: path.resolve(`./node_modules/react`),
             ...brandingOptions.webpack.resolve.alias,
+            newRelicAccountID: `3286825`,
+            newRelicAgentID: `322534651`,
+            newRelicTrustKey: `3286825`,
+            newRelicLicenseKey: `NRJS-eff8c9c844416a5083f`,
+            newRelicApplicationID: `322534651`,
         },
     },
     output: {
