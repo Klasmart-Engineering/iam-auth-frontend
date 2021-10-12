@@ -15,6 +15,21 @@ which contains pages:
 -   creating an account
 -   forgot/reset password
 
+## Prerequisites
+
+### Installation
+
+- Install Node.js v14.x.x
+- Install Npm v6.x.x
+- Install the dependencies: `npm install`
+
+### Configuration
+
+- Map `fe.alpha.kidsloop.net` to `localhost` by [editing your hosts file](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
+- Configure environment variables
+  - Create `.env` (which is gitignored)
+  - Copy the contents of `.env.example` into `.env`, making changes as required
+
 ## Branding
 
 Branded assets and React components, such as the `PrivacyPolicy` component and logo,
@@ -85,21 +100,13 @@ This is the minimum set of packages required from a fresh install to build succe
 
 This is a bit of a convoluted process, we will need to build the main project, followed by the `kidsloop-pass-frontend`.
 
-Following example is a full build for India
+Following example is a full build for India (production)
 
 ```
 # basic dependencies installation
 npm ci --no-progress
-
-# config hack and package build
-API_ENDPOINT="https://api.kidsloop.in/" \
-AUTH_ENDPOINT="https://auth.kidsloop.in/" \
-REDIRECT_LINK="https://hub.kidsloop.in/" \
-ACCOUNT_ENDPOINT_BADANAMU="https://ams-account.badanamu.net" \
-AUTH_ENDPOINT_BADANAMU="https://ams-auth.badanamu.net" \
-SLD="kidsloop" \
-TLD="in" \
-npm run build:prod
+cp deploy/config/in/.env.prod ./.env
+npm run build
 
 # install deps for deps
 pushd src/pages/account/kidsloop-pass-frontend/client

@@ -2,13 +2,10 @@
 git submodule update --init --recursive --force
 
 npm ci --no-progress
-
-API_ENDPOINT="https://api.alpha.kidsloop.net/" \
-AUTH_ENDPOINT="https://auth.alpha.kidsloop.net/" \
-REDIRECT_LINK="https://hub.alpha.kidsloop.net/" \
-SLD="alpha.kidsloop" \
-TLD="net" \
-npm run build:alpha
+mv ./.env ./.env.temp
+cp deploy/config/internal/.env.alpha ./.env
+npm run build
+mv ./.env.temp ./.env
 
 # install deps for deps
 pushd src/pages/account/kidsloop-pass-frontend/client

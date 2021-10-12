@@ -1,13 +1,29 @@
-const path = require(`path`);
-const HtmlWebpackPlugin = require(`html-webpack-plugin`);
-const webpack = require(`webpack`);
+import "webpack-dev-server";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { config } from "dotenv";
+import Dotenv from "dotenv-webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
+import { Configuration } from "webpack";
+
+config();
+
+const modes: Required<Configuration["mode"]>[] = [
+    `development`,
+    `production`,
+    `none`,
+];
+
+const dirtyNodeEnv = process.env.NODE_ENV as Configuration["mode"];
+const nodeEnv = (modes.includes(dirtyNodeEnv) ? dirtyNodeEnv : undefined) ?? `production`;
 
 const { loadBrandingOptions } = require(`kidsloop-branding`);
 
 const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
-module.exports = {
-    mode: `development`,
+const webpackConfig: Configuration = {
+    mode: nodeEnv,
+    devtool: `eval-cheap-module-source-map`,
     entry: {
         ui: `./src/entry.tsx`,
     },
@@ -42,16 +58,8 @@ module.exports = {
                     {
                         loader: `image-webpack-loader`,
                         options: {
-                            // mozjpeg: {
-                            //     progressive: true,
-                            //     quality: 65
-                            // },
-                            // // optipng.enabled: false will disable optipng
-                            // optipng: {
-                            //     enabled: false,
-                            // },
                             pngquant: {
-                                quality: [ 0.65, 0.90 ],
+                                quality: [ 0.65, 0.9 ],
                                 speed: 4,
                             },
                         },
@@ -77,14 +85,17 @@ module.exports = {
         ],
         alias: {
             react: path.resolve(`./node_modules/react`),
+            "@": path.resolve(__dirname, `src`),
             ...brandingOptions.webpack.resolve.alias,
         },
     },
     output: {
-        filename: `[name].js`,
+        filename: `[name].[fullhash].js`,
         path: path.resolve(__dirname, `dist`),
     },
     plugins: [
+        new CleanWebpackPlugin(),
+        new Dotenv(),
         new HtmlWebpackPlugin({
             template: `./index.html`,
             ...brandingOptions.webpack.html,
@@ -94,30 +105,43 @@ module.exports = {
             newRelicLicenseKey: `NRJS-eff8c9c844416a5083f`,
             newRelicApplicationID: `322534651`,
         }),
-        new webpack.EnvironmentPlugin({
-            API_ENDPOINT: `https://api.kidsloop.vn/`,
-            AUTH_ENDPOINT: `https://auth.kidsloop.vn/`,
-            REDIRECT_LINK: `https://hub.kidsloop.vn/`,
-            ACCOUNT_ENDPOINT_BADANAMU: `https://ams-account.badanamu.net`,
-            AUTH_ENDPOINT_BADANAMU: `https://prod.auth.badanamu.net`,
-            SLD: `kidsloop`,
-            TLD: `vn`,
-        }),
     ],
+    stats: {
+        errorDetails: true,
+    },
     devServer: {
-        host: `0.0.0.0`,
-        disableHostCheck: true,
+        host: `fe.alpha.kidsloop.net`,
+        port: 8081,
+        https: true,
         historyApiFallback: true,
         proxy: {
-            "/transfer": {
-                target: `http://localhost:8081`,
-                secure: false,
+            "/user": {
+                target: `https://api.alpha.kidsloop.net/`,
+                secure: true,
+                changeOrigin: true,
             },
-
+            "/transfer": {
+                target: `https://auth.alpha.kidsloop.net/`,
+                secure: true,
+                changeOrigin: true,
+            },
             "/refresh": {
-                target: `http://localhost:8081`,
-                secure: false,
+                target: `https://auth.alpha.kidsloop.net/`,
+                secure: true,
+                changeOrigin: true,
+            },
+            "/switch": {
+                target: `https://auth.alpha.kidsloop.net/`,
+                secure: true,
+                changeOrigin: true,
+            },
+            "/signout": {
+                target: `https://auth.alpha.kidsloop.net/`,
+                secure: true,
+                changeOrigin: true,
             },
         },
     },
 };
+
+export default webpackConfig;

@@ -6,3 +6,4 @@
 /backup
 **/.vscode/*
 !**/.vscode/launch.json
+.env

@@ -1,4 +1,21 @@
+image: node:14
+
+clone:
+  lfs: true
+  depth: 1
+
 pipelines:
+  pull-requests:
+    '**':
+      - parallel:
+        - step:
+            name: Build
+            caches:
+              - node
+            script:
+              - npm ci --no-audit --no-progress
+              - cp deploy/config/internal/.env.alpha ./.env
+              - npm run build
   custom:
     deploy:
     - variables:
@@ -18,9 +35,9 @@ pipelines:
         name: 'Build NPM'
         image: node:lts
         script:
-          - npm i
-          - mv deploy/config/$KIDSLOOP_REGION/webpack.$KIDSLOOP_ENV.config.js ./webpack.bitbucket.config.js
-          - npm run build:bitbucket
+          - npm ci
+          - cp deploy/config/$KIDSLOOP_REGION/.env.$KIDSLOOP_ENV ./.env
+          - npm run build
         caches:
           - nodemodules
         artifacts:
@@ -35,7 +52,7 @@ pipelines:
           # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
           # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
           - git init
-          - npm i
+          - npm ci
           - npm run build:$KIDSLOOP_PASS_ENV
         caches:
           - accountnodemodules

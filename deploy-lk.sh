@@ -2,14 +2,12 @@
 git submodule update --init --recursive --force
 
 npm ci --no-progress
-
-cp deploy/config/lk/webpack.prod.config.js webpack.config.js
-
+cp deploy/config/lk/.env.prod ./.env
 npm run build
 
 # install deps for deps
 cd src/pages/account/kidsloop-pass-frontend/client
-npm i --no-progress
+npm ci --no-progress
 npm run build:prod-lk
 cd ../../../../../
 
