@@ -7,6 +7,7 @@ import config from "./config";
 import { getLanguage } from "./locale/locale";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";
+import HealthPage from "./pages/health";
 import { Layout } from "./pages/layout";
 import { NotFound } from "./pages/notFound";
 import SetProfile from "./pages/profile/setProfileLayout";
@@ -134,6 +135,12 @@ function ClientSide () {
                             <Route
                                 exact
                                 path="/version"
+                            >
+                                <HealthPage />
+                            </Route>
+                            <Route
+                                exact
+                                path="/health"
                             >
                                 <VersionPage />
                             </Route>
