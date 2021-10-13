@@ -14,6 +14,7 @@ import RegionLocked from "./pages/RegionLocked";
 import { RegionSelect } from "./pages/regionSelect";
 import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
+import VersionPage from "./pages/version";
 import { themeProvider } from "./themeProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -130,6 +131,12 @@ function ClientSide () {
                     <ThemeProvider theme={themeProvider()}>
                         <CssBaseline />
                         <Switch>
+                            <Route
+                                exact
+                                path="/version"
+                            >
+                                <VersionPage />
+                            </Route>
                             {routes.map(({
                                 // eslint-disable-next-line @typescript-eslint/naming-convention
                                 path, Component, size, centerLogo,

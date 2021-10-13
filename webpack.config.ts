@@ -1,10 +1,15 @@
 import "webpack-dev-server";
+import pkg from "./package.json";
+import { execSync } from "child_process";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { config } from "dotenv";
 import Dotenv from "dotenv-webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
-import { Configuration } from "webpack";
+import {
+    Configuration,
+    EnvironmentPlugin,
+} from "webpack";
 
 config();
 
@@ -95,6 +100,10 @@ const webpackConfig: Configuration = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new EnvironmentPlugin({
+            VERSION: pkg.version,
+            GIT_COMMIT: execSync(`git rev-parse HEAD`).toString().trim().slice(0, 7),
+        }),
         new Dotenv(),
         new HtmlWebpackPlugin({
             template: `./index.html`,
