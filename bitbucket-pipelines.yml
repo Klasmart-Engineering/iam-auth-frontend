@@ -9,12 +9,13 @@ pipelines:
     '**':
       - parallel:
         - step:
-            name: Build
+            name: Test & Build
             caches:
               - node
             script:
               - npm ci --no-audit --no-progress
               - cp deploy/config/internal/.env.alpha ./.env
+              - npm test -- --coverage
               - npm run build
   custom:
     deploy:
