@@ -21,6 +21,7 @@ const modes: Required<Configuration["mode"]>[] = [
 
 const dirtyNodeEnv = process.env.NODE_ENV as Configuration["mode"];
 const nodeEnv = (modes.includes(dirtyNodeEnv) ? dirtyNodeEnv : undefined) ?? `production`;
+const isDev = nodeEnv === `development`;
 
 const { loadBrandingOptions } = require(`kidsloop-branding`);
 
@@ -28,7 +29,7 @@ const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
 const webpackConfig: Configuration = {
     mode: nodeEnv,
-    devtool: `eval-cheap-module-source-map`,
+    devtool: isDev ? `eval-cheap-module-source-map` : `source-map`,
     entry: {
         ui: `./src/entry.tsx`,
     },
