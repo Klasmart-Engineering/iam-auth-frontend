@@ -136,13 +136,13 @@ function ClientSide () {
                                 exact
                                 path="/version"
                             >
-                                <HealthPage />
+                                <VersionPage />
                             </Route>
                             <Route
                                 exact
                                 path="/health"
                             >
-                                <VersionPage />
+                                <HealthPage />
                             </Route>
                             {routes.map(({
                                 // eslint-disable-next-line @typescript-eslint/naming-convention
