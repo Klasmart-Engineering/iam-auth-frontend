@@ -53,6 +53,10 @@ const LANGUAGES_LABEL: Language[] = [
         code: `id`,
         text: `bahasa Indonesia`,
     },
+    {
+        code: `th`,
+        text: `ภาษาไทย`,
+    },
 ];
 
 const useStyles = makeStyles((theme) => createStyles({

@@ -2,12 +2,14 @@ import english from "./en.json";
 import spanish from "./es.json";
 import indonesian from "./id.json";
 import korean from "./ko.json";
+import thai from "./th.json";
 import vietnamese from "./vi.json";
 import chinese from "./zh_CN.json";
 import brandedEnglish from "@branding/locale/en.json";
 import brandedSpanish from "@branding/locale/es.json";
 import brandedIndonesian from "@branding/locale/id.json";
 import brandedKorean from "@branding/locale/ko.json";
+import brandedThai from "@branding/locale/th.json";
 import brandedVietnamese from "@branding/locale/vi.json";
 import brandedChinese from "@branding/locale/zh_CN.json";
 import {
@@ -21,6 +23,7 @@ Object.assign(korean, brandedKorean);
 Object.assign(chinese, brandedChinese);
 Object.assign(vietnamese, brandedVietnamese);
 Object.assign(indonesian, brandedIndonesian);
+Object.assign(thai, brandedThai);
 
 export const localeCodes = [
     `en`,
@@ -29,6 +32,7 @@ export const localeCodes = [
     `zh-CN`,
     `vi`,
     `id`,
+    `th`,
 ];
 
 const intlCache = createIntlCache();
@@ -67,6 +71,11 @@ export function getIntl (locale: string) {
         return createIntl({
             locale: `id`,
             messages: indonesian,
+        }, intlCache);
+    case `th`:
+        return createIntl({
+            locale: `th`,
+            messages: thai,
         }, intlCache);
     }
 }

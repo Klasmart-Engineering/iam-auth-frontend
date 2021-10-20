@@ -13,7 +13,7 @@
     "form_verificationLabel": "인증코드",
     "locale_select": "언어 선택",
     "locale_tooltip": "언어 변경",
-    "login_acceptPrivacyPolicy": "{companyName}룹 개인 정보 보호 정책에 동의합니다",
+    "login_acceptPrivacyPolicy": "{companyName} 개인 정보 보호 정책에 동의합니다",
     "login_createAccount": "회원 가입하기",
     "login_forgotPassword": "비밀번호 찾기",
     "login_loginButton": "로그인",
