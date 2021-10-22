@@ -1,23 +1,25 @@
-import China from "../../assets/img/region/china.svg";
-import Europe from "../../assets/img/region/europe.svg";
-import India from "../../assets/img/region/india.svg";
-import Indonesia from "../../assets/img/region/indonesia.svg";
-import Korea from "../../assets/img/region/korea.svg";
-import Pakistan from "../../assets/img/region/pakistan.svg";
-import UnitedStates from "../../assets/img/region/usa.svg";
-import Vietnam from "../../assets/img/region/vietnam.svg";
-import { URLContext } from "../entry";
+import Indonesia from "@/../assets/img/region/id.svg";
+import India from "@/../assets/img/region/in.svg";
+import Korea from "@/../assets/img/region/kr.svg";
+import SriLanka from "@/../assets/img/region/lk.svg";
+import Pakistan from "@/../assets/img/region/pk.svg";
+import Thailand from "@/../assets/img/region/th.svg";
+import UnitedKingdom from "@/../assets/img/region/uk.svg";
+import UnitedStates from "@/../assets/img/region/us.svg";
+import Vietnam from "@/../assets/img/region/vn.svg";
+import { URLContext } from "@/entry";
+import {
+    ButtonBase,
+    createStyles,
+    makeStyles,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import {
-    createStyles,
-    makeStyles,
-} from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
-import Typography from "@material-ui/core/Typography";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import QueryString from "qs";
 import * as React from "react";
 import { useContext } from "react";
@@ -29,11 +31,13 @@ const DOMAIN = process.env.SLD + `.` + process.env.TLD;
 
 export const DOMAINS = [
     `auth.kidsloop.cn`,
+    `auth.kidsloop.co.th`,
     `auth.kidsloop.co.uk`,
     `auth.kidsloop.in`,
     `auth.kidsloop.id`,
-    `auth.kidsloop.pk`,
     `auth.kidsloop.live`,
+    `auth.kidsloop.lk`,
+    `auth.kidsloop.pk`,
     `auth.kidsloop.vn`,
 ] as const;
 
@@ -50,18 +54,10 @@ interface Region {
 
 const regions: Region[] = [
     {
-        img: China,
-        domain: `auth.kidsloop.cn`,
-        path: `/log-in`,
-        primaryText: `中国大陆`,
-        secondaryText: ``,
-        locale: `zh`,
-    },
-    {
-        img: Europe,
+        img: UnitedKingdom,
         domain: `auth.kidsloop.co.uk`,
         path: `/signin`,
-        primaryText: `Europe`,
+        primaryText: `United Kingdom`,
         secondaryText: ``,
         locale: `en`,
     },
@@ -72,6 +68,22 @@ const regions: Region[] = [
         primaryText: `India`,
         secondaryText: ``,
         locale: `en`,
+    },
+    {
+        img: SriLanka,
+        domain: `auth.kidsloop.lk`,
+        path: `/signin`,
+        primaryText: `Sri Lanka`,
+        secondaryText: ``,
+        locale: `en`,
+    },
+    {
+        img: Thailand,
+        domain: `auth.kidsloop.co.th`,
+        path: `/signin`,
+        primaryText: `ประเทศไทย`,
+        secondaryText: ``,
+        locale: `th`,
     },
     {
         img: Indonesia,
@@ -114,6 +126,7 @@ const regions: Region[] = [
         locale: `vi`,
     },
 ];
+regions.sort((a, b) => a.locale.localeCompare(b.locale));
 
 const useStyles = makeStyles((theme) => createStyles({
     list: {
@@ -193,32 +206,37 @@ export function RegionSelect () {
             </Grid>
             <Grid
                 container
-                justify="flex-start"
-                alignItems="flex-start"
+                wrap="wrap"
+                className={classes.list}
+                style={{
+                    maxHeight: isXsDown ? window.innerHeight - 320 : undefined,
+                    overflow: `auto`,
+                }}
             >
-                <Grid
-                    item
-                    xs={isXsDown ? 12 : 6}>
-                    <List
-                        className={classes.list}
-                        style={{
-                            maxHeight: isXsDown ? window.innerHeight - 320 : undefined,
-                            overflow: `auto`,
-                        }}
+                {regions.map((region) => (
+                    <Grid
+                        key={region.primaryText}
+                        item
+                        xs={isXsDown ? 12 : 6}
                     >
-                        { regions.slice(0, isXsDown ? regions.length : Math.round(regions.length / 2)).map((region) =>
+                        <ButtonBase
+                            disabled={region.secondaryText !== `` || (process.env.SLD === `alpha.kidsloop`)}
+                            style={{
+                                width: `100%`,
+                            }}
+                            onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
+                        >
                             <ListItem
-                                key={region.primaryText}
                                 button
                                 disabled={region.secondaryText !== `` || (process.env.SLD === `alpha.kidsloop`)}
                                 style={{
                                     height: 72,
                                 }}
-                                onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                             >
                                 <img
                                     src={region.img}
-                                    height={32} />
+                                    height={32}
+                                />
                                 <ListItemText
                                     primary={region.primaryText}
                                     secondary={region.secondaryText}
@@ -226,38 +244,10 @@ export function RegionSelect () {
                                         paddingLeft: theme.spacing(2),
                                     }}
                                 />
-                            </ListItem>)}
-                    </List>
-                </Grid>
-                { !isXsDown &&
-                    <Grid
-                        item
-                        xs={6}>
-                        <List className={classes.list}>
-                            { regions.slice(Math.round(regions.length / 2), regions.length).map((region) =>
-                                <ListItem
-                                    key={region.primaryText}
-                                    button
-                                    disabled={region.secondaryText !== `` || (process.env.SLD === `alpha.kidsloop`)}
-                                    style={{
-                                        height: 72,
-                                    }}
-                                    onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
-                                >
-                                    <img
-                                        src={region.img}
-                                        height={32} />
-                                    <ListItemText
-                                        primary={region.primaryText}
-                                        secondary={region.secondaryText}
-                                        style={{
-                                            paddingLeft: theme.spacing(2),
-                                        }}
-                                    />
-                                </ListItem>)}
-                        </List>
+                            </ListItem>
+                        </ButtonBase>
                     </Grid>
-                }
+                ))}
                 <Grid
                     item
                     xs={12}>
