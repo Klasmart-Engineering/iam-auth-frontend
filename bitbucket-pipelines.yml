@@ -53,7 +53,7 @@ pipelines:
           # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
           # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
           - git init
-          - npm ci
+          - npm i
           - npm run build:$KIDSLOOP_PASS_ENV
         caches:
           - accountnodemodules
