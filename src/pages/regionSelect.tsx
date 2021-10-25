@@ -204,27 +204,21 @@ export function RegionSelect () {
                     <FormattedMessage id="region_selectCountryRegion" />
                 </Typography>
             </Grid>
-            <Grid
-                container
-                wrap="wrap"
-                className={classes.list}
-                style={{
-                    maxHeight: isXsDown ? window.innerHeight - 320 : undefined,
-                    overflow: `auto`,
-                }}
-            >
-                {regions.map((region) => (
-                    <Grid
-                        key={region.primaryText}
-                        item
-                        xs={isXsDown ? 12 : 6}
-                    >
-                        <ButtonBase
-                            disabled={region.secondaryText !== `` || (process.env.SLD === `alpha.kidsloop`)}
-                            style={{
-                                width: `100%`,
-                            }}
-                            onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
+            <List>
+                <Grid
+                    container
+                    wrap="wrap"
+                    className={classes.list}
+                    style={{
+                        maxHeight: isXsDown ? window.innerHeight - 320 : undefined,
+                        overflow: `auto`,
+                    }}
+                >
+                    {regions.map((region) => (
+                        <Grid
+                            key={region.primaryText}
+                            item
+                            xs={isXsDown ? 12 : 6}
                         >
                             <ListItem
                                 button
@@ -232,6 +226,7 @@ export function RegionSelect () {
                                 style={{
                                     height: 72,
                                 }}
+                                onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
                             >
                                 <img
                                     src={region.img}
@@ -245,20 +240,19 @@ export function RegionSelect () {
                                     }}
                                 />
                             </ListItem>
-                        </ButtonBase>
-                    </Grid>
-                ))}
-                <Grid
-                    item
-                    xs={12}>
-                    <List>
-                        <ListItem
-                            button
-                            onClick={() => handleRegionSelect()}>
-                            <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
-                        </ListItem>
-                    </List>
+                        </Grid>
+                    ))}
                 </Grid>
+            </List>
+            <Grid
+                xs={12}>
+                <List>
+                    <ListItem
+                        button
+                        onClick={() => handleRegionSelect()}>
+                        <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
+                    </ListItem>
+                </List>
             </Grid>
         </React.Fragment>
     );
