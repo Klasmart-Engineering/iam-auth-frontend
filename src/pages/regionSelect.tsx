@@ -9,7 +9,6 @@ import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
 import { URLContext } from "@/entry";
 import {
-    ButtonBase,
     createStyles,
     makeStyles,
     Typography,
@@ -222,7 +221,7 @@ export function RegionSelect () {
                         >
                             <ListItem
                                 button
-                                disabled={region.secondaryText !== `` || (process.env.SLD === `alpha.kidsloop`)}
+                                disabled={region.secondaryText !== ``}
                                 style={{
                                     height: 72,
                                 }}
