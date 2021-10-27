@@ -2,7 +2,7 @@ import "@babel/polyfill";
 import "regenerator-runtime/runtime";
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
 import "typeface-nanum-square-round";
-import { ApolloProviderHOC } from "./apolloProvider";
+import { ApolloProviderHOC } from "./ApolloProvider";
 import config from "./config";
 import { getLanguage } from "./locale/locale";
 import { Continue } from "./pages/continue";

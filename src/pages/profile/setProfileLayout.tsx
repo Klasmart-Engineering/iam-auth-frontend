@@ -129,9 +129,6 @@ export default function SetProfile () {
                                         <Route path={`${path}/:orgId?/name`}>
                                             <SetName />
                                         </Route>
-                                        {/* <Route path={`${path}/organization`}>
-                                            <SetOrganization />
-                                        </Route> */}
                                     </Switch>
                                 </Grid>
                             </Grid>
