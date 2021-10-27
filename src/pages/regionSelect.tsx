@@ -7,7 +7,7 @@ import Thailand from "@/../assets/img/region/th.svg";
 import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
-import { URLContext } from "@/entry";
+import { useURLContext } from "@/hooks";
 import {
     createStyles,
     makeStyles,
@@ -21,7 +21,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import QueryString from "qs";
 import * as React from "react";
-import { useContext } from "react";
 import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
@@ -161,7 +160,7 @@ export function RegionSelect () {
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
-    const url = useContext(URLContext);
+    const url = useURLContext();
     const [ cookies, setCookies ] = useCookies([ `locale` ]);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));

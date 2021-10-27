@@ -1,12 +1,9 @@
 import StyledButton from "../components/button";
 import config from "../config";
-import { URLContext } from "../entry";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useLocaleState } from "../utils/localeState";
-import {
-    Domain,
-    DOMAINS,
-} from "./regionSelect";
+import { openLiveApp } from "@/app";
+import { useURLContext } from "@/hooks";
 import Grid from "@material-ui/core/Grid";
 import {
     createStyles,
@@ -15,10 +12,8 @@ import {
 import useTheme from "@material-ui/core/styles/useTheme";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
-import QueryString from "query-string";
 import * as React from "react";
 import {
-    useContext,
     useEffect,
     useState,
 } from "react";
@@ -61,7 +56,7 @@ export function Continue () {
     const classes = useStyles();
     const theme = useTheme();
     const location: any = useLocation();
-    const urlContext = useContext(URLContext);
+    const urlContext = useURLContext();
 
     const url = new URL(window.location.href);
     const [ cordova ] = useState(urlContext.uaParam);
@@ -120,23 +115,11 @@ export function Continue () {
                 message: `message`,
             }, `*`);
         } else if (cordova) {
-            // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
-            const queryParams: {
-                token: string;
-                region?: string;
-                iso?: string;
-                locale?: string;
-            } = {
+            openLiveApp({
                 token: location.state.token,
-                iso: locale,
-                locale: locale,
-            };
-            const domain = url.hostname as Domain;
-            if (DOMAINS.includes(domain)) {
-                queryParams.region = domain;
-            }
-            const queryString = QueryString.stringify(queryParams);
-            window.open(`kidsloopstudent://?${queryString}`, `_system`);
+                domain: url.hostname,
+                locale,
+            });
         } else {
             if (document.referrer) {
                 window.location.replace(document.referrer);

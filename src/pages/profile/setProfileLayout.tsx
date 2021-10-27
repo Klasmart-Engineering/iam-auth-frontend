@@ -1,10 +1,10 @@
 import BackgroundImage from "../../../assets/img/test.png";
 import config from "../../config";
-import { URLContext } from '../../entry';
 import { redirectIfUnauthorized } from '../../utils/accountUtils';
 import SetProfileComplete from './profileFinished';
 import SetBirthday from './setBirthday';
 import SetName from './setName';
+import { useURLContext } from "@/hooks";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import MomentUtils from "@date-io/moment";
 import Card from "@material-ui/core/Card";
@@ -18,8 +18,7 @@ import {
 } from '@material-ui/core/styles';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import React,
-{ useContext } from 'react';
+import React from 'react';
 import {
     Route,
     Switch,
@@ -72,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function SetProfile () {
     const classes = useStyles();
     const theme = useTheme();
-    const urlContext = useContext(URLContext);
+    const urlContext = useURLContext();
 
     const { path } = useRouteMatch();
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));

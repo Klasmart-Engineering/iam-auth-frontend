@@ -17,6 +17,12 @@ import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { themeProvider } from "./themeProvider";
+import Loading from "@/components/Loading";
+import { URLContextProvider } from "@/hooks";
+import {
+    AzureB2CProvider,
+    CreateAccount,
+} from "@/pages/azureB2C";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React,
@@ -25,20 +31,10 @@ import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
 import { RawIntlProvider } from "react-intl";
 import {
-    HashRouter,
+    BrowserRouter,
     Route,
     Switch,
 } from "react-router-dom";
-
-interface URLContext {
-    hostName: string;
-    locale: string | null;
-    uaParam: string | null;
-    continueParam: string | null;
-    testing: boolean;
-}
-
-export const URLContext = React.createContext<Partial<URLContext>>({});
 
 interface RouteDetails {
     path: string;
@@ -126,75 +122,85 @@ function ClientSide () {
     const locale = getLanguage(languageCode);
 
     return (
-        <URLContext.Provider value={memos}>
+        <URLContextProvider value={memos}>
             <ApolloProviderHOC>
                 <RawIntlProvider value={locale}>
-                    <ThemeProvider theme={themeProvider()}>
-                        <CssBaseline />
-                        <Switch>
-                            <Route
-                                exact
-                                path="/version"
-                            >
-                                <VersionPage />
-                            </Route>
-                            <Route
-                                exact
-                                path="/health"
-                            >
-                                <HealthPage />
-                            </Route>
-                            {routes.map(({
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
-                                path, Component, size, centerLogo,
-                            }) => (
+                    <AzureB2CProvider>
+                        <ThemeProvider theme={themeProvider()}>
+                            <CssBaseline />
+                            <Switch>
                                 <Route
-                                    key={path}
-                                    path={path}>
-                                    {() => (
-                                        <Layout
-                                            maxWidth={size}
-                                            centerLogo={centerLogo}
-                                        >
-                                            <Component />
+                                    exact
+                                    path="/version">
+                                    <VersionPage />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/health">
+                                    <HealthPage />
+                                </Route>
+                                {routes.map(({
+                                // eslint-disable-next-line @typescript-eslint/naming-convention
+                                    path,
+                                    Component,
+                                    size,
+                                    centerLogo,
+                                }) => (
+                                    <Route
+                                        key={path}
+                                        path={path}>
+                                        {() => (
+                                            <Layout
+                                                maxWidth={size}
+                                                centerLogo={centerLogo}
+                                            >
+                                                <Component />
+                                            </Layout>
+                                        )}
+                                    </Route>
+                                ))}
+                                {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
+                                {config.azureB2C.enabled && <Route
+                                    path="/create-account"
+                                    component={CreateAccount}/>}
+                                {config.azureB2C.enabled && <Route
+                                    path="/authentication-callback"
+                                    component={Loading}/>}
+                                <Route path="/createprofile">
+                                    <SetProfile />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/">
+                                    {config.branding.auth.showRegionSelect ? (
+                                        <Layout maxWidth={`sm`}>
+                                            <RegionSelect />
                                         </Layout>
+                                    ) : (
+                                        <RegionLocked />
                                     )}
                                 </Route>
-                            ))}
-                            <Route path="/createprofile">
-                                <SetProfile />
-                            </Route>
-                            <Route
-                                exact
-                                path="/">
-                                {config.branding.auth.showRegionSelect ? (
-                                    <Layout maxWidth={`sm`}>
-                                        <RegionSelect />
+                                <Route>
+                                    <Layout
+                                        maxWidth={`xs`}
+                                        centerLogo={true}>
+                                        <NotFound />
                                     </Layout>
-                                ) : (
-                                    <RegionLocked />
-                                )}
-                            </Route>
-                            <Route>
-                                <Layout
-                                    maxWidth={`xs`}
-                                    centerLogo={true}>
-                                    <NotFound />
-                                </Layout>
-                            </Route>
-                        </Switch>
-                    </ThemeProvider>
+                                </Route>
+                            </Switch>
+                        </ThemeProvider>
+                    </AzureB2CProvider>
                 </RawIntlProvider>
             </ApolloProviderHOC>
-        </URLContext.Provider>
+        </URLContextProvider>
     );
 }
 
 async function main () {
     const div = document.getElementById(`app`);
-    ReactDOM.render(<HashRouter>
+    ReactDOM.render(<BrowserRouter>
         <ClientSide />
-    </HashRouter>, div);
+    </BrowserRouter>, div);
 }
 
 main();

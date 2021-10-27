@@ -4,7 +4,7 @@ import {
     myUserSampleResponse,
 } from '../../api/getMyUsers';
 import { User } from '../../api/queries/me';
-import { URLContext } from '../../entry';
+import { useURLContext } from "@/hooks";
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -22,7 +22,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { utils } from 'kidsloop-px';
 import React,
 {
-    useContext,
     useEffect,
     useState,
 } from 'react';
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function SetOrganization () {
     const classes = useStyles();
     const theme = useTheme();
-    const url = useContext(URLContext);
+    const url = useURLContext();
     const [ expanded, setExpanded ] = useState<string | false>(false);
     const [ users, setUsers ] = useState<User[]>([]);
 

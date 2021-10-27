@@ -4,17 +4,14 @@ import StyledButton from "../components/button";
 import CenterAlignChildren from "../components/centerAlignChildren";
 import StyledTextField from "../components/textfield";
 import config from "../config";
-import { URLContext } from "../entry";
 import * as restApi from "../restapi";
 import {
     RestAPIError,
     RestAPIErrorType,
 } from "../restapi_errors";
 import { useLocaleState } from "../utils/localeState";
-import {
-    Domain,
-    DOMAINS,
-} from "./regionSelect";
+import { openLiveApp } from "@/app";
+import { useURLContext } from "@/hooks";
 import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -28,19 +25,20 @@ import {
 import useTheme from "@material-ui/core/styles/useTheme";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import ErrorIcon from "@material-ui/icons/Error";
-import QueryString from "query-string";
 import * as React from "react";
 import {
-    useContext,
     useEffect,
     useState,
 } from "react";
 import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
+import {
+    Link as RouterLink,
+    useHistory,
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
@@ -78,7 +76,7 @@ export function SignIn () {
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
-    const url = useContext(URLContext);
+    const url = useURLContext();
     const [ cookies, setCookies ] = useCookies([ `privacy` ]);
 
     const { locale } = useLocaleState();
@@ -142,26 +140,19 @@ export function SignIn () {
 
     async function transferLogin (token: string) {
         if (url.uaParam === `cordova`) {
-            // TODO (axel): `iso` parameter there for backwards compatibility. Remove it once app is updated to support `locale` instead.
-            const queryParams: { token: string; region?: string; iso?: string; locale?: string } = {
-                token: token,
-                iso: locale,
-                locale: locale,
-            };
-            const domain = url.hostName as Domain;
-            if (DOMAINS.includes(domain)) {
-                queryParams.region = domain;
-            }
-            const queryString = QueryString.stringify(queryParams);
-            window.open(`kidsloopstudent://?${queryString}`, `_system`);
+            openLiveApp({
+                token,
+                domain: url.hostName,
+                locale,
+            });
             return true;
         } else if (url.uaParam === `cordovaios`) {
             history.push({
                 pathname: `/continue`,
                 search: `?ua=cordova`,
                 state: {
-                    token: token,
-                    locale: locale,
+                    token,
+                    locale,
                 },
             });
             return true;
@@ -294,16 +285,26 @@ export function SignIn () {
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link
-                            href="#"
-                            variant="subtitle2"
-                            onClick={(e: React.MouseEvent) => {
-                                window.location.href=`/account/#/signup`;
-                                e.preventDefault();
-                            }}
-                        >
-                            <FormattedMessage id="login_createAccount" />
-                        </Link>
+                        {config.azureB2C.enabled ? (
+                            <Link
+                                component={RouterLink}
+                                to="/create-account"
+                                variant="subtitle2"
+                            >
+                                <FormattedMessage id="login_createAccount" />
+                            </Link>
+                        ) : (
+                            <Link
+                                href="#"
+                                variant="subtitle2"
+                                onClick={(e: React.MouseEvent) => {
+                                    window.location.href = `/account/#/signup`;
+                                    e.preventDefault();
+                                }}
+                            >
+                                <FormattedMessage id="login_createAccount" />
+                            </Link>
+                        )}
                     </Grid>
                 </Grid>
                 <Grid
