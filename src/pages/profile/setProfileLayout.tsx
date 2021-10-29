@@ -6,7 +6,7 @@ import SetBirthday from './setBirthday';
 import SetName from './setName';
 import { useURLContext } from "@/hooks";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import MomentUtils from "@date-io/moment";
+import dayjsUtils from "@date-io/dayjs";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
@@ -81,7 +81,7 @@ export default function SetProfile () {
     }
 
     return (
-        <MuiPickersUtilsProvider utils={MomentUtils}>
+        <MuiPickersUtilsProvider utils={dayjsUtils}>
             <Grid
                 container
                 direction="column"
