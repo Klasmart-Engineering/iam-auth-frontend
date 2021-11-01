@@ -3,7 +3,6 @@ import {
     render,
     screen,
 } from "@testing-library/react";
-import { escapeRegExp } from "lodash";
 import React from "react";
 
 const OLD_ENV = process.env;
@@ -32,7 +31,7 @@ describe(`VersionPage`, () => {
 
         test(`with process.env.VERSION`, () => {
             render(<VersionPage />);
-            expect(screen.getByText(new RegExp(escapeRegExp(VERSION)))).toBeInTheDocument();
+            expect(screen.getByText(new RegExp(VERSION))).toBeInTheDocument();
         });
     });
 });
