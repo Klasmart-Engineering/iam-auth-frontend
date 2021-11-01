@@ -1,14 +1,16 @@
 import Progress from "../../../assets/img/create_profile/progress.svg";
 import { getMyInformation } from '../../api/getMyInformation';
 import config from '../../config';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
+import {
+    CircularProgress,
+    Grid,
+    Typography,
+} from "@material-ui/core";
 import {
     makeStyles,
     Theme,
     useTheme,
 } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import React,
 {
     useEffect,

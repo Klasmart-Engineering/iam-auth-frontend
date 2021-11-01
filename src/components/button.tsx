@@ -1,8 +1,10 @@
-import Button,
-{ ButtonProps } from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
+import {
+    Button,
+    ButtonProps,
+    Hidden,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import SendIcon from "@material-ui/icons/Send";
+import { Send as SendIcon } from "@material-ui/icons";
 import React from "react";
 
 interface Props extends ButtonProps {

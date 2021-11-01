@@ -22,6 +22,33 @@ module.exports = function (api) {
         `@babel/proposal-object-rest-spread`,
         `@babel/plugin-transform-object-assign`,
         `@babel/plugin-proposal-optional-chaining`,
+        [
+            `babel-plugin-import`,
+            {
+                libraryName: `@material-ui/core`,
+                libraryDirectory: `esm`,
+                camel2DashComponentName: false,
+            },
+            `mui-core`,
+        ],
+        [
+            `babel-plugin-import`,
+            {
+                libraryName: `@material-ui/icons`,
+                libraryDirectory: `esm`,
+                camel2DashComponentName: false,
+            },
+            `mui-icons`,
+        ],
+        [
+            `babel-plugin-import`,
+            {
+                libraryName: `@material-ui/lab`,
+                libraryDirectory: `esm`,
+                camel2DashComponentName: false,
+            },
+            `mui-lab`,
+        ],
     ];
 
     return {

@@ -23,7 +23,7 @@ import {
     AzureB2CProvider,
     CreateAccount,
 } from "@/pages/azureB2C";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React,
 { useMemo } from "react";
@@ -140,7 +140,7 @@ function ClientSide () {
                                     <HealthPage />
                                 </Route>
                                 {routes.map(({
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
+                                    // eslint-disable-next-line @typescript-eslint/naming-convention
                                     path,
                                     Component,
                                     size,

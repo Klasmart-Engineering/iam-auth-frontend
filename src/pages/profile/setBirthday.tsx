@@ -3,13 +3,15 @@ import { getUserInformation } from '../../api/getUser';
 import { User } from '../../api/queries/user';
 import { updateUser } from '../../api/updateUser';
 import config from '../../config';
-import Grid from '@material-ui/core/Grid';
+import {
+    Grid,
+    Typography,
+} from "@material-ui/core";
 import {
     makeStyles,
     Theme,
     useTheme,
 } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { DatePicker } from "@material-ui/pickers";
 import dayjs from "dayjs";
 import { Button } from "kidsloop-px";

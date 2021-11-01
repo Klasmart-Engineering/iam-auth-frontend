@@ -3,20 +3,20 @@ import PolicyLink from "../components/policyLinks";
 import config from "../config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import {
+    Card,
+    CardContent,
+    Container,
+    Grid,
     Snackbar,
     SnackbarContent,
     Typography,
+    useMediaQuery,
 } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import {
     createStyles,
     makeStyles,
     useTheme,
 } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ConfettiExplosion from '@reonomy/react-confetti-explosion';
 import { LanguageSelect } from "kidsloop-px";
 import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";

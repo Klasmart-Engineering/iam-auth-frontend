@@ -4,13 +4,15 @@ import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useLocaleState } from "../utils/localeState";
 import { openLiveApp } from "@/app";
 import { useURLContext } from "@/hooks";
-import Grid from "@material-ui/core/Grid";
+import {
+    Grid,
+    Typography,
+} from "@material-ui/core";
 import {
     createStyles,
     makeStyles,
     useTheme,
 } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import * as React from "react";
 import {

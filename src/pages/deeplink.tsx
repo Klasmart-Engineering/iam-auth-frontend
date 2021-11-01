@@ -3,12 +3,14 @@ import NotFound2 from "../../assets/img/not_found/2.png";
 import NotFound3 from "../../assets/img/not_found/3.png";
 import NotFound4 from "../../assets/img/not_found/4.png";
 import StyledButton from "../components/button";
-import Grid from "@material-ui/core/Grid";
+import {
+    Grid,
+    Typography,
+} from "@material-ui/core";
 import {
     createStyles,
     makeStyles,
 } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 
 const NOT_FOUND_IMAGES = [

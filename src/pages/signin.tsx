@@ -12,22 +12,26 @@ import {
 import { useLocaleState } from "../utils/localeState";
 import { openLiveApp } from "@/app";
 import { useURLContext } from "@/hooks";
-import Checkbox from "@material-ui/core/Checkbox";
-import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import {
+    Checkbox,
+    CircularProgress,
+    FormControlLabel,
+    Grid,
+    Link,
+    Typography,
+} from "@material-ui/core";
+import { CheckboxProps } from "@material-ui/core/Checkbox";
 import {
     createStyles,
     makeStyles,
     useTheme,
     withStyles,
 } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import ErrorIcon from "@material-ui/icons/Error";
+import {
+    CheckBox as CheckBoxIcon,
+    CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
+    Error as ErrorIcon,
+} from "@material-ui/icons";
 import * as React from "react";
 import {
     useEffect,

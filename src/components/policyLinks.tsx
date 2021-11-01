@@ -1,11 +1,14 @@
 import DialogAppBar from "./dialogAppBar";
 import { PrivacyPolicy } from "@branding";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import Grid from "@material-ui/core/Grid";
-import Grow from "@material-ui/core/Grow";
-import Link from "@material-ui/core/Link";
+import {
+    Dialog,
+    DialogContent,
+    DialogContentText,
+    Grid,
+    Grow,
+    Link,
+    useMediaQuery,
+} from "@material-ui/core";
 import {
     createStyles,
     makeStyles,
@@ -13,7 +16,6 @@ import {
     useTheme,
 } from "@material-ui/core/styles";
 import { TransitionProps } from "@material-ui/core/transitions";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import * as React from "react";
 import {
     useEffect,

@@ -2,16 +2,18 @@ import Name from "../../../assets/img/create_profile/name.svg";
 import { getUserInformation } from '../../api/getUser';
 import { User } from '../../api/queries/user';
 import { updateUser } from '../../api/updateUser';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
+import {
+    FormControlLabel,
+    Grid,
+    Switch,
+    TextField,
+    Typography,
+} from "@material-ui/core";
 import {
     makeStyles,
     Theme,
     useTheme,
 } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import { Button } from "kidsloop-px";
 import QueryString from "query-string";
 import React,

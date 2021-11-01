@@ -1,17 +1,19 @@
 import config from "../config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
+import {
+    AppBar,
+    Grid,
+    IconButton,
+    Paper,
+    Toolbar,
+    Typography,
+} from "@material-ui/core";
 import {
     createStyles,
     makeStyles,
     Theme,
 } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
+import { Close as CloseIcon } from "@material-ui/icons";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 

@@ -7,16 +7,18 @@ import SetName from './setName';
 import { useURLContext } from "@/hooks";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import dayjsUtils from "@date-io/dayjs";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Grid from '@material-ui/core/Grid';
+import {
+    Card,
+    CardContent,
+    Container,
+    Grid,
+    useMediaQuery,
+} from "@material-ui/core";
 import {
     makeStyles,
     Theme,
     useTheme,
 } from '@material-ui/core/styles';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import React from 'react';
 import {
