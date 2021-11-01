@@ -8,8 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import {
     createStyles,
     makeStyles,
+    useTheme,
 } from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import * as React from "react";

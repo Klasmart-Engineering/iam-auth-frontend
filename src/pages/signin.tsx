@@ -21,9 +21,9 @@ import Link from "@material-ui/core/Link";
 import {
     createStyles,
     makeStyles,
+    useTheme,
+    withStyles,
 } from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
-import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
