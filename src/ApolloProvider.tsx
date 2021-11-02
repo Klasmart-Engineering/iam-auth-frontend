@@ -1,4 +1,4 @@
-import { refreshToken } from "./api/restapi";
+import { refreshToken } from "@/api/authentication";
 import { ApolloProvider } from "@apollo/client";
 import {
     ApolloClient,

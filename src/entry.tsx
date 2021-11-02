@@ -21,7 +21,7 @@ import Loading from "@/components/Loading";
 import { URLContextProvider } from "@/hooks";
 import {
     AzureB2CProvider,
-    CreateAccount,
+    Login,
 } from "@/pages/azureB2C";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -37,7 +37,7 @@ import {
 } from "react-router-dom";
 
 interface RouteDetails {
-    path: string;
+    path: string | string[];
     Component: () => JSX.Element;
     size: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     centerLogo: boolean;
@@ -51,28 +51,10 @@ const routes: RouteDetails[] = [
         centerLogo: true,
     },
     {
-        path: `/selectprofile`,
+        path: [ `/selectprofile`, `/signinselect` ],
         Component: SelectUser,
         size: `xs`,
         centerLogo: true,
-    },
-    {
-        path: `/signinselect`,
-        Component: SelectUser,
-        size: `xs`,
-        centerLogo: true,
-    },
-    {
-        path: `/signin`,
-        Component: SignIn,
-        size: `xs`,
-        centerLogo: false,
-    },
-    {
-        path: `/login`,
-        Component: SignIn,
-        size: `xs`,
-        centerLogo: false,
     },
     {
         path: `/continue`,
@@ -81,6 +63,15 @@ const routes: RouteDetails[] = [
         centerLogo: true,
     },
 ];
+
+if (!config.azureB2C.enabled) {
+    routes.push({
+        path: [ `/signin`, `/login` ],
+        Component: SignIn,
+        size: `xs`,
+        centerLogo: false,
+    });
+}
 
 if (config.branding.auth.showRegionSelect) {
     routes.push({
@@ -147,7 +138,7 @@ function ClientSide () {
                                     centerLogo,
                                 }) => (
                                     <Route
-                                        key={path}
+                                        key={Array.isArray(path) ? path[0] : path}
                                         path={path}>
                                         {() => (
                                             <Layout
@@ -161,8 +152,8 @@ function ClientSide () {
                                 ))}
                                 {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
                                 {config.azureB2C.enabled && <Route
-                                    path="/create-account"
-                                    component={CreateAccount}/>}
+                                    path={[ `/login`, `/signin` ]}
+                                    component={Login}/>}
                                 {config.azureB2C.enabled && <Route
                                     path="/authentication-callback"
                                     component={Loading}/>}

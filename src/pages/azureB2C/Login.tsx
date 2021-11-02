@@ -10,7 +10,7 @@ import {
 } from "@azure/msal-react";
 import React from "react";
 
-export default function CreateAccount () {
+export default function Login () {
     return (
         <MsalAuthenticationTemplate
             interactionType={InteractionType.Redirect}

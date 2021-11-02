@@ -1,5 +1,4 @@
 import { getMyInformation } from "../api/getMyInformation";
-import { transferSession } from "../api/restapi";
 import StyledButton from "../components/button";
 import CenterAlignChildren from "../components/centerAlignChildren";
 import StyledTextField from "../components/textfield";
@@ -10,6 +9,7 @@ import {
     RestAPIErrorType,
 } from "../restapi_errors";
 import { useLocaleState } from "../utils/localeState";
+import { transferAMSToken } from "@/api/authentication";
 import { openLiveApp } from "@/app";
 import { useURLContext } from "@/hooks";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -157,7 +157,7 @@ export function SignIn () {
             });
             return true;
         } else {
-            const transfer = await transferSession(token);
+            const transfer = await transferAMSToken(token);
             if (transfer) {
                 history.push(`/selectprofile`);
                 return true;

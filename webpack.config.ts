@@ -27,6 +27,9 @@ const { loadBrandingOptions } = require(`kidsloop-branding`);
 
 const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
+const API_ENDPOINT = process.env.API_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
+const AUTH_ENDPOINT = process.env.AUTH_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
+
 const webpackConfig: Configuration = {
     mode: nodeEnv,
     devtool: isDev ? `eval-cheap-module-source-map` : `source-map`,
@@ -130,27 +133,27 @@ const webpackConfig: Configuration = {
         historyApiFallback: true,
         proxy: {
             "/user": {
-                target: `https://api.alpha.kidsloop.net/`,
+                target: API_ENDPOINT,
                 secure: true,
                 changeOrigin: true,
             },
             "/transfer": {
-                target: `https://auth.alpha.kidsloop.net/`,
+                target: AUTH_ENDPOINT,
                 secure: true,
                 changeOrigin: true,
             },
             "/refresh": {
-                target: `https://auth.alpha.kidsloop.net/`,
+                target: AUTH_ENDPOINT,
                 secure: true,
                 changeOrigin: true,
             },
             "/switch": {
-                target: `https://auth.alpha.kidsloop.net/`,
+                target: AUTH_ENDPOINT,
                 secure: true,
                 changeOrigin: true,
             },
             "/signout": {
-                target: `https://auth.alpha.kidsloop.net/`,
+                target: AUTH_ENDPOINT,
                 secure: true,
                 changeOrigin: true,
             },

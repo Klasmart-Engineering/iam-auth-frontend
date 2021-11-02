@@ -14,6 +14,9 @@ type Environment = typeof ENVIRONMENTS[number];
 
 interface Config {
     env: Environment;
+    endpoints: {
+        hub: string;
+    };
     branding: BrandingOptions;
     server: {
         domain: string;
@@ -34,6 +37,9 @@ const cleanNodeEnv = (env: string | undefined): Environment | undefined => {
 
 const config: Config = {
     env: cleanNodeEnv(process.env.NODE_ENV) ?? `production`,
+    endpoints: {
+        hub: process.env.HUB_ENDPOINT ?? `https://hub.kidsloop.live`,
+    },
     branding: brandingConfig,
     server: {
         domain:
@@ -91,6 +97,6 @@ export const msalConfig: Configuration = {
     },
 };
 
-export const b2cScopes = [ `https://kidsloopb2c.onmicrosoft.com/010eb29e-d42b-4ca3-9c16-1961a528ce77/tasks.write` ];
+export const b2cScopes = [ `https://${config.azureB2C.tenant}.onmicrosoft.com/010eb29e-d42b-4ca3-9c16-1961a528ce77/tasks.write` ];
 
 export default config;

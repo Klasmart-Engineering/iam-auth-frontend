@@ -20,8 +20,7 @@ import {
 import { FormattedMessage } from "react-intl";
 import { useLocation } from "react-router";
 
-const DEFAULT_REDIRECT_LINK =
-    process.env.REDIRECT_LINK || `https://hub.kidsloop.live`;
+const DEFAULT_REDIRECT_LINK = config.endpoints.hub;
 
 const useStyles = makeStyles((theme) =>
     createStyles({

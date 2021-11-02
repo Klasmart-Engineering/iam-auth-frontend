@@ -1,10 +1,7 @@
 import { getMyUsers } from "../api/getMyUsers";
 import { User } from "../api/queries/me";
-import {
-    refreshToken,
-    switchUser,
-} from "../api/restapi";
 import config from "../config";
+import { switchUser } from "@/api/authentication";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
@@ -20,93 +17,99 @@ import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { utils } from "kidsloop-px";
 import QueryString from "query-string";
-import * as React from "react";
-import {
+import React,
+{
     useEffect,
     useState,
 } from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 
+const buildDisplayName = ({
+    given_name: givenName, family_name: familyName, username,
+}: Pick<User, "given_name" | "family_name" | "username">) => {
+    if (givenName) {
+        return `${givenName}` + (familyName ? ` ${familyName}` : ``);
+    } else if (username) {
+        return username;
+    } else {
+        return `Name not set`;
+    }
+};
+
 export function SelectUser () {
     const history = useHistory();
-    const [ users, setUsers ] = useState<User[]>([]);
+    const [ loadSingleUserError, setLoadSingleUserError ] = useState<boolean>(false);
 
+    // TODO: move to paginated user-service endpoint once move to Azure B2C is complete
+    // (as we can supply email/phone from the Azure token as the filter for the `usersConnection`)
     const {
         loading,
         data,
-        refetch,
-        error,
     } = getMyUsers({
         fetchPolicy: `network-only`,
     });
 
+    const users = data?.my_users;
+
+    // If we only have a single user, we want to keep showing the skeleton while we make the `switchUser`
+    // API call and try to navigate to the Hub directly
+    // If that API call fails, we can show the list of a single user anyway (so the client can try again)
+    const shouldShowSkeleton = loading || (users?.length === 1 && !loadSingleUserError);
+
     useEffect(() => {
-        if (error) {
-            refreshToken().then(() => {
-                refetch();
-            });
-        }
-        if (data) {
-            setUsers(data.my_users);
-        }
-        if (data?.my_users.length === 1) {
-            handleClick(data?.my_users[0]);
-        }
-    }, [ loading, data ]);
+        setLoadSingleUserError(false);
+        if (!users || users.length !== 1) return;
 
-    const switchUsers = async (userId: string) => {
-        try {
-            const response = await switchUser(userId);
-            return response;
-        } catch (error) {
-            console.log(`Error switching user: `, error);
-        }
-    };
+        const userId = users[0].user_id;
 
-    const handleClick = (user: User, edit?: string) => {
-        const userId = user.user_id;
-        const queryString = QueryString.stringify({
-            userId,
+        async function loadOnlyUser () {
+            const ok = await switchUser(userId);
+
+            if (ok) {
+                window.location.replace(config.endpoints.hub);
+            } else {
+                setLoadSingleUserError(true);
+                console.error(`Could not switch to userId=${userId}`);
+            }
+        }
+        loadOnlyUser();
+    }, [ users ]);
+
+    function handleEditName ({ user_id: userId }: Pick<User, "user_id">) {
+        history.push({
+            pathname: `/createprofile/name`,
+            search: `?${QueryString.stringify({
+                userId,
+            })}`,
         });
+    }
 
-        console.log(`handleClick`, user);
+    function handleEditBirthday ({ user_id: userId }: Pick<User, "user_id">) {
+        history.push({
+            pathname: `/createprofile/birthday`,
+            search: `?${QueryString.stringify({
+                userId,
+            })}`,
+        });
+    }
 
-        if (!(user.given_name || user.username)) {
-            history.push(`/createprofile/name?${queryString}`);
-            return;
-        }
-
-        if (edit === `name`) {
-            history.push(`/createprofile/name?${queryString}`);
-            return;
-        } else if (edit === `birthday`) {
-            history.push(`/createprofile/birthday?${queryString}`);
-            return;
+    async function handleSelectUser ({ user_id: userId }: Pick<User, "user_id">) {
+        const ok = await switchUser(userId);
+        if (ok) {
+            history.push({
+                pathname: `/continue`,
+                search: `?${QueryString.stringify({
+                    userId,
+                })}`,
+            });
         } else {
-            switchUsers(userId)
-                .then(() => {
-                    history.push(`/continue?${queryString}`);
-                })
-                .catch((error) => {
-                    console.log(`Error handling click: `, error);
-                });
-            return;
+            console.error(`Could not switch to userId=${userId}`);
         }
-    };
-
-    const handleName = (user: User) => {
-        if (user.given_name) {
-            return `${user.given_name}` + (user.family_name ? ` ${user.family_name}` : ``);
-        } else if (user.username) {
-            return user.username;
-        } else {
-            return `Name not set`;
-        }
-    };
+    }
 
     function renderList () {
-        if (loading) {
+        if (shouldShowSkeleton) {
             return (
                 <ListItem>
                     <ListItemAvatar>
@@ -131,13 +134,13 @@ export function SelectUser () {
                     />
                 </ListItem>
             );
-        } else if (users.length > 0) {
+        } else if (users && users.length > 0) {
             return (
                 users.map((user) =>
                     <ListItem
                         key={user.user_id}
                         button
-                        onClick={() => handleClick(user) }
+                        onClick={() => handleSelectUser(user) }
                     >
                         <ListItemAvatar>
                             <Avatar
@@ -147,12 +150,12 @@ export function SelectUser () {
                                 }}
                             >
                                 <Typography variant="caption">
-                                    { utils.nameToInitials(handleName(user), 3) }
+                                    { utils.nameToInitials(buildDisplayName(user), 3) }
                                 </Typography>
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={handleName(user)}
+                            primary={buildDisplayName(user)}
                             secondary={user.date_of_birth} />
                         <ListItemSecondaryAction>
                             { (user.given_name || user.username) && !user.date_of_birth &&
@@ -163,7 +166,7 @@ export function SelectUser () {
                                             style={{
                                                 color: `#9e9e9e`,
                                             }}
-                                            onClick={() => handleClick(user, `birthday`)}
+                                            onClick={() => handleEditBirthday(user)}
                                         >
                                             <EventRoundedIcon />
                                         </IconButton>
@@ -177,24 +180,12 @@ export function SelectUser () {
                                             style={{
                                                 color: `#F4970A`,
                                             }}
-                                            onClick={() => handleClick(user, `name`)}
+                                            onClick={() => handleEditName(user)}
                                         >
                                             <WarningRoundedIcon />
                                         </IconButton>
                                     </Tooltip>
                             }
-                            {/* { (user.given_name || user.username) && user.date_of_birth &&
-                                    <Tooltip title={<FormattedMessage id="Edit Profile" />}>
-                                        <IconButton
-                                            aria-label="change info"
-                                            edge="end"
-                                            onClick={() => handleClick(user, "name")}
-                                            style={{ color: "#9e9e9e" }}
-                                        >
-                                            <EditAttributesIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                } */}
                         </ListItemSecondaryAction>
                     </ListItem>)
             );
@@ -219,11 +210,11 @@ export function SelectUser () {
             <Grid
                 item
                 xs={12}>
-                { !loading &&
+                { !shouldShowSkeleton &&
                     <Typography
                         variant="h4"
                         align="center">
-                        { (users.length > 0) ?
+                        { (users && users.length > 0) ?
                             <FormattedMessage id="selectProfile_title" /> :
                             <FormattedMessage id="selectProfile_noOrgTitle"/>
                         }
