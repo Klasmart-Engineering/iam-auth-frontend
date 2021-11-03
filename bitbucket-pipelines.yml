@@ -48,7 +48,7 @@ pipelines:
 
     - step:
         name: 'Build Kidsloop Pass'
-        image: node:lts
+        image: node:14
         script:
           - cd src/pages/account/kidsloop-pass-frontend/client
           # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
