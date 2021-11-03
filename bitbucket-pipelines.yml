@@ -29,6 +29,7 @@ pipelines:
         image: node:lts
         script:
           - git submodule update --init --recursive --force
+          - git submodule update --remote
         artifacts:
          - src/pages/account/kidsloop-pass-frontend/**
 

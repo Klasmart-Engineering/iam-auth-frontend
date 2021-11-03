@@ -1,3 +1,4 @@
 [submodule "src/pages/account/kidsloop-pass-frontend"]
 	path = src/pages/account/kidsloop-pass-frontend
 	url = git@bitbucket.org:calmisland/kidsloop-pass-frontend.git
+	branch = fix/react-router-dep
