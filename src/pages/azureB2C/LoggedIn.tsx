@@ -1,7 +1,10 @@
 import { transferAzureB2CToken } from "@/api/authentication";
 import { openLiveApp } from "@/app";
 import Loading from "@/components/Loading";
-import { useURLContext } from "@/hooks";
+import {
+    useAccessToken,
+    useURLContext,
+} from "@/hooks";
 import { Layout } from "@/pages/layout";
 import { useLocaleState } from "@/utils/localeState";
 import { MsalAuthenticationResult } from "@azure/msal-react";
@@ -20,49 +23,73 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     const history = useHistory();
     const { locale } = useLocaleState();
     const urlContext = useURLContext();
-    const [ error, setError ] = useState<boolean>(false);
-
-    const token = result?.accessToken;
+    const [ transferTokenError, setTransferTokenError ] = useState<boolean>(false);
+    const {
+        token,
+        isLoading,
+        error: accessTokenError,
+    } = useAccessToken(result);
 
     useEffect(() => {
-        setError(false);
-        const abortController = new AbortController();
-        void async function transfer () {
-            if (!token) {
-                console.error(`Azure B2C response did not include an accessToken, missing scope in login request`);
-                setError(true);
-                return;
-            }
-            if (urlContext.uaParam === `cordova`) {
-                openLiveApp({
+        if (isLoading) return;
+
+        setTransferTokenError(false);
+
+        if (!token) {
+            console.error(`Azure B2C response did not include an accessToken, missing scope in login request`);
+            setTransferTokenError(true);
+            return;
+        }
+
+        if (urlContext.uaParam === `cordova`) {
+            openLiveApp({
+                token,
+                domain: urlContext.hostName,
+                locale,
+            });
+            return;
+        }
+
+        if (urlContext.uaParam === `cordovaios`) {
+            history.push({
+                pathname: `/continue`,
+                search: `?ua=cordova`,
+                state: {
                     token,
-                    domain: urlContext.hostName,
                     locale,
-                });
-            } else if (urlContext.uaParam === `cordovaios`) {
-                history.push({
-                    pathname: `/continue`,
-                    search: `?ua=cordova`,
-                    state: {
-                        token,
-                        locale,
-                    },
-                });
+                },
+            });
+            return;
+        }
+
+        const abortController = new AbortController();
+
+        async function transfer (accessToken: string) {
+            setTransferTokenError(false);
+            const success = await transferAzureB2CToken(accessToken, abortController);
+            if (success) {
+                history.push(`/selectprofile`);
             } else {
-                const transfer = await transferAzureB2CToken(token, abortController);
-                if (transfer) {
-                    history.push(`/selectprofile`);
-                } else {
-                    console.error(`Transfer of Azure B2C accessToken to Kidsloop issued JWT failed`);
-                    setError(true);
-                }
-            }}();
+                console.error(`Transfer of Azure B2C accessToken to Kidsloop issued JWT failed`);
+                setTransferTokenError(true);
+            }
+        }
+
+        transfer(token);
+
         return () => {
             abortController.abort();
         };
-    }, [ token ]);
+    }, [
+        token,
+        isLoading,
+        history,
+        locale,
+        urlContext.hostName,
+        urlContext.uaParam,
+    ]);
 
-    if (error) {
+    if (transferTokenError || accessTokenError) {
         return <Layout maxWidth={`md`}>
             <Grid
                 item

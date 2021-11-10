@@ -6,6 +6,7 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
+      "@branding": ["./node_modules/kidsloop-branding/dist/brands/kidsloop"],
       "@/*": [
         "src/*"
       ],

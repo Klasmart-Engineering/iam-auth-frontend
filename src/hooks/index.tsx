@@ -1,3 +1,4 @@
+export { useAccessToken } from "./azureB2C";
 export {
     URLContextProvider,
     useURLContext,
