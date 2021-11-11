@@ -2,11 +2,6 @@ import BackgroundImage from "../../assets/img/test.png";
 import PolicyLink from "../components/policyLinks";
 import config from "../config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import {
-    Snackbar,
-    SnackbarContent,
-    Typography,
-} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
@@ -17,16 +12,9 @@ import {
     useTheme,
 } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import ConfettiExplosion from '@reonomy/react-confetti-explosion';
 import { LanguageSelect } from "kidsloop-px";
 import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";
-import * as React from "react";
-import {
-    useEffect,
-    useState,
-} from "react";
-
-const { version } = require(`../../package.json`);
+import React from "react";
 
 const LANGUAGES_LABEL: Language[] = [
     {
@@ -111,16 +99,7 @@ export function Layout (props: Props) {
     const domain = process.env.SLD + `.` + process.env.TLD;
     const logo = props.logo ?? true;
 
-    const [ isVersionVisible, setVersionVisible ] = useState(false);
-    const [ clicks, setClicks ] = useState(0);
-
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
-
-    useEffect(() => {
-        if (!(clicks % 5) && clicks > 0) {
-            setVersionVisible(true);
-        }
-    }, [ clicks ]);
 
     return (
         <Grid
@@ -148,7 +127,6 @@ export function Layout (props: Props) {
                                         style={{
                                             textAlign: props.centerLogo ? `center` : `left`,
                                         }}
-                                        onClick={() => setClicks(clicks + 1)}
                                     >
                                         <img
                                             alt={`${config.branding.company.name} Logo`}
@@ -165,9 +143,6 @@ export function Layout (props: Props) {
                     direction="row"
                     justify="space-between"
                     alignItems="center">
-                    {/* <Grid item xs={1}>
-                        <Lightswitch iconOnly />
-                    </Grid> */}
                     <Grid
                         item
                         xs={5}>
@@ -183,21 +158,6 @@ export function Layout (props: Props) {
                     </Grid>
                 </Grid>
             </Container>
-            <Snackbar
-                open={isVersionVisible}
-                autoHideDuration={4000}
-                onClose={() => setVersionVisible(false)}>
-                <SnackbarContent
-                    message={
-                        <>
-                            <Typography variant="caption">
-                                { `v${version}-${process.env.API_ENDPOINT}` }
-                            </Typography>
-                            { isVersionVisible && <ConfettiExplosion /> }
-                        </>
-                    }
-                />
-            </Snackbar>
         </Grid>
     );
 }

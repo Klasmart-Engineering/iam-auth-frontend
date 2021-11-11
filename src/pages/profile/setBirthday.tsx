@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { DatePicker } from "@material-ui/pickers";
+import dayjs from "dayjs";
 import { Button } from "kidsloop-px";
-import moment from 'moment';
 import QueryString from "query-string";
 import React,
 {
@@ -121,7 +121,7 @@ export default function SetBirthday () {
             if (!date) {
                 history.push(`/signinselect`);
             }
-            const formattedDate = moment(date).format(`MM-YYYY`);
+            const formattedDate = dayjs(date).format(`MM-YYYY`);
 
             const response = await setUpdateUser({
                 variables: {
