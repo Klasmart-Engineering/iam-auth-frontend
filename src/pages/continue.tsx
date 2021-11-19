@@ -3,7 +3,10 @@ import config from "../config";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { useLocaleState } from "../utils/localeState";
 import { openLiveApp } from "@/app";
-import { useURLContext } from "@/hooks";
+import {
+    usePlatform,
+    useURLContext,
+} from "@/hooks";
 import Grid from "@material-ui/core/Grid";
 import {
     createStyles,
@@ -56,15 +59,15 @@ export function Continue () {
     const theme = useTheme();
     const location: any = useLocation();
     const urlContext = useURLContext();
+    const platform = usePlatform();
 
     const url = new URL(window.location.href);
-    const [ cordova ] = useState(urlContext.uaParam);
     const [ continueLink, setContinueLink ] = useState(url.searchParams.get(`continue`) || DEFAULT_REDIRECT_LINK);
     const [ seconds, setSeconds ] = useState(10);
 
     const { locale } = useLocaleState();
 
-    if (!urlContext.testing && !cordova) {
+    if (!urlContext.testing && platform === `Browser`) {
         redirectIfUnauthorized();
     }
 
@@ -92,7 +95,7 @@ export function Continue () {
     }
 
     useEffect(() => {
-        if (!seconds || cordova) return;
+        if (!seconds || platform !== `Browser`) return;
 
         const interval = setInterval(() => {
             setSeconds(seconds - 1);
@@ -103,7 +106,7 @@ export function Continue () {
         }
 
         return () => clearInterval(interval);
-    }, [ seconds ]);
+    }, [ seconds, platform ]);
 
     function handleSuccess () {
         console.log(`continueLink ` + continueLink);
@@ -113,7 +116,7 @@ export function Continue () {
             window.parent.postMessage({
                 message: `message`,
             }, `*`);
-        } else if (cordova) {
+        } else if (platform !== `Browser`) {
             openLiveApp({
                 token: location.state.token,
                 domain: url.hostname,
@@ -140,7 +143,7 @@ export function Continue () {
                     <FormattedMessage id={`continue_signInSuccess`} />
                 </Typography>
             </Grid>
-            {!cordova && (
+            {platform === `Browser` && (
                 <>
                     <Grid
                         item

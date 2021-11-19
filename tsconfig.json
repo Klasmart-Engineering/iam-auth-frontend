@@ -19,10 +19,17 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
+  "files": [
+    "assets/css/index.min.css.d.ts",
+    "assets/img/img.d.ts"
+  ],
   "include": [
     "src",
     "tests",
     "**.js",
     "**.ts"
+  ],
+  "exclude": [
+      "src/pages/account/**"
   ]
 }

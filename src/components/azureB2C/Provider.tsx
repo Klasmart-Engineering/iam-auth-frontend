@@ -1,4 +1,4 @@
-import client from "./client";
+import { client } from "@/utils/azureB2C";
 import { MsalProvider } from "@azure/msal-react";
 import React from "react";
 

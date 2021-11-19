@@ -11,7 +11,10 @@ import {
 import { useLocaleState } from "../utils/localeState";
 import { transferAMSToken } from "@/api/authentication";
 import { openLiveApp } from "@/app";
-import { useURLContext } from "@/hooks";
+import {
+    usePlatform,
+    useURLContext,
+} from "@/hooks";
 import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -77,6 +80,7 @@ export function SignIn () {
     const theme = useTheme();
     const history = useHistory();
     const url = useURLContext();
+    const platform = usePlatform();
     const [ cookies, setCookies ] = useCookies([ `privacy` ]);
 
     const { locale } = useLocaleState();
@@ -98,13 +102,11 @@ export function SignIn () {
     });
 
     useEffect(() => {
-        console.log(url.uaParam);
-
         if (data?.me) {
             setSkip(true);
         }
 
-        if (data?.me && url.uaParam === null) {
+        if (data?.me && platform === `Browser`) {
             history.push(`/selectprofile`);
         }
     }, [ data ]);
@@ -139,14 +141,14 @@ export function SignIn () {
     }
 
     async function transferLogin (token: string) {
-        if (url.uaParam === `cordova`) {
+        if (platform === `Android`) {
             openLiveApp({
                 token,
                 domain: url.hostName,
                 locale,
             });
             return true;
-        } else if (url.uaParam === `cordovaios`) {
+        } else if (platform === `iOS`) {
             history.push({
                 pathname: `/continue`,
                 search: `?ua=cordova`,

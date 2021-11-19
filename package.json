@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "check:types": "tsc --noEmit",
     "start": "cross-env NODE_ENV=development webpack serve",
     "lint": "eslint . --fix --ext .ts,.js,.tsx,.jsx",
     "test": "jest",
@@ -32,6 +33,7 @@
     "@material-ui/lab": "4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
     "babel-loader": "^8.2.2",
+    "buffer": "6.0.3",
     "css-modules-typescript-loader": "^4.0.1",
     "dayjs": "1.10.7",
     "graphql": "^15.5.0",

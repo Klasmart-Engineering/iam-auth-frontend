@@ -17,12 +17,10 @@ import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { themeProvider } from "./themeProvider";
+import { AzureB2CProvider } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
 import { URLContextProvider } from "@/hooks";
-import {
-    AzureB2CProvider,
-    Login,
-} from "@/pages/azureB2C";
+import { Login } from "@/pages/azureB2C";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React,

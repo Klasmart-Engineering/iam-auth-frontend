@@ -1,4 +1,4 @@
-import { loginRequest } from "../../pages/azureB2C/client";
+import { loginRequest } from "@/utils/azureB2C/client";
 import { InteractionStatus } from "@azure/msal-browser";
 import {
     MsalAuthenticationResult,

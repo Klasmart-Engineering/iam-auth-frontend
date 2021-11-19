@@ -1,5 +1,5 @@
 import useAccessToken from './useAccessToken';
-import { loginRequest } from '@/pages/azureB2C/client';
+import { loginRequest } from '@/utils/azureB2C';
 import {
     AuthenticationResult,
     InteractionStatus,

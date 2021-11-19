@@ -1,6 +1,6 @@
 import React from "react";
 
-interface URLContext {
+export interface URLContext {
     hostName: string;
     locale: string | null;
     uaParam: string | null;
@@ -8,14 +8,14 @@ interface URLContext {
     testing: boolean;
 }
 
-const URLContext = React.createContext<URLContext | undefined>(undefined);
+const urlContext = React.createContext<URLContext | undefined>(undefined);
 
 export function useURLContext () {
-    const context = React.useContext(URLContext);
+    const context = React.useContext(urlContext);
     if (context === undefined) {
         throw new Error(`useURLContext must be used within a URLContext.Provider`);
     }
     return context;
 }
 
-export const URLContextProvider = URLContext.Provider;
+export const URLContextProvider = urlContext.Provider;
