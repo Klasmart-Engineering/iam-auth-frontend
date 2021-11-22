@@ -59,9 +59,9 @@
     "name_buttonSave": "Simpan",
     "name_buttonNext": "Lanjut",
     "name_buttonBack": "Kembali",
-    "region_cantFind": "Can't find your country or region? Click here.",
+    "region_cantFind": "Tidak bisa menemukan negara atau wilayahmu? Klik di sini.",
     "region_comingSoon": "Coming Soon",
-    "region_selectCountryRegion": "Select your country or region",
+    "region_selectCountryRegion": "Pilih negara atau wilayah",
     "selectProfile_noOrgTitle": "Kamu bukan bagian dari organisasi.",
     "selectProfile_noOrgSubtitle": "Silakan gabung ke organisasi untuk dapat menggunakan {platformName}.",
     "emailOrPhone.label": "Email atau Telepon",
@@ -69,5 +69,7 @@
     "ERROR_EMAIL_NOT_VERIFIED": "Email Anda belum diverifikasi",
     "PHONE_NUMBER_NOT_VERIFIED": "Nomor telepon Anda belum diverifikasi",
     "ERROR_ACCOUNT_BANNED": "Akun Anda sudah diblokir",
-    "ERROR_INPUT_INVALID_FORMAT": "Email/nomor telepon yang dimasukkan tidak valid"
+    "ERROR_INPUT_INVALID_FORMAT": "Email/nomor telepon yang dimasukkan tidak valid",
+    "authentication.error.generic.title": "Oops!",
+    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
 }

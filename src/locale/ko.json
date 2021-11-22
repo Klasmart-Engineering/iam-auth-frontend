@@ -69,5 +69,7 @@
     "ERROR_EMAIL_NOT_VERIFIED": "이메일 주소가 인증되지 않았습니다.",
     "PHONE_NUMBER_NOT_VERIFIED": "전화 번호가 인증되지 않았습니다.",
     "ERROR_ACCOUNT_BANNED": "계정이 차단되었습니다",
-    "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다."
+    "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다.",
+    "authentication.error.generic.title": "Oops!",
+    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
 }

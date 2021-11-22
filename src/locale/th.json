@@ -69,5 +69,7 @@
     "ERROR_EMAIL_NOT_VERIFIED": "อีเมลของคุณยังไม่ได้รับการยืนยัน",
     "PHONE_NUMBER_NOT_VERIFIED": "หมายเลขโทรศัพท์ของคุณยังไม่ได้รับการยืนยัน",
     "ERROR_ACCOUNT_BANNED": "บัญชีของคุณถูกแบน",
-    "ERROR_INPUT_INVALID_FORMAT": "คุณไม่ได้ป้อนอีเมล/หมายเลขโทรศัพท์ที่ถูกต้อง"
+    "ERROR_INPUT_INVALID_FORMAT": "คุณไม่ได้ป้อนอีเมล/หมายเลขโทรศัพท์ที่ถูกต้อง",
+    "authentication.error.generic.title": "Oops!",
+    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
 }

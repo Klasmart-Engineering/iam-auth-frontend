@@ -69,5 +69,7 @@
     "ERROR_EMAIL_NOT_VERIFIED": "Your email hasn't been verified",
     "PHONE_NUMBER_NOT_VERIFIED": "Your phone number hasn't been verified",
     "ERROR_ACCOUNT_BANNED": "Your account has been banned",
-    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number"
+    "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number",
+    "authentication.error.generic.title": "Oops!",
+    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
 }

@@ -69,5 +69,7 @@
     "ERROR_EMAIL_NOT_VERIFIED": "Email của bạn chưa được xác minh",
     "PHONE_NUMBER_NOT_VERIFIED": "Số điện thoại của bạn chưa được xác minh",
     "ERROR_ACCOUNT_BANNED": "Tài khoản của bạn đã bị cấm",
-    "ERROR_INPUT_INVALID_FORMAT": "Bạn đã nhập email/số điện thoại không hợp lệ"
+    "ERROR_INPUT_INVALID_FORMAT": "Bạn đã nhập email/số điện thoại không hợp lệ",
+    "authentication.error.generic.title": "Oops!",
+    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
 }
