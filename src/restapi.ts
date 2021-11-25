@@ -36,10 +36,6 @@ function authCall (route: string, body: string) {
     return fetchRoute(`POST`, process.env.AUTH_ENDPOINT_BADANAMU || `https://ams-auth.badanamu.net`, route, body);
 }
 
-function accountCall (route: string, body: string) {
-    return fetchRoute(`POST`, process.env.ACCOUNT_ENDPOINT_BADANAMU || `https://ams-account.badanamu.net`, route, body);
-}
-
 async function fetchRoute (method: string, prefix: string, route: string, body?: string) {
     const headers = new Headers();
     headers.append(`Accept`, `application/json`);

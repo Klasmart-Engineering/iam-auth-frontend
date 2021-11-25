@@ -19,16 +19,36 @@ which contains pages:
 
 ### Installation
 
-- Install Node.js v14.x.x
-- Install Npm v6.x.x
-- Install the dependencies: `npm install`
+-   Install Node.js v14.x.x
+-   Install Npm v6.x.x
+-   Install the dependencies: `npm install`
 
 ### Configuration
 
-- Map `fe.alpha.kidsloop.net` to `localhost` by [editing your hosts file](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
-- Configure environment variables
-  - Create `.env` (which is gitignored)
-  - Copy the contents of `.env.example` into `.env`, making changes as required
+1.  Configure environment variables
+
+    -   Create `.env` (which is gitignored)
+    -   Copy the contents of `.env.example` into `.env`, making changes as required
+
+| Variable               | Example                          | Explanation                                                                                                        |
+| :--------------------- | -------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| API_ENDPOINT           | https://api.alpha.kidsloop.net/  | Base URL for user-service instance (NB: no `/user` URL suffix required)                                            |
+| AUTH_ENDPOINT          | https://auth.alpha.kidsloop.net/ | Base URL for `auth-server` instance (i.e backend counterpart to this frontend)                                     |
+| HUB_ENDPOINT           | https://hub.alpha.kidsloop.net/  | Base URL for `hub-frontend` instance, which will be redirected to upon logging in and selecting a User             |
+| AUTH_ENDPOINT_BADANAMU | https://ams-auth.badanamu.net    | Base URL for "AMS" instance, which holds account credentials                                                       |
+| SLD                    | alpha.kidsloop                   | [Second Level Domain](https://en.wikipedia.org/wiki/Second-level_domain) (NB: used with TLD to form cookie domain) |
+| TLD                    | net                              | [Top Level Domain](https://en.wikipedia.org/wiki/Top-level_domain) (NB: see above)                                 |
+| DEV_SERVER_DOMAIN      | fe.alpha.kidsloop.net            | Webpack dev server domain                                                                                          |
+| DEV_SERVER_PORT        | 8081                             | Webpack dev server port                                                                                            |
+
+Note, generally you will want all `_ENDPOINT` and domain related variables to point to the same base domain. This is to prevent issues with CORS, and also to ensure your authentication cookies allow you to access the correct downstream services (e.g. you will need authentication cookies for the `kidsloop.net` domain to successfully talk to the `user-service` on `api.kidsloop.net`).
+
+2.  Map `DEV_SERVER_DOMAIN` environment variable (defaults to `fe.alpha.kidsloop.net`) to `localhost` by editing your hosts file [manually](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/),
+    or on Mac/Linux run the following command (replacing `fe.alpha.kidsloop.net` with your desired domain)
+
+```sh
+sudo -- sh -c -e "echo '127.0.0.1\tfe.alpha.kidsloop.net' >> /etc/hosts";
+```
 
 ## Branding
 

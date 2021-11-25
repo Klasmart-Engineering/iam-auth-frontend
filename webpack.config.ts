@@ -29,6 +29,8 @@ const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
 const API_ENDPOINT = process.env.API_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
 const AUTH_ENDPOINT = process.env.AUTH_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
+const DEV_SERVER_DOMAIN = process.env.DEV_SERVER_DOMAIN ?? `fe.alpha.kidsloop.net`;
+const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT ?? 8081;
 
 const webpackConfig: Configuration = {
     mode: nodeEnv,
@@ -127,8 +129,8 @@ const webpackConfig: Configuration = {
         errorDetails: true,
     },
     devServer: {
-        host: `fe.alpha.kidsloop.net`,
-        port: 8081,
+        host: DEV_SERVER_DOMAIN,
+        port: DEV_SERVER_PORT,
         https: true,
         historyApiFallback: true,
         proxy: {
