@@ -3,7 +3,7 @@ import {
     LogLevel as MsalLogLevel,
 } from "@azure/msal-browser";
 import { ILoggerCallback } from "@azure/msal-common";
-import { brandingConfig } from "@branding";
+import { brandingConfig } from "@branding/index";
 import { BrandingOptions } from "kidsloop-branding";
 
 const BASE_URL = window.location.origin;

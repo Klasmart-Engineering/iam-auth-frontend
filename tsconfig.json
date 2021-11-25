@@ -4,9 +4,9 @@
     "module": "commonjs",
     "jsx": "react",
     "strict": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@branding": ["./node_modules/kidsloop-branding/dist/brands/kidsloop"],
+      "@branding/*": ["node_modules/kidsloop-branding/dist/brands/kidsloop/*"],
       "@/*": [
         "src/*"
       ],

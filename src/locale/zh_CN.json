@@ -71,5 +71,5 @@
     "ERROR_ACCOUNT_BANNED": "账号已被禁用",
     "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码",
     "authentication.error.generic.title": "Oops!",
-    "authentication.error.generic.body": "Something went wrong on our side!\\nPlease try again or contact your organization admin."
+    "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin."
 }
