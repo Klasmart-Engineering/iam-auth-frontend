@@ -8,7 +8,8 @@ const config: Config.InitialOptions = {
     verbose: false,
     testEnvironment: `jsdom`,
     testPathIgnorePatterns: [ `/node_modules/` ],
-    setupFilesAfterEnv: [ `<rootDir>/setupTests.ts` ],
+    setupFiles: [ `<rootDir>/tests/setup.ts` ],
+    setupFilesAfterEnv: [ `<rootDir>/tests/setupAfterEnv.ts` ],
     moduleFileExtensions: [
         ...defaults.moduleFileExtensions,
         `ts`,
