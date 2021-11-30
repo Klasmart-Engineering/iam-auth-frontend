@@ -24,7 +24,8 @@ interface Config {
     azureB2C: {
         enabled: boolean;
         clientId: string | undefined;
-        tenant: string | undefined;
+        domain: string | undefined;
+        tenantId: string | undefined;
         policy: string | undefined;
     };
 }
@@ -50,7 +51,8 @@ const config: Config = {
     azureB2C: {
         clientId: process.env.AZURE_B2C_CLIENT_ID,
         enabled: process.env.AZURE_B2C_ENABLED === `true`,
-        tenant: process.env.AZURE_B2C_TENANT,
+        domain: process.env.AZURE_B2C_DOMAIN,
+        tenantId: process.env.AZURE_B2C_TENANT_ID,
         policy: process.env.AZURE_B2C_POLICY,
     },
 };
@@ -76,13 +78,11 @@ const msalLogger: ILoggerCallback = (level: MsalLogLevel,
     }
 };
 
-// NB: When we split `Login` and `Create Account` workflows, we will need to create a baseMsalConfig
-// with workflow-specific overrides
 export const msalConfig: Configuration = {
     auth: {
         clientId: config.azureB2C.clientId ?? ``,
-        authority: `https://${config.azureB2C.tenant}.b2clogin.com/${config.azureB2C.tenant}.onmicrosoft.com/${config.azureB2C.policy}`,
-        knownAuthorities: [ `${config.azureB2C.tenant}.b2clogin.com` ],
+        authority: `https://${config.azureB2C.domain}/${config.azureB2C.tenantId}/${config.azureB2C.policy}`,
+        knownAuthorities: config.azureB2C.domain !== undefined ? [ config.azureB2C.domain ]: undefined,
         redirectUri: `${BASE_URL}/authentication-callback`,
         postLogoutRedirectUri: `${BASE_URL}/signin`,
     },
@@ -97,6 +97,6 @@ export const msalConfig: Configuration = {
     },
 };
 
-export const b2cScopes = [ `https://${config.azureB2C.tenant}.onmicrosoft.com/010eb29e-d42b-4ca3-9c16-1961a528ce77/tasks.write` ];
+export const b2cScopes = [ `https://${config.azureB2C.domain}/010eb29e-d42b-4ca3-9c16-1961a528ce77/tasks.write` ];
 
 export default config;
