@@ -70,6 +70,6 @@
     "PHONE_NUMBER_NOT_VERIFIED": "您的电话号码尚未经过验证",
     "ERROR_ACCOUNT_BANNED": "账号已被禁用",
     "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码",
-    "authentication.error.generic.title": "Oops!",
-    "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin."
+    "authentication.error.generic.title": "糟糕!",
+    "authentication.error.generic.body": "出错了,请重试或联系您的组织管理员。"
 }

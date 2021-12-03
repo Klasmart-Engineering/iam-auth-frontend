@@ -70,6 +70,6 @@
     "PHONE_NUMBER_NOT_VERIFIED": "전화 번호가 인증되지 않았습니다.",
     "ERROR_ACCOUNT_BANNED": "계정이 차단되었습니다",
     "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다.",
-    "authentication.error.generic.title": "Oops!",
-    "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin."
+    "authentication.error.generic.title": "이런!",
+    "authentication.error.generic.body": "일시적인 문제가 발생했습니다.\n다시 시도하시거나 조직 관리자에게 문의해 주세요."
 }

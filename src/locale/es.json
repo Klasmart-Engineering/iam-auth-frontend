@@ -70,6 +70,6 @@
     "PHONE_NUMBER_NOT_VERIFIED": "Su número de teléfono no ha sido verificado",
     "ERROR_ACCOUNT_BANNED": "Se ha prohibido su cuenta.",
     "ERROR_INPUT_INVALID_FORMAT": "El correo electrónico o número de teléfono que ha introducido no es válido",
-    "authentication.error.generic.title": "Oops!",
-    "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin."
+    "authentication.error.generic.title": "¡Ups!",
+    "authentication.error.generic.body": "¡Ocurrió un error en nuestro lado!\nPor favor vuelva a intentar más tarde o póngase en contacto con el administrador de su organización."
 }
