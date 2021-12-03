@@ -177,7 +177,9 @@ export function RegionSelect () {
         });
 
         if (domain === urlHostName) {
-            history.push(path, {
+            history.push(`${path}?${QueryString.stringify({
+                continue: url.continueParam,
+            })}`, {
                 locale,
             });
         } else {

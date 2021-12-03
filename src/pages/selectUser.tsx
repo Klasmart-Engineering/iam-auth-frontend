@@ -2,6 +2,7 @@ import { getMyUsers } from "../api/getMyUsers";
 import { User } from "../api/queries/me";
 import config from "../config";
 import { switchUser } from "@/api/authentication";
+import { useContinueParam } from "@/hooks";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
@@ -39,6 +40,7 @@ const buildDisplayName = ({
 
 export function SelectUser () {
     const history = useHistory();
+    const continueParam = useContinueParam();
     const [ loadSingleUserError, setLoadSingleUserError ] = useState<boolean>(false);
 
     // TODO: move to paginated user-service endpoint once move to Azure B2C is complete
@@ -100,7 +102,9 @@ export function SelectUser () {
             history.push({
                 pathname: `/continue`,
                 search: `?${QueryString.stringify({
-                    userId,
+                    continue: continueParam,
+                }, {
+                    skipNull: true,
                 })}`,
             });
         } else {

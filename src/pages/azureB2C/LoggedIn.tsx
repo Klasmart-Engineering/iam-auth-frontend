@@ -15,6 +15,7 @@ import {
     Grid,
     Typography,
 } from "@material-ui/core";
+import qs from "qs";
 import React,
 {
     useEffect,
@@ -47,6 +48,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     const oauthState = useOAuthState(result);
     const currentPlatform = usePlatform();
     const platform: Platform = oauthState?.platform ?? currentPlatform;
+    const continueParam = oauthState?.continue;
 
     useEffect(() => {
         if (isLoading) return;
@@ -86,7 +88,9 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
             setTransferTokenError(false);
             const success = await transferAzureB2CToken(accessToken, abortController);
             if (success) {
-                history.push(`/selectprofile`);
+                history.push(continueParam ? `/selectprofile?${qs.stringify({
+                    continue: continueParam,
+                })}`: `/selectprofile`);
             } else {
                 console.error(`Transfer of Azure B2C accessToken to Kidsloop issued JWT failed`);
                 setTransferTokenError(true);
@@ -104,6 +108,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         history,
         locale,
         platform,
+        continueParam,
         urlContext.hostName,
     ]);
 
