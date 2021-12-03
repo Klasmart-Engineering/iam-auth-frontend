@@ -6,6 +6,7 @@ import {
 
 export type OAuthState = {
     platform: Platform;
+    continue: string | null;
 }
 
 export const encodeState = (state: OAuthState) => base64Encode(JSON.stringify(state));

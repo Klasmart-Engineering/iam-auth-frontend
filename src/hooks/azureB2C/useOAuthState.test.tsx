@@ -17,6 +17,7 @@ describe(`useOAuthState`, () => {
     test(`AuthenticationResult with State returns decoded state object`, () => {
         const state: OAuthState = {
             platform: `Android`,
+            continue: `https://www.google.com`,
         };
         const testAuthenticationResult = {
             state: encodeState(state),
