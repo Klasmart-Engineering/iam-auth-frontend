@@ -1,14 +1,19 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router";
+import { useCookies } from "react-cookie";
+import { Location } from "history";
+
+interface LocaleState {
+    locale: string | undefined
+}
 
 export function useLocaleState () {
-    const location: any = useLocation();
+    const location: Location<LocaleState> = useLocation();
+    const [ cookies ] = useCookies([ `locale` ]);
 
     const languageCode = useMemo<string>(() => {
-        const url = new URL(window.location.href);
-        const locale = url.searchParams.get(`locale`);
-        return locale ?? location?.state?.locale ?? `en`;
-    }, [ location, window.location ]);
+        return location?.state?.locale ?? cookies.locale ?? `en`;
+    }, [ location, cookies ]);
 
     return {
         locale: languageCode,
