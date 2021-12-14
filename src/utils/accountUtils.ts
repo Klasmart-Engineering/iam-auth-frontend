@@ -21,7 +21,8 @@ export async function redirectIfUnauthorized () {
     const headers = new Headers();
     headers.append(`Accept`, `application/json`);
     headers.append(`Content-Type`, `application/json`);
-    await fetch(`${process.env.API_ENDPOINT}user/`, {
+    // await fetch(`${process.env.API_ENDPOINT}/user/`, {
+    await fetch(`${process.env.API_ENDPOINT}`, {
         body: JSON.stringify({
             query: GET_SELF,
         }),

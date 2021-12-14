@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-frontend
+  namespace: kidskube-local
+spec:
+  selector:
+    matchLabels:
+      app: auth-frontend
+  template:
+    metadata:
+      labels:
+        app: auth-frontend
+    spec:
+      containers:
+      - name: auth-frontend
+        env:
+          - name: AUTH_ENDPOINT_BADANAMU
+            value: https://kidsloop-auth-lambda/auth-lam/
+          - name: ACCOUNT_ENDPOINT_BADANAMU
+            value: https://kidsloop-account-lambda/account-lam/ 
+          - name: AUTH_ENDPOINT
+            value: https://auth-server/auth-server/
+          - name: API_ENDPOINT
+            value: https://kidsloop-user-service/user-service/
+        image: auth-frontend-tilt
+        resources: {}
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-frontend
+  namespace: kidskube-local
+spec:
+  selector:
+    app: auth-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: auth-frontend-ingress
+  namespace: kidskube-local
+  annotations:
+    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    kubernetes.io/ingress.class: "nginx"
+    # cert-manager.io/issuer: "selfsigned"
+    nginx.org/mergeable-ingress-type: "minion"
+spec:
+  rules:
+  - host: fe.alpha.kidsloop.net
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: auth-frontend
+            port:
+              number: 80

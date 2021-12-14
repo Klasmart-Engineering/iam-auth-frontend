@@ -28,11 +28,14 @@ export function ApolloProviderHOC ({ children }: {children: JSX.Element}) {
         },
     });
 
+    // const httpLink = new HttpLink({
+    //     credentials: `include`,
+    //     uri: `${process.env.API_ENDPOINT}/user/`,
+    // });
     const httpLink = new HttpLink({
         credentials: `include`,
-        uri: `${process.env.API_ENDPOINT}user/`,
+        uri: `${process.env.API_ENDPOINT}`,
     });
-
     const client = new ApolloClient({
         credentials: `include`,
         link: ApolloLink.from([

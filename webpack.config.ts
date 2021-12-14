@@ -100,7 +100,7 @@ const webpackConfig: Configuration = {
     },
     output: {
         filename: `[name].[fullhash].js`,
-        path: path.resolve(__dirname, `dist`),
+        path: path.resolve(__dirname, `./deploy/dist`),
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -132,7 +132,7 @@ const webpackConfig: Configuration = {
         https: true,
         historyApiFallback: true,
         proxy: {
-            "/user": {
+            "/user-service/user": {
                 target: API_ENDPOINT,
                 secure: true,
                 changeOrigin: true,

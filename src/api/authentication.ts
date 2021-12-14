@@ -6,8 +6,10 @@ import {
 
 export async function transferAMSToken (token: string): Promise<boolean> {
     try {
-        const response = await post(`/transfer`, {
-            body: JSON.stringify(token),
+        const response = await post(`${process.env.AUTH_ENDPOINT}/transfer`, {
+            // eslint-disable-next-line object-curly-newline
+            body: JSON.stringify({ token }),
+            credentials: `same-origin`,
         });
         return response.ok;
     } catch (e) {
@@ -34,7 +36,7 @@ export async function transferAzureB2CToken (token: string, abortController: Abo
 
 export async function refreshToken (): Promise<boolean> {
     try {
-        const response = await get(`/refresh`, {
+        const response = await get(`${process.env.AUTH_ENDPOINT}/refresh`, {
             credentials: `include`,
         });
         return response.ok;
@@ -46,7 +48,7 @@ export async function refreshToken (): Promise<boolean> {
 
 export async function switchUser (userId: string, retry = true): Promise<boolean> {
     try {
-        const response = await post(`/switch`, {
+        const response = await post(`${process.env.AUTH_ENDPOINT}/switch`, {
             body: JSON.stringify({
                 user_id: userId,
             }),
