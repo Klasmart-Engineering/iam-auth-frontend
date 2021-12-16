@@ -29,10 +29,11 @@ import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
 import { RawIntlProvider } from "react-intl";
 import {
-    BrowserRouter,
+    Router,
     Route,
     Switch,
 } from "react-router-dom";
+import { history } from "./utils/createMaintainQueryHistory";
 
 interface RouteDetails {
     path: string | string[];
@@ -187,9 +188,9 @@ function ClientSide () {
 
 async function main () {
     const div = document.getElementById(`app`);
-    ReactDOM.render(<BrowserRouter>
+    ReactDOM.render(<Router history={history}>
         <ClientSide />
-    </BrowserRouter>, div);
+    </Router>, div);
 }
 
 main();
