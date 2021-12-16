@@ -12,7 +12,7 @@ type CreateHistory<O, H> = (options?: O) => History & H;
 const maintainQueryParameters = (history: History, preserveList: string[], location: LocationDescriptorObject): LocationDescriptorObject => {
     const currentQuery = queryString.parse(history.location.search);
     if (currentQuery) {
-        const preservedQuery: { [key: string]: unknown } = {};
+        const preservedQuery: { [key: string]: string | Array<string> } = {};
         for (const preserve of preserveList) {
             const link = currentQuery[preserve];
             if (link) {
@@ -35,7 +35,7 @@ export const createMaintainQueryHistory = (createHistory: CreateHistory<O, H>,
     queryParameters: string[]): CreateHistory<O, H> => {
     return (options?: O) => {
         const history = createHistory(options);
-        const oldPush = history.push, oldReplace = history.replace;
+        const { push:oldPush, replace: oldReplace } = history;
         history.push = (path: LocationDescriptor, state?: LocationState) =>
             oldPush.apply(history, [maintainQueryParameters(history, queryParameters, createLocationDescriptorObject(path, state))]);
         history.replace = (path: LocationDescriptor, state?: LocationState) =>
