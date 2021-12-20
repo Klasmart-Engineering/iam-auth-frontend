@@ -1,4 +1,4 @@
-image: node:16
+image: node:14
 
 clone:
   lfs: true
@@ -26,7 +26,7 @@ pipelines:
     
     - step:
         name: 'Clone Kidsloop Pass'    
-        image: node:lts
+        image: node:14
         script:
           - git submodule update --init --recursive --force
         artifacts:
@@ -34,7 +34,7 @@ pipelines:
 
     - step:
         name: 'Build NPM'
-        image: node:lts
+        image: node:14
         script:
           - npm ci
           - cp deploy/config/$KIDSLOOP_REGION/.env.$KIDSLOOP_ENV ./.env
@@ -47,7 +47,7 @@ pipelines:
 
     - step:
         name: 'Build Kidsloop Pass'
-        image: node:lts
+        image: node:14
         script:
           - cd src/pages/account/kidsloop-pass-frontend/client
           # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
