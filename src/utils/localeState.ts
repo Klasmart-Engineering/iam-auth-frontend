@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { useLocation } from "react-router";
-import { useCookies } from "react-cookie";
 import { Location } from "history";
+import { useMemo } from "react";
+import { useCookies } from "react-cookie";
+import { useLocation } from "react-router";
 
 interface LocaleState {
-    locale: string | undefined
+    locale: string | undefined;
 }
 
 export function useLocaleState () {

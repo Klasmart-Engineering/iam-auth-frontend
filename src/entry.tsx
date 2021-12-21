@@ -17,6 +17,7 @@ import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { themeProvider } from "./themeProvider";
+import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
 import { URLContextProvider } from "@/hooks";
@@ -29,11 +30,10 @@ import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
 import { RawIntlProvider } from "react-intl";
 import {
-    Router,
     Route,
+    Router,
     Switch,
 } from "react-router-dom";
-import { history } from "./utils/createPreserveQueryHistory";
 
  interface RouteDetails {
     path: string | string[];
@@ -81,7 +81,7 @@ if (config.branding.auth.showRegionSelect) {
     });
 }
 
- function ClientSide () {
+function ClientSide () {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
         const locale = url.searchParams.get(`locale`);
