@@ -33,9 +33,9 @@ import {
     Route,
     Switch,
 } from "react-router-dom";
-import { history } from "./utils/createMaintainQueryHistory";
+import { history } from "./utils/createPreserveQueryHistory";
 
-interface RouteDetails {
+ interface RouteDetails {
     path: string | string[];
     Component: () => JSX.Element;
     size: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
@@ -81,7 +81,7 @@ if (config.branding.auth.showRegionSelect) {
     });
 }
 
-function ClientSide () {
+ function ClientSide () {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
         const locale = url.searchParams.get(`locale`);

@@ -1,9 +1,9 @@
 
-import { createMaintainQueryHistory } from './createMaintainQueryHistory';
+import { createPreserveQueryHistory } from './createPreserveQueryHistory';
 import { createBrowserHistory } from 'history';
 
-describe(`createMaintainQueryHistory`, () => {
-    const history = createMaintainQueryHistory(createBrowserHistory, [ `continue` ])();
+describe(`createPreserveQueryHistory`, () => {
+    const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>(['continue']))();
     test(`history points to default location`, () => {
         expect(history.location.pathname).toEqual(`/`);
     });
