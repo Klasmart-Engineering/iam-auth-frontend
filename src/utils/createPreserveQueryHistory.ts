@@ -11,8 +11,8 @@ import qs from 'query-string';
 type LocationState = History.LocationState;
 
 type CreateHistory<O, H> = (options?: O) => History & H;
-type O = BrowserHistoryBuildOptions;
-type H = History<LocationState>;
+type OptionsHistory = BrowserHistoryBuildOptions;
+type HistoryLocation = History<LocationState>;
 
 /**
  * Extract QueryParams from the result of either:
@@ -24,14 +24,13 @@ const extractPreviousQueryParams = (location: Location<unknown>) => {
     return qs.parse(queryString);
 };
 
-const preserveQueryParameters = (history: History, toPreserve: Set<string>, location: LocationDescriptorObject): LocationDescriptorObject => {
+const preserveQueryParameters = (history: History, toPreserve: Set<string>): string => {
     const currentQuery = extractPreviousQueryParams(history.location);
     // currentQuery defaults to an empty object
-    if (Object.keys(currentQuery).length) {
-        const newQueryParams = Object.fromEntries(Object.entries(currentQuery).filter(([ param, value ]) => toPreserve.has(param) && value));
-        location.search = qs.stringify(newQueryParams);
-    }
-    return location;
+    return Object.keys(currentQuery).length ?
+        qs.stringify(Object.fromEntries(Object.entries(currentQuery)
+            .filter(([param, value]) =>
+                toPreserve.has(param) && value))) : ``;
 };
 
 const createLocationDescriptorObject = (location: LocationDescriptor, state?: LocationState): LocationDescriptorObject => {
@@ -41,17 +40,25 @@ const createLocationDescriptorObject = (location: LocationDescriptor, state?: Lo
     } : location;
 };
 
-export const createPreserveQueryHistory = (createHistory: CreateHistory<O, H>,
-    queryParameters: Set<string>): CreateHistory<O, H> => {
-    return (options?: O) => {
+export const createPreserveQueryHistory = (createHistory: CreateHistory<OptionsHistory, HistoryLocation>,
+    queryParameters: Set<string>): CreateHistory<OptionsHistory, HistoryLocation> => {
+    return (options?: OptionsHistory) => {
         const history = createHistory(options);
-        const { push:oldPush, replace: oldReplace } = history;
-        history.push = (path: LocationDescriptor, state?: LocationState) =>
-            oldPush.apply(history, [ preserveQueryParameters(history, queryParameters, createLocationDescriptorObject(path, state)) ]);
-        history.replace = (path: LocationDescriptor, state?: LocationState) =>
-            oldReplace.apply(history, [ preserveQueryParameters(history, queryParameters, createLocationDescriptorObject(path, state)) ]);
+        const { push: oldPush, replace: oldReplace } = history;
+        history.push = (path: LocationDescriptor, state?: LocationState) => {
+            const locationDescriptorObject = createLocationDescriptorObject(path, state);
+            const searchQuery = preserveQueryParameters(history, queryParameters);
+            locationDescriptorObject.search = searchQuery !== `` ? searchQuery : locationDescriptorObject.search;
+            return oldPush.apply(history, [locationDescriptorObject]);
+        };
+        history.replace = (path: LocationDescriptor, state?: LocationState) => {
+            const locationDescriptorObject = createLocationDescriptorObject(path, state);
+            const searchQuery = preserveQueryParameters(history, queryParameters);
+            locationDescriptorObject.search = searchQuery !== `` ? searchQuery : locationDescriptorObject.search;
+            return oldReplace.apply(history, [locationDescriptorObject]);
+        };
         return history;
     };
 };
 
-export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>([ `continue` ]))();
+export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>([`continue`]))();
