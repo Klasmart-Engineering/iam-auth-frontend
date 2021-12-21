@@ -2,10 +2,11 @@ import {
     BrowserHistoryBuildOptions,
     createBrowserHistory,
     History,
+    Location,
     LocationDescriptor,
     LocationDescriptorObject,
 } from 'history';
-import queryString from 'query-string';
+import qs from 'query-string';
 
 type LocationState = History.LocationState;
 
@@ -13,11 +14,22 @@ type CreateHistory<O, H> = (options?: O) => History & H;
 type O = BrowserHistoryBuildOptions;
 type H = History<LocationState>;
 
+/**
+ * Extract QueryParams from the result of either:
+ *  - `history.push("/some-path?my-param=x") => history.location.search will be an empty string, and the QueryParam is embedded in history.location.pathname
+ *  - `history.push({pathname: "/some-path", search: "?my-param=x"}) => history.location.search contains the QueryParam
+ */
+const extractPreviousQueryParams = (location: Location<unknown>) => {
+    const queryString: string = location.search.length ? location.search : qs.extract(location.pathname);
+    return qs.parse(queryString);
+};
+
 const preserveQueryParameters = (history: History, toPreserve: Set<string>, location: LocationDescriptorObject): LocationDescriptorObject => {
-    const currentQuery = queryString.parse(history.location.search);
-    if (currentQuery) {
+    const currentQuery = extractPreviousQueryParams(history.location);
+    // currentQuery defaults to an empty object
+    if (Object.keys(currentQuery).length) {
         const newQueryParams = Object.fromEntries(Object.entries(currentQuery).filter(([ param, value ]) => toPreserve.has(param) && value));
-        location.search = queryString.stringify(newQueryParams);
+        location.search = qs.stringify(newQueryParams);
     }
     return location;
 };

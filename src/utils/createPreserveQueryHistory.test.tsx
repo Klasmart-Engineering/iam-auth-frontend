@@ -3,24 +3,26 @@ import { createPreserveQueryHistory } from './createPreserveQueryHistory';
 import { createBrowserHistory } from 'history';
 
 describe(`createPreserveQueryHistory`, () => {
-    const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>(['continue']))();
-    test(`history points to default location`, () => {
-        expect(history.location.pathname).toEqual(`/`);
-    });
+    describe(`QueryParam selected for preservation is copied from the previous history.location`, () => {
+        it(`when using history.push('/path?param=x') syntax`, () => {
+            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue` ]))();
+            history.push(`/hello?continue=world`);
 
-    test(`search is empty`, () => {
-        expect(history.location.search).toEqual(``);
-    });
+            history.push(`/goodbye`);
 
-    test(`push is valid function`, () => {
-        expect(history.push).toEqual(expect.any(Function));
-    });
-
-    test(`pathname is valid after pushing new route`, () => {
-        history.push({
-            pathname: `/continue`,
-            search: `?test`,
+            expect(history.location.search).toEqual(`?continue=world`);
         });
-        expect(history.location.pathname).toEqual('/continue');
-  });
+
+        it(`when using history.push({pathname: "/path", search="?param=x"}) syntax`, () => {
+            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue` ]))();
+            history.push({
+                pathname: `/hello`,
+                search: `?continue=world`,
+            });
+
+            history.push(`/goodbye`);
+
+            expect(history.location.search).toEqual(`?continue=world`);
+        });
+    });
 });
