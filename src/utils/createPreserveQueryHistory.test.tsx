@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 
 describe('createPreserveQueryHistory push', () => {
 
-    describe('when using history.push('/path?param=x&param=y') syntax', () => {
+    describe("when using history.push('/path?param=x&param=y) syntax", () => {
         it('QueryParam selected for preservation is copied from the previous history.location', async () => {
             const history = createPreserveQueryHistory(createBrowserHistory, new Set(['continues']))();
 
