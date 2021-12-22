@@ -25,11 +25,11 @@ const preserveQueryParameters = (history: History, toPreserve: Set<string>): str
     return Object.keys(currentQuery).length ?
         qs.stringify(Object.fromEntries(Object.entries(currentQuery)
             .filter(([param, value]) =>
-                toPreserve.has(param) && value))) : ``;
+                toPreserve.has(param) && value))) : '';
 };
 
 const createLocationDescriptorObject = (location: LocationDescriptor, state?: LocationState): LocationDescriptorObject => {
-    return typeof location === `string` ? {
+    return typeof location === 'string' ? {
         pathname: location,
         state,
     } : location;
