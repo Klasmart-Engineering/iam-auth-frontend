@@ -14,11 +14,6 @@ type CreateHistory<O, H> = (options?: O) => History & H;
 type HistoryOptions = BrowserHistoryBuildOptions;
 type HistoryLocation = History<LocationState>;
 
-/**
- * Extract QueryParams from the result of either:
- *  - `history.push("/some-path?my-param=x") => history.location.search will be an empty string, and the QueryParam is embedded in history.location.pathname
- *  - `history.push({pathname: "/some-path", search: "?my-param=x"}) => history.location.search contains the QueryParam
- */
 const extractPreviousQueryParams = (location: Location<unknown>) => {
     const queryString: string = location.search.length ? location.search : qs.extract(location.pathname);
     return qs.parse(queryString);
