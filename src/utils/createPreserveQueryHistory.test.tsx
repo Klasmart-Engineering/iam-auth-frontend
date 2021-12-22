@@ -21,7 +21,7 @@ describe('createPreserveQueryHistory push', () => {
 
     describe(`when using history.push('/path?param=x') syntax`, () => {
         it('QueryParam selected for preservation is copied from the previous history.location', () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set('continue']))();
+            const history = createPreserveQueryHistory(createBrowserHistory, new Set(['continue']))();
 
             history.push('/hello?continue=world');
 
