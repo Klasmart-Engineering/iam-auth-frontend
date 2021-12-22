@@ -17,6 +17,7 @@ import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { themeProvider } from "./themeProvider";
+import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
 import { URLContextProvider } from "@/hooks";
@@ -29,8 +30,8 @@ import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
 import { RawIntlProvider } from "react-intl";
 import {
-    BrowserRouter,
     Route,
+    Router,
     Switch,
 } from "react-router-dom";
 
@@ -187,9 +188,9 @@ function ClientSide () {
 
 async function main () {
     const div = document.getElementById(`app`);
-    ReactDOM.render(<BrowserRouter>
+    ReactDOM.render(<Router history={history}>
         <ClientSide />
-    </BrowserRouter>, div);
+    </Router>, div);
 }
 
 main();
