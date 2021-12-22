@@ -43,17 +43,17 @@ const createLocationDescriptorObject = (location: LocationDescriptor, state?: Lo
         history.push = (path: LocationDescriptor, state?: LocationState) => {
             const locationDescriptorObject = createLocationDescriptorObject(path, state);
             const searchQuery = preserveQueryParameters(history, queryParameters);
-            locationDescriptorObject.search = searchQuery !== `` ? searchQuery : locationDescriptorObject.search;
+            locationDescriptorObject.search = searchQuery !== '' ? searchQuery : locationDescriptorObject.search;
             return oldPush.apply(history, [locationDescriptorObject]);
         };
         history.replace = (path: LocationDescriptor, state?: LocationState) => {
             const locationDescriptorObject = createLocationDescriptorObject(path, state);
             const searchQuery = preserveQueryParameters(history, queryParameters);
-            locationDescriptorObject.search = searchQuery !== `` ? searchQuery : locationDescriptorObject.search;
+            locationDescriptorObject.search = searchQuery !== '' ? searchQuery : locationDescriptorObject.search;
             return oldReplace.apply(history, [locationDescriptorObject]);
         };
         return history;
     };
 };
 
-export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>([`continue`]))();
+export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>(['continue']))();
