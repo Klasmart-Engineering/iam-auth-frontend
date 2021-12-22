@@ -11,7 +11,7 @@ import qs from 'query-string';
 type LocationState = History.LocationState;
 
 type CreateHistory<O, H> = (options?: O) => History & H;
-type OptionsHistory = BrowserHistoryBuildOptions;
+type HistoryOptions = BrowserHistoryBuildOptions;
 type HistoryLocation = History<LocationState>;
 
 /**
@@ -40,9 +40,9 @@ const createLocationDescriptorObject = (location: LocationDescriptor, state?: Lo
     } : location;
 };
 
-export const createPreserveQueryHistory = (createHistory: CreateHistory<OptionsHistory, HistoryLocation>,
-    queryParameters: Set<string>): CreateHistory<OptionsHistory, HistoryLocation> => {
-    return (options?: OptionsHistory) => {
+ export const createPreserveQueryHistory = (createHistory: CreateHistory<HistoryOptions, HistoryLocation>,
+    queryParameters: Set<string>): CreateHistory<HistoryOptions, HistoryLocation> => {
+    return (options?: HistoryOptions) => {
         const history = createHistory(options);
         const { push: oldPush, replace: oldReplace } = history;
         history.push = (path: LocationDescriptor, state?: LocationState) => {

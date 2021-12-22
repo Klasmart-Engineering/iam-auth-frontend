@@ -35,7 +35,7 @@ import {
     Switch,
 } from "react-router-dom";
 
- interface RouteDetails {
+interface RouteDetails {
     path: string | string[];
     Component: () => JSX.Element;
     size: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
