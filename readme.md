@@ -139,3 +139,11 @@ mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
 ```
 
 Now you have a full build in the dist folder for the India region with a production build.
+
+
+# Run Cypress tests
+
+```
+npm install
+npm test:sso
+```  

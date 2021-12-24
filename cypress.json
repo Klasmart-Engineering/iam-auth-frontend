@@ -1,0 +1,13 @@
+{
+  "ignoreTestFiles": "*.js",
+  "testFiles": "**/*.{feature,features}",
+  "defaultCommandTimeout": 30000,
+  "responseTimeout": 30000,
+  "requestTimeout": 30000,
+  "env": {
+    "MAILOSAUR_API_KEY": "JOOq3kI5vLGe6kcH"
+  },
+  "video": false,
+  "screenshotOnFailure": true,
+  "reporter": "cypress-multi-reporters"
+}

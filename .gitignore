@@ -7,3 +7,7 @@
 **/.vscode/*
 !**/.vscode/launch.json
 .env
+cypress/cucumber-json
+cypress/screenshots
+cypress/reports/*
+cypress/videos
