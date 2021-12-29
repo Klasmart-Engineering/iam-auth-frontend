@@ -4,6 +4,7 @@ class CreateAccountPage {
     newPassword = '#newPassword';
     reenterPassword = '#reenterPassword';
     sendCodeCreateAccount = '#emailControl_but_send_code';
+    sendCodeCreateAccountPhone = '#phoneVerificationControl_but_send_code';
     sendCodeResetPassword = '#emailVerificationControl_but_send_code';
     sendVerificationCodePhone = '#phoneVerificationControl_but_send_code';
     privacyPolicy =  '#hasAcceptedPrivacyPolicy_true';
@@ -19,11 +20,20 @@ class CreateAccountPage {
     serverId = 'zw6ahich';
     emailOrPhoneFieLd = '#email';
 
+    errorOnEmailBox = '.email_li > .attrEntry > .error';
+    errorOnPasswordBox = '.Password > .attrEntry > .error';
+
     newEmail; 
 
 
     enterNewPassword(password) {
         cy.get(this.newPassword)
+        .should('be.visible')
+        .type(password);
+       // .type('{enter}');
+    }
+    enterConfirmNewPassword(password) {
+        cy.get(this.reenterPassword)
         .should('be.visible')
         .type(password);
        // .type('{enter}');
@@ -36,8 +46,8 @@ class CreateAccountPage {
     enterPhonenumber(pn){
         cy.get(this.phoneNumber)
         .should('be.visible')
-        .type(pn)
-        .type('{enter}');
+        .type(pn);
+        //.type('{enter}');
     }
 
     enterEmailOrPhone(emailOrPhone) {
@@ -45,6 +55,10 @@ class CreateAccountPage {
             .should('be.visible')
             .type(emailOrPhone);
          //   .type('{enter}');
+    }
+
+    pressEnter() {
+        cy.type('{enter}');
     }
 
 
@@ -87,18 +101,17 @@ class CreateAccountPage {
         cy.get(this.privacyPolicy).check({ force: true });
     }
 
-    clickOnCreateButton() {
-        cy.wait(2000);
+    clickOnCreateButtonCAP() {
+        //cy.wait(2000);
         cy.get(this.createButton).click({ force: true });     
-
     }
 
-    clickOnCreateButton() {
-        cy.get(this.verifyCodeButton).click({ force: true });     
-
-    }
     clickOnSendVerificationCodeCreateAccount() {
         cy.get(this.sendCodeCreateAccount).should('be.visible').click({ force: true });     
+    }
+
+    clickOnSendVerificationCodeCreateAccountPhone() {
+        cy.get(this.sendCodeCreateAccountPhone).should('be.visible').click({ force: true });     
     }
 
     clickOnSendVerificationCodePhone() {
@@ -107,6 +120,16 @@ class CreateAccountPage {
     clickOnSendCodeAgainButton(){
         cy.get(this.sendVerificationCodeAgainEmail).click({ force: true });     
 
+    }
+
+    checkErrorOnEmail(errorText) {
+        cy.wait(1000);
+        cy.get(this.errorOnEmailBox).should('have.text',errorText);
+    }
+
+    checkErrorOnPassword(errorText) {
+        cy.wait(1000);
+        cy.get(this.errorOnPasswordBox).contains(errorText);
     }
 
     checkDuplicateAccountError(errorText) {

@@ -68,7 +68,6 @@ And("I click on send code again button", ()=> {
 });
 
 When("I enter the new verification code", () => {
-  
   util.generatePasscode(createAccountPage.getNewEmail(),resetPasswordPage.getVerificationcodeText());
   resetPasswordPage.clickOnVerfiyCodeButton();
 });
@@ -76,6 +75,8 @@ When("I enter the new verification code", () => {
 And("I enter the password and click on Create Account", () => {
   cy.wait(1000);
   createAccountPage.enterNewPassword("Abcd1234");
+  createAccountPage.enterConfirmNewPassword("Abcd1234");
+
   createAccountPage.acceptPrivacyPolicy();
   resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -85,6 +86,16 @@ When("I am on the kidsloop create account page", () => {
   loginPage.clickOnsignupWithEmail();
 });
 
+When("I enter an existing account phone number as a new account phone number", () => {
+  resetPasswordPage.deleteAllEmail(); // All the emails come to the same account 
+  createAccountPage.selectCountry("United States(+1)");
+  createAccountPage.enterPhonenumber("2692304118");
+});
+
+When("I am on the kidsloop create account with phone number page", ()=> {
+  loginPage.goToHomePage();
+  loginPage.clickOnsignupWithPhone();
+});
 And("I enter the code", ()=>{
   util.generatePasscode(createAccountPage.getNewEmail(),resetPasswordPage.getVerificationcodeText());
 });
@@ -92,6 +103,14 @@ And("I enter the code", ()=>{
 When("I enter an existing email address as the new email address", () => {
   resetPasswordPage.deleteAllEmail(); // All the emails come to the same account 
   createAccountPage.enterEmailOrPhone("automation1640094816650@zw6ahich.mailosaur.net");
+});
+
+
+When("I click on send code for phone and verify the code", () => {
+  createAccountPage.clickOnSendVerificationCodeCreateAccountPhone();
+  cy.wait(2000);
+  util.generatePasscodeFromSMS("12692304118",resetPasswordPage.getVerificationcodeText());
+  createAccountPage.clickOnVerfiyCodeButtonPhone();
 });
 
 When("I click on send code and verify the code", () => {
@@ -106,8 +125,26 @@ When("I should see duplicate account error {string}", (errorText) => {
 });
 
 When("I should an error on create account page {string}", (errorText) => {
- // createAccountPage.checkDuplicateAccountError(errorText);
  cy.findByText(errorText).should('be.visible').should("exist");
+});
+
+When("I enter invalid format email address as {string}", (emailaddress) => {
+  createAccountPage.enterEmailOrPhone(emailaddress);
+  createAccountPage.clickOnSendVerificationCodeCreateAccount();
+
+});
+
+Then("I should see an error on the Email box as {string}", (errorText) => {
+  createAccountPage.checkErrorOnEmail(errorText);
+});
+
+Then("I should see an error on the password box as {string}", (errorText)=> {
+  createAccountPage.checkErrorOnPassword(errorText);
+});
+
+When("I enter password on create account with phone number page as {string}", (password) => {
+  createAccountPage.enterNewPassword(password);
+  createAccountPage.clickOnCreateButtonCAP();
 });
 
 

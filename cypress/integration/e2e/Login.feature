@@ -7,10 +7,16 @@ Scenario: Logging with email not associated with any organization
   Then I am taken to "You are not part of an organization."
  # When I sign out 
  # And I should see login page
-@focus 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop via SSO with a valid user "loginautomationuserwithorg@zw6ahich.mailosaur.net"
   Then I should see the welcome message "Welcome LoginUser, how are you doing today?"
+  When I sign out 
+  And I should see login page
+
+Scenario: Logging with email with multiple profiles 
+  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
+  When I select the first profile from the list
+  Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I should see login page
 
@@ -50,3 +56,11 @@ Scenario: Error message for wrong email and wrong password
   And I enter a valid email "swapnali.bhansali@kidsloop.live"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
+Scenario: Login with a deactivated account 
+  Given I am on the kidsloop login page 
+  When I enter invalid email as "deactivatedAccount@zw6ahich.mailosaur.net"
+  When I enter password as "Abcd1234" 
+  And I click on login button
+  Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
+

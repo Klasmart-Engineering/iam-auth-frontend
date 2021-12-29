@@ -44,6 +44,10 @@ When("I enter wrong password", ()=> {
   loginPage.clickOnLogInButton();
 });
 
+When("I enter password as {string}", (password) => {
+  loginPage.enterPassword(password);
+});
+
 Then("I should see an invalid login error {string}",(errorText)=>{
   loginPage.getInvalidLoginError().should('have.text',errorText);
 });
@@ -55,3 +59,7 @@ Given("I login to kidsloop via SSO with phone number {string}" , (phone)=> {
   loginPage.clickOnLogInButton();
 });
 
+Then("I select the first profile from the list", () => {
+    loginPage.clickOnProfile();
+    loginPage.clickOnContinueButton();
+});
