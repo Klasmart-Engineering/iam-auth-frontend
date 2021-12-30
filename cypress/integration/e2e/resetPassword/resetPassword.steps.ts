@@ -1,4 +1,4 @@
-import { And, Given } from "cypress-cucumber-preprocessor/steps";
+import { And, Given, Then } from "cypress-cucumber-preprocessor/steps";
 import { loginPage } from "../../page_objects/login-page";
 import { createAccountPage } from "../../page_objects/create-account-page";
 import {resetPasswordPage} from "../../page_objects/reset-password-page"

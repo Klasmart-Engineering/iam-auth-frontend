@@ -13,7 +13,6 @@ When("I create a new account with a new email address" , ()=> {
   createAccountPage.clickOnSendVerificationCodeCreateAccount();
   util.generatePasscode(createAccountPage.getNewEmail(),resetPasswordPage.getVerificationcodeText());
   resetPasswordPage.clickOnVerfiyCodeButton();
-  cy.wait(1000);
   createAccountPage.enterNewPassword("Abcd1234");
  // createAccountPage.reenterNewPassword("Abcd1234");
   createAccountPage.acceptPrivacyPolicy();
@@ -125,7 +124,7 @@ When("I should see duplicate account error {string}", (errorText) => {
 });
 
 When("I should an error on create account page {string}", (errorText) => {
- cy.findByText(errorText).should('be.visible').should("exist");
+   cy.findByText(errorText).should('be.visible').should("exist");
 });
 
 When("I enter invalid format email address as {string}", (emailaddress) => {
