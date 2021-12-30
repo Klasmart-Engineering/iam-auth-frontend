@@ -22,3 +22,15 @@ import 'cypress-cucumber-attach-screenshots-to-failed-steps';
 Cypress.Screenshot.defaults({
     screenshotOnRunFailure: true,
 });
+
+declare global {
+    namespace Cypress {
+      interface Chainable {
+        /**
+         * Custom command to select DOM element by data-cy attribute.
+         * @example cy.dataCy('greeting')
+         */
+         removeCookies(): Chainable<Element>
+      }
+    }
+  }
