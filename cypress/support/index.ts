@@ -18,7 +18,6 @@ import './commands';
 import 'cypress-mailosaur';
 import 'cypress-cucumber-attach-screenshots-to-failed-steps';
 
-
 Cypress.Screenshot.defaults({
     screenshotOnRunFailure: true,
 });
@@ -35,5 +34,3 @@ declare global {
       }
     }
   }
-
-  

@@ -22,16 +22,16 @@ class CreateAccountPage {
     errorOnEmailBox = `.email_li > .attrEntry > .error`;
     errorOnPasswordBox = `.Password > .attrEntry > .error`;
 
-    newEmail: 
+    newEmail = ``;
 
-    enterNewPassword (password) {
+    enterNewPassword (password: string) {
         cy.get(this.newPassword)
             .should(`be.visible`)
             .type(password);
         // .type('{enter}');
     }
-    
-    enterConfirmNewPassword (password) {
+
+    enterConfirmNewPassword (password: string) {
         cy.get(this.reenterPassword)
             .should(`be.visible`)
             .type(password);
@@ -42,14 +42,14 @@ class CreateAccountPage {
         return this.verificationCodeInput;
     }
 
-    enterPhonenumber (pn){
+    enterPhonenumber (pn: string){
         cy.get(this.phoneNumber)
             .should(`be.visible`)
             .type(pn);
         //.type('{enter}');
     }
 
-    enterEmailOrPhone (emailOrPhone) {
+    enterEmailOrPhone (emailOrPhone: string) {
         cy.get(this.emailOrPhoneFieLd)
             .should(`be.visible`)
             .type(emailOrPhone);
@@ -60,7 +60,7 @@ class CreateAccountPage {
         cy.type(`{enter}`);
     }
 
-    selectCountry (string) {
+    selectCountry (string: string | number | (string | number)[]) {
         cy.get(this.countryCodeSelector)
             .should(`be.visible`)
             .select(string);
@@ -75,7 +75,7 @@ class CreateAccountPage {
         cy.log(this.newEmail);
     }
 
-    reenterNewPassword (password) {
+    reenterNewPassword (password: string) {
         cy.get(this.reenterPassword)
             .should(`be.visible`)
             .type(password)
@@ -91,7 +91,7 @@ class CreateAccountPage {
             });
     }
 
-    enterCode (code) {
+    enterCode (code: string) {
         cy.get(this.verificationcodeText)
             .should(`be.visible`)
             .type(code);
@@ -134,19 +134,16 @@ class CreateAccountPage {
 
     }
 
-    checkErrorOnEmail (errorText) {
-        cy.wait(1000);
-        cy.get(this.errorOnEmailBox).should(`have.text`, errorText);
+    checkErrorOnEmail (errorText: any) {
+        cy.get(this.errorOnEmailBox).should(`be.visible`).should(`have.text`, errorText);
     }
 
-    checkErrorOnPassword (errorText) {
-        cy.wait(1000);
-        cy.get(this.errorOnPasswordBox).contains(errorText);
+    checkErrorOnPassword (errorText: string | number | RegExp) {
+        cy.get(this.errorOnPasswordBox).should(`be.visible`).contains(errorText);
     }
 
-    checkDuplicateAccountError (errorText) {
-        cy.wait(1000);
-        cy.get(this.errorText).should(`have.text`, errorText);
+    checkDuplicateAccountError (errorText: any) {
+        cy.get(this.errorText).should(`be.visible`).should(`have.text`, errorText);
     }
 }
 

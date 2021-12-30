@@ -26,8 +26,8 @@ class ResetPasswordPage {
     }
 
     getErrorTextEle () {
-        cy.wait(2000);
-        return cy.get(this.errorText);
+        // cy.wait(2000);
+        return cy.get(this.errorText).should(`be.visible`);
     }
     getclaimVerificationErrorTextEle () {
         return cy.get(this.claimVerificationError);
@@ -72,10 +72,10 @@ class ResetPasswordPage {
     }
 
     clickOnVerfiyCodeButton () {
-        cy.get(this.verifyCodeButton).click({
+        cy.get(this.verifyCodeButton).should(`be.visible`).click({
             force: true,
         });
-        cy.wait(1000);
+        //cy.wait(1000);
     }
 
     clickOnSendVerificationCodeCreateAccount () {

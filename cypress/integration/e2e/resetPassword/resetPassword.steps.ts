@@ -9,7 +9,7 @@ import {
     Then,
 } from "cypress-cucumber-preprocessor/steps";
 
-And(`I enter email , verification code and new password`, ()=> {
+And(`I enter email , verification code and new password`,  ()=> {
     loginPage.enterEmailOrPhone(resetPasswordPage.getTestEmail());
     resetPasswordPage.clickOnSendVerificationCodeCreateAccount();
     util.generatePasscode(resetPasswordPage.getTestEmail(), resetPasswordPage.getVerificationcodeText());
