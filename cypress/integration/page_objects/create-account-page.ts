@@ -1,140 +1,152 @@
 class CreateAccountPage {
-  
-    createButton = '#continue';
-    newPassword = '#newPassword';
-    reenterPassword = '#reenterPassword';
-    sendCodeCreateAccount = '#emailControl_but_send_code';
-    sendCodeCreateAccountPhone = '#phoneVerificationControl_but_send_code';
-    sendCodeResetPassword = '#emailVerificationControl_but_send_code';
-    sendVerificationCodePhone = '#phoneVerificationControl_but_send_code';
-    privacyPolicy =  '#hasAcceptedPrivacyPolicy_true';
-    verificationcodeText = '#emailVerificationCode';
-    verifyCodeButton = '#emailVerificationControl_but_verify_code';
-    countryCodeSelector = '#countryCode';
-    verifyCodeButtonPhone = '#phoneVerificationControl_but_verify_code';
-    sendVerificationCodeAgainEmail = '#emailControl_but_send_new_code';
-    phoneNumber = '#nationalNumber';
-    verificationCodeInput = '#verificationCode';
-    errorText = '#claimVerificationServerError';
-    codeExpiredErrorText = '#emailControl_error_message';
-    serverId = 'zw6ahich';
-    emailOrPhoneFieLd = '#email';
+    createButton = `#continue`;
+    newPassword = `#newPassword`;
+    reenterPassword = `#reenterPassword`;
+    sendCodeCreateAccount = `#emailControl_but_send_code`;
+    sendCodeCreateAccountPhone = `#phoneVerificationControl_but_send_code`;
+    sendCodeResetPassword = `#emailVerificationControl_but_send_code`;
+    sendVerificationCodePhone = `#phoneVerificationControl_but_send_code`;
+    privacyPolicy =  `#hasAcceptedPrivacyPolicy_true`;
+    verificationcodeText = `#emailVerificationCode`;
+    verifyCodeButton = `#emailVerificationControl_but_verify_code`;
+    countryCodeSelector = `#countryCode`;
+    verifyCodeButtonPhone = `#phoneVerificationControl_but_verify_code`;
+    sendVerificationCodeAgainEmail = `#emailControl_but_send_new_code`;
+    phoneNumber = `#nationalNumber`;
+    verificationCodeInput = `#verificationCode`;
+    errorText = `#claimVerificationServerError`;
+    codeExpiredErrorText = `#emailControl_error_message`;
+    serverId = `zw6ahich`;
+    emailOrPhoneFieLd = `#email`;
 
-    errorOnEmailBox = '.email_li > .attrEntry > .error';
-    errorOnPasswordBox = '.Password > .attrEntry > .error';
+    errorOnEmailBox = `.email_li > .attrEntry > .error`;
+    errorOnPasswordBox = `.Password > .attrEntry > .error`;
 
-    newEmail; 
+    newEmail: 
 
-
-    enterNewPassword(password) {
+    enterNewPassword (password) {
         cy.get(this.newPassword)
-        .should('be.visible')
-        .type(password);
-       // .type('{enter}');
+            .should(`be.visible`)
+            .type(password);
+        // .type('{enter}');
     }
-    enterConfirmNewPassword(password) {
+    
+    enterConfirmNewPassword (password) {
         cy.get(this.reenterPassword)
-        .should('be.visible')
-        .type(password);
-       // .type('{enter}');
+            .should(`be.visible`)
+            .type(password);
+        // .type('{enter}');
     }
 
-    getVerificationCodeInput(){
+    getVerificationCodeInput (){
         return this.verificationCodeInput;
     }
 
-    enterPhonenumber(pn){
+    enterPhonenumber (pn){
         cy.get(this.phoneNumber)
-        .should('be.visible')
-        .type(pn);
+            .should(`be.visible`)
+            .type(pn);
         //.type('{enter}');
     }
 
-    enterEmailOrPhone(emailOrPhone) {
+    enterEmailOrPhone (emailOrPhone) {
         cy.get(this.emailOrPhoneFieLd)
-            .should('be.visible')
+            .should(`be.visible`)
             .type(emailOrPhone);
-         //   .type('{enter}');
+        //   .type('{enter}');
     }
 
-    pressEnter() {
-        cy.type('{enter}');
+    pressEnter () {
+        cy.type(`{enter}`);
     }
 
-
-    selectCountry(string) {
-       cy.get(this.countryCodeSelector)
-       .should('be.visible')
-       .select(string);
+    selectCountry (string) {
+        cy.get(this.countryCodeSelector)
+            .should(`be.visible`)
+            .select(string);
     }
-    getNewEmail() {
+    getNewEmail () {
         return this.newEmail;
     }
 
-    createNewEmail() {
-        var uniqueTimestamp = Date.now();
+    createNewEmail () {
+        const uniqueTimestamp = Date.now();
         this.newEmail = `automation${uniqueTimestamp}@${this.serverId}.mailosaur.net` ;
         cy.log(this.newEmail);
     }
 
-    reenterNewPassword(password) {
+    reenterNewPassword (password) {
         cy.get(this.reenterPassword)
-        .should('be.visible')
-        .type(password)
-        .type('{enter}');
+            .should(`be.visible`)
+            .type(password)
+            .type(`{enter}`);
 
     }
 
-    clickOnVerfiyCodeButtonPhone(){
+    clickOnVerfiyCodeButtonPhone (){
         cy.get(this.verifyCodeButtonPhone)
-        .should('be.visible')
-        .click({ force: true });     
+            .should(`be.visible`)
+            .click({
+                force: true,
+            });
     }
 
-    enterCode(code) {
+    enterCode (code) {
         cy.get(this.verificationcodeText)
-        .should('be.visible')
-        .type(code);
+            .should(`be.visible`)
+            .type(code);
     }
 
-    acceptPrivacyPolicy() {
-        cy.get(this.privacyPolicy).check({ force: true });
+    acceptPrivacyPolicy () {
+        cy.get(this.privacyPolicy).check({
+            force: true,
+        });
     }
 
-    clickOnCreateButtonCAP() {
+    clickOnCreateButtonCAP () {
         //cy.wait(2000);
-        cy.get(this.createButton).click({ force: true });     
+        cy.get(this.createButton).click({
+            force: true,
+        });
     }
 
-    clickOnSendVerificationCodeCreateAccount() {
-        cy.get(this.sendCodeCreateAccount).should('be.visible').click({ force: true });     
+    clickOnSendVerificationCodeCreateAccount () {
+        cy.get(this.sendCodeCreateAccount).should(`be.visible`).click({
+            force: true,
+        });
     }
 
-    clickOnSendVerificationCodeCreateAccountPhone() {
-        cy.get(this.sendCodeCreateAccountPhone).should('be.visible').click({ force: true });     
+    clickOnSendVerificationCodeCreateAccountPhone () {
+        cy.get(this.sendCodeCreateAccountPhone).should(`be.visible`).click({
+            force: true,
+        });
     }
 
-    clickOnSendVerificationCodePhone() {
-        cy.get(this.sendVerificationCodePhone).click({ force: true });     
+    clickOnSendVerificationCodePhone () {
+        cy.get(this.sendVerificationCodePhone).click({
+            force: true,
+        });
     }
-    clickOnSendCodeAgainButton(){
-        cy.get(this.sendVerificationCodeAgainEmail).click({ force: true });     
+    clickOnSendCodeAgainButton (){
+        cy.get(this.sendVerificationCodeAgainEmail).click({
+            force: true,
+        });
 
     }
 
-    checkErrorOnEmail(errorText) {
+    checkErrorOnEmail (errorText) {
         cy.wait(1000);
-        cy.get(this.errorOnEmailBox).should('have.text',errorText);
+        cy.get(this.errorOnEmailBox).should(`have.text`, errorText);
     }
 
-    checkErrorOnPassword(errorText) {
+    checkErrorOnPassword (errorText) {
         cy.wait(1000);
         cy.get(this.errorOnPasswordBox).contains(errorText);
     }
 
-    checkDuplicateAccountError(errorText) {
+    checkDuplicateAccountError (errorText) {
         cy.wait(1000);
-        cy.get(this.errorText).should('have.text',errorText);
+        cy.get(this.errorText).should(`have.text`, errorText);
     }
 }
 

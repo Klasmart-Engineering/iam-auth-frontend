@@ -26,6 +26,7 @@
   "include": [
     "src",
     "tests",
+    "cypress",
     "**.js",
     "**.ts"
   ],

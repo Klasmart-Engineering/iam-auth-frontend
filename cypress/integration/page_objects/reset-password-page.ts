@@ -1,90 +1,96 @@
-
 class ResetPasswordPage {
-    createOrContinueButton = '#continue';
-    newPassword = '#newPassword';
-    reenterPassword = '#reenterPassword';
-    sendCodeCreateAccount = '#emailVerificationControl_but_send_code';
-    privacyPolicy =  '#extension_HasAcceptedPrivacyPolicy_true';
-    verificationcodeText = '#verificationCode';
-    verificationcodeTextResetPasswordPage = '#emailVerificationCode';
-    verifyCodeButton = '#emailControl_but_verify_code';
-    verifyCodeButtonResetPassword = '#emailVerificationControl_but_verify_code';
+    createOrContinueButton = `#continue`;
+    newPassword = `#newPassword`;
+    reenterPassword = `#reenterPassword`;
+    sendCodeCreateAccount = `#emailVerificationControl_but_send_code`;
+    privacyPolicy =  `#extension_HasAcceptedPrivacyPolicy_true`;
+    verificationcodeText = `#verificationCode`;
+    verificationcodeTextResetPasswordPage = `#emailVerificationCode`;
+    verifyCodeButton = `#emailControl_but_verify_code`;
+    verifyCodeButtonResetPassword = `#emailVerificationControl_but_verify_code`;
 
-    errorText = '#emailControl_error_message';
-    claimVerificationError = '#claimVerificationServerError';
-    verificationFailedError = '#emailVerificationControl_error_message';
+    errorText = `#emailControl_error_message`;
+    claimVerificationError = `#claimVerificationServerError`;
+    verificationFailedError = `#emailVerificationControl_error_message`;
 
-    serverId = 'zw6ahich'; 
+    serverId = `zw6ahich`;
     testEmail = `something@${this.serverId}.mailosaur.net`;
+    passcode = `0`;
 
-
-    getTestEmail() {
+    getTestEmail () {
         return this.testEmail;
     }
-    
-    getVerificationcodeText(){
+
+    getVerificationcodeText (){
         return this.verificationcodeText;
     }
 
-    getErrorTextEle() {
+    getErrorTextEle () {
         cy.wait(2000);
-       return cy.get(this.errorText);
+        return cy.get(this.errorText);
     }
-    getclaimVerificationErrorTextEle() {
+    getclaimVerificationErrorTextEle () {
         return cy.get(this.claimVerificationError);
-     }
+    }
 
-     getVerificationFailedErrorTextEle() {
+    getVerificationFailedErrorTextEle () {
         return cy.get(this.verificationFailedError);
-     }
+    }
 
-    enterCode(number) {
+    enterCode (number: string) {
         cy.get(this.verificationcodeText)
-          .should('be.visible').clear()
-          .type(number);
+            .should(`be.visible`).clear()
+            .type(number);
     }
 
-    enterNewPassword(password) {
+    enterNewPassword (password: string) {
         cy.get(this.newPassword)
-        .should('be.visible')
-        .type(password)
-        .type('{enter}');
+            .should(`be.visible`)
+            .type(password)
+            .type(`{enter}`);
     }
 
-    reenterNewPassword(password) {
+    reenterNewPassword (password: string) {
         cy.get(this.reenterPassword)
-        .should('be.visible')
-        .type(password)
-        .type('{enter}');
+            .should(`be.visible`)
+            .type(password)
+            .type(`{enter}`);
     }
 
-    
-    acceptPrivacyPolicy() {
-        cy.get(this.privacyPolicy).check({ force: true });
+    acceptPrivacyPolicy () {
+        cy.get(this.privacyPolicy).check({
+            force: true,
+        });
     }
 
-    clickOnCreateOrContinueButton() {
-        cy.wait(2000);
-        cy.get(this.createOrContinueButton).click({ force: true });     
+    clickOnCreateOrContinueButton () {
+        //  cy.wait(2000);
+        cy.get(this.createOrContinueButton).click({
+            force: true,
+        });
 
     }
 
-    clickOnVerfiyCodeButton() {
-        cy.get(this.verifyCodeButton).click({ force: true });  
-        cy.wait(1000);   
+    clickOnVerfiyCodeButton () {
+        cy.get(this.verifyCodeButton).click({
+            force: true,
+        });
+        cy.wait(1000);
     }
 
-    clickOnSendVerificationCodeCreateAccount() {
-        cy.get(this.sendCodeCreateAccount).click({ force: true });     
+    clickOnSendVerificationCodeCreateAccount () {
+        cy.get(this.sendCodeCreateAccount).click({
+            force: true,
+        });
     }
 
-    setPasscode(passcode) {
-        this.passcode = passcode; 
+    setPasscode (passcode: string) {
+        this.passcode = passcode;
     }
 
-    deleteAllEmail() {
+    deleteAllEmail () {
         cy.mailosaurDeleteAllMessages(this.serverId);
     }
-};
+}
 
 export const resetPasswordPage = new ResetPasswordPage();
