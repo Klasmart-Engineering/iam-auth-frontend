@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "allowJs": true,
+    "types": ["cypress"],
     "jsx": "react",
     "strict": true,
     "baseUrl": ".",

@@ -1,4 +1,4 @@
-
+// @ts-check
 before(() => {
   cy.viewport('iphone-6')
   cy.log(
