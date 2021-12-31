@@ -41,7 +41,6 @@ And I enter the new verification code
 And I enter the password and click on Create Account
 Then I am taken to "You are not part of an organization."
 
-@focus 
 Scenario: Error messages on create account with email page 
 Given I am on the kidsloop create account page
 When I enter invalid format email address as "abc"
