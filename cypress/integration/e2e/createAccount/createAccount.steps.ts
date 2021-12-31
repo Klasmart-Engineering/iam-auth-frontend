@@ -24,7 +24,7 @@ When(`I create a new account with a new email address`, ()=> {
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
 
-Given(`I create a new account with a new phone number {string}`, (phonenumber)=> {
+Given(`I create a new account with a new phone number {string}`, (phonenumber: string)=> {
     loginPage.goToHomePage();
     loginPage.clickOnsignupWithPhone();
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
@@ -89,8 +89,7 @@ And(`I enter the password and click on Create Account`, () => {
     cy.wait(1000).then((interceptions) => {
         cy.log(`waited for 2 seconds`);
     });    createAccountPage.enterNewPassword(`Abcd1234`);
-    createAccountPage.enterConfirmNewPassword(`Abcd1234`);
-
+    //createAccountPage.enterConfirmNewPassword(`Abcd1234`);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -134,30 +133,30 @@ When(`I click on send code and verify the code`, () => {
     resetPasswordPage.clickOnVerfiyCodeButton();
 });
 
-When(`I should see duplicate account error {string}`, (errorText) => {
+When(`I should see duplicate account error {string}`, (errorText: any) => {
     createAccountPage.checkDuplicateAccountError(errorText);
 });
 
-When(`I should an error on create account page {string}`, (errorText) => {
+When(`I should an error on create account page {string}`, (errorText: any) => {
     // cy.find(errorText).should(`exist`);
     createAccountPage.checkDuplicateAccountError(errorText);
 });
 
-When(`I enter invalid format email address as {string}`, (emailaddress) => {
+When(`I enter invalid format email address as {string}`, (emailaddress: string) => {
     createAccountPage.enterEmailOrPhone(emailaddress);
     createAccountPage.clickOnSendVerificationCodeCreateAccount();
 
 });
 
-Then(`I should see an error on the Email box as {string}`, (errorText) => {
+Then(`I should see an error on the Email box as {string}`, (errorText: string) => {
     createAccountPage.checkErrorOnEmail(errorText);
 });
 
-Then(`I should see an error on the password box as {string}`, (errorText)=> {
+Then(`I should see an error on the password box as {string}`, (errorText: string)=> {
     createAccountPage.checkErrorOnPassword(errorText);
 });
 
-When(`I enter password on create account with phone number page as {string}`, (password) => {
+When(`I enter password on create account with phone number page as {string}`, (password: string) => {
     createAccountPage.enterNewPassword(password);
     createAccountPage.clickOnCreateButtonCAP();
 });

@@ -57,13 +57,6 @@ class LoginPage {
         });
     }
 
-    clickOnCreateButton () {
-        cy.get(this.createButton).check({
-            force: true,
-        });
-
-    }
-
     enterEmailOrPhone (emailOrPhone: string) {
         cy.get(this.emailOrPhoneFieLd)
             .should(`be.visible`)
