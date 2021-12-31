@@ -1,8 +1,7 @@
 beforeEach(() => {
-    cy.log(`Starteed `);
-    cy.log(Cypress.spec.name);
+    cy.log(`Started The test`);
 });
 
 afterEach(()=> {
-    cy.log(`Finished `, Cypress.spec.name);
+    cy.log(`Finished The test`);
 });

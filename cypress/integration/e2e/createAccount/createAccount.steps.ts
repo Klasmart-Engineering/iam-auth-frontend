@@ -75,9 +75,10 @@ Given(`I enter a new email and click on send verification code`, ()=>{
 
 And(`I click on send code again button`, ()=> {
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
-    cy.wait(1000).then((interceptions) => {
+    cy.wait(1000).then(() => {
         cy.log(`waited for 2 seconds`);
-    });    createAccountPage.clickOnSendCodeAgainButton();
+    });
+    createAccountPage.clickOnSendCodeAgainButton();
 });
 
 When(`I enter the new verification code`, () => {
@@ -86,10 +87,21 @@ When(`I enter the new verification code`, () => {
 });
 
 And(`I enter the password and click on Create Account`, () => {
-    cy.wait(1000).then((interceptions) => {
+    cy.wait(1000).then(() => {
         cy.log(`waited for 2 seconds`);
-    });    createAccountPage.enterNewPassword(`Abcd1234`);
+    });
+    createAccountPage.enterNewPassword(`Abcd1234`);
     //createAccountPage.enterConfirmNewPassword(`Abcd1234`);
+    createAccountPage.acceptPrivacyPolicy();
+    resetPasswordPage.clickOnCreateOrContinueButton();
+});
+
+And(`I enter the password and confirm password and click on Create Account`, () => {
+    cy.wait(1000).then(() => {
+        cy.log(`waited for 2 seconds`);
+    });
+    createAccountPage.enterNewPassword(`Abcd1234`);
+    createAccountPage.enterConfirmNewPassword(`Abcd1234`);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -138,7 +150,7 @@ When(`I should see duplicate account error {string}`, (errorText: any) => {
 });
 
 When(`I should an error on create account page {string}`, (errorText: any) => {
-    // cy.find(errorText).should(`exist`);
+    //cy.find(errorText).should(`exist`);
     createAccountPage.checkDuplicateAccountError(errorText);
 });
 

@@ -26,7 +26,9 @@ class ResetPasswordPage {
     }
 
     getErrorTextEle () {
-        // cy.wait(2000);
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
         return cy.get(this.errorText).should(`be.visible`);
     }
     getclaimVerificationErrorTextEle () {
@@ -64,7 +66,9 @@ class ResetPasswordPage {
     }
 
     clickOnCreateOrContinueButton () {
-        //  cy.wait(2000);
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
         cy.get(this.createOrContinueButton).click({
             force: true,
         });
@@ -75,7 +79,9 @@ class ResetPasswordPage {
         cy.get(this.verifyCodeButton).should(`be.visible`).click({
             force: true,
         });
-        //cy.wait(1000);
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
     }
 
     clickOnSendVerificationCodeCreateAccount () {

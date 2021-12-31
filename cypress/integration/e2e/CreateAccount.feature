@@ -21,7 +21,7 @@ Scenario: create duplicate account with phone number and verify error message
 Given I am on the kidsloop create account with phone number page 
 When I enter an existing account phone number as a new account phone number 
 And I click on send code for phone and verify the code 
-And I enter the password and click on Create Account
+And I enter the password and confirm password and click on Create Account
 Then I should an error on create account page "An account with this email address or number already exists."
 
 Scenario: create duplicate account with email and verify error message

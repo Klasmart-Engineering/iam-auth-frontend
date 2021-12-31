@@ -104,7 +104,9 @@ class CreateAccountPage {
     }
 
     clickOnCreateButtonCAP () {
-        //cy.wait(2000);
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 2 seconds`);
+        });
         cy.get(this.createButton).click({
             force: true,
         });
@@ -135,15 +137,24 @@ class CreateAccountPage {
     }
 
     checkErrorOnEmail (errorText: any) {
-        cy.get(this.errorOnEmailBox).should(`be.visible`).should(`have.text`, errorText);
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+        cy.get(this.errorOnEmailBox).should(`have.text`, errorText);
     }
 
-    checkErrorOnPassword (errorText: string | number | RegExp) {
-        cy.get(this.errorOnPasswordBox).should(`be.visible`).contains(errorText);
+    checkErrorOnPassword (errorText: string) {
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+        cy.get(this.errorOnPasswordBox).contains(errorText);
     }
 
     checkDuplicateAccountError (errorText: any) {
-        cy.get(this.errorText).should(`be.visible`).should(`have.text`, errorText);
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+        cy.get(this.errorText).should(`have.text`, errorText);
     }
 }
 
