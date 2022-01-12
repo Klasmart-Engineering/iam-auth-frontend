@@ -1,7 +1,7 @@
 Feature: Create account via email
 
 #Scenario: Create account via phone number and login 
-#Given I create a new account with a new phone number "2692304118"
+#Given I create a new account with a new phone number "5342032290"
 #Then I am taken to "You are not part of an organization."
 
 Scenario: create account with email and login successfully
@@ -23,6 +23,7 @@ When I enter an existing account phone number as a new account phone number
 And I click on send code for phone and verify the code 
 And I enter the password and confirm password and click on Create Account
 Then I should see an error on create account page "An account with this email address or number already exists."
+
 
 Scenario: create duplicate account with email and verify error message
 Given I am on the kidsloop create account page

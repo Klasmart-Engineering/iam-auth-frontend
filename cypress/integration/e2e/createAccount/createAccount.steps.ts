@@ -107,7 +107,7 @@ And(`I enter the password and confirm password and click on Create Account`, () 
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
 
-When(`I am on the kidsloop create account page`, () => {
+Given(`I am on the kidsloop create account page`, () => {
     loginPage.goToHomePage();
     loginPage.clickOnsignupWithEmail();
 });
@@ -115,13 +115,14 @@ When(`I am on the kidsloop create account page`, () => {
 When(`I enter an existing account phone number as a new account phone number`, () => {
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
     createAccountPage.selectCountry(`United States(+1)`);
-    createAccountPage.enterPhonenumber(`2692304118`);
+    createAccountPage.enterPhonenumber(config.mailosaurPhoneNumber.substring(1));
 });
 
-When(`I am on the kidsloop create account with phone number page`, ()=> {
+Given(`I am on the kidsloop create account with phone number page`, ()=> {
     loginPage.goToHomePage();
     loginPage.clickOnsignupWithPhone();
 });
+
 And(`I enter the code`, ()=>{
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
 });
@@ -136,13 +137,13 @@ When(`I click on send code for phone and verify the code`, () => {
     cy.wait(1000).then(() => {
         cy.log(`waited for 2 seconds`);
     });
-    passcodeUtils.generatePasscodeFromSMS(`12692304118`, resetPasswordPage.getVerificationcodeText());
+    passcodeUtils.generatePasscodeFromSMS(config.mailosaurPhoneNumber, resetPasswordPage.getVerificationcodeText());
     createAccountPage.clickOnVerfiyCodeButtonPhone();
 });
 
 When(`I click on send code and verify the code`, () => {
     createAccountPage.clickOnSendVerificationCodeCreateAccount();
-    passcodeUtils.generatePasscode(`automation1640094816650@zw6ahich.mailosaur.net`, resetPasswordPage.getVerificationcodeText());
+    passcodeUtils.generatePasscode(config.duplicateAccountEmailAddress, resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
 });
 

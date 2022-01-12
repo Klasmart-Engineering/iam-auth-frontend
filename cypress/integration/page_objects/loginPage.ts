@@ -7,7 +7,7 @@ class LoginPage {
     logInButton = `#next`;
     privacyPolicyCheckBox = `#privacy-policy`;
     clickHereLink =
-        `div[class='MuiListItemText-root'] span[class='MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock']`;
+        `#app > div > div > div.MuiPaper-root.MuiCard-root.jss1.MuiPaper-elevation1.MuiPaper-rounded > div > div > div:nth-child(4) > ul > div > div > span`;
     continueButton = `[type='submit']`;
     nonExistingAccountError = `.error.pageLevel`;
     privacyPolicyError = `#privacy-policy__error`;
@@ -43,8 +43,9 @@ class LoginPage {
     clickOnProfile () {
         cy.get(this.selectProfile).should(`be.visible`).click();
     }
-    clickHere () {
-        cy.get(this.clickHereLink).should(`be.visible`).click();
+
+    verifyClickHere () {
+        cy.get(this.clickHereLink).should(`be.visible`);
     }
 
     clickForgetPasswordLink () {

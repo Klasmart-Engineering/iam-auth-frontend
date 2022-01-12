@@ -1,4 +1,5 @@
 import { homePage } from "../page_objects/homePage";
+import { loginPage } from "../page_objects/loginPage";
 import {
     Then,
     When,
@@ -31,4 +32,9 @@ Then(`I should see error message {string}`, (errorText: string) => {
         cy.log(`waited for 1 seconds`);
     });
     cy.contains(errorText).should(`be.visible`);
+});
+
+When(`I am redirected to the home page`, () => {
+    cy.url().should(`contain`, Cypress.config(`baseUrl`));
+    loginPage.verifyClickHere();
 });

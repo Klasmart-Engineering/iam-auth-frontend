@@ -33,7 +33,7 @@ When(`I enter the password and login`, ()=> {
     loginPage.clickOnLogInButton();
 });
 
-When(`I should see an invalid email error {string}`, (errorText: any) => {
+When(`I should see an invalid email error {string}`, (errorText: string) => {
     loginPage.getInvalidEmailError().should(`have.text`, errorText);
 });
 
@@ -51,7 +51,7 @@ When(`I enter password as {string}`, (password: string) => {
     loginPage.enterPassword(password);
 });
 
-Then(`I should see an invalid login error {string}`, (errorText: any)=>{
+Then(`I should see an invalid login error {string}`, (errorText: string)=>{
     loginPage.getInvalidLoginError().should(`have.text`, errorText);
 });
 

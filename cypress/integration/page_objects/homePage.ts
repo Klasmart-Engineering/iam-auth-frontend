@@ -3,13 +3,14 @@ import { waitFor } from "@testing-library/react";
 class HomePage {
     dashboardWelcomeText = `.jss118`;
     youAreNotAPartOfOrgPage = `:nth-child(2) > .MuiTypography-root`;
-    profileButton = `#app > div > div > header > div > div > div.MuiBox-root.jss186 > div > button`;
+    profileButton = `[data-testid=profile-icon]`;
 
     async getWelcomeText (errorText: string) {
         await waitFor(() => {
-            cy.get(this.dashboardWelcomeText).should(`be.visible`);
+            cy.contains(errorText)
+                .should(`be.visible`);
+
         });
-        cy.get(this.dashboardWelcomeText).should(`contain`, errorText);
     }
 
     getNotPartOfOrgText () {

@@ -21,7 +21,7 @@ class CreateAccountPage {
     emailOrPhoneFieLd = `#email`;
     genericErrorText = `#fieldIncorrect`; //Phone number create email page
     privacyPolicyError = `#attributeList > ul > li.CheckboxMultiSelect.hasAcceptedPrivacyPolicy_li > div > div`;
-
+    privacyPolicyLink = `#true_option > a`;
     errorOnEmailBox = `.email_li > .attrEntry > .error`;
     errorOnPasswordBox = `.Password > .attrEntry > .error`;
 
@@ -178,7 +178,6 @@ class CreateAccountPage {
         cy.get(this.privacyPolicyError).should(`have.text`, errorText);
 
     }
-
 }
 
 export const createAccountPage = new CreateAccountPage();

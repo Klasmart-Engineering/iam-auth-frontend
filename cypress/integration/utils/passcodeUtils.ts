@@ -28,7 +28,7 @@ class PasscodeUtils {
             cy.log(`waited for 10 seconds`);
         });
         cy.mailosaurGetMessage(config.mailosaurServerId, {
-            sentTo: `12692304118`,
+            sentTo: config.mailosaurPhoneNumber,
         }, {
             receivedAfter: new Date(`2021-12-12T00:00:00Z`),
         }).then(phone => {

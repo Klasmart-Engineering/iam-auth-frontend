@@ -1,5 +1,6 @@
 export default {
-    mailosaurServerId: `zw6ahich`,
+    mailosaurServerId: `geqtbdzt`,
+    mailosaurPhoneNumber :`15342032290`,
     password: `Abcd1234`,
-    duplicateAccountEmailAddress: `automation1640094816650@zw6ahich.mailosaur.net`,
+    duplicateAccountEmailAddress: `duplicateAccount@geqtbdzt.mailosaur.net`,
 };
