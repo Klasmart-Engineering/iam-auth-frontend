@@ -84,7 +84,7 @@ export const msalConfig: Configuration = {
         authority: `https://${config.azureB2C.domain}/${config.azureB2C.tenantId}/${config.azureB2C.policy}`,
         knownAuthorities: config.azureB2C.domain !== undefined ? [ config.azureB2C.domain ]: undefined,
         redirectUri: `${BASE_URL}/authentication-callback`,
-        postLogoutRedirectUri: `${BASE_URL}/signin`,
+        postLogoutRedirectUri: `${BASE_URL}`,
     },
     system: {
         loggerOptions: {

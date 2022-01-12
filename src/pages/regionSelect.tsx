@@ -24,6 +24,8 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
+import config from "./../config";
+import { conditionalLogoutFromB2C } from "@/utils/azureB2C/sessions";
 
 const DOMAIN = process.env.SLD + `.` + process.env.TLD;
 
@@ -192,6 +194,12 @@ export function RegionSelect () {
             window.location.href = `${protocol}//${domain}/?${queryString}#${path}`;
         }
     };
+
+    React.useEffect(() => {
+        if (config.azureB2C.enabled) {
+            conditionalLogoutFromB2C();
+        }
+    }, []);
 
     return (
         <React.Fragment>
