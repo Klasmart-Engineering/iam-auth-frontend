@@ -2,7 +2,6 @@ import React from "react";
 
 export interface URLContext {
     hostName: string;
-    locale: string | null;
     uaParam: string | null;
     continueParam: string | null;
     testing: boolean;

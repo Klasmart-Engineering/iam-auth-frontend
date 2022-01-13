@@ -1,13 +1,14 @@
+import { Locale } from "@/locale";
 import {
     Domain,
     DOMAINS,
-} from "@/pages/regionSelect";
+} from "@/pages/RegionSelect";
 import QueryString from "query-string";
 
 interface OpenLiveAppOptions {
     token: string;
     domain: string;
-    locale: string;
+    locale: Locale;
 }
 
 interface LiveAppQueryParams {

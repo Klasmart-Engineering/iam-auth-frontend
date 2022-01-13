@@ -1,9 +1,9 @@
 import StyledButton from "../components/button";
 import config from "../config";
 import { redirectIfUnauthorized } from "../utils/accountUtils";
-import { useLocaleState } from "../utils/localeState";
 import { openLiveApp } from "@/app";
 import {
+    useLocale,
     usePlatform,
     useURLContext,
 } from "@/hooks";
@@ -65,7 +65,7 @@ export function Continue () {
     const [ continueLink, setContinueLink ] = useState(url.searchParams.get(`continue`) || DEFAULT_REDIRECT_LINK);
     const [ seconds, setSeconds ] = useState(10);
 
-    const { locale } = useLocaleState();
+    const [ locale ] = useLocale();
 
     if (!urlContext.testing && platform === `Browser`) {
         redirectIfUnauthorized();

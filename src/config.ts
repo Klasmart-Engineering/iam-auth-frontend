@@ -1,4 +1,8 @@
 import {
+    cleanLocale,
+    Locale,
+} from "@/locale";
+import {
     Configuration,
     LogLevel as MsalLogLevel,
 } from "@azure/msal-browser";
@@ -14,6 +18,7 @@ type Environment = typeof ENVIRONMENTS[number];
 
 interface Config {
     env: Environment;
+    defaultLocale: Locale | undefined;
     endpoints: {
         hub: string;
     };
@@ -38,6 +43,7 @@ const cleanNodeEnv = (env: string | undefined): Environment | undefined => {
 
 const config: Config = {
     env: cleanNodeEnv(process.env.NODE_ENV) ?? `production`,
+    defaultLocale: cleanLocale(process.env.DEFAULT_LOCALE),
     endpoints: {
         hub: process.env.HUB_ENDPOINT ?? `https://hub.kidsloop.live`,
     },

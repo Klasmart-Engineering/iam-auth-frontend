@@ -8,10 +8,10 @@ import {
     RestAPIError,
     RestAPIErrorType,
 } from "../restapi_errors";
-import { useLocaleState } from "../utils/localeState";
 import { transferAMSToken } from "@/api/authentication";
 import { openLiveApp } from "@/app";
 import {
+    useLocale,
     usePlatform,
     useURLContext,
 } from "@/hooks";
@@ -83,7 +83,7 @@ export function SignIn () {
     const platform = usePlatform();
     const [ cookies, setCookies ] = useCookies([ `privacy` ]);
 
-    const { locale } = useLocaleState();
+    const [ locale ] = useLocale();
 
     const [ inFlight, setInFlight ] = useState(false);
     const [ checked, setChecked ] = useState((cookies.privacy === `true`) || false);
@@ -154,7 +154,6 @@ export function SignIn () {
                 search: `?ua=cordova`,
                 state: {
                     token,
-                    locale,
                 },
             });
             return true;

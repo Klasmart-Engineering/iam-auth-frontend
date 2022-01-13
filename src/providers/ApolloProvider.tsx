@@ -10,7 +10,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 import { utils } from "kidsloop-px";
 import * as React from "react";
 
-export function ApolloProviderHOC ({ children }: {children: JSX.Element}) {
+export default function ApolloProviderWrapper ({ children }: {children: JSX.Element}) {
 
     const objectCleanerLink = new ApolloLink((operation, forward) => {
         operation.variables = utils.trimStrings(operation.variables); // clean request data

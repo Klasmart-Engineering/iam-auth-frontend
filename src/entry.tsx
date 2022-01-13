@@ -2,9 +2,7 @@ import "@babel/polyfill";
 import "regenerator-runtime/runtime";
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
 import "typeface-nanum-square-round";
-import { ApolloProviderHOC } from "./ApolloProvider";
 import config from "./config";
-import { getLanguage } from "./locale/locale";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";
 import HealthPage from "./pages/health";
@@ -12,23 +10,32 @@ import { Layout } from "./pages/layout";
 import { NotFound } from "./pages/notFound";
 import SetProfile from "./pages/profile/setProfileLayout";
 import RegionLocked from "./pages/RegionLocked";
-import { RegionSelect } from "./pages/regionSelect";
+import { RegionSelect } from "./pages/RegionSelect";
 import { SelectUser } from "./pages/selectUser";
 import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
-import { themeProvider } from "./themeProvider";
 import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
-import { URLContextProvider } from "@/hooks";
+import {
+    URLContextProvider,
+    useLocale,
+} from "@/hooks";
+import { isSupportedLocale } from "@/locale";
 import { Login } from "@/pages/azureB2C";
+import {
+    ApolloProvider,
+    IntlProvider,
+    ThemeProvider,
+} from "@/providers";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
 import React,
-{ useMemo } from "react";
+{
+    useEffect,
+    useMemo,
+} from "react";
 import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
-import { RawIntlProvider } from "react-intl";
 import {
     Route,
     Router,
@@ -84,7 +91,6 @@ if (config.branding.auth.showRegionSelect) {
 function ClientSide () {
     const memos = useMemo(() => {
         const url = new URL(window.location.href);
-        const locale = url.searchParams.get(`locale`);
         const uaParam = url.searchParams.get(`ua`);
         const continueParam = url.searchParams.get(`continue`);
         const testing =
@@ -93,30 +99,44 @@ function ClientSide () {
             url.hostname === `fe.kidsloop.net`;
         return {
             hostName: url.hostname,
-            locale,
             uaParam,
             continueParam,
             testing,
         };
     }, []);
 
-    const [ cookies, setCookies ] = useCookies([ `locale` ]);
-    const languageCode = cookies.locale ?? memos.locale ?? `en`;
-    if (memos.locale && !cookies.locale) {
-        const cookieDomain = process.env.SLD + `.` + process.env.TLD;
-        setCookies(`locale`, languageCode, {
-            path: `/`,
-            domain: cookieDomain || `kidsloop.live`,
-        });
-    }
-    const locale = getLanguage(languageCode);
+    /**
+     * Hierarchy of locale determination
+     *
+     * 1. ?locale= QueryParam (used for first load from mobile app)
+     * 2. `locale` cookie
+     *
+     * The following should only be used on first load by a user, after which the `locale` cookie
+     * will be set
+     * 3. User's language browser preference
+     * 4. Default locale for the deployment
+     * 5. English
+     */
+    const [ locale, setLocale ] = useLocale();
+    const [ cookies ] = useCookies([ `locale` ]);
+
+    useEffect(() => {
+        const localeParam = new URL(window.location.href).searchParams.get(`locale`);
+        if (localeParam && isSupportedLocale(localeParam)) {
+            setLocale(localeParam);
+        } else if (cookies.locale === undefined) {
+            // Set Cookies on a new user first loading the app
+            setLocale(locale);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <URLContextProvider value={memos}>
-            <ApolloProviderHOC>
-                <RawIntlProvider value={locale}>
-                    <AzureB2CProvider>
-                        <ThemeProvider theme={themeProvider()}>
+            <ApolloProvider>
+                <AzureB2CProvider>
+                    <IntlProvider locale={locale}>
+                        <ThemeProvider locale={locale}>
                             <CssBaseline />
                             <Switch>
                                 <Route
@@ -130,8 +150,8 @@ function ClientSide () {
                                     <HealthPage />
                                 </Route>
                                 {routes.map(({
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
                                     path,
+                                    // eslint-disable-next-line @typescript-eslint/naming-convention
                                     Component,
                                     size,
                                     centerLogo,
@@ -179,14 +199,14 @@ function ClientSide () {
                                 </Route>
                             </Switch>
                         </ThemeProvider>
-                    </AzureB2CProvider>
-                </RawIntlProvider>
-            </ApolloProviderHOC>
+                    </IntlProvider>
+                </AzureB2CProvider>
+            </ApolloProvider>
         </URLContextProvider>
     );
 }
 
-async function main () {
+function main () {
     const div = document.getElementById(`app`);
     ReactDOM.render(<Router history={history}>
         <ClientSide />

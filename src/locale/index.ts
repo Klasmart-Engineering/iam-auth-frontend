@@ -33,14 +33,60 @@ export const localeCodes = [
     `vi`,
     `id`,
     `th`,
+] as const;
+
+export type Locale = typeof localeCodes[number];
+
+interface Language {
+    code: Locale;
+    text: string;
+}
+
+export const LANGUAGES: Language[] = [
+    {
+        code: `en`,
+        text: `English`,
+    },
+    {
+        code: `es`,
+        text: `Español`,
+    },
+    {
+        code: `ko`,
+        text: `한국어`,
+    },
+    {
+        code: `zh-CN`,
+        text: `汉语 (简体)`,
+    },
+    {
+        code: `vi`,
+        text: `Tiếng Việt`,
+    },
+    {
+        code: `id`,
+        text: `bahasa Indonesia`,
+    },
+    {
+        code: `th`,
+        text: `ภาษาไทย`,
+    },
 ];
 
+export const DEFAULT_LOCALE: Locale = `en`;
+
+const supportedLocales = new Set(localeCodes);
+
+export const isSupportedLocale = (code: string): code is Locale => supportedLocales.has(code as Locale);
+
 const intlCache = createIntlCache();
+
 export const fallbackLocale = createIntl({
-    locale: `en`,
+    locale: DEFAULT_LOCALE,
     messages: english,
 }, intlCache);
-export function getIntl (locale: string) {
+
+export function loadIntl (locale: Locale) {
     switch (locale) {
     case `zh-CN`:
         return createIntl({
@@ -80,27 +126,25 @@ export function getIntl (locale: string) {
     }
 }
 
-const localeCache = new Map<string, ReturnType<typeof getIntl>>();
-export function getDefaultLanguageCode () {
+export const getPreferredBrowserLocale = (): Locale | undefined => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator
     const languages = navigator.languages || [
-        (navigator as any).language,
-        (navigator as any).browerLanguage,
+        navigator.language,
+        // Opera
+        (navigator as any).browserLanguage,
+        // IE
         (navigator as any).userLanguage,
         (navigator as any).systemLanguage,
     ];
-    for (const language of languages) {
-        if (localeCodes.indexOf(language) !== -1) {
-            return language;
-        }
-    }
-    return `en`;
-}
+    // Some of these values may be null/undefined depending on the API and the browser
+    return languages.filter(x => typeof x === `string`).find(isSupportedLocale);
+};
 
-export function getLanguage (languageCode: string) {
-    let language = localeCache.get(languageCode);
-    if (language !== undefined) { return language; }
-    language = getIntl(languageCode);
-    localeCache.set(languageCode, language);
-    if (language !== undefined) { return language; }
-    return fallbackLocale;
-}
+export const cleanLocale = (locale: string | undefined): Locale | undefined => {
+    if (locale === undefined) return undefined;
+    if (!isSupportedLocale(locale)) {
+        console.debug(`Unsupported locale %s, must be one of %s`, locale, localeCodes);
+        return undefined;
+    }
+    return locale;
+};

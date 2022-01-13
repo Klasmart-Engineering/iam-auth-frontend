@@ -1,4 +1,4 @@
-import { fallbackLocale } from "@/locale/locale";
+import { fallbackLocale } from "@/locale";
 import { render } from "@testing-library/react";
 import React from "react";
 import {

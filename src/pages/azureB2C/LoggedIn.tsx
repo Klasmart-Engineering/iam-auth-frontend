@@ -4,12 +4,13 @@ import Loading from "@/components/Loading";
 import {
     Platform,
     useAccessToken,
+    useLocale,
     useOAuthState,
     usePlatform,
     useURLContext,
 } from "@/hooks";
+import useUpdateLocale from "@/hooks/azureB2C/useUpdateLocale";
 import { Layout } from "@/pages/layout";
-import { useLocaleState } from "@/utils/localeState";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import {
     Grid,
@@ -24,7 +25,7 @@ import { useHistory } from "react-router-dom";
 
 export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     const history = useHistory();
-    const { locale } = useLocaleState();
+    const [ locale ] = useLocale();
     const urlContext = useURLContext();
     const [ transferTokenError, setTransferTokenError ] = useState<boolean>(false);
     const {
@@ -32,6 +33,8 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         isLoading,
         error: accessTokenError,
     } = useAccessToken(result);
+
+    useUpdateLocale(result);
 
     // We render this component when:
     //      1. You have just created an account/logged into B2C, and been sent back to the app via the OAuth2 `redirect_uri`
@@ -74,7 +77,6 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
                 search: `?ua=cordovaios`,
                 state: {
                     token,
-                    locale,
                 },
             });
             return;

@@ -1,6 +1,7 @@
 import BackgroundImage from "../../assets/img/test.png";
 import PolicyLink from "../components/policyLinks";
 import config from "../config";
+import { default as LanguageSelect } from "@/components/LanguageSelect";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,40 +13,7 @@ import {
     useTheme,
 } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { LanguageSelect } from "kidsloop-px";
-import { Language } from "kidsloop-px/dist/types/components/LanguageSelect";
 import React from "react";
-
-const LANGUAGES_LABEL: Language[] = [
-    {
-        code: `en`,
-        text: `English`,
-    },
-    {
-        code: `es`,
-        text: `Español`,
-    },
-    {
-        code: `ko`,
-        text: `한국어`,
-    },
-    {
-        code: `zh-CN`,
-        text: `汉语 (简体)`,
-    },
-    {
-        code: `vi`,
-        text: `Tiếng Việt`,
-    },
-    {
-        code: `id`,
-        text: `bahasa Indonesia`,
-    },
-    {
-        code: `th`,
-        text: `ภาษาไทย`,
-    },
-];
 
 const useStyles = makeStyles((theme) => createStyles({
     card: {
@@ -96,7 +64,6 @@ interface Props {
 export function Layout (props: Props) {
     const classes = useStyles();
     const theme = useTheme();
-    const domain = process.env.SLD + `.` + process.env.TLD;
     const logo = props.logo ?? true;
 
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
@@ -146,10 +113,7 @@ export function Layout (props: Props) {
                     <Grid
                         item
                         xs={5}>
-                        <LanguageSelect
-                            noIcon
-                            cookieDomain={domain}
-                            languages={LANGUAGES_LABEL} />
+                        <LanguageSelect />
                     </Grid>
                     <Grid
                         item

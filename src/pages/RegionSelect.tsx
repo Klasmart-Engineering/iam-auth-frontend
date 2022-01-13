@@ -11,6 +11,7 @@ import { useURLContext } from "@/hooks";
 import {
     createStyles,
     makeStyles,
+    Theme,
     Typography,
     useMediaQuery,
     useTheme,
@@ -21,13 +22,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import QueryString from "qs";
 import * as React from "react";
-import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import config from "./../config";
 import { conditionalLogoutFromB2C } from "@/utils/azureB2C/sessions";
-
-const DOMAIN = process.env.SLD + `.` + process.env.TLD;
 
 export const DOMAINS = [
     `auth.kidsloop.cn`,
@@ -43,23 +41,21 @@ export const DOMAINS = [
 
 export type Domain = typeof DOMAINS[number];
 
-interface Region {
+export interface Region {
     img: string;
     domain: Domain;
     path: string;
     primaryText: string;
     secondaryText: string | React.ReactElement;
-    locale: string;
 }
 
-const regions: Region[] = [
+export const regions: Region[] = [
     {
         img: UnitedKingdom,
         domain: `auth.kidsloop.co.uk`,
         path: `/signin`,
         primaryText: `United Kingdom`,
         secondaryText: ``,
-        locale: `en`,
     },
     {
         img: India,
@@ -67,7 +63,6 @@ const regions: Region[] = [
         path: `/signin`,
         primaryText: `India`,
         secondaryText: ``,
-        locale: `en`,
     },
     {
         img: SriLanka,
@@ -75,23 +70,6 @@ const regions: Region[] = [
         path: `/signin`,
         primaryText: `Sri Lanka`,
         secondaryText: ``,
-        locale: `en`,
-    },
-    {
-        img: Thailand,
-        domain: `auth.kidsloop.co.th`,
-        path: `/signin`,
-        primaryText: `ประเทศไทย`,
-        secondaryText: ``,
-        locale: `th`,
-    },
-    {
-        img: Indonesia,
-        domain: `auth.kidsloop.id`,
-        path: `/signin`,
-        primaryText: `Republik Indonesia`,
-        secondaryText: ``,
-        locale: `id`,
     },
     {
         img: Pakistan,
@@ -99,15 +77,6 @@ const regions: Region[] = [
         path: `/signin`,
         primaryText: `اِسلامی جمہوریہ پاكِستان`,
         secondaryText: ``,
-        locale: `en`,
-    },
-    {
-        img: Korea,
-        domain: `auth.kidsloop.live`,
-        path: `/signin`,
-        primaryText: `대한민국`,
-        secondaryText: ``,
-        locale: `ko`,
     },
     {
         img: UnitedStates,
@@ -115,7 +84,27 @@ const regions: Region[] = [
         path: `/signin`,
         primaryText: `United States`,
         secondaryText: ``,
-        locale: `en`,
+    },
+    {
+        img: Indonesia,
+        domain: `auth.kidsloop.id`,
+        path: `/signin`,
+        primaryText: `Republik Indonesia`,
+        secondaryText: ``,
+    },
+    {
+        img: Korea,
+        domain: `auth.kidsloop.live`,
+        path: `/signin`,
+        primaryText: `대한민국`,
+        secondaryText: ``,
+    },
+    {
+        img: Thailand,
+        domain: `auth.kidsloop.co.th`,
+        path: `/signin`,
+        primaryText: `ประเทศไทย`,
+        secondaryText: ``,
     },
     {
         img: Vietnam,
@@ -123,12 +112,10 @@ const regions: Region[] = [
         path: `/signin`,
         primaryText: `Việt Nam`,
         secondaryText: ``,
-        locale: `vi`,
     },
 ];
-regions.sort((a, b) => a.locale.localeCompare(b.locale));
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     list: {
         width: `100%`,
         backgroundColor: theme.palette.background.paper,
@@ -163,35 +150,27 @@ export function RegionSelect () {
     const theme = useTheme();
     const history = useHistory();
     const url = useURLContext();
-    const [ cookies, setCookies ] = useCookies([ `locale` ]);
 
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
 
-    const handleRegionSelect = (domain = window.location.host, path = `/signin`, locale = `en`) => {
+    const handleRegionSelect = (domain = window.location.host, path = `/signin`) => {
         const protocol = window.location.protocol;
         const port = window.location.port;
         const urlHostName = port === `` ? url.hostName : `${url.hostName}:${port}`;
-        const lang = cookies?.locale ?? locale;
-
-        setCookies(`locale`, lang, {
-            path: `/`,
-            domain: DOMAIN || `kidsloop.live`,
-        });
 
         if (domain === urlHostName) {
-            history.push(path, {
-                locale,
-            });
+            history.push(path);
         } else {
             const queries = {
-                locale: locale,
                 ua: url.uaParam,
                 continue: url.continueParam,
             };
             const queryString = QueryString.stringify(queries, {
                 skipNulls: true,
             });
-            window.location.href = `${protocol}//${domain}/?${queryString}#${path}`;
+            // TODO: convert to /${path}?${queryString} once regions are migrated to Azure B2C
+            // (and no longer use HashRouter)
+            window.location.assign(`${protocol}//${domain}/?${queryString}#${path}`);
         }
     };
 
@@ -220,7 +199,7 @@ export function RegionSelect () {
                         overflow: `auto`,
                     }}
                 >
-                    {regions.map((region) => (
+                    {regions.map((region: Region) => (
                         <Grid
                             key={region.primaryText}
                             item
@@ -232,7 +211,7 @@ export function RegionSelect () {
                                 style={{
                                     height: 72,
                                 }}
-                                onClick={() => handleRegionSelect(region.domain, region.path, region.locale)}
+                                onClick={() => handleRegionSelect(region.domain, region.path)}
                             >
                                 <img
                                     src={region.img}

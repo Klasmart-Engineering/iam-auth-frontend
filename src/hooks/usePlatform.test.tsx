@@ -17,7 +17,6 @@ describe(`usePlatform`, () => {
 
     const baseContextValue: Omit<URLContext, "uaParam"> = {
         hostName: `kidsloop.com`,
-        locale: `en`,
         continueParam: null,
         testing: false,
     };

@@ -1,22 +1,28 @@
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
 import "typeface-nanum-square-round";
 import "inter-ui";
-import { useLocaleState } from "./utils/localeState";
+import { Locale } from "@/locale";
 import {
-    createMuiTheme,
+    createTheme,
     responsiveFontSizes,
     Theme,
+    ThemeProvider as MUIThemeProvider,
 } from "@material-ui/core/styles";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+import React from "react";
 
-// import { getLanguage } from "./locale";
-// import { useSelector } from "react-redux";
-// import { State } from "./store/store";
+interface Props {
+    children?: React.ReactNode;
+    locale: Locale;
+}
 
-export function themeProvider () {
+export default function ThemeProvider ({ children, locale }: Props) {
+    return <MUIThemeProvider theme={buildTheme(locale)}>{ children }</MUIThemeProvider>;
+}
+
+const buildTheme = (locale: Locale): Theme => {
+    // TODO remove themeMode conditionals, as currently we don't support any kind of theme switching/dark mode
     const themeMode = `light`;
-
-    const { locale: languageCode } = useLocaleState();
 
     function setTypography () {
         let localeFontFamily = `Inter`;
@@ -25,7 +31,7 @@ export function themeProvider () {
         let localeWeightRegular = 500;
         const localeWeightBold = 700;
 
-        switch (languageCode) {
+        switch (locale) {
         case `en`:
             localeFontFamily = `Inter`;
             localeWeightRegular = 500;
@@ -134,14 +140,14 @@ export function themeProvider () {
         palette.background = {
             default: `#FFF`,
         };
-        theme = createMuiTheme({
+        theme = createTheme({
             overrides,
             palette,
             typography,
         });
     } else {
         palette.type = `dark`;
-        theme = createMuiTheme({
+        theme = createTheme({
             overrides,
             palette,
             typography,
@@ -149,4 +155,4 @@ export function themeProvider () {
     }
 
     return theme = responsiveFontSizes(theme);
-}
+};
