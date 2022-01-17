@@ -28,6 +28,9 @@ class CreateAccountPage {
     newEmail = ``;
 
     enterNewPassword (password: string) {
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 2 seconds`);
+        });
         cy.get(this.newPassword)
             .should(`be.visible`)
             .type(password);
@@ -84,6 +87,14 @@ class CreateAccountPage {
 
     clickOnVerfiyCodeButtonPhone (){
         cy.get(this.verifyCodeButtonPhone)
+            .should(`be.visible`)
+            .click({
+                force: true,
+            });
+    }
+
+    clickOnVerfiyCodeButtonEmail (){
+        cy.get(this.verifyCodeButton)
             .should(`be.visible`)
             .click({
                 force: true,

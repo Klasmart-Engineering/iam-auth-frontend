@@ -1,12 +1,19 @@
+import languageCodes from "../../configs/languageCodes";
 import { homePage } from "../page_objects/homePage";
 import { loginPage } from "../page_objects/loginPage";
 import {
+    And,
+    Given,
     Then,
     When,
 } from "cypress-cucumber-preprocessor/steps";
 
 Then(`I see {string} in the title`, (title: string) => {
     cy.title().should(`include`, title);
+});
+
+Given(`I am on the kidsloop login page`, () => {
+    loginPage.goToHomePage();
 });
 
 Then(`I should see the welcome message {string}`, async (text: string) => {
@@ -20,7 +27,6 @@ Then(`I am taken to {string}`, (text: string) => {
 Then(`I sign out`, async () => {
     await homePage.clickOnProfile();
     homePage.clickOnSignoutLink();
-    cy.removeCookies();
 });
 
 When(`I go to 404 page directly`, () => {
@@ -36,5 +42,33 @@ Then(`I should see error message {string}`, (errorText: string) => {
 
 When(`I am redirected to the home page`, () => {
     cy.url().should(`contain`, Cypress.config(`baseUrl`));
-    loginPage.verifyClickHere();
+});
+
+When(`I wait for {string} mins`, (mins: number) => {
+    cy.wait(mins*60*1000).then(() => {
+        cy.log(`waited for ${mins} mins`);
+    });
+});
+
+And(`I remove cookies`, ()=> {
+    cy.removeCookies();
+});
+
+When(`I set the locale cookie to {string}`, (languageText)=> {
+    cy.clearCookies();
+    cy.log(`setting locale to ` + languageText);
+    const code = languageCodes.languageCodes.get(languageText);
+    if (!code) {
+        throw new Error(`Language ${languageText} not found`);
+    }
+    cy.setCookie(`locale`, code);
+    cy.wait(2000).then(() => {
+        cy.log(`waited for 2 seconds`);
+    });
+});
+
+Given(`I should verify the text for {string} is displayed in {string}`, (page, language) => {
+    if(page == `LoginPage`){
+        loginPage.checkText(language);
+    }
 });

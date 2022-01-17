@@ -29,6 +29,7 @@ Scenario: Login via phone number associated with an organization
 Scenario: Login via phone number not associated with an organization
   Given I login to kidsloop via SSO with phone number "+919890316937"
   Then I am taken to "You are not part of an organization."
+  And I remove cookies
 
 Scenario: Login with an invalid account
 Given I am on the kidsloop login page
@@ -63,3 +64,11 @@ Scenario: Error message for wrong email and wrong password
   And I enter a valid email "swapnali.bhansali@kidsloop.live"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+ 
+Scenario: 15 mins timeout on select profile screen multiple profiles 
+  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
+  When I wait for "16" mins 
+  And I select the first profile from the list
+  Then I should see the welcome message "how are you doing today?"
+  When I sign out 
+  And I am redirected to the home page

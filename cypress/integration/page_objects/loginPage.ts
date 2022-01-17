@@ -18,13 +18,14 @@ class LoginPage {
     forgetPassword = `#forgotPassword`;
     signupWithPhone = `#SignupWithPhone`;
     signupWithEmail = `#SignupWithEmail`;
+    languageSelector = `#language-select`;
+    creatAccountLinkText = `#localAccountForm > div.claims-provider-list-text-links > p`;
 
     getSelectYourCountryOrRegionText () {
         return cy.get(this.selectYourCountryText).should(`be.visible`);
     }
 
     goToHomePage (){
-        cy.removeCookies();
         cy.visit(`signin`);
     }
 
@@ -97,6 +98,10 @@ class LoginPage {
         });
     }
 
+    verifyLanguageSelector (text: string) {
+        cy.get(`select${this.languageSelector} option:selected`).should(`have.text`, text);
+
+    }
     getInvalidEmailError () {
         return cy.get(this.invalidEmailError).should(`be.visible`);
     }
@@ -111,6 +116,16 @@ class LoginPage {
 
     getPrivacyPolicyErrorMessage () {
         return cy.get(this.privacyPolicyError).should(`be.visible`);
+    }
+
+    checkText (text: string){
+        if(text == `Spanish`){
+            cy.fixture(`SpanishTranslations`).then((translationsData) => {
+                cy.get(this.forgetPassword).should(`have.text`, translationsData.ForgotYourPasswordText);
+                cy.get(this.logInButton).should(`have.text`, translationsData.LoginButtonText);
+            });
+
+        }
     }
 }
 

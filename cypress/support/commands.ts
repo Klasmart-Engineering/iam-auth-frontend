@@ -31,7 +31,6 @@ Cypress.Commands.add(`removeCookies`, () => {
     cy.window().then((win) => {
         win.sessionStorage.clear();
     });
-    cy.viewport(`macbook-16`);
 });
 
 Cypress.on(`uncaught:exception`, (err, runnable) => {

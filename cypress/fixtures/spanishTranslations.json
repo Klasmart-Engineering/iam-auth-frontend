@@ -1,0 +1,6 @@
+{
+    "LoginTitleText": "Login",
+    "ForgotYourPasswordText": "¿Olvidó su contraseña?", 
+    "LoginButtonText" : "Iniciar sesión",
+    "CreateAccountLinkText" : "¿No tiene una cuenta? Registro con Email o Phone"
+}

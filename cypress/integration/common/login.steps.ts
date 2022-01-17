@@ -1,5 +1,6 @@
-import config from '../../../configs/config';
-import { loginPage } from '../../page_objects/loginPage';
+import config from '../../configs/config';
+import languageCodes from '../../configs/languageCodes';
+import { loginPage } from '../page_objects/loginPage';
 import {
     And,
     Given,
@@ -64,4 +65,12 @@ Given(`I login to kidsloop via SSO with phone number {string}`, (phone: string)=
 Then(`I select the first profile from the list`, () => {
     loginPage.clickOnProfile();
     loginPage.clickOnContinueButton();
+});
+
+Then(`the default language selected should be {string}`, (languageText)=> {
+    const selectorText = languageCodes.languageSelectorText.get(languageText);
+    if (!selectorText) {
+        throw new Error(`Language selector ${languageText} not found`);
+    }
+    loginPage.verifyLanguageSelector(selectorText);
 });
