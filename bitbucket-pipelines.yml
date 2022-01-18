@@ -22,10 +22,13 @@ pipelines:
     ui-cypress-tests-SSO-electron:
     - step: 
         name: 'UI Cypress Regression Tests - Electron Browser On SSO'
-        image: node:latest
+        image: cypress/base:14.16.0
         script: 
-        - npm ci --no-audit --no-progress
+        - npm i --no-audit --no-progress
         - npm run test:sso
+        caches:
+          - node
+          - cypress
         artifacts:
         # store any generates images and videos as artifacts
           - cypress/screenshots/**
@@ -108,3 +111,4 @@ definitions:
   caches:
     nodemodules: ./node_modules
     accountnodemodules: ./src/pages/account/kidsloop-pass-frontend/client/node_modules
+    cypress: $HOME/.cache/Cypress
