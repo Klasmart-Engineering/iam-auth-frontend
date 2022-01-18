@@ -1,8 +1,8 @@
-import config from "../../../configs/config";
-import { createAccountPage } from "../../page_objects/createAccountPage";
-import { loginPage } from "../../page_objects/loginPage";
-import { resetPasswordPage } from "../../page_objects/resetPasswordPage";
-import { passcodeUtils } from "../../utils/passcodeUtils";
+import config from "../../configs/config";
+import { createAccountPage } from "../page_objects/createAccountPage";
+import { loginPage } from "../page_objects/loginPage";
+import { resetPasswordPage } from "../page_objects/resetPasswordPage";
+import { passcodeUtils } from "../utils/passcodeUtils";
 import {
     And,
     Given,
