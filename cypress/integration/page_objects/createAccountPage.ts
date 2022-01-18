@@ -178,7 +178,6 @@ class CreateAccountPage {
         cy.wait(2000).then(() => {
             cy.log(`waited for 1 seconds`);
         });
-        //  cy.get(this.genericErrorText).should(`have.text`, errorText);
         cy.contains(errorText).should(`be.visible`);
     }
 
