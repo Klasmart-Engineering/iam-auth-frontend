@@ -24,6 +24,7 @@ pipelines:
         name: 'UI Cypress Regression Tests - Electron Browser On SSO'
         image: node:lts
         script: 
+        - npm ci --no-audit --no-progress
         - npm run test:sso
         artifacts:
         # store any generates images and videos as artifacts
