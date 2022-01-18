@@ -22,7 +22,8 @@ pipelines:
 
     ui-cypress-tests-SSO-electron:
     - step: 
-        name: "UI Cypress Regression Tests - Electron Browser On SSO"
+        name: 'UI Cypress Regression Tests - Electron Browser On SSO'
+        image: node:lts
         script: 
         - npm run test:sso
         artifacts:
