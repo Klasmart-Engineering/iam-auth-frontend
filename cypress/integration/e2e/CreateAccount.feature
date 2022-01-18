@@ -7,6 +7,7 @@ Feature: Create account via email
 Scenario: create account with email and login successfully
 When I create a new account with a new email address
 Then I am taken to "You are not part of an organization."
+And I remove cookies
 
 Scenario: create account via resend code functionality with email and login successfully
 Given I am on the kidsloop create account page
@@ -16,6 +17,8 @@ When I click on send code again button
 And I enter the new verification code
 And I enter the password and click on Create Account
 Then I am taken to "You are not part of an organization."
+And I remove cookies
+
 
 Scenario: create duplicate account with phone number and verify error message
 Given I am on the kidsloop create account with phone number page 
@@ -24,7 +27,7 @@ And I click on send code for phone and verify the code
 And I enter the password and confirm password and click on Create Account
 Then I should see an error on create account page "An account with this email address or number already exists."
 
-
+ 
 Scenario: create duplicate account with email and verify error message
 Given I am on the kidsloop create account page
 When I enter an existing email address as the new email address 
@@ -40,6 +43,8 @@ When I click on send code again button
 And I enter the new verification code
 And I enter the password and click on Create Account
 Then I am taken to "You are not part of an organization."
+And I remove cookies
+
 
 Scenario: Error messages on create account with email page 
 Given I am on the kidsloop create account page
