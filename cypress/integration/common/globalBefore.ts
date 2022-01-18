@@ -1,9 +1,8 @@
 
 before(() => {
     cy.log(`Starting IAM regression`);
-    let viewport = Cypress.env(`VIEWPORT`);
-    if(viewport == null) {
-        viewport = `mac`;
+    const viewport = Cypress.env(`VIEWPORT`);
+    if(viewport != null) {
+        cy.viewport(viewport);
     }
-    cy.viewport(viewport);
 });

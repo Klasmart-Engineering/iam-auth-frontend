@@ -8,7 +8,7 @@ pipelines:
   pull-requests:
     '**':
       - parallel:
-        - step:
+      - step:
             name: Test & Build
             caches:
               - node
@@ -17,7 +17,19 @@ pipelines:
               - cp deploy/config/internal/.env.alpha ./.env
               - npm test -- --coverage
               - npm run build
+
   custom:
+
+    ui-cypress-tests-SSO-electron:
+    - step: 
+        name: "UI Cypress Regression Tests - Electron Browser On SSO"
+        script: 
+        - npm run test:sso
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/videos/**  
+
     deploy:
     - variables:
           - name: KIDSLOOP_REGION
@@ -89,6 +101,7 @@ pipelines:
 
         services:
           - docker
+
 
 definitions:
   caches:

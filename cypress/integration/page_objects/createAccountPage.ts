@@ -175,7 +175,7 @@ class CreateAccountPage {
     }
 
     checkGenericError (errorText: string) {
-        cy.wait(1000).then(() => {
+        cy.wait(2000).then(() => {
             cy.log(`waited for 1 seconds`);
         });
         //  cy.get(this.genericErrorText).should(`have.text`, errorText);
