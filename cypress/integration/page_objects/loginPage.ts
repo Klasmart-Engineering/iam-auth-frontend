@@ -120,7 +120,7 @@ class LoginPage {
 
     checkText (text: string){
         if(text == `Spanish`){
-            cy.fixture(`SpanishTranslations`).then((translationsData) => {
+            cy.fixture(`spanishTranslations`).then((translationsData) => {
                 cy.get(this.forgetPassword).should(`have.text`, translationsData.ForgotYourPasswordText);
                 cy.get(this.logInButton).should(`have.text`, translationsData.LoginButtonText);
             });
