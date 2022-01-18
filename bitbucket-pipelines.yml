@@ -7,7 +7,6 @@ clone:
 pipelines:
   pull-requests:
     '**':
-      - parallel:
       - step:
             name: Test & Build
             caches:
