@@ -60,7 +60,7 @@ Scenario: Error message for wrong email and wrong password
   Given I am on the kidsloop login page 
   When I enter invalid email as "abc"
   And I click on login button
-  Then I should see an invalid email error "Please enter a valid email address."
+  Then I should see an invalid email error 'Please enter at least one of the following: - A valid email address - A valid phone number'
   And I enter a valid email "swapnali.bhansali@kidsloop.live"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
