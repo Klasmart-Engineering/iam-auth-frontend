@@ -17,7 +17,7 @@ class ResetPasswordPage {
     verificationFailedError = `#emailVerificationControl_error_message`;
     testEmail = `something@${config.mailosaurServerId}.mailosaur.net`;
     passcode = `0`;
-
+    sendCodeBtn = `#emailControl_but_send_code`;
     getTestEmail () {
         return this.testEmail;
     }
@@ -77,7 +77,7 @@ class ResetPasswordPage {
     }
 
     clickOnVerfiyCodeButton () {
-        cy.get(this.verifyCodeButton).should(`be.visible`).click({
+        cy.get(this.verifyCodeButton).should(`exist`).click({
             force: true,
         });
         cy.wait(1000).then(() => {
@@ -88,6 +88,14 @@ class ResetPasswordPage {
     clickOnSendVerificationCodeCreateAccount () {
         cy.get(this.sendCodeCreateAccount).click({
             force: true,
+        });
+    }
+    clickOnSendCodeButton () {
+        cy.get(this.sendCodeBtn).should(`be.visible`).click({
+            force: true,
+        });
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 1 seconds`);
         });
     }
 

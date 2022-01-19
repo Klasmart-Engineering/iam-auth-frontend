@@ -8,11 +8,12 @@ import {
     And,
     Given,
     Then,
+    When,
 } from "cypress-cucumber-preprocessor/steps";
 
 And(`I enter email , verification code and new password`,  ()=> {
-    loginPage.enterEmailOrPhone(resetPasswordPage.getTestEmail());
-    resetPasswordPage.clickOnSendVerificationCodeCreateAccount();
+    resetPasswordPage.enterEmail(resetPasswordPage.getTestEmail());
+    resetPasswordPage.clickOnSendCodeButton();
     passcodeUtils.generatePasscode(resetPasswordPage.getTestEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
     resetPasswordPage.clickOnCreateOrContinueButton();
@@ -29,6 +30,10 @@ Given(`I go to reset password page`, ()=> {
     loginPage.clickForgetPasswordLink();
 });
 
+When(`I click on reset code button`, ()=> {
+    resetPasswordPage.clickOnSendCodeButton();
+});
+
 Given(`I enter wrong verification code`, ()=> {
     resetPasswordPage.enterCode(`11111`);
 });
@@ -36,6 +41,11 @@ Given(`I enter wrong verification code`, ()=> {
 Given(`I enter email and click on send verification code`, () => {
     resetPasswordPage.enterEmail(resetPasswordPage.getTestEmail());
     resetPasswordPage.clickOnSendVerificationCodeCreateAccount();
+});
+
+Given(`I enter email and click on send reset code`, () => {
+    resetPasswordPage.enterEmail(resetPasswordPage.getTestEmail());
+    resetPasswordPage.clickOnSendCodeButton();
 });
 
 And(`I click on verify code button`, ()=> {

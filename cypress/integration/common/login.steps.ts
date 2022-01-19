@@ -40,7 +40,6 @@ When(`I should see an invalid email error {string}`, (errorText: string) => {
 
 And(`I enter a valid email {string}`, (email: string) => {
     loginPage.enterEmailOrPhone(email);
-
 });
 
 When(`I enter wrong password`, ()=> {
