@@ -33,6 +33,7 @@ pipelines:
         artifacts:
         # store any generates images and videos as artifacts
           - cypress/screenshots/**
+          - cypress/cucumber-json
           - cypress/videos/**  
           - test-reports
 
