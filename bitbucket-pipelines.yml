@@ -129,6 +129,26 @@ pipelines:
           - test-reports/**
           - test-reports/cucumber-report/cucumber-htmlreport/index.html
 
+    cypress-tests-SSO-samsung10:
+    - step: 
+        name: 'UI Cypress Regression Tests - Samsung 10 screen on Chrome Browser'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso:samsung-s10
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
+
 definitions:
   caches:
     nodemodules: ./node_modules
