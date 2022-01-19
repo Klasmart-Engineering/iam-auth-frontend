@@ -11,12 +11,12 @@
     "test": "jest",
     "preversion": "git checkout dev && git pull origin dev && npm i",
     "postversion": "git push && git push --tags",
-    "test:sso": "cypress run --config-file=cypress/configs/cypress.sso.json --spec \"**/*.feature\" && node cypress/cucumber-html-report.js",
+    "test:sso": "cypress run --config-file=cypress/configs/cypress.sso.json --spec \"**/*.feature\"",
     "test:sso:iphone" :"cypress run --config-file=cypress/configs/cypress.sso.json --env VIEWPORT=iphone-6 --spec \"**/*.feature\" && node cypress/cucumber-html-report.js",
     "test:sso:ipad" :"cypress run --config-file=cypress/configs/cypress.sso.json --env VIEWPORT=ipad-mini --spec \"**/*.feature\" && node cypress/cucumber-html-report.js",
     "test:sso:samsung:note" :"cypress run --config-file=cypress/configs/cypress.sso.json --env VIEWPORT=samsung-note9 --spec \"**/*.feature\" && node cypress/cucumber-html-report.js",
-    "test:sso:samsung-s10" :"cypress run --config-file=cypress/configs/cypress.sso.json --env VIEWPORT=samsung-s10 --spec \"**/*.feature\" && node cypress/cucumber-html-report.js"
-  
+    "test:sso:samsung-s10" :"cypress run --config-file=cypress/configs/cypress.sso.json --env VIEWPORT=samsung-s10 --spec \"**/*.feature\" && node cypress/cucumber-html-report.js",
+    "e2e:reports" : "node cypress/cucumber-html-report.js"
   },
   "author": "",
   "license": "ISC",
