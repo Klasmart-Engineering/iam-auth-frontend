@@ -26,6 +26,7 @@ pipelines:
         script: 
         - npm i --no-audit --no-progress
         - npm run test:sso
+        - node cypress/cucumber-html-report.js
         caches:
           - node
           - cypress
