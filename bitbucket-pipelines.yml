@@ -35,7 +35,7 @@ pipelines:
           - cypress/screenshots/**
           - cypress/cucumber-json
           - cypress/videos/**  
-          - test-reports
+          - test-reports/**
 
     deploy:
     - variables:
