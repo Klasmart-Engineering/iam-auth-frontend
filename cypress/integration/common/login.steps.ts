@@ -35,7 +35,7 @@ When(`I enter the password and login`, ()=> {
 });
 
 When(`I should see an invalid email error {string}`, (errorText: string) => {
-    loginPage.getInvalidEmailError().should(`have.text`, errorText);
+    loginPage.getInvalidEmailError().should(`contain`, errorText);
 });
 
 And(`I enter a valid email {string}`, (email: string) => {
