@@ -147,8 +147,8 @@ class CreateAccountPage {
     }
 
     checkErrorOnEmail (errorText: string) {
-        cy.wait(1000).then(() => {
-            cy.log(`waited for 1 seconds`);
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 2 seconds`);
         });
         cy.get(this.errorOnEmailBox).should(`have.text`, errorText);
     }

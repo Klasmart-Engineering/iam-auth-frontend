@@ -34,7 +34,7 @@ Given(`I enter wrong verification code`, ()=> {
 });
 
 Given(`I enter email and click on send verification code`, () => {
-    loginPage.enterEmailOrPhone(resetPasswordPage.getTestEmail());
+    resetPasswordPage.enterEmail(resetPasswordPage.getTestEmail());
     resetPasswordPage.clickOnSendVerificationCodeCreateAccount();
 });
 

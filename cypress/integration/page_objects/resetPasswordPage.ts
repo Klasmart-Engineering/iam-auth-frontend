@@ -10,11 +10,11 @@ class ResetPasswordPage {
     verificationcodeTextResetPasswordPage = `#emailVerificationCode`;
     verifyCodeButton = `#emailControl_but_verify_code`;
     verifyCodeButtonResetPassword = `#emailVerificationControl_but_verify_code`;
+    emailInput = `#email`;
 
     errorText = `#emailControl_error_message`;
     claimVerificationError = `#claimVerificationServerError`;
     verificationFailedError = `#emailVerificationControl_error_message`;
-
     testEmail = `something@${config.mailosaurServerId}.mailosaur.net`;
     passcode = `0`;
 
@@ -89,6 +89,10 @@ class ResetPasswordPage {
         cy.get(this.sendCodeCreateAccount).click({
             force: true,
         });
+    }
+
+    enterEmail (email: string) {
+        cy.get(this.emailInput).type(email);
     }
 
     setPasscode (passcode: string) {

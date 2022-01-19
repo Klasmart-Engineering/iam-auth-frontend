@@ -151,7 +151,7 @@ When(`I should see duplicate account error {string}`, (errorText: string) => {
     createAccountPage.checkDuplicateAccountError(errorText);
 });
 
-Then(`I should see an error on create account page {string}`, (errorText: string) => {
+Then(`I should see an error on kidsloop page {string}`, (errorText: string) => {
     createAccountPage.checkGenericError(errorText);
 });
 
