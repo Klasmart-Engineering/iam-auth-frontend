@@ -178,7 +178,7 @@ class CreateAccountPage {
         cy.wait(2000).then(() => {
             cy.log(`waited for 1 seconds`);
         });
-        cy.contains(errorText).should(`be.visible`);
+        cy.contains(errorText).should(`exist`);
     }
 
     checkPrivacyPolicyError (errorText: string){
