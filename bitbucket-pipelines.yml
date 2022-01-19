@@ -164,8 +164,7 @@ pipelines:
           - cypress/screenshots/**
           - cypress/cucumber-json
           - cypress/videos/**  
-          - test-reports/**
-          - test-reports/cucumber-report/cucumber-htmlreport/index.html      
+          - test-reports/**    
 
 
 definitions:
