@@ -19,24 +19,6 @@ pipelines:
 
   custom:
 
-    ui-cypress-tests-SSO-electron:
-    - step: 
-        name: 'UI Cypress Regression Tests - Electron Browser On SSO'
-        image: cypress/base:14.16.0
-        script: 
-        - npm i --no-audit --no-progress
-        - npm run test:sso
-        - npm run e2e:reports
-        caches:
-          - node
-          - cypress
-        artifacts:
-        # store any generates images and videos as artifacts
-          - cypress/screenshots/**
-          - cypress/cucumber-json
-          - cypress/videos/**  
-          - test-reports/*
-
     deploy:
     - variables:
           - name: KIDSLOOP_REGION
@@ -109,6 +91,43 @@ pipelines:
         services:
           - docker
 
+    cypress-tests-SSO-chrome:
+    - step: 
+        name: 'UI Cypress Regression Tests - Chrome Browser On SSO'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
+    cypress-tests-SSO-iphone:
+    - step: 
+        name: 'UI Cypress Regression Tests - Iphone on Chrome Browser On SSO'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso:iphone
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
 
 definitions:
   caches:
