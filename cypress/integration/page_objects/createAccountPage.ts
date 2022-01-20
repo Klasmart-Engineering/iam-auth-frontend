@@ -147,8 +147,8 @@ class CreateAccountPage {
     }
 
     checkErrorOnEmail (errorText: string) {
-        cy.wait(1000).then(() => {
-            cy.log(`waited for 1 seconds`);
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 2 seconds`);
         });
         cy.get(this.errorOnEmailBox).should(`have.text`, errorText);
     }
@@ -175,11 +175,10 @@ class CreateAccountPage {
     }
 
     checkGenericError (errorText: string) {
-        cy.wait(1000).then(() => {
+        cy.wait(2000).then(() => {
             cy.log(`waited for 1 seconds`);
         });
-        //  cy.get(this.genericErrorText).should(`have.text`, errorText);
-        cy.contains(errorText).should(`be.visible`);
+        cy.contains(errorText).should(`exist`);
     }
 
     checkPrivacyPolicyError (errorText: string){

@@ -55,20 +55,21 @@ Scenario: Login with a deactivated account
   When I enter password as "Abcd1234" 
   And I click on login button
   Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
-
 Scenario: Error message for wrong email and wrong password
   Given I am on the kidsloop login page 
   When I enter invalid email as "abc"
   And I click on login button
-  Then I should see an invalid email error "Please enter a valid email address."
-  And I enter a valid email "swapnali.bhansali@kidsloop.live"
+  Then I should see an invalid email error 'Please enter at least one of the following:'
+  And I should see an invalid email error '- A valid email address'
+  And I should see an invalid email error '- A valid phone number'
+  And I enter a valid email "swapnali.bhansali@gmail.com"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
  
-Scenario: 15 mins timeout on select profile screen multiple profiles 
-  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
-  When I wait for "16" mins 
-  And I select the first profile from the list
-  Then I should see the welcome message "how are you doing today?"
-  When I sign out 
-  And I am redirected to the home page
+#Scenario: 15 mins timeout on select profile screen multiple profiles 
+#  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
+#  When I wait for "16" mins 
+ # And I select the first profile from the list
+#  When I sign out 
+#  Then I should see the welcome message "how are you doing today?"
+#  And I am redirected to the home page

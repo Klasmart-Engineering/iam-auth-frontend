@@ -7,8 +7,7 @@ clone:
 pipelines:
   pull-requests:
     '**':
-      - parallel:
-        - step:
+      - step:
             name: Test & Build
             caches:
               - node
@@ -17,7 +16,9 @@ pipelines:
               - cp deploy/config/internal/.env.alpha ./.env
               - npm test -- --coverage
               - npm run build
+
   custom:
+
     deploy:
     - variables:
           - name: KIDSLOOP_REGION
@@ -90,7 +91,84 @@ pipelines:
         services:
           - docker
 
+    cypress-tests-SSO-chrome:
+    - step: 
+        name: 'UI Cypress Regression Tests - Chrome Browser On SSO'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
+    cypress-tests-SSO-iphone:
+    - step: 
+        name: 'UI Cypress Regression Tests - Iphone on Chrome Browser On SSO'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso:iphone
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
+    cypress-tests-SSO-samsung10:
+    - step: 
+        name: 'UI Cypress Regression Tests - Samsung 10 screen on Chrome Browser'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso:samsung-s10
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**
+          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
+    cypress-tests-SSO-ipad:
+    - step: 
+        name: 'UI Cypress Regression Tests - ipad screen on Chrome Browser'
+        image: cypress/browsers:latest
+        script: 
+        - npm i --no-audit --no-progress
+        - npm run test:sso:ipad
+        - npm run e2e:reports
+        caches:
+          - node
+          - cypress
+        artifacts:
+        # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/cucumber-json
+          - cypress/videos/**  
+          - test-reports/**    
+
+
 definitions:
   caches:
     nodemodules: ./node_modules
     accountnodemodules: ./src/pages/account/kidsloop-pass-frontend/client/node_modules
+    cypress: $HOME/.cache/Cypress

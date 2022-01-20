@@ -1,8 +1,8 @@
-import config from "../../../configs/config";
-import { createAccountPage } from "../../page_objects/createAccountPage";
-import { loginPage } from "../../page_objects/loginPage";
-import { resetPasswordPage } from "../../page_objects/resetPasswordPage";
-import { passcodeUtils } from "../../utils/passcodeUtils";
+import config from "../../configs/config";
+import { createAccountPage } from "../page_objects/createAccountPage";
+import { loginPage } from "../page_objects/loginPage";
+import { resetPasswordPage } from "../page_objects/resetPasswordPage";
+import { passcodeUtils } from "../utils/passcodeUtils";
 import {
     And,
     Given,
@@ -151,7 +151,7 @@ When(`I should see duplicate account error {string}`, (errorText: string) => {
     createAccountPage.checkDuplicateAccountError(errorText);
 });
 
-Then(`I should see an error on create account page {string}`, (errorText: string) => {
+Then(`I should see an error on kidsloop page {string}`, (errorText: string) => {
     createAccountPage.checkGenericError(errorText);
 });
 

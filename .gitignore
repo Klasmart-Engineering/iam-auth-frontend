@@ -12,6 +12,4 @@ cypress/screenshots
 cypress/reports/*
 cypress/videos
 xunit.xml
-test-reports/assets
-test-reports/features
-test-reports/index.html
+**/test-reports/*
