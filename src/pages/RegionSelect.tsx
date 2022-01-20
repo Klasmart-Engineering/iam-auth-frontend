@@ -7,7 +7,7 @@ import Thailand from "@/../assets/img/region/th.svg";
 import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
-import { useURLContext } from "@/hooks";
+import { useURLContext, useConditionalLogoutFromB2C } from "@/hooks";
 import {
     createStyles,
     makeStyles,
@@ -15,6 +15,7 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
+    CircularProgress,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import List from '@material-ui/core/List';
@@ -24,8 +25,7 @@ import QueryString from "qs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
-import config from "./../config";
-import { conditionalLogoutFromB2C } from "@/utils/azureB2C/sessions";
+import config from "@/config";
 
 export const DOMAINS = [
     `auth.kidsloop.cn`,
@@ -150,6 +150,7 @@ export function RegionSelect () {
     const theme = useTheme();
     const history = useHistory();
     const url = useURLContext();
+    const { loading } = useConditionalLogoutFromB2C();
 
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
 
@@ -174,11 +175,11 @@ export function RegionSelect () {
         }
     };
 
-    React.useEffect(() => {
-        if (config.azureB2C.enabled) {
-            conditionalLogoutFromB2C();
-        }
-    }, []);
+    if (loading) {
+        return (
+            <CircularProgress size={`5rem`}/>
+        );
+    }
 
     return (
         <React.Fragment>
@@ -229,8 +230,7 @@ export function RegionSelect () {
                     ))}
                 </Grid>
             </List>
-            <Grid
-                xs={12}>
+            <Grid>
                 <List>
                     <ListItem
                         button
