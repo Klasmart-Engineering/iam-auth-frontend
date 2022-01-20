@@ -53,22 +53,3 @@ When(`I wait for {string} mins`, (mins: number) => {
 And(`I remove cookies`, ()=> {
     cy.removeCookies();
 });
-
-When(`I set the locale cookie to {string}`, (languageText)=> {
-    cy.clearCookies();
-    cy.log(`setting locale to ` + languageText);
-    const code = languageCodes.languageCodes.get(languageText);
-    if (!code) {
-        throw new Error(`Language ${languageText} not found`);
-    }
-    cy.setCookie(`locale`, code);
-    cy.wait(2000).then(() => {
-        cy.log(`waited for 2 seconds`);
-    });
-});
-
-Given(`I should verify the text for {string} is displayed in {string}`, (page, language) => {
-    if(page == `LoginPage`){
-        loginPage.checkText(language);
-    }
-});

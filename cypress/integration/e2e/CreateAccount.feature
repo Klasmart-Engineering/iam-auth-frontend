@@ -19,7 +19,6 @@ And I enter the password and click on Create Account
 Then I am taken to "You are not part of an organization."
 And I remove cookies
 
-
 Scenario: create duplicate account with phone number and verify error message
 Given I am on the kidsloop create account with phone number page 
 When I enter an existing account phone number as a new account phone number 

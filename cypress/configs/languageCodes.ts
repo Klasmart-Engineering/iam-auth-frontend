@@ -15,4 +15,16 @@ export default {
         [ `Thai`, `ภาษาไทย` ],
         [ `Indonesia`, `bahasa Indonesia` ],
     ]),
+    emailAddressOrPhoneNumberText: new Map<string, string>([
+        [ `English`, `Email Address or Phone Number` ],
+        [ `Spanish`, `\n              Correo electrónico o teléfono\n            ` ],
+        [ `Chinese`, `汉语 (简体)` ],
+        [ `Korean`, `한국어` ],
+        [ `Vietnamese`, `Tiếng Việt` ],
+        [ `Thai`, `ภาษาไทย` ],
+        [ `Indonesia`, `bahasa Indonesia` ],
+    ]),
+    passwordText: new Map<string, string>([ [ `English`, `Password` ], [ `Spanish`, `Contraseña` ] ]),
+    forgotYourPasswordText: new Map<string, string>([ [ `English`, `Forgot your password?` ], [ `Spanish`, `¿Olvidó su contraseña?` ] ]),
+    loginButtonText: new Map<string, string> ([ [ `English`, `Log in` ], [ `Spanish`, `Iniciar sesión` ] ]),
 };

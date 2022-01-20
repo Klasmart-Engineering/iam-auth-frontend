@@ -93,6 +93,11 @@ class CreateAccountPage {
             });
     }
 
+    checkVerfiyCodeButtonPhoneVisible (){
+        cy.get(this.verifyCodeButtonPhone)
+            .should(`be.visible`);
+    }
+
     clickOnVerfiyCodeButtonEmail (){
         cy.get(this.verifyCodeButton)
             .should(`be.visible`)
