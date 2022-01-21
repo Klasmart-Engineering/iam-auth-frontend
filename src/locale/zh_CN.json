@@ -1,4 +1,5 @@
 {
+    "button_home": "首页",
     "button_continue": "继续",
     "component_switchDark": "深色",
     "component_switchLight": "浅色",
@@ -20,7 +21,6 @@
     "login_loginPrompt": "登录",
     "notFound_notFoundPrompt": "糟糕！链接中断",
     "notFound_notFoundDescription": "跳转至首页",
-    "notFound_homeButton": "首页",
     "signup_signIn": "改为登录",
     "signup_signUpNextButton": "下一个",
     "signup_signUpPrompt": "注册",

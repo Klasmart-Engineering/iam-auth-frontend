@@ -5,6 +5,7 @@ import "typeface-nanum-square-round";
 import config from "./config";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";
+import { Error } from "./pages/error";
 import HealthPage from "./pages/health";
 import { Layout } from "./pages/layout";
 import { NotFound } from "./pages/notFound";
@@ -148,6 +149,11 @@ function ClientSide () {
                                     exact
                                     path="/health">
                                     <HealthPage />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/error">
+                                    <Error />
                                 </Route>
                                 {routes.map(({
                                     path,
