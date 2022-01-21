@@ -32,6 +32,7 @@ interface Config {
         domain: string | undefined;
         tenantId: string | undefined;
         policy: string | undefined;
+        authServerApplicationId: string | undefined;
     };
 }
 
@@ -60,6 +61,7 @@ const config: Config = {
         domain: process.env.AZURE_B2C_DOMAIN,
         tenantId: process.env.AZURE_B2C_TENANT_ID,
         policy: process.env.AZURE_B2C_POLICY,
+        authServerApplicationId: process.env.AZURE_B2C_AUTH_SERVER_APPLICATION_ID,
     },
 };
 
@@ -103,6 +105,6 @@ export const msalConfig: Configuration = {
     },
 };
 
-export const b2cScopes = [ `https://${config.azureB2C.domain}/010eb29e-d42b-4ca3-9c16-1961a528ce77/tasks.write` ];
+export const b2cScopes = [ `https://${config.azureB2C.domain}/${config.azureB2C.authServerApplicationId}/tasks.write` ];
 
 export default config;
