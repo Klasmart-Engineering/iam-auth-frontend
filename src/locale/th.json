@@ -1,4 +1,5 @@
 {
+    "button_home": "บ้าน",
     "button_continue": "ดำเนินการต่อ",
     "component_switchDark": "มืด",
     "component_switchLight": "แสงสว่าง",
@@ -20,7 +21,6 @@
     "login_loginPrompt": "เข้าสู่ระบบ",
     "notFound_notFoundPrompt": "อ๊ะ! ลิงค์เสีย.",
     "notFound_notFoundDescription": "มาพาคุณกลับบ้านกันเถอะ",
-    "notFound_homeButton": "บ้าน",
     "signup_signIn": "เข้าสู่ระบบแทน",
     "signup_signUpNextButton": "ต่อไป",
     "signup_signUpPrompt": "ลงชื่อ",

@@ -93,7 +93,7 @@ export function NotFound () {
                     type="submit"
                     onClick={() => { history.push(`/`);}}
                 >
-                    <FormattedMessage id="notFound_homeButton" />
+                    <FormattedMessage id="button_home" />
                 </StyledButton>
             </Grid>
         </React.Fragment>

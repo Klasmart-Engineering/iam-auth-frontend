@@ -7,15 +7,19 @@ import Thailand from "@/../assets/img/region/th.svg";
 import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
-import { useURLContext, useConditionalLogoutFromB2C } from "@/hooks";
+import config from "@/config";
 import {
+    useConditionalLogoutFromB2C,
+    useURLContext,
+} from "@/hooks";
+import {
+    CircularProgress,
     createStyles,
     makeStyles,
     Theme,
     Typography,
     useMediaQuery,
     useTheme,
-    CircularProgress,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import List from '@material-ui/core/List';
@@ -25,7 +29,6 @@ import QueryString from "qs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
-import config from "@/config";
 
 export const DOMAINS = [
     `auth.kidsloop.cn`,

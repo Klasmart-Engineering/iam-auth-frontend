@@ -1,4 +1,5 @@
 {
+    "button_home": "Beranda",
     "button_continue": "Lanjut",
     "component_switchDark": "gelap",
     "component_switchLight": "terang",
@@ -20,7 +21,6 @@
     "login_loginPrompt": "Masuk",
     "notFound_notFoundPrompt": "Ups! Tautan rusak.",
     "notFound_notFoundDescription": "Langsung ke beranda.",
-    "notFound_homeButton": "Beranda",
     "signup_signIn": "Masuk Saja",
     "signup_signUpNextButton": "Lanjut",
     "signup_signUpPrompt": "Daftar",
