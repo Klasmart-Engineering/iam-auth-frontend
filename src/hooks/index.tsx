@@ -1,8 +1,8 @@
 export {
     useAccessToken,
+    useConditionalLogoutFromB2C,
     useOAuthState,
     useUpdateLocale,
-    useConditionalLogoutFromB2C,
 } from "./azureB2C";
 export { default as useLocale } from "./useLocale";
 export type { Platform } from "./usePlatform";

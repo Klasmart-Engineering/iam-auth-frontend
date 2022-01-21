@@ -1,4 +1,5 @@
 {
+    "button_home": "Inicio",
     "button_continue": "Continuar",
     "component_switchDark": "oscuro",
     "component_switchLight": "claro",
@@ -20,7 +21,6 @@
     "login_loginPrompt": "Iniciar sesión",
     "notFound_notFoundPrompt": "¡Uy! El enlace no funciona.",
     "notFound_notFoundDescription": "Vayamos al inicio.",
-    "notFound_homeButton": "Inicio",
     "signup_signIn": "Inicia sesión",
     "signup_signUpNextButton": "Siguiente",
     "signup_signUpPrompt": "Regístrate",

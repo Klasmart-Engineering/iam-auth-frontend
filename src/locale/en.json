@@ -1,4 +1,5 @@
 {
+    "button_home": "Home",
     "button_continue": "Continue",
     "component_switchDark": "dark",
     "component_switchLight": "light",
@@ -20,7 +21,6 @@
     "login_loginPrompt": "Sign In",
     "notFound_notFoundPrompt": "Oops! Broken link.",
     "notFound_notFoundDescription": "Let's take you home.",
-    "notFound_homeButton": "Home",
     "signup_signIn": "Sign in instead",
     "signup_signUpNextButton": "Next",
     "signup_signUpPrompt": "Sign Up",
