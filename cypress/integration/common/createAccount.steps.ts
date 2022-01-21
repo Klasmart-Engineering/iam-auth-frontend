@@ -20,7 +20,7 @@ When(`I create a new account with a new email address`, ()=> {
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
     createAccountPage.enterNewPassword(config.password);
-    // createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.reenterNewPassword(config.password);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -73,7 +73,7 @@ And(`I enter the password and click on Create Account`, () => {
         cy.log(`waited for 2 seconds`);
     });
     createAccountPage.enterNewPassword(config.password);
-    //createAccountPage.enterConfirmNewPassword(config.password);
+    createAccountPage.enterConfirmNewPassword(config.password);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
