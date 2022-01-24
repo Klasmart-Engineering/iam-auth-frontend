@@ -8,13 +8,13 @@ I want to login to kidsloop
  # Bug 792
 
 Scenario: Logging with email associated with an organization 
-  Given I login to kidsloop via SSO with a valid user "loginautomationuserwithorg@zw6ahich.mailosaur.net"
+  Given I login to kidsloop via SSO with a valid user "loginAutomatioUuserWithOrg@zw6ahich.mailosaur.net"
   Then I should see the welcome message "Welcome LoginUser, how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
-Scenario: Logging with email with multiple profiles 
-  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
+Scenario: Logging with email with multiple profiles + spaces in email address
+  Given I login to kidsloop via SSO with a valid user " loginautomationusermultipleprofiles@zw6ahich.mailosaur.net "
   When I select the first profile from the list
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
