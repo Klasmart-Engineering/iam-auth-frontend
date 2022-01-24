@@ -65,11 +65,3 @@ Then(`I select the first profile from the list`, () => {
     loginPage.clickOnProfile();
     loginPage.clickOnContinueButton();
 });
-
-Then(`the default language selected should be {string}`, (languageText)=> {
-    const selectorText = languageCodes.languageSelectorText.get(languageText);
-    if (!selectorText) {
-        throw new Error(`Language selector ${languageText} not found`);
-    }
-    loginPage.verifyLanguageSelector(selectorText);
-});

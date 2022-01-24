@@ -20,28 +20,30 @@ When(`I create a new account with a new email address`, ()=> {
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
     createAccountPage.enterNewPassword(config.password);
-    // createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.reenterNewPassword(config.password);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
 
-Given(`I create a new account with a new phone number {string}`, (phonenumber: string)=> {
-    loginPage.goToHomePage();
-    loginPage.clickOnsignupWithPhone();
+When(`I create a new account with a new email address with upper case letters`, ()=> {
+    createAccountPage.createNewEmail();
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
-    createAccountPage.selectCountry(`United States(+1)`);
-    createAccountPage.enterPhonenumber(phonenumber);
-    createAccountPage.clickOnSendVerificationCodePhone();
-    const phonenumber1 = `1` + phonenumber;
-    passcodeUtils.generatePasscodeFromSMS(phonenumber1, createAccountPage.getVerificationCodeInput());
-    createAccountPage.clickOnVerfiyCodeButtonPhone();
-    cy.wait(1000).then(() => {
-        cy.log(`waited for 1 seconds`);
-    });
+    loginPage.goToHomePage();
+    loginPage.clickOnsignupWithEmail();
+    createAccountPage.enterEmailOrPhone(createAccountPage.getNewEmail().replace(`auto`, `AUTO`));
+    createAccountPage.clickOnSendVerificationCodeCreateAccount();
+    passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
+    resetPasswordPage.clickOnVerfiyCodeButton();
     createAccountPage.enterNewPassword(config.password);
     createAccountPage.reenterNewPassword(config.password);
     createAccountPage.acceptPrivacyPolicy();
-    // resetPasswordPage.clickOnCreateOrContinueButton();
+    resetPasswordPage.clickOnCreateOrContinueButton();
+});
+
+And(`I login to kidsloop via SSO with a valid user created before`, ()=> {
+    loginPage.goToHomePage();
+    loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.password);
+    loginPage.clickOnLogInButton();
 });
 
 Given(`I am on the create account page & I send the code to the new email address`, () => {
@@ -92,7 +94,7 @@ And(`I enter the password and click on Create Account`, () => {
         cy.log(`waited for 2 seconds`);
     });
     createAccountPage.enterNewPassword(config.password);
-    //createAccountPage.enterConfirmNewPassword(config.password);
+    createAccountPage.enterConfirmNewPassword(config.password);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -118,11 +120,6 @@ When(`I enter an existing account phone number as a new account phone number`, (
     createAccountPage.enterPhonenumber(config.mailosaurPhoneNumber.substring(1));
 });
 
-Given(`I am on the kidsloop create account with phone number page`, ()=> {
-    loginPage.goToHomePage();
-    loginPage.clickOnsignupWithPhone();
-});
-
 And(`I enter the code`, ()=>{
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
 });
@@ -130,15 +127,6 @@ And(`I enter the code`, ()=>{
 When(`I enter an existing email address as the new email address`, () => {
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
     createAccountPage.enterEmailOrPhone(config.duplicateAccountEmailAddress);
-});
-
-When(`I click on send code for phone and verify the code`, () => {
-    createAccountPage.clickOnSendVerificationCodeCreateAccountPhone();
-    cy.wait(1000).then(() => {
-        cy.log(`waited for 2 seconds`);
-    });
-    passcodeUtils.generatePasscodeFromSMS(config.mailosaurPhoneNumber, resetPasswordPage.getVerificationcodeText());
-    createAccountPage.clickOnVerfiyCodeButtonPhone();
 });
 
 When(`I click on send code and verify the code`, () => {
@@ -174,9 +162,4 @@ Then(`I should see an error on the password box as {string}`, (errorText: string
 
 Then(`I should see an error above the policy box {string}`, (errorText: string) => {
     createAccountPage.checkPrivacyPolicyError(errorText);
-});
-
-When(`I enter password on create account with phone number page as {string}`, (password: string) => {
-    createAccountPage.enterNewPassword(password);
-    createAccountPage.clickOnCreateButtonCAP();
 });

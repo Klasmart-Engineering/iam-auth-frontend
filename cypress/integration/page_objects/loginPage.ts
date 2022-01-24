@@ -1,3 +1,5 @@
+import languageCodes from "../../configs/languageCodes";
+
 class LoginPage {
     selectYourCountryText = `.MuiTypography-root.MuiTypography-h5`;
     countryList =
@@ -20,6 +22,8 @@ class LoginPage {
     signupWithEmail = `#SignupWithEmail`;
     languageSelector = `#language-select`;
     creatAccountLinkText = `#localAccountForm > div.claims-provider-list-text-links > p`;
+    emailLabelText = `#localAccountForm > div.entry > div:nth-child(1) > label`;
+    passwordLabel = `.password-label > label`;
 
     getSelectYourCountryOrRegionText () {
         return cy.get(this.selectYourCountryText).should(`be.visible`);
@@ -100,8 +104,8 @@ class LoginPage {
 
     verifyLanguageSelector (text: string) {
         cy.get(`select${this.languageSelector} option:selected`).should(`have.text`, text);
-
     }
+
     getInvalidEmailError () {
         return cy.get(this.invalidEmailError).should(`be.visible`);
     }
@@ -118,14 +122,15 @@ class LoginPage {
         return cy.get(this.privacyPolicyError).should(`be.visible`);
     }
 
-    checkText (text: string){
-        if(text == `Spanish`){
-            cy.fixture(`spanishTranslations`).then((translationsData) => {
-                cy.get(this.forgetPassword).should(`have.text`, translationsData.ForgotYourPasswordText);
-                cy.get(this.logInButton).should(`have.text`, translationsData.LoginButtonText);
-            });
+    selectLanguage (languageText: string) {
+        cy.get(this.languageSelector).select(languageText);
+    }
 
-        }
+    checkText (languageText: string){
+        cy.get(this.emailLabelText).should(`have.text`, languageCodes.emailAddressOrPhoneNumberText.get(languageText));
+        cy.get(this.forgetPassword).should(`have.text`, languageCodes.forgotYourPasswordText.get(languageText));
+        cy.get(this.logInButton).should(`have.text`, languageCodes.loginButtonText.get(languageText));
+        cy.get(this.passwordLabel).should(`have.text`, languageCodes.passwordText.get(languageText));
     }
 }
 
