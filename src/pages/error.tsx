@@ -3,6 +3,6 @@ import * as React from "react";
 
 export function Error () {
     return (
-        <GenericError showButton />
+        <GenericError />
     );
 }

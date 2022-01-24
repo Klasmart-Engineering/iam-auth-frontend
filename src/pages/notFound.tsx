@@ -2,7 +2,7 @@ import NotFound1 from "../../assets/img/not_found/1.png";
 import NotFound2 from "../../assets/img/not_found/2.png";
 import NotFound3 from "../../assets/img/not_found/3.png";
 import NotFound4 from "../../assets/img/not_found/4.png";
-import StyledButton from "../components/button";
+import HomeButton from "@/components/HomeButton";
 import Grid from "@material-ui/core/Grid";
 import {
     createStyles,
@@ -11,7 +11,6 @@ import {
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
 
 const NOT_FOUND_IMAGES = [
     NotFound1,
@@ -50,7 +49,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 export function NotFound () {
     const classes = useStyles();
-    const history = useHistory();
 
     return (
         <React.Fragment>
@@ -87,14 +85,7 @@ export function NotFound () {
                 item
                 xs={12}
                 className={classes.link}>
-                <StyledButton
-                    extendedOnly
-                    size="medium"
-                    type="submit"
-                    onClick={() => { history.push(`/`);}}
-                >
-                    <FormattedMessage id="button_home" />
-                </StyledButton>
+                <HomeButton/>
             </Grid>
         </React.Fragment>
     );
