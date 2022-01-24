@@ -3,9 +3,16 @@ Feature: Create account via email
 #Scenario: Create account via phone number and login 
 #Given I create a new account with a new phone number "5342032290"
 #Then I am taken to "You are not part of an organization."
-
 Scenario: create account with email and login successfully
 When I create a new account with a new email address
+Then I am taken to "You are not part of an organization."
+And I remove cookies
+
+Scenario: create account with email with upper case letters and login successfully
+When I create a new account with a new email address with upper case letters
+Then I am taken to "You are not part of an organization."
+And I remove cookies
+And I login to kidsloop via SSO with a valid user created before 
 Then I am taken to "You are not part of an organization."
 And I remove cookies
 

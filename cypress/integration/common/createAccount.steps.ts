@@ -25,6 +25,27 @@ When(`I create a new account with a new email address`, ()=> {
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
 
+When(`I create a new account with a new email address with upper case letters`, ()=> {
+    createAccountPage.createNewEmail();
+    resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
+    loginPage.goToHomePage();
+    loginPage.clickOnsignupWithEmail();
+    createAccountPage.enterEmailOrPhone(createAccountPage.getNewEmail().replace(`auto`, `AUTO`));
+    createAccountPage.clickOnSendVerificationCodeCreateAccount();
+    passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
+    resetPasswordPage.clickOnVerfiyCodeButton();
+    createAccountPage.enterNewPassword(config.password);
+    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.acceptPrivacyPolicy();
+    resetPasswordPage.clickOnCreateOrContinueButton();
+});
+
+And(`I login to kidsloop via SSO with a valid user created before`, ()=> {
+    loginPage.goToHomePage();
+    loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.password);
+    loginPage.clickOnLogInButton();
+});
+
 Given(`I am on the create account page & I send the code to the new email address`, () => {
     createAccountPage.createNewEmail();
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
