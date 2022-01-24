@@ -1,13 +1,11 @@
 import Background from "@/../assets/img/badanamu_look.png";
-import StyledButton from "@/components/button";
+import HomeButton from "@/components/HomeButton";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import {
-    FormattedMessage,
     useIntl,
 } from "react-intl";
-import { useHistory } from "react-router";
 
 const commonTextStyles = {
     color: `#669bd2`,
@@ -55,12 +53,9 @@ const useStyles = makeStyles(() => {
     };
 });
 
-export default function Error ({ showButton = false }: {
-    showButton?: boolean;
-}) {
+export default function GenericError () {
     const intl = useIntl();
     const classes = useStyles();
-    const history = useHistory();
 
     return (
         <div className={classes.background}>
@@ -80,17 +75,7 @@ export default function Error ({ showButton = false }: {
                         id: `authentication.error.generic.body`,
                     })}
                 </Typography>
-                {showButton && (
-                    <StyledButton
-                        extendedOnly
-                        size="medium"
-                        type="submit"
-                        className={classes.button}
-                        onClick={() => { history.push(`/`);}}
-                    >
-                        <FormattedMessage id="button_home" />
-                    </StyledButton>
-                )}
+                <HomeButton className={classes.button}/>
             </div>
         </div>
     );
