@@ -56,4 +56,4 @@ export const createPreserveQueryHistory = (createHistory: CreateHistory<HistoryO
     };
 };
 
-export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>([ `continue` ]))();
+export const history = createPreserveQueryHistory(createBrowserHistory, new Set<string>([ `continue`, `ua` ]))();
