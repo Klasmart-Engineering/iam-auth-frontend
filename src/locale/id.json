@@ -1,5 +1,4 @@
 {
-    "button_home": "Beranda",
     "button_continue": "Lanjut",
     "component_switchDark": "gelap",
     "component_switchLight": "terang",
@@ -21,6 +20,7 @@
     "login_loginPrompt": "Masuk",
     "notFound_notFoundPrompt": "Ups! Tautan rusak.",
     "notFound_notFoundDescription": "Langsung ke beranda.",
+    "button_home": "Beranda",
     "signup_signIn": "Masuk Saja",
     "signup_signUpNextButton": "Lanjut",
     "signup_signUpPrompt": "Daftar",
@@ -71,5 +71,8 @@
     "ERROR_ACCOUNT_BANNED": "Akun Anda sudah diblokir",
     "ERROR_INPUT_INVALID_FORMAT": "Email/nomor telepon yang dimasukkan tidak valid",
     "authentication.error.generic.title": "Ups!",
-    "authentication.error.generic.body": "Kami mengalami sedikit kendala!\nSilakan coba lagi atau hubungi admin organisasi Anda."
+    "authentication.error.generic.body": "Kami mengalami sedikit kendala!\nSilakan coba lagi atau hubungi admin organisasi Anda.",
+    "generic.goBack": "Go back",
+    "selectProfile.noUsers.title": "Hi cadet!",
+    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 }

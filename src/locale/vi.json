@@ -1,5 +1,4 @@
 {
-    "button_home": "Trang chủ",
     "button_continue": "Tiếp tục",
     "component_switchDark": "tối",
     "component_switchLight": "sáng",
@@ -21,6 +20,7 @@
     "login_loginPrompt": "Đăng nhập",
     "notFound_notFoundPrompt": "Oops! Liên kết bị hỏng",
     "notFound_notFoundDescription": "Quay về trang chủ",
+    "button_home": "Trang chủ",
     "signup_signIn": "Đăng nhập lại thay vì đăng kí",
     "signup_signUpNextButton": "Tiếp theo",
     "signup_signUpPrompt": "Đăng ký",
@@ -71,5 +71,8 @@
     "ERROR_ACCOUNT_BANNED": "Tài khoản của bạn đã bị cấm",
     "ERROR_INPUT_INVALID_FORMAT": "Bạn đã nhập email/số điện thoại không hợp lệ",
     "authentication.error.generic.title": "Rất tiếc!",
-    "authentication.error.generic.body": "Đã xảy ra sự cố về phía chúng tôi!\nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn."
+    "authentication.error.generic.body": "Đã xảy ra sự cố về phía chúng tôi!\nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn.",
+    "generic.goBack": "Go back",
+    "selectProfile.noUsers.title": "Hi cadet!",
+    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 }
