@@ -1,7 +1,9 @@
-import { getMyUsers } from "../api/getMyUsers";
-import { User } from "../api/queries/me";
 import config from "../config";
 import { switchUser } from "@/api/authentication";
+import {
+    ProfileFragment,
+    useProfiles,
+} from "@/api/user-service/operations";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
@@ -25,13 +27,9 @@ import React,
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 
-const buildDisplayName = ({
-    given_name: givenName, family_name: familyName, username,
-}: Pick<User, "given_name" | "family_name" | "username">) => {
+const buildDisplayName = ({ givenName, familyName }: Pick<ProfileFragment, "givenName" | "familyName">) => {
     if (givenName) {
         return `${givenName}` + (familyName ? ` ${familyName}` : ``);
-    } else if (username) {
-        return username;
     } else {
         return `Name not set`;
     }
@@ -41,16 +39,14 @@ export function SelectUser () {
     const history = useHistory();
     const [ loadSingleUserError, setLoadSingleUserError ] = useState<boolean>(false);
 
-    // TODO: move to paginated user-service endpoint once move to Azure B2C is complete
-    // (as we can supply email/phone from the Azure token as the filter for the `usersConnection`)
     const {
         loading,
         data,
-    } = getMyUsers({
+    } = useProfiles({
         fetchPolicy: `network-only`,
     });
 
-    const users = data?.my_users;
+    const users = data?.myUser?.profiles;
 
     // If we only have a single user, we want to keep showing the skeleton while we make the `switchUser`
     // API call and try to navigate to the Hub directly
@@ -61,7 +57,7 @@ export function SelectUser () {
         setLoadSingleUserError(false);
         if (!users || users.length !== 1) return;
 
-        const userId = users[0].user_id;
+        const userId = users[0].id;
 
         async function loadOnlyUser () {
             const ok = await switchUser(userId);
@@ -76,7 +72,7 @@ export function SelectUser () {
         loadOnlyUser();
     }, [ users ]);
 
-    function handleEditName ({ user_id: userId }: Pick<User, "user_id">) {
+    function handleEditName ({ id: userId }: Pick<ProfileFragment, "id">) {
         history.push({
             pathname: `/createprofile/name`,
             search: `?${QueryString.stringify({
@@ -85,7 +81,7 @@ export function SelectUser () {
         });
     }
 
-    function handleEditBirthday ({ user_id: userId }: Pick<User, "user_id">) {
+    function handleEditBirthday ({ id: userId }: Pick<ProfileFragment, "id">) {
         history.push({
             pathname: `/createprofile/birthday`,
             search: `?${QueryString.stringify({
@@ -94,7 +90,7 @@ export function SelectUser () {
         });
     }
 
-    async function handleSelectUser ({ user_id: userId }: Pick<User, "user_id">) {
+    async function handleSelectUser ({ id: userId }: Pick<ProfileFragment, "id">) {
         const ok = await switchUser(userId);
         if (ok) {
             history.push({
@@ -138,14 +134,14 @@ export function SelectUser () {
             return (
                 users.map((user) =>
                     <ListItem
-                        key={user.user_id}
+                        key={user.id}
                         button
                         onClick={() => handleSelectUser(user) }
                     >
                         <ListItemAvatar>
                             <Avatar
                                 style={{
-                                    backgroundColor: utils.stringToColor(user.given_name + ` ` + user.family_name),
+                                    backgroundColor: utils.stringToColor(user.givenName + ` ` + user.familyName),
                                     color: `white`,
                                 }}
                             >
@@ -156,9 +152,9 @@ export function SelectUser () {
                         </ListItemAvatar>
                         <ListItemText
                             primary={buildDisplayName(user)}
-                            secondary={user.date_of_birth} />
+                            secondary={user.dateOfBirth} />
                         <ListItemSecondaryAction>
-                            { (user.given_name || user.username) && !user.date_of_birth &&
+                            { (user.givenName && !user.dateOfBirth) &&
                                     <Tooltip title={<FormattedMessage id="selectProfile_tooltipBirthday" />}>
                                         <IconButton
                                             aria-label="birthday"
@@ -172,7 +168,7 @@ export function SelectUser () {
                                         </IconButton>
                                     </Tooltip>
                             }
-                            { !(user.given_name || user.username) &&
+                            { !(user.givenName) &&
                                     <Tooltip title={<FormattedMessage id="selectProfile_tooltipName" />}>
                                         <IconButton
                                             aria-label="warning"

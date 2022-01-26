@@ -1,10 +1,7 @@
-import BackgroundImage from "../../../assets/img/test.png";
-import config from "../../config";
-import { redirectIfUnauthorized } from '../../utils/accountUtils';
-import SetProfileComplete from './profileFinished';
 import SetBirthday from './setBirthday';
 import SetName from './setName';
-import { useURLContext } from "@/hooks";
+import BackgroundImage from "@/../assets/img/background.png";
+import config from "@/config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
 import dayjsUtils from "@date-io/dayjs";
 import Card from "@material-ui/core/Card";
@@ -71,14 +68,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function SetProfile () {
     const classes = useStyles();
     const theme = useTheme();
-    const urlContext = useURLContext();
 
     const { path } = useRouteMatch();
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
-
-    if (!urlContext.testing) {
-        redirectIfUnauthorized();
-    }
 
     return (
         <MuiPickersUtilsProvider utils={dayjsUtils}>
@@ -119,9 +111,6 @@ export default function SetProfile () {
                                             exact
                                             path={path}>
                                             <SetName />
-                                        </Route>
-                                        <Route path={`${path}/complete`}>
-                                            <SetProfileComplete />
                                         </Route>
                                         <Route path={`${path}/:orgId?/birthday`}>
                                             <SetBirthday />

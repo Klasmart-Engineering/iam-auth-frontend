@@ -103,6 +103,8 @@ const webpackConfig: Configuration = {
     output: {
         filename: `[name].[fullhash].js`,
         path: path.resolve(__dirname, `dist`),
+        // Subroutes (e.g. createprofile) don't render correctly unless this is set
+        publicPath: `/`,
     },
     plugins: [
         new CleanWebpackPlugin(),

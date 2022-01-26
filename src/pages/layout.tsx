@@ -1,4 +1,4 @@
-import BackgroundImage from "../../assets/img/test.png";
+import BackgroundImage from "../../assets/img/background.png";
 import PolicyLink from "../components/policyLinks";
 import config from "../config";
 import { default as LanguageSelect } from "@/components/LanguageSelect";

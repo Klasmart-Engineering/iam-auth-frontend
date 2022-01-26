@@ -4,6 +4,8 @@ export {
     useOAuthState,
     useUpdateLocale,
 } from "./azureB2C";
+export { useInterval } from "./useInterval";
+export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useLocale } from "./useLocale";
 export type { Platform } from "./usePlatform";
 export { default as usePlatform } from "./usePlatform";
