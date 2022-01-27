@@ -17,8 +17,24 @@ And(`I enter email , verification code and new password`,  ()=> {
     passcodeUtils.generatePasscode(resetPasswordPage.getTestEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
     resetPasswordPage.clickOnCreateOrContinueButton();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    resetPasswordPage.setNewPassword();
+    createAccountPage.enterNewPassword(resetPasswordPage.getNewPasswordValue());
+    createAccountPage.reenterNewPassword(resetPasswordPage.getNewPasswordValue());
+});
+
+And(`I enter email and verification code`,  ()=> {
+    resetPasswordPage.enterEmail(config.sendNewCodeResetPasswordTestEmail);
+    resetPasswordPage.clickOnSendCodeButton();
+    passcodeUtils.generatePasscode(config.sendNewCodeResetPasswordTestEmail, resetPasswordPage.getVerificationcodeText());
+});
+
+And(`I login with the email for which we have reset the password`, ()=> {
+    cy.wait(2000).then(() => {
+        cy.log(`waited for 2 seconds`);
+    });
+    loginPage.goToHomePage();
+    loginPage.enterEmailAndPassword(resetPasswordPage.getTestEmail(), resetPasswordPage.getNewPasswordValue());
+    loginPage.clickOnLogInButton();
 });
 
 Given(`I delete all the emails from test mail box`, () => {
@@ -28,6 +44,14 @@ Given(`I delete all the emails from test mail box`, () => {
 Given(`I go to reset password page`, ()=> {
     loginPage.goToHomePage();
     loginPage.clickForgetPasswordLink();
+});
+
+And(`I click on send new code button`, () => {
+    resetPasswordPage.clickOnSendNewCodeButton();
+});
+
+When(`I enter the old passcode`, ()=> {
+    resetPasswordPage.enterCode(resetPasswordPage.latestPasscode);
 });
 
 When(`I click on reset code button`, ()=> {
@@ -66,4 +90,16 @@ Then(`I should see the claim verification error message {string}`,  (errorText: 
 
 Then(`I should see the verification failed error message {string}`,  (errorText: string) => {
     resetPasswordPage.getVerificationFailedErrorTextEle().should(`have.text`, errorText);
+});
+
+And(`I enter the new passcode from email`, ()=> {
+    passcodeUtils.generatePasscode(config.sendNewCodeResetPasswordTestEmail, resetPasswordPage.getVerificationcodeText());
+});
+
+And(`I verify code and confirm the password`, ()=> {
+    resetPasswordPage.clickOnVerfiyCodeButton();
+    resetPasswordPage.clickOnCreateOrContinueButton();
+    resetPasswordPage.setNewPassword();
+    createAccountPage.enterNewPassword(resetPasswordPage.getNewPasswordValue());
+    createAccountPage.reenterNewPassword(resetPasswordPage.getNewPasswordValue());
 });

@@ -29,8 +29,8 @@ Then(`I sign out`, async () => {
     homePage.clickOnSignoutLink();
 });
 
-When(`I go to 404 page directly`, () => {
-    cy.visit(`404`);
+When(`I go to {string} page directly`, (errorPage: string) => {
+    cy.visit(errorPage);
 });
 
 Then(`I should see error message {string}`, (errorText: string) => {

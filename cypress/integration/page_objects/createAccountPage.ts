@@ -125,6 +125,9 @@ class CreateAccountPage {
         cy.get(this.createButton).click({
             force: true,
         });
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 2 seconds`);
+        });
     }
 
     clickOnSendVerificationCodeCreateAccount () {
@@ -178,7 +181,6 @@ class CreateAccountPage {
         });
         cy.get(this.codeExpiredErrorText).should(`have.text`, errorText);
     }
-
     checkGenericError (errorText: string) {
         cy.wait(2000).then(() => {
             cy.log(`waited for 1 seconds`);

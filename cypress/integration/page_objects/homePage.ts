@@ -4,6 +4,7 @@ class HomePage {
     dashboardWelcomeText = `.jss118`;
     youAreNotAPartOfOrgPage = `:nth-child(2) > .MuiTypography-root`;
     profileButton = `[data-testid=profile-icon]`;
+    signOutButton = `[data-testid="logout-button"] > .MuiButton-label`;
 
     async getWelcomeText (errorText: string) {
         await waitFor(() => {
@@ -27,9 +28,7 @@ class HomePage {
     }
 
     clickOnSignoutLink () {
-        cy.contains(`Sign out`)
-            .should(`be.visible`)
-            .click();
+        cy.get(this.signOutButton).should(`be.visible`).click();
     }
 }
 

@@ -12,6 +12,5 @@
     "video": false,
     "screenshotOnFailure": true,
     "reporter": "cypress-multi-reporters"
-    
 
 }

@@ -21,6 +21,7 @@ Given(`I am on the kidsloop login page`, () => {
 And(`I click on login button`, ()=> {
     loginPage.clickOnLogInButton();
 });
+
 When(`I enter invalid email as {string}`, (text: string) => {
     loginPage.enterEmailOrPhone(text);
 });
