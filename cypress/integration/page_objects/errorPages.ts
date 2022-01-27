@@ -2,7 +2,7 @@
 
 class ErrorPages {
 
-    homebutton = `[type="submit"]` ; 
+    homebutton = `[data-testid="home-button"]` ; 
 
     clickOnHomeButton () {
         cy.get(this.homebutton).should('be.visible').click();

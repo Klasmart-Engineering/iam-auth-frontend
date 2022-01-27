@@ -23,9 +23,9 @@ And(`I enter email , verification code and new password`,  ()=> {
 });
 
 And(`I enter email and verification code`,  ()=> {
-    resetPasswordPage.enterEmail(config.testEmail1);
+    resetPasswordPage.enterEmail(config.sendNewCodeResetPasswordTestEmail);
     resetPasswordPage.clickOnSendCodeButton();
-    passcodeUtils.generatePasscode(config.testEmail1, resetPasswordPage.getVerificationcodeText());
+    passcodeUtils.generatePasscode(config.sendNewCodeResetPasswordTestEmail, resetPasswordPage.getVerificationcodeText());
 });
 
 And(`I login with the email for which we have reset the password`, ()=> {
@@ -93,7 +93,7 @@ Then(`I should see the verification failed error message {string}`,  (errorText:
 });
 
 And(`I enter the new passcode from email`, ()=> {
-    passcodeUtils.generatePasscode(config.testEmail1, resetPasswordPage.getVerificationcodeText());
+    passcodeUtils.generatePasscode(config.sendNewCodeResetPasswordTestEmail, resetPasswordPage.getVerificationcodeText());
 });
 
 And(`I verify code and confirm the password`, ()=> {
