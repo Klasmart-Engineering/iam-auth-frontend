@@ -29,6 +29,9 @@ And(`I enter email and verification code`,  ()=> {
 });
 
 And(`I login with the email for which we have reset the password`, ()=> {
+    cy.wait(2000).then(() => {
+        cy.log(`waited for 2 seconds`);
+    });
     loginPage.goToHomePage();
     loginPage.enterEmailAndPassword(resetPasswordPage.getTestEmail(), resetPasswordPage.getNewPasswordValue());
     loginPage.clickOnLogInButton();
