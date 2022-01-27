@@ -1,5 +1,4 @@
 {
-    "button_home": "บ้าน",
     "button_continue": "ดำเนินการต่อ",
     "component_switchDark": "มืด",
     "component_switchLight": "แสงสว่าง",
@@ -21,6 +20,7 @@
     "login_loginPrompt": "เข้าสู่ระบบ",
     "notFound_notFoundPrompt": "อ๊ะ! ลิงค์เสีย.",
     "notFound_notFoundDescription": "มาพาคุณกลับบ้านกันเถอะ",
+    "button_home": "บ้าน",
     "signup_signIn": "เข้าสู่ระบบแทน",
     "signup_signUpNextButton": "ต่อไป",
     "signup_signUpPrompt": "ลงชื่อ",
@@ -71,5 +71,8 @@
     "ERROR_ACCOUNT_BANNED": "บัญชีของคุณถูกแบน",
     "ERROR_INPUT_INVALID_FORMAT": "คุณไม่ได้ป้อนอีเมล/หมายเลขโทรศัพท์ที่ถูกต้อง",
     "authentication.error.generic.title": "อ๊ะ!",
-    "authentication.error.generic.body": "มีบางอย่างผิดปกติเกิดขึ้นกับเรา!\n โปรดลองอีกครั้งหรือติดต่อผู้ดูแลระบบองค์กรของคุณ"
+    "authentication.error.generic.body": "มีบางอย่างผิดปกติเกิดขึ้นกับเรา!\n โปรดลองอีกครั้งหรือติดต่อผู้ดูแลระบบองค์กรของคุณ",
+    "generic.goBack": "Go back",
+    "selectProfile.noUsers.title": "Hi cadet!",
+    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 }

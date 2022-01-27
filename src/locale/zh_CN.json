@@ -1,5 +1,4 @@
 {
-    "button_home": "首页",
     "button_continue": "继续",
     "component_switchDark": "深色",
     "component_switchLight": "浅色",
@@ -21,6 +20,7 @@
     "login_loginPrompt": "登录",
     "notFound_notFoundPrompt": "糟糕！链接中断",
     "notFound_notFoundDescription": "跳转至首页",
+    "button_home": "首页",
     "signup_signIn": "改为登录",
     "signup_signUpNextButton": "下一个",
     "signup_signUpPrompt": "注册",
@@ -71,5 +71,8 @@
     "ERROR_ACCOUNT_BANNED": "账号已被禁用",
     "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码",
     "authentication.error.generic.title": "糟糕!",
-    "authentication.error.generic.body": "出错了,请重试或联系您的组织管理员。"
+    "authentication.error.generic.body": "出错了,请重试或联系您的组织管理员。",
+    "generic.goBack": "Go back",
+    "selectProfile.noUsers.title": "Hi cadet!",
+    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 }

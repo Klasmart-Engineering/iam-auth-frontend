@@ -1,0 +1,14 @@
+fragment ProfileFragment on UserConnectionNode {
+    id
+    givenName
+    familyName
+    dateOfBirth
+}
+
+query profiles {
+    myUser {
+        profiles {
+            ...ProfileFragment
+        }
+    }
+}

@@ -18,6 +18,7 @@ import VersionPage from "./pages/version";
 import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
+import { ProtectedRoute } from "@/components/router";
 import {
     URLContextProvider,
     useLocale,
@@ -46,6 +47,7 @@ import {
 interface RouteDetails {
     path: string | string[];
     Component: () => JSX.Element;
+    RouteComponent: typeof Route | typeof ProtectedRoute;
     size: false | "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     centerLogo: boolean;
 }
@@ -54,18 +56,21 @@ const routes: RouteDetails[] = [
     {
         path: `/deeplink`,
         Component: DeepLink,
+        RouteComponent: Route,
         size: `xs`,
         centerLogo: true,
     },
     {
         path: [ `/selectprofile`, `/signinselect` ],
         Component: SelectUser,
+        RouteComponent: ProtectedRoute,
         size: `xs`,
         centerLogo: true,
     },
     {
         path: `/continue`,
         Component: Continue,
+        RouteComponent: ProtectedRoute,
         size: `xs`,
         centerLogo: true,
     },
@@ -75,6 +80,7 @@ if (!config.azureB2C.enabled) {
     routes.push({
         path: [ `/signin`, `/login` ],
         Component: SignIn,
+        RouteComponent: Route,
         size: `xs`,
         centerLogo: false,
     });
@@ -84,6 +90,7 @@ if (config.branding.auth.showRegionSelect) {
     routes.push({
         path: `/region`,
         Component: RegionSelect,
+        RouteComponent: Route,
         size: `sm`,
         centerLogo: false,
     });
@@ -159,10 +166,12 @@ function ClientSide () {
                                     path,
                                     // eslint-disable-next-line @typescript-eslint/naming-convention
                                     Component,
+                                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                                    RouteComponent,
                                     size,
                                     centerLogo,
                                 }) => (
-                                    <Route
+                                    <RouteComponent
                                         key={Array.isArray(path) ? path[0] : path}
                                         path={path}>
                                         {() => (
@@ -173,7 +182,7 @@ function ClientSide () {
                                                 <Component />
                                             </Layout>
                                         )}
-                                    </Route>
+                                    </RouteComponent>
                                 ))}
                                 {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
                                 {config.azureB2C.enabled && <Route
@@ -182,9 +191,9 @@ function ClientSide () {
                                 {config.azureB2C.enabled && <Route
                                     path="/authentication-callback"
                                     component={Loading}/>}
-                                <Route path="/createprofile">
+                                <ProtectedRoute path="/createprofile">
                                     <SetProfile />
-                                </Route>
+                                </ProtectedRoute>
                                 <Route
                                     exact
                                     path="/">

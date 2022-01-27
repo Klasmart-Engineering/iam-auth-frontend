@@ -1,11 +1,10 @@
 import StyledButton from "../components/button";
 import config from "../config";
-import { redirectIfUnauthorized } from "../utils/accountUtils";
 import { openLiveApp } from "@/app";
 import {
+    useInterval,
     useLocale,
     usePlatform,
-    useURLContext,
 } from "@/hooks";
 import Grid from "@material-ui/core/Grid";
 import {
@@ -58,7 +57,6 @@ export function Continue () {
     const classes = useStyles();
     const theme = useTheme();
     const location: any = useLocation();
-    const urlContext = useURLContext();
     const platform = usePlatform();
 
     const url = new URL(window.location.href);
@@ -66,10 +64,6 @@ export function Continue () {
     const [ seconds, setSeconds ] = useState(10);
 
     const [ locale ] = useLocale();
-
-    if (!urlContext.testing && platform === `Browser`) {
-        redirectIfUnauthorized();
-    }
 
     const [ continueError, setContinueError ] = useState<JSX.Element | null>(null);
 
@@ -94,19 +88,13 @@ export function Continue () {
         </Alert>);
     }
 
+    useInterval(() => setSeconds(s => s - 1), platform === `Browser` ? 1000: null);
+
     useEffect(() => {
-        if (!seconds || platform !== `Browser`) return;
-
-        const interval = setInterval(() => {
-            setSeconds(seconds - 1);
-        }, 1000);
-
         if (seconds === 6) {
             handleSuccess();
         }
-
-        return () => clearInterval(interval);
-    }, [ seconds, platform ]);
+    }, [ seconds ]);
 
     function handleSuccess () {
         console.log(`continueLink ` + continueLink);

@@ -1,4 +1,3 @@
-import { getMyInformation } from "../api/getMyInformation";
 import StyledButton from "../components/button";
 import CenterAlignChildren from "../components/centerAlignChildren";
 import StyledTextField from "../components/textfield";
@@ -11,6 +10,7 @@ import {
 import { transferAMSToken } from "@/api/authentication";
 import { openLiveApp } from "@/app";
 import {
+    useIsAuthenticated,
     useLocale,
     usePlatform,
     useURLContext,
@@ -95,21 +95,18 @@ export function SignIn () {
     const [ emailError, setEmailError ] = useState<JSX.Element | null>(null);
     const [ generalError, setGeneralError ] = useState<JSX.Element | null>(null);
     const [ checkmarkError, setCheckmarkError ] = useState<JSX.Element | null>(null);
-    const [ skip, setSkip ] = useState(false);
 
-    const { data } = getMyInformation({
-        skip,
-    });
+    const { isAuthenticated } = useIsAuthenticated();
 
     useEffect(() => {
-        if (data?.me) {
-            setSkip(true);
-        }
-
-        if (data?.me && platform === `Browser`) {
+        if (isAuthenticated && platform === `Browser`) {
             history.push(`/selectprofile`);
         }
-    }, [ data ]);
+    }, [
+        isAuthenticated,
+        platform,
+        history,
+    ]);
 
     async function login () {
         setEmailError(null);
