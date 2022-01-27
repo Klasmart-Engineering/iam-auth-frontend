@@ -1,5 +1,6 @@
 import config from "../../configs/config";
 import { JSDOM } from "jsdom";
+import { resetPasswordPage } from "../page_objects/resetPasswordPage";
 
 class PasscodeUtils {
 
@@ -18,8 +19,9 @@ class PasscodeUtils {
             number = matches[0];
             cy.log(number);
             cy.get(verificationcodeText)
-                .should(`be.visible`)
+                .should(`be.visible`).clear()
                 .type(number);
+            resetPasswordPage.setLatestPasscodeValue(number);
         });
     }
 

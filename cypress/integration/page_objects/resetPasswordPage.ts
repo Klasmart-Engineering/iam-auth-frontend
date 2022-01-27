@@ -18,6 +18,22 @@ class ResetPasswordPage {
     testEmail = `something@${config.mailosaurServerId}.mailosaur.net`;
     passcode = `0`;
     sendCodeBtn = `#emailControl_but_send_code`;
+    newPasswordValue = `ABcd1234`
+    sendNewCodeButton = `#emailControl_but_send_new_code`;
+    latestPasscode = `0`;
+
+    setNewPassword () {
+        this.newPasswordValue = `A` + Math.random().toString(36).slice(2);
+    }
+
+    setLatestPasscodeValue (pvalue: string){
+        this.latestPasscode= pvalue;
+    }
+
+    getNewPasswordValue () {
+        return this.newPasswordValue;
+    }
+
     getTestEmail () {
         return this.testEmail;
     }
@@ -74,6 +90,15 @@ class ResetPasswordPage {
             force: true,
         });
 
+    }
+
+    clickOnSendNewCodeButton () {
+        cy.get(this.sendNewCodeButton).should(`exist`).click({
+            force: true,
+        });
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
     }
 
     clickOnVerfiyCodeButton () {
