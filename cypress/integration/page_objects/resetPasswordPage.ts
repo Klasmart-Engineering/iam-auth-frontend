@@ -23,7 +23,7 @@ class ResetPasswordPage {
     latestPasscode = `0`;
 
     setNewPassword () {
-        this.newPasswordValue = `A` + Math.random().toString(36).slice(2);
+        this.newPasswordValue = `A0m` + Math.random().toString(36).slice(2);
     }
 
     setLatestPasscodeValue (pvalue: string){
