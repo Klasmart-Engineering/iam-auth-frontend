@@ -1,9 +1,11 @@
+
+
 class ErrorPages {
 
-    clickOnHomeButton (){
-        cy.contains(`Home`)
-            .should(`be.visible`)
-            .click();
+    homebutton = `[type="submit"]` ; 
+
+    clickOnHomeButton () {
+        cy.get(this.homebutton).should('be.visible').click();
     }
 }
 export const errorPages = new ErrorPages();
