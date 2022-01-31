@@ -56,3 +56,8 @@ Then I should see an error on kidsloop page "Please enter a valid email address.
 When I enter password on create account with phone number page as "abcd"
 Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"
 #And I should see an error above the policy box "This information is required."
+@focus 
+Scenario: Verify Log in link from create account page redirects to login page
+Given I am on the kidsloop create account page
+When I click on Log in link
+Then I should be redirected to the login page
