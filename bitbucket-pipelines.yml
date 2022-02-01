@@ -94,7 +94,7 @@ pipelines:
     cypress-tests-SSO-chrome:
     - step: 
         name: 'UI Cypress Regression Tests - Chrome Browser On SSO'
-        image: cypress/browsers:latest
+        image: cypress/browsers:node16.5.0-chrome97-ff96
         script: 
         - npm i --no-audit --no-progress
         - npm run test:sso
@@ -113,7 +113,7 @@ pipelines:
     cypress-tests-SSO-iphone:
     - step: 
         name: 'UI Cypress Regression Tests - Iphone on Chrome Browser On SSO'
-        image: cypress/browsers:latest
+        image: cypress/browsers:node16.5.0-chrome97-ff96
         script: 
         - npm i --no-audit --no-progress
         - npm run test:sso:iphone
@@ -132,7 +132,7 @@ pipelines:
     cypress-tests-SSO-samsung10:
     - step: 
         name: 'UI Cypress Regression Tests - Samsung 10 screen on Chrome Browser'
-        image: cypress/browsers:latest
+        image: cypress/browsers:node16.5.0-chrome97-ff96
         script: 
         - npm i --no-audit --no-progress
         - npm run test:sso:samsung-s10
@@ -151,7 +151,7 @@ pipelines:
     cypress-tests-SSO-ipad:
     - step: 
         name: 'UI Cypress Regression Tests - ipad screen on Chrome Browser'
-        image: cypress/browsers:latest
+        image: cypress/browsers:node16.5.0-chrome97-ff96
         script: 
         - npm i --no-audit --no-progress
         - npm run test:sso:ipad
