@@ -198,9 +198,10 @@ class CreateAccountPage {
     }
 
     clickOnLoginLink (){
-        cy.get(this.loginLink).click({
-            force: true, 
-    });
+        cy.get(this.loginLink).should('exist')
+            .click({
+                force: true,
+            });
     }
 }
 

@@ -167,8 +167,3 @@ Then(`I should see an error above the policy box {string}`, (errorText: string) 
 When(`I click on Log in link`, () => {
     createAccountPage.clickOnLoginLink();
 });
-
-Then(`I should be redirected to the login page`, () => {
-    cy.url().should('include',  'login.sso.kidsloop');
-});
-

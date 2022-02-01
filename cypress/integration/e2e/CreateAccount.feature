@@ -57,18 +57,18 @@ Feature: Create account via email
         Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"
     #And I should see an error above the policy box "This information is required."
 
-    Scenario: Verify if user is able to login by email when pressing 'Log in' link from create account page
+    Scenario: Verify if user is able to login by email when pressing 'Log in' link from create account page with email
         Given I am on the kidsloop create account page
         When I click on Log in link
-        Then I login to kidsloop via SSO with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
-        And I should see the welcome message "Welcome Login User, how are you doing today?"
+        And I login to kidsloop via SSO with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
+        Then I should see the welcome message "Welcome Login User, how are you doing today?"
         When I sign out
-        And I am redirected to the home page
+        Then I am redirected to the home page
 
-    Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page
-        Given I am on the kidsloop create account page
+    Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page with phone number
+        Given I am on the kidsloop create account with phone number page
         When I click on Log in link
-        Then I login to kidsloop via SSO with phone number "+12692304118"
-        And I should see the welcome message "Welcome Automation, how are you doing today?"
+        And I login to kidsloop via SSO with phone number "+12692304118"
+        Then I should see the welcome message "Welcome Automation, how are you doing today?"
         When I sign out
-        And I am redirected to the home page
+        Then I am redirected to the home page
