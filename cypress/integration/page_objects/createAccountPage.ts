@@ -24,6 +24,7 @@ class CreateAccountPage {
     privacyPolicyLink = `#true_option > a`;
     errorOnEmailBox = `.email_li > .attrEntry > .error`;
     errorOnPasswordBox = `.Password > .attrEntry > .error`;
+    loginLink='#signin'
 
     newEmail = ``;
 
@@ -194,6 +195,13 @@ class CreateAccountPage {
         });
         cy.get(this.privacyPolicyError).should(`have.text`, errorText);
 
+    }
+
+    clickOnLoginLink (){
+        cy.get(this.loginLink).should('exist')
+            .click({
+                force: true,
+            });
     }
 }
 
