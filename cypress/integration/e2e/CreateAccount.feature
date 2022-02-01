@@ -62,13 +62,13 @@ Feature: Create account via email
         When I click on Log in link
         And I login to kidsloop via SSO with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
         Then I should see the welcome message "Welcome Login User, how are you doing today?"
-        When I sign out
-        Then I am redirected to the home page
+        And I sign out
+        And I am redirected to the home page
 
     Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page with phone number
         Given I am on the kidsloop create account with phone number page
         When I click on Log in link
         And I login to kidsloop via SSO with phone number "+12692304118"
         Then I should see the welcome message "Welcome Automation, how are you doing today?"
-        When I sign out
-        Then I am redirected to the home page
+        And I sign out
+        And I am redirected to the home page
