@@ -3,39 +3,28 @@ Feature: Login functionality at Kidsloop
 I want to login to kidsloop
 
 Scenario: Logging with email not associated with any organization
-  Given I login to kidsloop via SSO with a valid user "automation1643015189914@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "automation1643015189914@geqtbdzt.mailosaur.net"
   Then I am taken to "You are not part of an organization."
   And I remove cookies
 
 Scenario: Logging with email associated with an organization 
-  Given I login to kidsloop via SSO with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "Welcome Login User, how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
 Scenario: Logging with email with multiple profiles + spaces in email address
-  Given I login to kidsloop via SSO with a valid user " loginautomationusermultipleprofiles@zw6ahich.mailosaur.net "
+  Given I login to kidsloop with a valid user " loginautomationusermultipleprofiles@zw6ahich.mailosaur.net "
   When I select the first profile from the list
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
 Scenario: Logging with email associated with an organization 
-  Given I login to kidsloop via SSO with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
-
-Scenario: Login via phone number associated with an organization
-  Given I login to kidsloop via SSO with phone number "+12692304118"
-  Then I should see the welcome message "Welcome Automation, how are you doing today?"
-  When I sign out 
-  And I am redirected to the home page
-
-Scenario: Login via phone number not associated with an organization
-  Given I login to kidsloop via SSO with phone number "+919890316937"
-  Then I am taken to "You are not part of an organization."
-  And I remove cookies
 
 Scenario: Login with an invalid account
 Given I am on the kidsloop login page

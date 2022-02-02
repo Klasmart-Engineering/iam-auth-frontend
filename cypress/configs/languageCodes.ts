@@ -1,5 +1,6 @@
 export default {
     languageCodes: new Map<string, string>([
+        [`English`, `en`],
         [ `Spanish`, `es` ],
         [ `Chinese`, `zh-CN` ],
         [ `Korean`, `ko` ],

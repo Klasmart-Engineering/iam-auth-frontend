@@ -2,25 +2,16 @@ Feature: Test error pages
 
 I want to check the UI for 404 
 
-Scenario: Verify 404 page UI
-  When I go to "404" page directly 
-  Then I should see error message "Oops! Broken link."
-  And I should see error message "Let's take you home."
+Scenario Outline: Verify error pages on UI
+  Given I set the locale cookie to "<locale>"    
+  When I go to "<errorPage>" page directly 
+  Then I should see error message "<errorMessage1>"
+  And I should see error message "<errorMessage2>"
   When I click on home button
   Then I am redirected to the home page 
-
-Scenario: Verify error page on the UI
-  When I go to "error" page directly 
-  Then I should see error message "Oops!"
-  And I should see error message "Something went wrong on our side!"
-  When I click on home button
-  Then I am redirected to the home page 
-
-
-Scenario: Verify 404 page UI for Spanish 
-  Given I set the locale cookie to "Spanish"    
-  When I go to "404" page directly 
-  Then I should see error message "¡Uy! El enlace no funciona."
-  And I should see error message "Vayamos al inicio."
-  When I click on home button
-  Then I am redirected to the home page 
+  Examples:
+    |locale  | errorPage | errorMessage1 | errorMessage2 |
+    | English | 404  | Oops! Broken link.  | Let's take you home. |
+    | English |error | Oops! | Something went wrong on our side! |
+    | Spanish | 404  | ¡Uy! El enlace no funciona.  | Vayamos al inicio. |
+    | Spanish| error | ¡Ups! | ¡Ocurrió un error en nuestro lado! |

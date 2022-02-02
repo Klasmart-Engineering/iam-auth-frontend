@@ -24,6 +24,9 @@ class LoginPage {
     creatAccountLinkText = `#localAccountForm > div.claims-provider-list-text-links > p`;
     emailLabelText = `#localAccountForm > div.entry > div:nth-child(1) > label`;
     passwordLabel = `.password-label > label`;
+    phoneNumberLoginLink = `#SigninWithPhone`;
+    phoneNumberInput = `#nationalNumber`;
+    continueButtonOnLogin = `#continue`; 
 
     getSelectYourCountryOrRegionText () {
         return cy.get(this.selectYourCountryText).should(`be.visible`);
@@ -35,6 +38,10 @@ class LoginPage {
 
     clickOnSignUp (){
         cy.get(this.createAccountLink).should(`be.visible`).click();
+    }
+
+    clickContinue (){
+        cy.get(this.continueButtonOnLogin).should(`be.visible`).click();
     }
 
     clickOnsignupWithEmail () {
@@ -68,7 +75,11 @@ class LoginPage {
             .should(`be.visible`)
             .type(emailOrPhone);
     }
-
+    enterPhone (phone: string) {
+        cy.get(this.phoneNumberInput)
+        .should(`be.visible`)
+        .type(phone);
+    }
     enterPassword (password: string) {
         cy.get(this.passwordField)
             .should(`be.visible`)
@@ -90,6 +101,9 @@ class LoginPage {
             .should(`be.visible`)
             .type(password)
             .type(`{enter}`);
+    }
+    clickOnLoginWithPhoneNumberLink () {
+        cy.get(this.phoneNumberLoginLink).should(`be.visible`).click();
     }
 
     clickOnContinueButton () {

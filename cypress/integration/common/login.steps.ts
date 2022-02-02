@@ -7,8 +7,9 @@ import {
     Then,
     When,
 } from "cypress-cucumber-preprocessor/steps";
+import { createAccountPage } from '../page_objects/createAccountPage';
 
-Given(`I login to kidsloop via SSO with a valid user {string}`, (email: string) => {
+Given(`I login to kidsloop with a valid user {string}`, (email: string) => {
     loginPage.goToHomePage();
     loginPage.enterEmailAndPassword(email, config.password);
     loginPage.clickOnLogInButton();
@@ -56,11 +57,22 @@ Then(`I should see an invalid login error {string}`, (errorText: string)=>{
     loginPage.getInvalidLoginError().should(`have.text`, errorText);
 });
 
-Given(`I login to kidsloop via SSO with phone number {string}`, (phone: string)=> {
+Given(`I login to kidsloop with phone number {string} with country code {string}`, (phoneNumber: string, country: string)=> {
     loginPage.goToHomePage();
-    loginPage.enterEmailAndPassword(phone, config.password);
+    loginPage.clickOnLoginWithPhoneNumberLink();
+    createAccountPage.selectCountry(country);
+    loginPage.enterPhone(phoneNumber);
+    loginPage.clickContinue();
+    loginPage.enterPassword(config.password);
     loginPage.clickOnLogInButton();
 });
+
+Given(`I enter phone number as {string}`, (phone: string){
+    loginPage.goToHomePage();
+    loginPage.clickOnLoginWithPhoneNumberLink();
+    loginPage.enterPhone(phone);
+    loginPage.clickContinue();    
+})
 
 Then(`I select the first profile from the list`, () => {
     loginPage.clickOnProfile();
