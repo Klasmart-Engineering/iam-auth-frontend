@@ -141,7 +141,7 @@ class LoginPage {
     }
 
     checkText (languageText: string){
-        cy.get(this.emailLabelText).should(`have.text`, languageCodes.emailAddressOrPhoneNumberText.get(languageText));
+        // cy.get(this.emailLabelText).should(`have.text`, languageCodes.emailAddressOrPhoneNumberText.get(languageText));
         cy.get(this.forgetPassword).should(`have.text`, languageCodes.forgotYourPasswordText.get(languageText));
         cy.get(this.logInButton).should(`have.text`, languageCodes.loginButtonText.get(languageText));
         cy.get(this.passwordLabel).should(`have.text`, languageCodes.passwordText.get(languageText));

@@ -50,31 +50,29 @@ Scenario: Login with a deactivated account
   When I enter password as "Abcd1234" 
   And I click on login button
   Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
+
 Scenario: Error message for wrong email and wrong password
   Given I am on the kidsloop login page 
   When I enter invalid email as "abc"
   And I click on login button
-  Then I should see an invalid email error 'Please enter at least one of the following:'
-  And I should see an invalid email error '- A valid email address'
-  And I should see an invalid email error '- A valid phone number'
+  Then I should see an invalid email error 'Please enter a valid email address'
   And I enter a valid email "swapnali.bhansali@gmail.com"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
-
   Scenario: Login with student account
-  Given I login to kidsloop via SSO with a valid user "automationStudent@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "automationStudent@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "Welcome Student, how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
   Scenario: Login with parent account
-  Given I login to kidsloop via SSO with a valid user "automationParent@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "automationParent@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "Welcome Parent, how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
   Scenario: Login with school admin account
-  Given I login to kidsloop via SSO with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
+  Given I login to kidsloop with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "Welcome School admin, how are you doing today?"
   When I sign out 
   And I am redirected to the home page

@@ -18,7 +18,7 @@ export default {
     ]),
     emailAddressOrPhoneNumberText: new Map<string, string>([
         [ `English`, `Email Address or Phone Number` ],
-        [ `Spanish`, `\n              Correo electrónico o teléfono\n            ` ],
+        [ `Spanish`, `**\n Correo electrónico\n **` ],
         [ `Chinese`, `汉语 (简体)` ],
         [ `Korean`, `한국어` ],
         [ `Vietnamese`, `Tiếng Việt` ],

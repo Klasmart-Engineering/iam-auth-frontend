@@ -52,7 +52,7 @@ Feature: Create account via email
     Scenario: Error messages on create account with email page
         Given I am on the kidsloop create account page
         When I enter invalid format email address as "abc"
-        Then I should see an error on kidsloop page "Please enter a valid email address."
+        Then I should see an error on kidsloop page "Please enter a valid email address"
         When I enter password on create account with phone number page as "abcd"
         Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"
     #And I should see an error above the policy box "This information is required."
@@ -60,7 +60,7 @@ Feature: Create account via email
     Scenario: Verify if user is able to login by email when pressing 'Log in' link from create account page with email
         Given I am on the kidsloop create account page
         When I click on Log in link
-        And I login to kidsloop via SSO with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
+        And I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
         Then I should see the welcome message "Welcome Login User, how are you doing today?"
         And I sign out
         And I am redirected to the home page
@@ -68,7 +68,7 @@ Feature: Create account via email
     Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page with phone number
         Given I am on the kidsloop create account with phone number page
         When I click on Log in link
-        And I login to kidsloop via SSO with phone number "+12692304118"
-        Then I should see the welcome message "Welcome Automation, how are you doing today?"
+        And I login to kidsloop with phone number "2692304118" with country code "United States(+1)"
+        Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
