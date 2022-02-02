@@ -71,6 +71,24 @@ Scenario: Error message for wrong email and wrong password
   And I enter a valid email "swapnali.bhansali@gmail.com"
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
+  Scenario: Login with student account
+  Given I login to kidsloop via SSO with a valid user "automationStudent@geqtbdzt.mailosaur.net"
+  Then I should see the welcome message "Welcome Student, how are you doing today?"
+  When I sign out 
+  And I am redirected to the home page
+
+  Scenario: Login with parent account
+  Given I login to kidsloop via SSO with a valid user "automationParent@geqtbdzt.mailosaur.net"
+  Then I should see the welcome message "Welcome Parent, how are you doing today?"
+  When I sign out 
+  And I am redirected to the home page
+
+  Scenario: Login with school admin account
+  Given I login to kidsloop via SSO with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
+  Then I should see the welcome message "Welcome School admin, how are you doing today?"
+  When I sign out 
+  And I am redirected to the home page
  
 
 #Scenario: 15 mins timeout on select profile screen multiple profiles 
