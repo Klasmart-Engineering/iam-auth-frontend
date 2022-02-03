@@ -172,9 +172,9 @@ pipelines:
         name: "Build & Push Factory Image"
         image: python:3.9-alpine
         script:
-          - git submodule update --init --recursive --force
           - pip3 install -U awscli
           - apk add git jq
+          - git submodule update --init --recursive --force
           - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
           - export REPO=$DOCKER_REPO_URL/kidsloop-auth-frontend      # DOCKER_REPO_URL is workspace wide variable
           - export COMMIT_TAG=$(echo $BITBUCKET_COMMIT | cut -c1-7)
