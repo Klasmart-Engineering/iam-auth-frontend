@@ -1,0 +1,7 @@
+node_modules/
+deploy/
+dist/
+src/pages/account/kidsloop-pass-frontend/client/node_modules/
+
+!deploy/default.conf
+!deploy/build.sh
