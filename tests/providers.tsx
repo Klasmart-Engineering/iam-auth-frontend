@@ -3,6 +3,10 @@ import {
     URLContextProvider,
 } from "@/hooks";
 import { fallbackLocale } from "@/locale";
+import {
+    MockedProvider,
+    MockedProviderProps,
+} from '@apollo/client/testing';
 import { createMemoryHistory } from "history";
 import React from "react";
 import { RawIntlProvider } from "react-intl";
@@ -26,4 +30,10 @@ export const withIntlProvider = (ui: React.ReactNode, value = fallbackLocale) =>
 
 export const withRouter = (ui: React.ReactNode, history = createMemoryHistory()) => {
     return <Router history={history}>{ui}</Router>;
+};
+
+export const withApolloProvider = (ui: React.ReactNode, props: Omit<MockedProviderProps, "children"> = {
+    addTypename: false,
+}) => {
+    return <MockedProvider {...props}>{ui}</MockedProvider>;
 };

@@ -4,19 +4,23 @@ import {
     ProfileFragment,
     useProfiles,
 } from "@/api/user-service/operations";
-import Avatar from '@material-ui/core/Avatar';
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from '@material-ui/core/ListItemText';
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import EventRoundedIcon from '@material-ui/icons/EventRounded';
-import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-import Skeleton from '@material-ui/lab/Skeleton';
+import {
+    Avatar,
+    Grid,
+    IconButton,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemSecondaryAction,
+    ListItemText,
+    Tooltip,
+    Typography,
+} from "@material-ui/core";
+import {
+    EventRounded as EventRoundedIcon,
+    WarningRounded as WarningRoundedIcon,
+} from "@material-ui/icons";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { utils } from "kidsloop-px";
 import QueryString from "query-string";
 import React,
@@ -27,12 +31,73 @@ import React,
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 
-const buildDisplayName = ({ givenName, familyName }: Pick<ProfileFragment, "givenName" | "familyName">) => {
+const buildDisplayName = ({
+    givenName,
+    familyName,
+}: Pick<ProfileFragment, "givenName" | "familyName">) => {
     if (givenName) {
         return `${givenName}` + (familyName ? ` ${familyName}` : ``);
     } else {
         return `Name not set`;
     }
+};
+
+const Header = ({ children }: { children?: React.ReactNode }): JSX.Element => {
+    return <Grid
+        item
+        xs={12}>{children}</Grid>;
+};
+
+const ListContainer = ({ "data-testid": testId, children }: { children?: React.ReactNode; ["data-testid"]?: string }): JSX.Element => {
+    return <Grid
+        item
+        xs={12}
+        data-testid={testId}
+        style={{
+            paddingLeft: 0,
+            paddingRight: 0,
+        }}
+    >
+        <List>{children }</List>
+    </Grid>;
+};
+
+const LoadingSkeleton = (): JSX.Element => {
+    return (
+        <>
+            <Header/>
+            <ListContainer data-testid="select_user-skeleton-list">
+                <ListItem>
+                    <ListItemAvatar>
+                        <Skeleton
+                            animation="wave"
+                            variant="circle">
+                            <Avatar />
+                        </Skeleton>
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={
+                            <Skeleton
+                                animation="wave"
+                                height={10}
+                                width="80%"
+                                style={{
+                                    marginBottom: 6,
+                                }}
+                            />
+                        }
+                        secondary={
+                            <Skeleton
+                                animation="wave"
+                                height={10}
+                                width="40%"
+                            />
+                        }
+                    />
+                </ListItem>
+            </ListContainer>
+        </>
+    );
 };
 
 export function SelectUser () {
@@ -47,11 +112,6 @@ export function SelectUser () {
     });
 
     const users = data?.myUser?.profiles;
-
-    // If we only have a single user, we want to keep showing the skeleton while we make the `switchUser`
-    // API call and try to navigate to the Hub directly
-    // If that API call fails, we can show the list of a single user anyway (so the client can try again)
-    const shouldShowSkeleton = loading || (users?.length === 1 && !loadSingleUserError);
 
     useEffect(() => {
         setLoadSingleUserError(false);
@@ -71,6 +131,12 @@ export function SelectUser () {
         }
         loadOnlyUser();
     }, [ users ]);
+
+    useEffect(() => {
+        if (users?.length === 0) {
+            history.push(`/no-profiles`);
+        }
+    }, [ users?.length, history ]);
 
     function handleEditName ({ id: userId }: Pick<ProfileFragment, "id">) {
         history.push({
@@ -104,130 +170,93 @@ export function SelectUser () {
         }
     }
 
-    function renderList () {
-        if (shouldShowSkeleton) {
-            return (
-                <ListItem>
-                    <ListItemAvatar>
-                        <Skeleton
-                            animation="wave"
-                            variant="circle">
-                            <Avatar />
-                        </Skeleton>
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={<Skeleton
-                            animation="wave"
-                            height={10}
-                            width="80%"
-                            style={{
-                                marginBottom: 6,
-                            }} />}
-                        secondary={<Skeleton
-                            animation="wave"
-                            height={10}
-                            width="40%" />}
-                    />
-                </ListItem>
-            );
-        } else if (users && users.length > 0) {
-            return (
-                users.map((user) =>
+    // If we only have a single user, we want to keep showing the skeleton while we make the `switchUser`
+    // API call and try to navigate to the Hub directly
+    // If that API call fails, we can show the list of a single user anyway (so the client can try again)
+    if (loading || (users?.length === 1 && !loadSingleUserError)) {
+        return <LoadingSkeleton />;
+    }
+
+    if (!users || users?.length === 0) {
+        // useEffect will redirect to `NoProfiles` page`
+        return <LoadingSkeleton/>;
+    }
+
+    return (
+        <>
+            <Header>
+                <Typography
+                    variant="h4"
+                    align="center">
+                    <FormattedMessage id="selectProfile_title" />
+                </Typography>
+            </Header>
+            <ListContainer data-testid="select_user-users-list">
+                {users.map((user) => (
                     <ListItem
                         key={user.id}
                         button
-                        onClick={() => handleSelectUser(user) }
+                        onClick={() => handleSelectUser(user)}
                     >
                         <ListItemAvatar>
                             <Avatar
                                 style={{
-                                    backgroundColor: utils.stringToColor(user.givenName + ` ` + user.familyName),
+                                    backgroundColor: utils.stringToColor(`${user.givenName} ${user.familyName}`),
                                     color: `white`,
                                 }}
                             >
                                 <Typography variant="caption">
-                                    { utils.nameToInitials(buildDisplayName(user), 3) }
+                                    {utils.nameToInitials(buildDisplayName(user), 3)}
                                 </Typography>
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={buildDisplayName(user)}
-                            secondary={user.dateOfBirth} />
+                            secondary={user.dateOfBirth}
+                        />
                         <ListItemSecondaryAction>
-                            { (user.givenName && !user.dateOfBirth) &&
-                                    <Tooltip title={<FormattedMessage id="selectProfile_tooltipBirthday" />}>
-                                        <IconButton
-                                            aria-label="birthday"
-                                            edge="end"
-                                            style={{
-                                                color: `#9e9e9e`,
-                                            }}
-                                            onClick={() => handleEditBirthday(user)}
-                                        >
-                                            <EventRoundedIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                            }
-                            { !(user.givenName) &&
-                                    <Tooltip title={<FormattedMessage id="selectProfile_tooltipName" />}>
-                                        <IconButton
-                                            aria-label="warning"
-                                            edge="end"
-                                            style={{
-                                                color: `#F4970A`,
-                                            }}
-                                            onClick={() => handleEditName(user)}
-                                        >
-                                            <WarningRoundedIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                            }
+                            {user.givenName && !user.dateOfBirth && (
+                                <Tooltip
+                                    title={
+                                        <FormattedMessage id="selectProfile_tooltipBirthday" />
+                                    }
+                                >
+                                    <IconButton
+                                        aria-label="birthday"
+                                        edge="end"
+                                        style={{
+                                            color: `#9e9e9e`,
+                                        }}
+                                        onClick={() =>
+                                            handleEditBirthday(user)
+                                        }
+                                    >
+                                        <EventRoundedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                            {!user.givenName && (
+                                <Tooltip
+                                    title={
+                                        <FormattedMessage id="selectProfile_tooltipName" />
+                                    }
+                                >
+                                    <IconButton
+                                        aria-label="warning"
+                                        edge="end"
+                                        style={{
+                                            color: `#F4970A`,
+                                        }}
+                                        onClick={() => handleEditName(user)}
+                                    >
+                                        <WarningRoundedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
                         </ListItemSecondaryAction>
-                    </ListItem>)
-            );
-        } else {
-            return (
-                <Typography
-                    variant="body2"
-                    align="center">
-                    <FormattedMessage
-                        id="selectProfile_noOrgSubtitle"
-                        values={{
-                            platformName: config.branding.company.name,
-                        }}
-                    />
-                </Typography>
-            );
-        }
-    }
-
-    return (
-        <React.Fragment>
-            <Grid
-                item
-                xs={12}>
-                { !shouldShowSkeleton &&
-                    <Typography
-                        variant="h4"
-                        align="center">
-                        { (users && users.length > 0) ?
-                            <FormattedMessage id="selectProfile_title" /> :
-                            <FormattedMessage id="selectProfile_noOrgTitle"/>
-                        }
-                    </Typography>
-                }
-            </Grid>
-            <Grid
-                item
-                xs={12}
-                style={{
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                }}>
-                <List>
-                    { renderList() }
-                </List>
-            </Grid>
-        </React.Fragment>
+                    </ListItem>
+                ))}
+            </ListContainer>
+        </>
     );
 }

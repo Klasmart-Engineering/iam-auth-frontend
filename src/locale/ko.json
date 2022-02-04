@@ -72,7 +72,7 @@
     "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다.",
     "authentication.error.generic.title": "이런!",
     "authentication.error.generic.body": "일시적인 문제가 발생했습니다.\n다시 시도하시거나 조직 관리자에게 문의해 주세요.",
-    "generic.goBack": "Go back",
-    "selectProfile.noUsers.title": "Hi cadet!",
-    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+    "selectProfile.noProfiles.title": "Hi cadet!",
+    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
+    "generic.signOut": "로그아웃"
 }

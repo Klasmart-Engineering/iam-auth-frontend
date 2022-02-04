@@ -25,6 +25,7 @@ import {
 } from "@/hooks";
 import { isSupportedLocale } from "@/locale";
 import { Login } from "@/pages/azureB2C";
+import NoProfiles from "@/pages/NoProfiles";
 import {
     ApolloProvider,
     IntlProvider,
@@ -161,6 +162,11 @@ function ClientSide () {
                                     exact
                                     path="/error">
                                     <Error />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/no-profiles">
+                                    <NoProfiles />
                                 </Route>
                                 {routes.map(({
                                     path,

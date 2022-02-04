@@ -72,7 +72,7 @@
     "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码",
     "authentication.error.generic.title": "糟糕!",
     "authentication.error.generic.body": "出错了,请重试或联系您的组织管理员。",
-    "generic.goBack": "Go back",
-    "selectProfile.noUsers.title": "Hi cadet!",
-    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+    "selectProfile.noProfiles.title": "Hi cadet!",
+    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
+    "generic.signOut": "退出登录"
 }

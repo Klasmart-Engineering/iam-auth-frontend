@@ -72,7 +72,7 @@
     "ERROR_INPUT_INVALID_FORMAT": "El correo electrónico o número de teléfono que ha introducido no es válido",
     "authentication.error.generic.title": "¡Ups!",
     "authentication.error.generic.body": "¡Ocurrió un error en nuestro lado!\nPor favor vuelva a intentar más tarde o póngase en contacto con el administrador de su organización.",
-    "generic.goBack": "Regresar",
-    "selectProfile.noUsers.title": "¡Hola cadete!",
-    "selectProfile.noUsers.body": "Como su cuenta no está vinculada a una organización, por favor espere a que su escuela lo registre para acceder al sistema."
+    "selectProfile.noProfiles.title": "¡Hola cadete!",
+    "selectProfile.noProfiles.body": "Como su cuenta no está vinculada a una organización, por favor espere a que su escuela lo registre para acceder al sistema.",
+    "generic.signOut": "Cerrar sesión"
 }

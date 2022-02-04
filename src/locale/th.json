@@ -72,7 +72,7 @@
     "ERROR_INPUT_INVALID_FORMAT": "คุณไม่ได้ป้อนอีเมล/หมายเลขโทรศัพท์ที่ถูกต้อง",
     "authentication.error.generic.title": "อ๊ะ!",
     "authentication.error.generic.body": "มีบางอย่างผิดปกติเกิดขึ้นกับเรา!\n โปรดลองอีกครั้งหรือติดต่อผู้ดูแลระบบองค์กรของคุณ",
-    "generic.goBack": "Go back",
-    "selectProfile.noUsers.title": "Hi cadet!",
-    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+    "selectProfile.noProfiles.title": "Hi cadet!",
+    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
+    "generic.signOut": "Sign out"
 }

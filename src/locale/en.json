@@ -72,7 +72,7 @@
     "ERROR_INPUT_INVALID_FORMAT": "You didn't enter a valid email/phone number",
     "authentication.error.generic.title": "Oops!",
     "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin.",
-    "generic.goBack": "Go back",
-    "selectProfile.noUsers.title": "Hi cadet!",
-    "selectProfile.noUsers.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+    "selectProfile.noProfiles.title": "Hi cadet!",
+    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
+    "generic.signOut": "Sign out"
 }
