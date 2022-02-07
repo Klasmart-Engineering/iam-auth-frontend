@@ -1,7 +1,7 @@
 import Name from "../../../assets/img/create_profile/name.svg";
-import { getUserInformation } from '../../api/getUser';
 import { User } from '../../api/queries/user';
-import { updateUser } from '../../api/updateUser';
+import { useGetUserInformation } from '../../api/useGetUser';
+import { useUpdateUser } from '../../api/useUpdateUser';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import {
@@ -69,7 +69,7 @@ export default function SetName () {
         return userId;
     }, []);
 
-    const { loading: loadingUserInfo, data: userInformation } = getUserInformation({
+    const { loading: loadingUserInfo, data: userInformation } = useGetUserInformation({
         variables: {
             user_id: userId ? userId : ``,
         },
@@ -83,7 +83,7 @@ export default function SetName () {
         }
     }, [ userInformation ]);
 
-    const [ setUpdateUser ] = updateUser();
+    const [ setUpdateUser ] = useUpdateUser();
 
     const handleUpdate = async () => {
         try {

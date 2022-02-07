@@ -1,7 +1,7 @@
 import Birthday from "../../../assets/img/create_profile/birthday.svg";
-import { getUserInformation } from '../../api/getUser';
 import { User } from '../../api/queries/user';
-import { updateUser } from '../../api/updateUser';
+import { useGetUserInformation } from '../../api/useGetUser';
+import { useUpdateUser } from '../../api/useUpdateUser';
 import config from '../../config';
 import Grid from '@material-ui/core/Grid';
 import {
@@ -96,7 +96,7 @@ export default function SetBirthday () {
         loading: loadingUserInfo,
         data: userInformation,
         refetch,
-    } = getUserInformation({
+    } = useGetUserInformation({
         variables: {
             user_id: userId ? userId : ``,
         },
@@ -113,7 +113,7 @@ export default function SetBirthday () {
         }
     }, [ userInformation ]);
 
-    const [ setUpdateUser ] = updateUser();
+    const [ setUpdateUser ] = useUpdateUser();
 
     const handleUpdate = async () => {
         try {

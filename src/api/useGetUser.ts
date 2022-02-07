@@ -8,6 +8,6 @@ import {
     useQuery,
 } from "@apollo/client";
 
-export const getUserInformation = (options?: QueryHookOptions<GetUserInformationResponse, GetUserInformationRequest>) => {
+export const useGetUserInformation = (options?: QueryHookOptions<GetUserInformationResponse, GetUserInformationRequest>) => {
     return useQuery<GetUserInformationResponse, GetUserInformationRequest>(USER, options);
 };

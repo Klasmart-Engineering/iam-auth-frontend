@@ -164,7 +164,12 @@ export function SignIn () {
         return false;
     }
 
-    function handleError (e: RestAPIError | Error) {
+    function handleError (e: unknown) {
+        if (!(e instanceof Error)) {
+            console.error(e);
+            return;
+        }
+
         if (!(e instanceof RestAPIError)) {
             if (e.toString().search(`EMPTY_EMAIL`) !== -1) {
                 setEmailError(<span style={{
@@ -184,6 +189,7 @@ export function SignIn () {
             }
             return;
         }
+
         const id = e.getErrorMessageID();
         const errorMessage = <FormattedMessage id={id} />;
         switch (e.getErrorMessageType()) {

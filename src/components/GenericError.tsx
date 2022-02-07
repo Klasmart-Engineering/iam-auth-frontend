@@ -9,6 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useIntl } from "react-intl";
 
+const commonTextStyles = {
+    color: `#669bd2`,
+    fontWeight: 900,
+};
+
 const useStyles = makeStyles(() => {
     return {
         background: {

@@ -68,7 +68,7 @@ describe(`useConditionalLogoutFromB2C`, () => {
         await waitFor(() => expect(logoutRedirectSpy).toHaveBeenCalled());
     });
 
-    test(`if the user does not has an active session then do no call B2C logout`, async () => {
+    test(`if the user does not has an active session then do not call B2C logout`, () => {
         refreshTokenSpy.mockResolvedValue(true);
         getAllAccountsSpy.mockReturnValue([]);
 
