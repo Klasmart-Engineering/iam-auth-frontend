@@ -71,7 +71,9 @@ const routes: RouteDetails[] = [
     {
         path: `/continue`,
         Component: Continue,
-        RouteComponent: ProtectedRoute,
+        // Must be unprotected while we have both B2C and KidsLoop sessions,
+        // as at this point we only have a B2C session (so the `isAuthenticated` check fails)
+        RouteComponent: Route,
         size: `xs`,
         centerLogo: true,
     },
