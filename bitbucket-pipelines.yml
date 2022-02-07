@@ -61,7 +61,6 @@ definitions:
 
 clone:
     lfs: true
-    depth: 1
 
 pipelines:
     branches:
