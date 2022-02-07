@@ -48,7 +48,7 @@ Scenario: Login with a deactivated account
   When I enter invalid email as "deactivatedAccount@geqtbdzt.mailosaur.net"
   When I enter password as "Abcd1234" 
   And I click on login button
-  Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
+  Then I should see an invalid login error "Your account is deactivated. Please contact your organization."
 Scenario: Error message for wrong email and wrong password
   Given I am on the kidsloop login page 
   When I enter invalid email as "abc"
@@ -75,11 +75,12 @@ Then I should see an invalid login error "Sorry, we don’t recognise your login
   When I sign out 
   And I am redirected to the home page
  
-
-#Scenario: 15 mins timeout on select profile screen multiple profiles 
-#  Given I login to kidsloop via SSO with a valid user "loginautomationusermultipleprofiles@zw6ahich.mailosaur.net"
-#  When I wait for "16" mins 
- # And I select the first profile from the list
-#  When I sign out 
-#  Then I should see the welcome message "how are you doing today?"
-#  And I am redirected to the home page
+Scenario: 15 mins timeout on select profile screen multiple profiles 
+# Removing the access cookie which is valid for 15 mins. It will simulate the expiry. 
+  Given I login to kidsloop with a valid user "loginautomationusermultipleprofiles@geqtbdzt.mailosaur.net"
+  And I wait for the select profile page to be visible 
+  When I delete "access" cookie  
+  And I select the first profile from the list
+  When I sign out 
+  Then I should see the welcome message "how are you doing today?"
+  And I am redirected to the home page

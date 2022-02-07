@@ -53,3 +53,10 @@ When(`I wait for {string} mins`, (mins: number) => {
 And(`I remove cookies`, ()=> {
     cy.removeCookies();
 });
+
+When(`I delete {string} cookie`, (cookiename: string) => {
+   cy.clearCookie(cookiename);
+   cy.wait(5000).then(() => {
+      cy.log(`waited for 5000 milliseconds`);
+  });
+});

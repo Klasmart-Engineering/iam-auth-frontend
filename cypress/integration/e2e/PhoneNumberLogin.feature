@@ -7,7 +7,7 @@ And I remove cookies
 
 Scenario: Login with deactivated phone number account
 Given I login to kidsloop with phone number "7713162000" with country code "United Kingdom(+44)"
-Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
+Then I should see an invalid login error "Your account is deactivated. Please contact your organization."
 
 @alpha
 Scenario: Login with invalid phone number

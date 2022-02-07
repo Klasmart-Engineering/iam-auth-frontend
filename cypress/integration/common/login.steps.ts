@@ -18,6 +18,10 @@ Given(`I am on the kidsloop login page`, () => {
     loginPage.goToHomePage();
 });
 
+And(`I wait for the select profile page to be visible`, () => {
+    loginPage.waitForSelectProfileScreen();
+});
+
 And(`I click on login button`, ()=> {
     loginPage.clickOnLogInButton();
 });
@@ -77,4 +81,11 @@ Given(`I enter phone number on reset password page`, () => {
 Then(`I select the first profile from the list`, () => {
     loginPage.clickOnProfile();
     loginPage.clickOnContinueButton();
+});
+
+When(`I enter phone number as {string}`, (number: string)=> {
+    loginPage.goToHomePage();
+    loginPage.clickOnLoginWithPhoneNumberLink();
+    loginPage.enterPhone(number);
+    loginPage.clickContinue();
 });

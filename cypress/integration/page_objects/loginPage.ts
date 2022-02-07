@@ -40,6 +40,10 @@ class LoginPage {
         cy.get(this.createAccountLink).should(`be.visible`).click();
     }
 
+    waitForSelectProfileScreen() {
+        cy.get(this.selectProfile).should(`be.visible`);
+    }
+
     clickContinue (){
         cy.get(this.continueButtonOnLogin).should(`be.visible`).click();
     }
