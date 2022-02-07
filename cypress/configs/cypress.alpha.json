@@ -7,7 +7,8 @@
     "responseTimeout": 30000,
     "requestTimeout": 30000,
     "env": {
-      "MAILOSAUR_API_KEY": "JOOq3kI5vLGe6kcH"
+      "MAILOSAUR_API_KEY": "apMJyaSog0bwoihw",
+      "mailosaurServerId": "ybftprea"
     },
     "video": false,
     "screenshotOnFailure": true,

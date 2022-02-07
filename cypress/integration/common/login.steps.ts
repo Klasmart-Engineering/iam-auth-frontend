@@ -1,5 +1,5 @@
 import config from '../../configs/config';
-import languageCodes from '../../configs/languageCodes';
+import { createAccountPage } from '../page_objects/createAccountPage';
 import { loginPage } from '../page_objects/loginPage';
 import {
     And,
@@ -7,7 +7,6 @@ import {
     Then,
     When,
 } from "cypress-cucumber-preprocessor/steps";
-import { createAccountPage } from '../page_objects/createAccountPage';
 
 Given(`I login to kidsloop with a valid user {string}`, (email: string) => {
     loginPage.goToHomePage();
@@ -67,12 +66,13 @@ Given(`I login to kidsloop with phone number {string} with country code {string}
     loginPage.clickOnLogInButton();
 });
 
-Given(`I enter phone number as {string}`, (phone: string){
+Given(`I enter phone number on reset password page`, () => {
     loginPage.goToHomePage();
     loginPage.clickOnLoginWithPhoneNumberLink();
-    loginPage.enterPhone(phone);
-    loginPage.clickContinue();    
-})
+    createAccountPage.selectCountry(`United States(+1)`);
+    loginPage.enterPhone(config.mailosaurPhoneNumber.substring(1));
+    loginPage.clickContinue();
+});
 
 Then(`I select the first profile from the list`, () => {
     loginPage.clickOnProfile();

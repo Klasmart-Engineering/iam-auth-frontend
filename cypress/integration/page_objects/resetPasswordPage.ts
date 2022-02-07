@@ -10,16 +10,18 @@ class ResetPasswordPage {
     verificationcodeTextResetPasswordPage = `#emailVerificationCode`;
     verifyCodeButton = `#emailControl_but_verify_code`;
     verifyCodeButtonResetPassword = `#emailVerificationControl_but_verify_code`;
+    verifyCodeButtonPhoneNumber = `#phoneVerificationControl_but_verify_code`;
     emailInput = `#email`;
-
     errorText = `#emailControl_error_message`;
     claimVerificationError = `#claimVerificationServerError`;
     verificationFailedError = `#emailVerificationControl_error_message`;
-    testEmail = `something@${config.mailosaurServerId}.mailosaur.net`;
+    testEmail = `something@${Cypress.env(`mailosaurServerId`)}.mailosaur.net`;
     passcode = `0`;
     sendCodeBtn = `#emailControl_but_send_code`;
+    sendCodeBtnPhone = `#phoneVerificationControl_but_send_code`;
     newPasswordValue = `ABcd1234`
     sendNewCodeButton = `#emailControl_but_send_new_code`;
+    sendNewCodeButtonPhoneNumber = `#phoneVerificationControl_but_send_new_code`;
     latestPasscode = `0`;
 
     setNewPassword () {
@@ -92,6 +94,15 @@ class ResetPasswordPage {
 
     }
 
+    clickOnSendNewCodeButtonPhoneNumber () {
+        cy.get(this.sendNewCodeButtonPhoneNumber).should(`exist`).click({
+            force: true,
+        });
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+    }
+
     clickOnSendNewCodeButton () {
         cy.get(this.sendNewCodeButton).should(`exist`).click({
             force: true,
@@ -109,7 +120,14 @@ class ResetPasswordPage {
             cy.log(`waited for 1 seconds`);
         });
     }
-
+    clickOnVerfiyCodeButtonForPhoneNumber () {
+        cy.get(this.verifyCodeButtonPhoneNumber).should(`exist`).click({
+            force: true,
+        });
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+    }
     clickOnSendVerificationCodeCreateAccount () {
         cy.get(this.sendCodeCreateAccount).click({
             force: true,
@@ -117,6 +135,15 @@ class ResetPasswordPage {
     }
     clickOnSendCodeButton () {
         cy.get(this.sendCodeBtn).should(`be.visible`).click({
+            force: true,
+        });
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+    }
+
+    clickOnSendCodeButtonOnPhoneNumber () {
+        cy.get(this.sendCodeBtnPhone).should(`be.visible`).click({
             force: true,
         });
         cy.wait(2000).then(() => {
@@ -133,7 +160,7 @@ class ResetPasswordPage {
     }
 
     deleteAllEmail () {
-        cy.mailosaurDeleteAllMessages(config.mailosaurServerId);
+        cy.mailosaurDeleteAllMessages(Cypress.env(`mailosaurServerId`));
     }
 }
 

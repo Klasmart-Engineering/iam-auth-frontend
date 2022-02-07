@@ -9,11 +9,19 @@ Scenario: Login with deactivated phone number account
 Given I login to kidsloop with phone number "7713162000" with country code "United Kingdom(+44)"
 Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
 
+@alpha
 Scenario: Login with invalid phone number
 Given I enter phone number as "swapnali"
 Then I should see an error on kidsloop page "One or more fields are filled out incorrectly. Please check your entries and try again."
 And I should see an error on kidsloop page "Invalid number format. Please ensure that the phone number does not contain any special characters such as []{}()."
 
+@alpha
+Scenario: Invalid password error verification
+Given I enter phone number as "7728727046"
+And I enter wrong password
+Then I should see an error on kidsloop page "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
+@alpha
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number login
 Given I login to kidsloop with phone number "<phoneNumber>" with country code "<countryCode>"
 Then I should see the welcome message "how are you doing today?"

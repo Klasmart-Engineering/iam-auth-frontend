@@ -1,3 +1,4 @@
+@alpha
 Feature: Login functionality at Kidsloop
 
 I want to login to kidsloop
@@ -9,28 +10,27 @@ Scenario: Logging with email not associated with any organization
 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "Welcome Login User, how are you doing today?"
+  Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
 Scenario: Logging with email with multiple profiles + spaces in email address
-  Given I login to kidsloop with a valid user " loginautomationusermultipleprofiles@zw6ahich.mailosaur.net "
+  Given I login to kidsloop with a valid user " loginautomationusermultipleprofiles@geqtbdzt.mailosaur.net "
   When I select the first profile from the list
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
-
-Scenario: Logging with email associated with an organization 
-  Given I login to kidsloop with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "how are you doing today?"
-  When I sign out 
-  And I am redirected to the home page
-
 Scenario: Login with an invalid account
 Given I am on the kidsloop login page
 When I enter invalid email for logging in as "qa+stress_t1@calmid.com"
 And I enter the password and login
 Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
+Scenario: Logging with email associated with an organization 
+  Given I login to kidsloop with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
+  Then I should see the welcome message "how are you doing today?"
+  When I sign out 
+   And I am redirected to the home page
 
 Scenario: Multiple wrong password attempts 
   Given I am on the kidsloop login page 
@@ -43,14 +43,12 @@ Scenario: Multiple wrong password attempts
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
   When I enter wrong password 
   Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
-
 Scenario: Login with a deactivated account 
   Given I am on the kidsloop login page 
-  When I enter invalid email as "deactivatedAccount@zw6ahich.mailosaur.net"
+  When I enter invalid email as "deactivatedAccount@geqtbdzt.mailosaur.net"
   When I enter password as "Abcd1234" 
   And I click on login button
   Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
-
 Scenario: Error message for wrong email and wrong password
   Given I am on the kidsloop login page 
   When I enter invalid email as "abc"
@@ -58,22 +56,22 @@ Scenario: Error message for wrong email and wrong password
   Then I should see an invalid email error 'Please enter a valid email address'
   And I enter a valid email "swapnali.bhansali@gmail.com"
   When I enter wrong password 
-  Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+Then I should see an invalid login error "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
   Scenario: Login with student account
   Given I login to kidsloop with a valid user "automationStudent@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "Welcome Student, how are you doing today?"
   When I sign out 
   And I am redirected to the home page
-
   Scenario: Login with parent account
   Given I login to kidsloop with a valid user "automationParent@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "Welcome Parent, how are you doing today?"
+  Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
   Scenario: Login with school admin account
   Given I login to kidsloop with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "Welcome School admin, how are you doing today?"
+  Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
  
