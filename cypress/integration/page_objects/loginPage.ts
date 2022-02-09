@@ -84,6 +84,11 @@ class LoginPage {
         .should(`be.visible`)
         .type(phone);
     }
+
+    verifyIfOnLoginPage() {
+        cy.get(this.forgetPassword)
+            .should(`be.visible`);
+    }
     enterPassword (password: string) {
         cy.get(this.passwordField)
             .should(`be.visible`)

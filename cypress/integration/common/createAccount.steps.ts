@@ -143,6 +143,10 @@ Then(`I should see an error on kidsloop page {string}`, (errorText: string) => {
     createAccountPage.checkGenericError(errorText);
 });
 
+Then(`I should see a message on kidsloop page {string}`, (message: string) => {
+    createAccountPage.checkGenericError(message);
+});
+
 Then(`I should see code expired error {string}`, (errorText: string) => {
     createAccountPage.checkCodeExpiredError(errorText);
 });

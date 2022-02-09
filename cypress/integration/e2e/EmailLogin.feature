@@ -5,8 +5,9 @@ I want to login to kidsloop
 
 Scenario: Logging with email not associated with any organization
   Given I login to kidsloop with a valid user "automation1643015189914@geqtbdzt.mailosaur.net"
-  Then I am taken to "You are not part of an organization."
-  And I remove cookies
+  Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+  And I click on sign out button on account not linked page
+
 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"

@@ -8,9 +8,6 @@ When I click on reset code button
 Then I should see an error on kidsloop page "This information is required."
 And I enter email and click on send reset code
 And I enter wrong verification code
-When I click on create account button
-Then I should see an error on kidsloop page "The claims for verification control have not been verified."
-And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "The verification has failed, please try again"
 And I enter wrong verification code
@@ -41,8 +38,9 @@ And I click on verify code button
 Then I should see an error on kidsloop page "The verification has failed, please try again"
 And I enter the new passcode from email 
 And I verify code and confirm the password 
-Then I should see the welcome message "You are not part of an organization."
-And I remove cookies
+Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+And I click on sign out button on account not linked page
+
 
 
 

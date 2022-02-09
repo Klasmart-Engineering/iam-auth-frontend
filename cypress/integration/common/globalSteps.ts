@@ -29,6 +29,11 @@ Then(`I sign out`, async () => {
     homePage.clickOnSignoutLink();
 });
 
+And(`I click on sign out button on account not linked page`,()=> {
+    homePage.clickOnSignoutButtonFromNotAssociatedWithOrgPage();
+    loginPage.verifyIfOnLoginPage();
+});
+
 When(`I go to {string} page directly`, (errorPage: string) => {
     cy.visit(errorPage);
 });

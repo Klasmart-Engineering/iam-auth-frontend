@@ -7,16 +7,17 @@ Feature: Create account via email
 
     Scenario: create account with email and login successfully
         When I create a new account with a new email address
-        Then I am taken to "You are not part of an organization."
-        And I remove cookies
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
 
     Scenario: create account with email with upper case letters and login successfully
         When I create a new account with a new email address with upper case letters
-        Then I am taken to "You are not part of an organization."
-        And I remove cookies
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
         And I login to kidsloop via SSO with a valid user created before
-        Then I am taken to "You are not part of an organization."
-        And I remove cookies
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
+
 
     Scenario: create account via resend code functionality with email and login successfully
         Given I am on the kidsloop create account page
@@ -25,8 +26,9 @@ Feature: Create account via email
         When I click on send code again button
         And I enter the new verification code
         And I enter the password and click on Create Account
-        Then I am taken to "You are not part of an organization."
-        And I remove cookies
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
+
 
     Scenario: create duplicate account with phone number and verify error message
         Given I am on the kidsloop create account with phone number page
@@ -49,8 +51,8 @@ Feature: Create account via email
         When I click on send code again button
         And I enter the new verification code
         And I enter the password and click on Create Account
-        Then I am taken to "You are not part of an organization."
-        And I remove cookies
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
 
     Scenario: Error messages on create account with email page
         Given I am on the kidsloop create account page
