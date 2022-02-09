@@ -1,6 +1,7 @@
 import { refreshToken } from "@/api/authentication";
 import config from "@/config";
 import { client } from "@/utils/azureB2C";
+import { buildB2CRedirectUri } from "@/utils/azureB2C/logout";
 import {
     useEffect,
     useState,
@@ -21,7 +22,9 @@ export default function useConditionalLogoutFromB2C () {
                     const accounts = client.getAllAccounts();
 
                     if (accounts.length) {
-                        await client.logoutRedirect();
+                        await client.logoutRedirect({
+                            postLogoutRedirectUri: buildB2CRedirectUri().toString(),
+                        });
                     }
                 }
             } catch (error) {

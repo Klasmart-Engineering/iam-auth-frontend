@@ -10,8 +10,6 @@ import { ILoggerCallback } from "@azure/msal-common";
 import { brandingConfig } from "@branding/index";
 import { BrandingOptions } from "kidsloop-branding";
 
-const BASE_URL = window.location.origin;
-
 const ENVIRONMENTS = [ `production`, `development` ] as const;
 
 type Environment = typeof ENVIRONMENTS[number];
@@ -25,6 +23,7 @@ interface Config {
     branding: BrandingOptions;
     server: {
         domain: string;
+        origin: string;
     };
     azureB2C: {
         enabled: boolean;
@@ -54,6 +53,7 @@ const config: Config = {
             process.env.SLD && process.env.TLD
                 ? `${process.env.SLD}.${process.env.TLD}`
                 : `kidsloop.net`,
+        origin: window.location.origin,
     },
     azureB2C: {
         clientId: process.env.AZURE_B2C_CLIENT_ID,
@@ -91,8 +91,8 @@ export const msalConfig: Configuration = {
         clientId: config.azureB2C.clientId ?? ``,
         authority: `https://${config.azureB2C.domain}/${config.azureB2C.tenantId}/${config.azureB2C.policy}`,
         knownAuthorities: config.azureB2C.domain !== undefined ? [ config.azureB2C.domain ]: undefined,
-        redirectUri: `${BASE_URL}/authentication-callback`,
-        postLogoutRedirectUri: `${BASE_URL}`,
+        redirectUri: `${config.server.origin}/authentication-callback`,
+        postLogoutRedirectUri: `${config.server.origin}`,
     },
     system: {
         loggerOptions: {
@@ -102,6 +102,17 @@ export const msalConfig: Configuration = {
                     : MsalLogLevel.Info,
             loggerCallback: msalLogger,
         },
+    },
+    // IAM-906
+    // `useConditionalLogoutFromB2C` hook (used on RegionSelect) tries to clear the B2C session
+    // if there is no KidsLoop session i.e. a simple Single Log Out
+    // The default `cacheLocation` of `sessionStorage` reports no active B2C session if the user has
+    // used a different tab to sign in with the previous time.
+    // This happens on every sign in with the mobile app (which uses a new WebView tab each sign in)
+    // and also could happen for a browser user
+    // Using `localStorage` we can persist the session between tabs
+    cache: {
+        cacheLocation: `localStorage`,
     },
 };
 
