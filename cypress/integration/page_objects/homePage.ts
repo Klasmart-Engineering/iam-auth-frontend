@@ -5,7 +5,7 @@ class HomePage {
     youAreNotAPartOfOrgPage = `:nth-child(2) > .MuiTypography-root`;
     profileButton = `[data-testid=profile-icon]`;
     signOutButton = `[data-testid="logout-button"] > .MuiButton-label`;
-    signOutButtonFromNotAssociatedWithOrgPage = `.MuiButton-label`;
+    signOutButtonFromNotAssociatedWithOrgPage = `[data-testid="signout-button"]`;
 
     async getWelcomeText (errorText: string) {
         await waitFor(() => {
