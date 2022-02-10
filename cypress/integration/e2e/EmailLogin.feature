@@ -82,6 +82,6 @@ Scenario: 15 mins timeout on select profile screen multiple profiles
   And I wait for the select profile page to be visible 
   When I delete "access" cookie  
   And I select the first profile from the list
-  When I sign out 
   Then I should see the welcome message "how are you doing today?"
+  When I sign out 
   And I am redirected to the home page
