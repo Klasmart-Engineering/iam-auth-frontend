@@ -11,13 +11,13 @@ When I am on the kidsloop login page
 Then the default language selected should be '<Language>'
 Examples:
     | Language | 
-    | Spanish  | 
+   # | Spanish  | 
     | Korean   |
     | Thai     |
     |Vietnamese |
     |Indonesia|
     |Chinese|
-    
+
 Scenario: Language selection should be carried over to hub
 Given I am on the kidsloop login page
 When I select the language selector to "Español"
