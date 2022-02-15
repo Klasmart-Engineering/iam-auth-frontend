@@ -42,6 +42,8 @@ Then I should see a message on kidsloop page "As your account is not linked to a
 And I click on sign out button on account not linked page
 
 
-
-
+Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
+Given I go to reset password page
+When I enter an email with kidsloop domain 'anything@kidsloop.live'
+Then I should see a message on kidsloop page "It is not possible to reset password for accounts with email addresses with KidsLoop domain"
 
