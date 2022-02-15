@@ -92,7 +92,6 @@ Given(`I enter email and click on send reset code`, () => {
 
 And(`I click on verify code button`, ()=> {
     resetPasswordPage.clickOnVerfiyCodeButton();
-   // cy.contains('Send reset code').click()
 });
 
 And(`I click on create account button`, ()=> {
