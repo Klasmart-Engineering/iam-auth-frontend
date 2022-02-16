@@ -171,3 +171,8 @@ Then(`I should see an error above the policy box {string}`, (errorText: string) 
 When(`I click on Log in link`, () => {
     createAccountPage.clickOnLoginLink();
 });
+
+When(`I enter an email with kidsloop domain {string}`, (email:string)=>{
+    createAccountPage.enterEmailOrPhone(email);
+});
+

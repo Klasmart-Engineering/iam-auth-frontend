@@ -77,3 +77,8 @@ Feature: Create account via email
         Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
+
+        Scenario: Check error message when creating an account with kidsloop domain email 
+         Given I am on the kidsloop create account page
+         When  I enter an email with kidsloop domain 'anything@kidsloop.live'
+         Then I should see a message on kidsloop page "It is not possible to create an account for email addresses with KidsLoop domain"

@@ -27,6 +27,12 @@ And(`I enter email and verification code`,  ()=> {
     passcodeUtils.generatePasscode(config.sendNewCodeResetPasswordTestEmail, resetPasswordPage.getVerificationcodeText());
 });
 
+And(`I enter deactivated email and verification code`,  ()=> {
+    resetPasswordPage.enterEmail(config.deactivatedAccountEmailAddress);
+    resetPasswordPage.clickOnSendCodeButton();
+    passcodeUtils.generatePasscode(config.deactivatedAccountEmailAddress, resetPasswordPage.getVerificationcodeText());
+});
+
 And(`I login with the email for which we have reset the password`, ()=> {
     cy.wait(2000).then(() => {
         cy.log(`waited for 2 seconds`);
@@ -155,4 +161,8 @@ When(`I reset password for a phone number`, ()=> {
     resetPasswordPage.setNewPassword();
     createAccountPage.enterNewPassword(config.password);
     createAccountPage.reenterNewPassword(config.password);
+});
+
+And(`I click on continue button`, ()=> {
+    resetPasswordPage.clickOnCreateOrContinueButton();
 });
