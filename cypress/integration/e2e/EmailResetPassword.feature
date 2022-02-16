@@ -44,7 +44,7 @@ And I click on sign out button on account not linked page
 Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
 Given I go to reset password page
 When I enter an email with kidsloop domain 'anything@kidsloop.live'
-Then I should see a message on kidsloop page "It is not possible to reset password for accounts with email addresses with KidsLoop domain"
+Then I should see a message on kidsloop page "It is not possible to reset the password for an account with a KidsLoop email address. Please sign-in instead."
 
 Scenario: Check error message when user is trying to reset password with an deactivated email account
 Given I go to reset password page
