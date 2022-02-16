@@ -40,12 +40,12 @@ And I enter the new passcode from email
 And I verify code and confirm the password 
 Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 And I click on sign out button on account not linked page
-
+@focus 
 Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
 Given I go to reset password page
 When I enter an email with kidsloop domain 'anything@kidsloop.live'
-Then I should see a message on kidsloop page "It is not possible to reset password for accounts with email addresses with KidsLoop domain"
-
+Then I should see a message on kidsloop page "It is not possible to reset the password for an account with a KidsLoop email address. Please sign-in instead."
+@focus 
 Scenario: Check error message when user is trying to reset password with an deactivated email account
 Given I go to reset password page
 And I enter deactivated email and verification code
