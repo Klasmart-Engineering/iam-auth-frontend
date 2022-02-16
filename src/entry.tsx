@@ -1,7 +1,3 @@
-import "@babel/polyfill";
-import "regenerator-runtime/runtime";
-import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
-import "typeface-nanum-square-round";
 import config from "./config";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";

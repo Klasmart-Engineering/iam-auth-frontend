@@ -3,6 +3,7 @@ import { User } from '../../api/queries/user';
 import { useGetUserInformation } from '../../api/useGetUser';
 import { useUpdateUser } from '../../api/useUpdateUser';
 import config from '../../config';
+import { Button } from "@/lib/kidsloop-px";
 import Grid from '@material-ui/core/Grid';
 import {
     makeStyles,
@@ -12,7 +13,6 @@ import {
 import Typography from '@material-ui/core/Typography';
 import { DatePicker } from "@material-ui/pickers";
 import dayjs from "dayjs";
-import { Button } from "kidsloop-px";
 import QueryString from "query-string";
 import React,
 {

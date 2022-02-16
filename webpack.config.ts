@@ -2,9 +2,12 @@ import "webpack-dev-server";
 import pkg from "./package.json";
 import { execSync } from "child_process";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import { config } from "dotenv";
 import Dotenv from "dotenv-webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import InlineChunkHtmlPlugin from "inline-chunk-html-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import {
     Configuration,
@@ -50,9 +53,9 @@ const webpackConfig: Configuration = {
             {
                 test: /\.css$/i,
                 use: [
-                    {
-                        loader: `style-loader`,
-                    },
+                    // Minify CSS in production
+                    // https://webpack.js.org/loaders/style-loader/#recommend
+                    isDev ? `style-loader`: MiniCssExtractPlugin.loader,
                     `css-modules-typescript-loader`,
                     {
                         loader: `css-loader`,
@@ -126,7 +129,48 @@ const webpackConfig: Configuration = {
                     newRelicApplicationID: `322534651`,
                 },
         }),
-    ],
+        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [ /runtime.+[.]js/ ]),
+    ].concat(isDev ? [] : [
+        new MiniCssExtractPlugin({
+            filename: `[name].[contenthash].css`,
+            chunkFilename: `[id].[contenthash].css`,
+        }),
+    ]),
+    optimization: {
+        moduleIds: `deterministic`,
+        runtimeChunk: `single`,
+        minimizer: [ `...`, new CssMinimizerPlugin() ],
+        splitChunks: {
+            chunks: `all`,
+            cacheGroups: {
+                mui: {
+                    test: /[\\/]node_modules[\\/](@material-ui)[\\/]/,
+                    name: `mui`,
+                    chunks: `all`,
+                },
+                azure: {
+                    test: /[\\/]node_modules[\\/](@azure)[\\/]/,
+                    name: `azure`,
+                    chunks: `all`,
+                },
+                react: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: `react`,
+                    chunks: `all`,
+                },
+                apollo: {
+                    test: /[\\/]node_modules[\\/](@apollo)[\\/]/,
+                    name: `apollo`,
+                    chunks: `all`,
+                },
+                vendor: {
+                    test: /[\\/]node_modules[\\/](!react|react-dom)(!@apollo)(!@azure)(!@material-ui)(!@apollo)[\\/]/,
+                    name: `vendor`,
+                    chunks: `all`,
+                },
+            },
+        },
+    },
     stats: {
         errorDetails: true,
     },

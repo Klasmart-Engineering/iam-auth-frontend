@@ -19,6 +19,10 @@ const config: Config.InitialOptions = {
     moduleNameMapper: {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/tests/mocks/fileMock.ts`,
         "\\.(css|less)$": `<rootDir>/tests/mocks/styleMock.ts`,
+        // Fix "Jest encountered an unexpected token" error when importing ESM (tree-shake) version of lodash,
+        // replacing it with the standard CommonJS version (devDependency)
+        // https://stackoverflow.com/a/54117206/16798638
+        "^lodash-es$": `lodash`,
         ...pathsToModuleNameMapper(compilerOptions.paths, {
             prefix: `<rootDir>/`,
         }),
