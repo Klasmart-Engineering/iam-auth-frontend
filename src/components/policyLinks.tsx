@@ -59,6 +59,7 @@ const Motion = React.forwardRef(function Transition (props: TransitionProps & { 
 
 export default function PolicyLinks () {
     const theme = useTheme();
+    const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
     const [ open, setOpen ] = useState(false);
     const [ title, setTitle ] = useState(`Privacy Notice`);
@@ -82,9 +83,7 @@ export default function PolicyLinks () {
                 <Grid
                     item
                     xs={4}>
-                    <PrivacyPolicy
-                        color="inherit"
-                        variant="caption">
+                    <PrivacyPolicy>
                         <FormattedMessage id="privacy_privacyLink" />
                     </PrivacyPolicy>
                 </Grid>
@@ -115,7 +114,7 @@ export default function PolicyLinks () {
             </LinkContainer>
             <Dialog
                 aria-labelledby="policy-external-link"
-                fullScreen={useMediaQuery(theme.breakpoints.down(`sm`))}
+                fullScreen={isSmDown}
                 open={open}
                 scroll="paper"
                 TransitionComponent={Motion}

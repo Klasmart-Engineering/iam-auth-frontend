@@ -1,7 +1,3 @@
-import "@babel/polyfill";
-import "regenerator-runtime/runtime";
-import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
-import "typeface-nanum-square-round";
 import config from "./config";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";
@@ -71,7 +67,9 @@ const routes: RouteDetails[] = [
     {
         path: `/continue`,
         Component: Continue,
-        RouteComponent: ProtectedRoute,
+        // Must be unprotected while we have both B2C and KidsLoop sessions,
+        // as at this point we only have a B2C session (so the `isAuthenticated` check fails)
+        RouteComponent: Route,
         size: `xs`,
         centerLogo: true,
     },

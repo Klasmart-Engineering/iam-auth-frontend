@@ -29,6 +29,11 @@ Then(`I sign out`, async () => {
     homePage.clickOnSignoutLink();
 });
 
+And(`I click on sign out button on account not linked page`,()=> {
+    homePage.clickOnSignoutButtonFromNotAssociatedWithOrgPage();
+    loginPage.verifyIfOnLoginPage();
+});
+
 When(`I go to {string} page directly`, (errorPage: string) => {
     cy.visit(errorPage);
 });
@@ -52,4 +57,11 @@ When(`I wait for {string} mins`, (mins: number) => {
 
 And(`I remove cookies`, ()=> {
     cy.removeCookies();
+});
+
+When(`I delete {string} cookie`, (cookiename: string) => {
+   cy.clearCookie(cookiename);
+   cy.wait(5000).then(() => {
+      cy.log(`waited for 5000 milliseconds`);
+  });
 });

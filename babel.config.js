@@ -1,10 +1,13 @@
+const pkg = require(`./package.json`);
+
 module.exports = function (api) {
     api.cache(true);
     const presets = [
         [
             `@babel/preset-env`,
             {
-                targets: `defaults`,
+                useBuiltIns: `usage`,
+                corejs: pkg.dependencies[`core-js`],
             },
         ],
         `@babel/preset-react`,

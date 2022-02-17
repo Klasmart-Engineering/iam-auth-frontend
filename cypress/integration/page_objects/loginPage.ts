@@ -26,7 +26,7 @@ class LoginPage {
     passwordLabel = `.password-label > label`;
     phoneNumberLoginLink = `#SigninWithPhone`;
     phoneNumberInput = `#nationalNumber`;
-    continueButtonOnLogin = `#continue`; 
+    continueButtonOnLogin = `#continue`;
 
     getSelectYourCountryOrRegionText () {
         return cy.get(this.selectYourCountryText).should(`be.visible`);
@@ -38,6 +38,10 @@ class LoginPage {
 
     clickOnSignUp (){
         cy.get(this.createAccountLink).should(`be.visible`).click();
+    }
+
+    waitForSelectProfileScreen() {
+        cy.get(this.selectProfile).should(`be.visible`);
     }
 
     clickContinue (){
@@ -80,6 +84,11 @@ class LoginPage {
         .should(`be.visible`)
         .type(phone);
     }
+
+    verifyIfOnLoginPage() {
+        cy.get(this.forgetPassword)
+            .should(`be.visible`);
+    }
     enterPassword (password: string) {
         cy.get(this.passwordField)
             .should(`be.visible`)
@@ -87,9 +96,7 @@ class LoginPage {
     }
 
     clickOnLogInButton () {
-        cy.get(this.logInButton).should(`be.visible`).click({
-            force: true,
-        });
+        cy.get(this.logInButton).should(`be.visible`).click();
     }
 
     enterEmailAndPassword (emailOrPassword: string, password: string) {

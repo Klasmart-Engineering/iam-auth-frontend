@@ -20,6 +20,10 @@ jest.mock(`@/config`, () => ({
     azureB2C: {
         enabled: true,
     },
+    server: {
+        // `window.location.origin` is undefined when running in Jest
+        origin: `https://auth.kidsloop.test`,
+    },
 }));
 
 describe(`useConditionalLogoutFromB2C`, () => {
@@ -28,9 +32,10 @@ describe(`useConditionalLogoutFromB2C`, () => {
     let logoutRedirectSpy: jest.SpyInstance<Promise<void>>;
 
     beforeEach(() => {
-        refreshTokenSpy = jest.spyOn(refreshTokenModule, `refreshToken`);
-        getAllAccountsSpy = jest.spyOn(client, `getAllAccounts`);
-        logoutRedirectSpy = jest.spyOn(client, `logoutRedirect`);
+        // Set default return values so we avoid any accidental API calls
+        refreshTokenSpy = jest.spyOn(refreshTokenModule, `refreshToken`).mockResolvedValue(true);
+        getAllAccountsSpy = jest.spyOn(client, `getAllAccounts`).mockReturnValue([]);
+        logoutRedirectSpy = jest.spyOn(client, `logoutRedirect`).mockResolvedValue();
     });
 
     afterEach(() => {
@@ -68,7 +73,7 @@ describe(`useConditionalLogoutFromB2C`, () => {
         await waitFor(() => expect(logoutRedirectSpy).toHaveBeenCalled());
     });
 
-    test(`if the user does not has an active session then do no call B2C logout`, async () => {
+    test(`if the user does not has an active session then do not call B2C logout`, () => {
         refreshTokenSpy.mockResolvedValue(true);
         getAllAccountsSpy.mockReturnValue([]);
 

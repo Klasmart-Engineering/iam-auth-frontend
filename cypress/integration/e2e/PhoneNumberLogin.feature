@@ -2,18 +2,27 @@ Feature: Login with phone number
 
 Scenario: Login via phone number not associated with an organization
 Given I login to kidsloop with phone number "9890316937" with country code "India(+91)"
-Then I am taken to "You are not part of an organization."
-And I remove cookies
+Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+And I click on sign out button on account not linked page
+
 
 Scenario: Login with deactivated phone number account
 Given I login to kidsloop with phone number "7713162000" with country code "United Kingdom(+44)"
-Then I should see an invalid login error "Your account has been locked. Contact your support person to unlock it, then try again."
+Then I should see an invalid login error "Your account is deactivated. Please contact your organization."
 
+@alpha
 Scenario: Login with invalid phone number
 Given I enter phone number as "swapnali"
 Then I should see an error on kidsloop page "One or more fields are filled out incorrectly. Please check your entries and try again."
 And I should see an error on kidsloop page "Invalid number format. Please ensure that the phone number does not contain any special characters such as []{}()."
 
+@alpha
+Scenario: Invalid password error verification
+Given I enter phone number as "7728727046"
+And I enter wrong password
+Then I should see an error on kidsloop page "Sorry, we don’t recognise your login details! Please check that you’ve entered them correctly and try again."
+
+@alpha
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number login
 Given I login to kidsloop with phone number "<phoneNumber>" with country code "<countryCode>"
 Then I should see the welcome message "how are you doing today?"

@@ -10,7 +10,13 @@ import {
 } from "cypress-cucumber-preprocessor/steps";
 
 When(`I set the locale cookie to {string}`, (languageText)=> {
+    cy.wait(1000).then(() => {
+        cy.log(`waited for 1 seconds`);
+    });
     cy.clearCookies();
+    cy.wait(1000).then(() => {
+        cy.log(`waited for 1 seconds`);
+    });
     cy.log(`setting locale to ` + languageText);
     const code = languageCodes.languageCodes.get(languageText);
     if (!code) {

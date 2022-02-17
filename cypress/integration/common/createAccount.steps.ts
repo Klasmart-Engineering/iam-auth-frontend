@@ -143,6 +143,10 @@ Then(`I should see an error on kidsloop page {string}`, (errorText: string) => {
     createAccountPage.checkGenericError(errorText);
 });
 
+Then(`I should see a message on kidsloop page {string}`, (message: string) => {
+    createAccountPage.checkGenericError(message);
+});
+
 Then(`I should see code expired error {string}`, (errorText: string) => {
     createAccountPage.checkCodeExpiredError(errorText);
 });
@@ -167,3 +171,8 @@ Then(`I should see an error above the policy box {string}`, (errorText: string) 
 When(`I click on Log in link`, () => {
     createAccountPage.clickOnLoginLink();
 });
+
+When(`I enter an email with kidsloop domain {string}`, (email:string)=>{
+    createAccountPage.enterEmailOrPhone(email);
+});
+

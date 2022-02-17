@@ -7,16 +7,12 @@ import {
 } from "@/components/banadamu";
 import StyledButton from '@/components/button';
 import config from "@/config";
-import { EndSessionRequest } from "@azure/msal-browser";
+import { buildB2CRedirectUri } from "@/utils/azureB2C/logout";
 import { useMsal } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useIntl } from "react-intl";
 import { useHistory } from 'react-router-dom';
-
-const b2cLogoutRequest: EndSessionRequest = {
-    postLogoutRedirectUri: `${window.location.origin}/signin`,
-};
 
 const useSignOutButtonStyles = makeStyles({
     button: {
@@ -35,7 +31,9 @@ export const SignOutButton = () => {
         await signOut();
         if (config.azureB2C.enabled) {
             // Clear B2C session
-            instance.logoutRedirect(b2cLogoutRequest);
+            instance.logoutRedirect({
+                postLogoutRedirectUri: buildB2CRedirectUri(`/signin`).toString(),
+            });
         } else {
             history.push(`/signin`);
         }

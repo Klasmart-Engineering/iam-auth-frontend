@@ -1,8 +1,10 @@
+@alpha
 Feature: Login in with different phone number formats 
 
 I want ensure that the phone number normalisation method used by AMS and User Service is matched by B2C when creating an account or logging in
 So that all our users who created their accounts with phone numbers are still able to login when we replace AMS with B2C
 
+@phone
 Scenario: Preceding zero + country code in the phone number 
 Given I am on the kidsloop create account with phone number page 
 When I select a country as "US" 

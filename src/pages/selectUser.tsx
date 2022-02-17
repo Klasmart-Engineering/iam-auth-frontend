@@ -4,6 +4,7 @@ import {
     ProfileFragment,
     useProfiles,
 } from "@/api/user-service/operations";
+import { utils } from "@/lib/kidsloop-px";
 import {
     Avatar,
     Grid,
@@ -21,7 +22,6 @@ import {
     WarningRounded as WarningRoundedIcon,
 } from "@material-ui/icons";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { utils } from "kidsloop-px";
 import QueryString from "query-string";
 import React,
 {

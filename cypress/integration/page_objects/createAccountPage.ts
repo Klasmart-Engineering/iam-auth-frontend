@@ -24,7 +24,7 @@ class CreateAccountPage {
     privacyPolicyLink = `#true_option > a`;
     errorOnEmailBox = `.email_li > .attrEntry > .error`;
     errorOnPasswordBox = `.Password > .attrEntry > .error`;
-    loginLink='#signin'
+    loginLink=`#signin`;
 
     newEmail = ``;
 
@@ -74,7 +74,7 @@ class CreateAccountPage {
 
     createNewEmail () {
         const uniqueTimestamp = Date.now();
-        this.newEmail = `automation${uniqueTimestamp}@${config.mailosaurServerId}.mailosaur.net` ;
+        this.newEmail = `automation${uniqueTimestamp}@${Cypress.env(`mailosaurServerId`)}.mailosaur.net` ;
         cy.log(this.newEmail);
     }
 

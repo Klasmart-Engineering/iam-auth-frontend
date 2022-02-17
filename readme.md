@@ -75,13 +75,21 @@ There are the following dependencies:
 -   git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
 
 -   npm package dependency on package json on:
-    -   "kidsloop-px": "bitbucket:calmisland/kidsloop-px"
     -   "kidsloop-branding": "bitbucket:calmisland/kidsloop-branding"
+    -   "@kidsloop/eslint-config": "bitbucket:calmisland/kidsloop-eslint-config"
 
 Both packages are not on NPM, and only available on Bitbucket.
 To install these successfully, you will need to setup SSH keys.
 
 NB: If you haven't already setup SSH keys with Bitbucket, follow the Bitbucket [instructions](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/).
+
+#### kidsloop-px
+
+Copies of the components/utilities we actually use from `kidsloop-px` (our frontend utility library) can be found [here](./src/lib/kidsloop-px/), based on the 1.1.0 release (which is the version we were using previously).
+The only change from the original is replacing "lodash" with "lodash-es" (an ESM tree-shakeable version of lodash), which reduces the stat bundle size by 500kb.
+
+This is a temporary measure to reduce bundle size, as using `kidsloop-px` increased the stat bundle size (before minification) by 4MB, as the library cannot be tree-shaken.
+The root cause of blocked tree-shaking appears to be Material UI's [useStyles](https://mui.com/styles/basics/#hook-api), which is used extensively, and fixing this would involve moving to a different styling solution (i.e. a significant rewrite).
 
 ### Windows
 
@@ -140,10 +148,9 @@ mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
 
 Now you have a full build in the dist folder for the India region with a production build.
 
-
 # Run Cypress tests
 
 ```
 npm install
 npm test:sso
-```  
+```

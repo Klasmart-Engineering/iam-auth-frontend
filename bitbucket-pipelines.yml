@@ -1,174 +1,164 @@
 image: node:16
 
+definitions:
+    caches:
+        nodemodules: ./node_modules
+        accountnodemodules: ./src/pages/account/kidsloop-pass-frontend/client/node_modules
+        cypress: $HOME/.cache/Cypress
+    steps:
+        - step: &install-dependencies
+              name: Install npm dependencies (with cache)
+              caches:
+                  - node
+              script:
+                  - npm i --no-progress --no-audit
+              artifacts:
+                  - node_modules/**
+        - step: &install-dependencies-strict
+              name: Install npm dependencies (no cache)
+              caches:
+                  - node
+              script:
+                  - npm ci --no-progress --no-audit
+              artifacts:
+                  - node_modules/**
+        - step: &checks
+              name: Check JS
+              script:
+                  - npm run check
+        - step: &test
+              name: Test
+              script:
+                  - npm test -- --coverage
+        - step: &load-alpha-env
+              name: Load alpha-dev .env file
+              script:
+                  - cp deploy/config/internal/.env.alpha ./.env
+              artifacts:
+                  download: false
+                  paths:
+                      - ./.env
+        - step: &build
+              name: Build
+              script:
+                  - npm run build
+        - step: &cypress-tests
+              name: "UI Cypress Regression Tests - Chrome Browser - $ENVIRONMENT environment - $VIEWPORT viewport"
+              image: cypress/browsers:node16.5.0-chrome97-ff96
+              script:
+                  - npm run test:$ENVIRONMENT:$VIEWPORT
+                  - npm run e2e:reports
+              caches:
+                  - cypress
+                  - node
+              artifacts:
+                  # store any generates images and videos as artifacts
+                  - cypress/screenshots/**
+                  - cypress/cucumber-json
+                  - cypress/videos/**
+                  - test-reports/**
+                  - test-reports/cucumber-report/cucumber-htmlreport/index.html
+
 clone:
-  lfs: true
-  depth: 1
+    lfs: true
 
 pipelines:
-  pull-requests:
-    '**':
-      - step:
-            name: Test & Build
-            caches:
-              - node
-            script:
-              - npm ci --no-audit --no-progress
-              - cp deploy/config/internal/.env.alpha ./.env
-              - npm test -- --coverage
-              - npm run build
+    branches:
+        dev:
+            - step: *install-dependencies-strict
+            - step: *checks
+            - step: *test
+            - step: *load-alpha-env
+            - step: *build
 
-  custom:
+    pull-requests:
+        "**":
+            - step: *install-dependencies
+            - step: *checks
+            - step: *test
+            - step: *load-alpha-env
+            - step: *build
 
-    deploy:
-    - variables:
-          - name: KIDSLOOP_REGION
-          - name: KIDSLOOP_ENV
-          - name: KIDSLOOP_PASS_ENV
-    
-    - step:
-        name: 'Clone Kidsloop Pass'    
-        image: node:lts
-        script:
-          - git submodule update --init --recursive --force
-        artifacts:
-         - src/pages/account/kidsloop-pass-frontend/**
+    custom:
+        deploy:
+            - variables:
+                  - name: KIDSLOOP_REGION
+                  - name: KIDSLOOP_ENV
+                  - name: KIDSLOOP_PASS_ENV
 
-    - step:
-        name: 'Build NPM'
-        image: node:lts
-        script:
-          - npm ci
-          - cp deploy/config/$KIDSLOOP_REGION/.env.$KIDSLOOP_ENV ./.env
-          - npm run build
-        caches:
-          - nodemodules
-        artifacts:
-         - dist/*
-         - src/pages/account/kidsloop-pass-frontend/**
+            - step:
+                  name: "Clone Kidsloop Pass"
+                  image: node:lts
+                  script:
+                      - git submodule update --init --recursive --force
+                  artifacts:
+                      - src/pages/account/kidsloop-pass-frontend/**
 
-    - step:
-        name: 'Build Kidsloop Pass'
-        image: node:lts
-        script:
-          - cd src/pages/account/kidsloop-pass-frontend/client
-          # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
-          # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
-          - git init
-          - npm i
-          - npm run build:$KIDSLOOP_PASS_ENV
-        caches:
-          - accountnodemodules
-        artifacts:
-          - dist/*
-          - src/pages/account/kidsloop-pass-frontend/client/dist/*
+            - step:
+                  name: "Build NPM"
+                  image: node:lts
+                  script:
+                      - npm ci
+                      - cp deploy/config/$KIDSLOOP_REGION/.env.$KIDSLOOP_ENV ./.env
+                      - npm run build
+                  caches:
+                      - nodemodules
+                  artifacts:
+                      - dist/*
+                      - src/pages/account/kidsloop-pass-frontend/**
 
-    - step:
-        name: "Build & Push Docker image"
-        image: python:3.9-alpine
-        script:
-          - pip3 install -U awscli
-          - mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
-          - mv dist deploy/
+            - step:
+                  name: "Build Kidsloop Pass"
+                  image: node:lts
+                  script:
+                      - cd src/pages/account/kidsloop-pass-frontend/client
+                      # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
+                      # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
+                      - git init
+                      - npm i
+                      - npm run build:$KIDSLOOP_PASS_ENV
+                  caches:
+                      - accountnodemodules
+                  artifacts:
+                      - dist/*
+                      - src/pages/account/kidsloop-pass-frontend/client/dist/*
 
-          - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
-          - export REPO=$DOCKER_REPO_URL/kidsloop-auth-frontend   # DOCKER_REPO_URL is workspace wide variable
-          - export COMMIT_TAG=$(echo $BITBUCKET_COMMIT | cut -c1-7)
-          - if test -z "$BRANCH_TAG"; then export TAG=commit-$KIDSLOOP_REGION-$KIDSLOOP_ENV; else export TAG=$BRANCH_TAG-$KIDSLOOP_REGION-$KIDSLOOP_ENV; fi
+            - step:
+                  name: "Build & Push Docker image"
+                  image: python:3.9-alpine
+                  script:
+                      - pip3 install -U awscli
+                      - mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
+                      - mv dist deploy/
 
-          - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $DOCKER_REPO_URL
-          - docker build -t auth-frontend deploy/
-          
-          - docker tag auth-frontend:latest $REPO:$TAG
-          - docker tag auth-frontend:latest $REPO:$TAG-latest
-          - docker tag auth-frontend:latest $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
-          - docker tag auth-frontend:latest $REPO:$TAG-$COMMIT_TAG
+                      - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
+                      - export REPO=$DOCKER_REPO_URL/kidsloop-auth-frontend # DOCKER_REPO_URL is workspace wide variable
+                      - export COMMIT_TAG=$(echo $BITBUCKET_COMMIT | cut -c1-7)
+                      - if test -z "$BRANCH_TAG"; then export TAG=commit-$KIDSLOOP_REGION-$KIDSLOOP_ENV; else export TAG=$BRANCH_TAG-$KIDSLOOP_REGION-$KIDSLOOP_ENV; fi
 
-          - if test -n "$BRANCH_TAG"; then docker push $REPO:$TAG; fi
-          - if test -n "$BRANCH_TAG"; then docker push $REPO:$TAG-latest; fi
-          - docker push $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
-          - docker push $REPO:$TAG-$COMMIT_TAG
+                      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $DOCKER_REPO_URL
+                      - docker build -t auth-frontend deploy/
 
-        services:
-          - docker
+                      - docker tag auth-frontend:latest $REPO:$TAG
+                      - docker tag auth-frontend:latest $REPO:$TAG-latest
+                      - docker tag auth-frontend:latest $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
+                      - docker tag auth-frontend:latest $REPO:$TAG-$COMMIT_TAG
 
-    cypress-tests-SSO-chrome:
-    - step: 
-        name: 'UI Cypress Regression Tests - Chrome Browser On SSO'
-        image: cypress/browsers:node16.5.0-chrome97-ff96
-        script: 
-        - npm i --no-audit --no-progress
-        - npm run test:sso
-        - npm run e2e:reports
-        caches:
-          - node
-          - cypress
-        artifacts:
-        # store any generates images and videos as artifacts
-          - cypress/screenshots/**
-          - cypress/cucumber-json
-          - cypress/videos/**  
-          - test-reports/**
-          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+                      - if test -n "$BRANCH_TAG"; then docker push $REPO:$TAG; fi
+                      - if test -n "$BRANCH_TAG"; then docker push $REPO:$TAG-latest; fi
+                      - docker push $REPO:$TAG-$BITBUCKET_BUILD_NUMBER
+                      - docker push $REPO:$TAG-$COMMIT_TAG
 
-    cypress-tests-SSO-iphone:
-    - step: 
-        name: 'UI Cypress Regression Tests - Iphone on Chrome Browser On SSO'
-        image: cypress/browsers:node16.5.0-chrome97-ff96
-        script: 
-        - npm i --no-audit --no-progress
-        - npm run test:sso:iphone
-        - npm run e2e:reports
-        caches:
-          - node
-          - cypress
-        artifacts:
-        # store any generates images and videos as artifacts
-          - cypress/screenshots/**
-          - cypress/cucumber-json
-          - cypress/videos/**  
-          - test-reports/**
-          - test-reports/cucumber-report/cucumber-htmlreport/index.html
+                  services:
+                      - docker
 
-    cypress-tests-SSO-samsung10:
-    - step: 
-        name: 'UI Cypress Regression Tests - Samsung 10 screen on Chrome Browser'
-        image: cypress/browsers:node16.5.0-chrome97-ff96
-        script: 
-        - npm i --no-audit --no-progress
-        - npm run test:sso:samsung-s10
-        - npm run e2e:reports
-        caches:
-          - node
-          - cypress
-        artifacts:
-        # store any generates images and videos as artifacts
-          - cypress/screenshots/**
-          - cypress/cucumber-json
-          - cypress/videos/**  
-          - test-reports/**
-          - test-reports/cucumber-report/cucumber-htmlreport/index.html
-
-    cypress-tests-SSO-ipad:
-    - step: 
-        name: 'UI Cypress Regression Tests - ipad screen on Chrome Browser'
-        image: cypress/browsers:node16.5.0-chrome97-ff96
-        script: 
-        - npm i --no-audit --no-progress
-        - npm run test:sso:ipad
-        - npm run e2e:reports
-        caches:
-          - node
-          - cypress
-        artifacts:
-        # store any generates images and videos as artifacts
-          - cypress/screenshots/**
-          - cypress/cucumber-json
-          - cypress/videos/**  
-          - test-reports/**    
-
-
-definitions:
-  caches:
-    nodemodules: ./node_modules
-    accountnodemodules: ./src/pages/account/kidsloop-pass-frontend/client/node_modules
-    cypress: $HOME/.cache/Cypress
+        cypress-tests:
+            - variables:
+                  - name: VIEWPORT
+                    default: "default"
+                  - name: ENVIRONMENT
+                    default: "sso"
+            - step:
+                  <<: *install-dependencies
+                  image: cypress/browsers:node16.5.0-chrome97-ff96
+            - step: *cypress-tests

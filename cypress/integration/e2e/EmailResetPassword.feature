@@ -8,9 +8,6 @@ When I click on reset code button
 Then I should see an error on kidsloop page "This information is required."
 And I enter email and click on send reset code
 And I enter wrong verification code
-When I click on create account button
-Then I should see an error on kidsloop page "The claims for verification control have not been verified."
-And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "The verification has failed, please try again"
 And I enter wrong verification code
@@ -19,7 +16,6 @@ Then I should see an error on kidsloop page "The verification has failed, please
 And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "You've made too many incorrect attempts. Please try again later."
-
 Scenario: Reset password and login with new passwrod
 Given I delete all the emails from test mail box
 When I go to reset password page
@@ -42,9 +38,17 @@ And I click on verify code button
 Then I should see an error on kidsloop page "The verification has failed, please try again"
 And I enter the new passcode from email 
 And I verify code and confirm the password 
-Then I should see the welcome message "You are not part of an organization."
-And I remove cookies
+Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+And I click on sign out button on account not linked page
 
+Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
+Given I go to reset password page
+When I enter an email with kidsloop domain 'anything@kidsloop.live'
+Then I should see a message on kidsloop page "It is not possible to reset the password for an account with a KidsLoop email address. Please sign-in instead."
 
-
-
+Scenario: Check error message when user is trying to reset password with an deactivated email account
+Given I go to reset password page
+And I enter deactivated email and verification code
+And I click on verify code button
+And I click on continue button
+Then I should see a message on kidsloop page "Your account is deactivated. Please contact your organization."

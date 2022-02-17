@@ -5,6 +5,7 @@ class HomePage {
     youAreNotAPartOfOrgPage = `:nth-child(2) > .MuiTypography-root`;
     profileButton = `[data-testid=profile-icon]`;
     signOutButton = `[data-testid="logout-button"] > .MuiButton-label`;
+    signOutButtonFromNotAssociatedWithOrgPage = `[data-testid="signout-button"]`;
 
     async getWelcomeText (errorText: string) {
         await waitFor(() => {
@@ -29,6 +30,10 @@ class HomePage {
 
     clickOnSignoutLink () {
         cy.get(this.signOutButton).should(`be.visible`).click();
+    }
+
+    clickOnSignoutButtonFromNotAssociatedWithOrgPage() {
+        cy.get(this.signOutButtonFromNotAssociatedWithOrgPage).should(`be.visible`).click();
     }
 }
 

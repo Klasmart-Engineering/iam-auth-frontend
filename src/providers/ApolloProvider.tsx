@@ -1,4 +1,5 @@
 import { refreshToken } from "@/api/authentication";
+import { utils } from "@/lib/kidsloop-px";
 import { ApolloProvider } from "@apollo/client";
 import {
     ApolloClient,
@@ -7,7 +8,6 @@ import {
     InMemoryCache,
 } from "@apollo/client/core";
 import { RetryLink } from "@apollo/client/link/retry";
-import { utils } from "kidsloop-px";
 import * as React from "react";
 
 export default function ApolloProviderWrapper ({ children }: {children: JSX.Element}) {
