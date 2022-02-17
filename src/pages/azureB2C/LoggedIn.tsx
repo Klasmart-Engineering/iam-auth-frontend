@@ -92,6 +92,11 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
 
         transfer(token);
 
+        if (transferTokenError || accessTokenError) {
+          if(accessTokenError) console.error(accessTokenError);
+          history.push(`/error`);
+      }
+
         return () => {
             abortController.abort();
         };
@@ -103,11 +108,6 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         platform,
         urlContext.hostName,
     ]);
-
-    if (transferTokenError || accessTokenError) {
-        if(accessTokenError) console.error(accessTokenError);
-        history.push(`/error`);
-    }
 
     return <Loading />;
 }
