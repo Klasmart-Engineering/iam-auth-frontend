@@ -105,7 +105,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     ]);
 
     if (transferTokenError || accessTokenError) {
-        console.log(accessTokenError);
+        if(accessTokenError) console.error(accessTokenError);
         history.push(`/error`);
     }
 
