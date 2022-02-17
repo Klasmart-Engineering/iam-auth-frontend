@@ -9,9 +9,6 @@ export default function AuthenticationFailed ({ error }: Pick<MsalAuthentication
     }, [ error ]);
 
     return (
-        <GenericError
-            errorTitle="authentication.error.generic.title"
-            errorBody="authentication.error.generic.body"
-        />
+        <GenericError />
     );
 }

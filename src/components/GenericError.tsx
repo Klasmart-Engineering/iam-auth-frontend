@@ -1,4 +1,3 @@
-import GenericErrorProps from "./interfaces/GenericErrorProps";
 import BadanamuLook from "@/../assets/img/badanamu_look.png";
 import {
     Background,
@@ -28,7 +27,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-export default function GenericError (props: GenericErrorProps) {
+export default function GenericError () {
     const intl = useIntl();
     const styles = useStyles();
 
@@ -39,16 +38,14 @@ export default function GenericError (props: GenericErrorProps) {
             <Title
                 data-testid="error-title"
                 text={intl.formatMessage({
-                    id: props.errorTitle,
-                })}
-            />
+                    id: `authentication.error.generic.title`,
+                })}/>
             <Body
                 data-testid="error-body"
                 text={intl.formatMessage({
-                    id: props.errorBody,
-                })}
-            />
-            <HomeButton className={styles.button} />
+                    id: `authentication.error.generic.body`,
+                })} />
+            <HomeButton className={styles.button}/>
         </Background>
     );
 }
