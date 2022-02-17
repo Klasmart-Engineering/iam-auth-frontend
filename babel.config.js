@@ -4,7 +4,7 @@ module.exports = function (api) {
         [
             `@babel/preset-env`,
             {
-                targets: `defaults`
+                targets: `defaults`,
             },
         ],
         `@babel/preset-react`,

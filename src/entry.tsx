@@ -161,7 +161,10 @@ function ClientSide () {
                                 <Route
                                     exact
                                     path="/error">
-                                    <Error />
+                                <Error
+                                    errorTitle="authentication.error.generic.title"
+                                    errorBody="authentication.error.generic.body"
+                                />
                                 </Route>
                                 <Route
                                     exact

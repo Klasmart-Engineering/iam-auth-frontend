@@ -1,3 +1,4 @@
+import GenericErrorProps from "./interfaces/GenericErrorProps";
 import BadanamuLook from "@/../assets/img/badanamu_look.png";
 import {
     Background,
@@ -8,6 +9,11 @@ import HomeButton from "@/components/HomeButton";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useIntl } from "react-intl";
+
+const commonTextStyles = {
+    color: `#669bd2`,
+    fontWeight: 900,
+};
 
 const useStyles = makeStyles(() => {
     return {
@@ -22,7 +28,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-export default function GenericError () {
+export default function GenericError (props: GenericErrorProps) {
     const intl = useIntl();
     const styles = useStyles();
 
@@ -33,14 +39,16 @@ export default function GenericError () {
             <Title
                 data-testid="error-title"
                 text={intl.formatMessage({
-                    id: `authentication.error.generic.title`,
-                })}/>
+                    id: props.errorTitle,
+                })}
+            />
             <Body
                 data-testid="error-body"
                 text={intl.formatMessage({
-                    id: `authentication.error.generic.body`,
-                })} />
-            <HomeButton className={styles.button}/>
+                    id: props.errorBody,
+                })}
+            />
+            <HomeButton className={styles.button} />
         </Background>
     );
 }

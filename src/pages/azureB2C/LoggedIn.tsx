@@ -10,12 +10,7 @@ import {
     useURLContext,
 } from "@/hooks";
 import useUpdateLocale from "@/hooks/azureB2C/useUpdateLocale";
-import { Layout } from "@/pages/layout";
 import { MsalAuthenticationResult } from "@azure/msal-react";
-import {
-    Grid,
-    Typography,
-} from "@material-ui/core";
 import React,
 {
     useEffect,
@@ -110,16 +105,9 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     ]);
 
     if (transferTokenError || accessTokenError) {
-        return <Layout maxWidth={`md`}>
-            <Grid
-                item
-                xs={12}>
-                <Typography variant="h4">{`Sorry, looks like something went wrong during your login`}</Typography>
-            </Grid>
-        </Layout>;
+        console.log(accessTokenError);
+        history.push(`/error`);
     }
 
-    return (
-        <Loading/>
-    );
+    return <Loading />;
 }

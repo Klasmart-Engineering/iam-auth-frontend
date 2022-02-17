@@ -1,4 +1,3 @@
-
 import GenericError from "@/components/GenericError";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import React,
@@ -10,6 +9,9 @@ export default function AuthenticationFailed ({ error }: Pick<MsalAuthentication
     }, [ error ]);
 
     return (
-        <GenericError />
+        <GenericError
+            errorTitle="authentication.error.generic.title"
+            errorBody="authentication.error.generic.body"
+        />
     );
 }
