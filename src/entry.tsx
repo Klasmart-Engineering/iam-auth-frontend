@@ -159,7 +159,7 @@ function ClientSide () {
                                 <Route
                                     exact
                                     path="/error">
-                                <Error />
+                                    <Error />
                                 </Route>
                                 <Route
                                     exact
