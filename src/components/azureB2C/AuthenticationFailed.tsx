@@ -1,4 +1,3 @@
-
 import GenericError from "@/components/GenericError";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import React,
