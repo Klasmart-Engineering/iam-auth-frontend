@@ -10,24 +10,26 @@ definitions:
               name: Install npm dependencies (with cache)
               caches:
                   - node
+                  - cypress
               script:
                   - npm i --no-progress --no-audit
-              artifacts:
-                  - node_modules/**
         - step: &install-dependencies-strict
               name: Install npm dependencies (no cache)
               caches:
                   - node
+                  - cypress
               script:
                   - npm ci --no-progress --no-audit
-              artifacts:
-                  - node_modules/**
         - step: &checks
               name: Check JS
+              caches:
+                  - node
               script:
                   - npm run check
         - step: &test
               name: Test
+              caches:
+                  - node
               script:
                   - npm test -- --coverage
         - step: &load-alpha-env
@@ -40,12 +42,15 @@ definitions:
                       - ./.env
         - step: &build
               name: Build
+              caches:
+                  - node
               script:
                   - npm run build
         - step: &cypress-tests
               name: "UI Cypress Regression Tests - Chrome Browser - $ENVIRONMENT environment - $VIEWPORT viewport"
               image: cypress/browsers:node16.5.0-chrome97-ff96
               script:
+                  - npx cypress install
                   - npm run test:$ENVIRONMENT:$VIEWPORT
                   - npm run e2e:reports
               caches:
