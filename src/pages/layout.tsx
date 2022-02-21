@@ -72,7 +72,7 @@ export function Layout (props: Props) {
         <Grid
             container
             direction="column"
-            justify="space-around"
+            justifyContent="space-around"
             alignItems="center"
             className={classes.pageWrapper}
         >
@@ -84,7 +84,7 @@ export function Layout (props: Props) {
                         <Grid
                             container
                             direction="row"
-                            justify="center"
+                            justifyContent="center"
                             alignItems="center"
                             spacing={4}>
                             { logo &&
@@ -108,7 +108,7 @@ export function Layout (props: Props) {
                 <Grid
                     container
                     direction="row"
-                    justify="space-between"
+                    justifyContent="space-between"
                     alignItems="center">
                     <Grid
                         item

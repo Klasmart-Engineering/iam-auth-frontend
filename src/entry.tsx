@@ -19,6 +19,7 @@ import {
     URLContextProvider,
     useLocale,
 } from "@/hooks";
+import { useCookies } from "@/hooks/useCookies";
 import { isSupportedLocale } from "@/locale";
 import { Login } from "@/pages/azureB2C";
 import NoProfiles from "@/pages/NoProfiles";
@@ -33,7 +34,6 @@ import React,
     useEffect,
     useMemo,
 } from "react";
-import { useCookies } from "react-cookie";
 import * as ReactDOM from "react-dom";
 import {
     Route,

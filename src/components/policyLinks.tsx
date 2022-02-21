@@ -39,7 +39,7 @@ function LinkContainer ({ children }: { children: React.ReactNode }) {
         <Grid
             container
             spacing={2}
-            justify="flex-end"
+            justifyContent="flex-end"
             className={classes.links}
         >
             {children}

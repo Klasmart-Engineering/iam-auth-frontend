@@ -1,4 +1,5 @@
 import config from "@/config";
+import { useCookies } from "@/hooks/useCookies";
 import {
     DEFAULT_LOCALE,
     getPreferredBrowserLocale,
@@ -6,7 +7,6 @@ import {
     Locale,
 } from "@/locale";
 import { useMemo } from "react";
-import { useCookies } from "react-cookie";
 
 export const getDefaultLocale = (): Locale => getPreferredBrowserLocale() ??
             config.defaultLocale ??

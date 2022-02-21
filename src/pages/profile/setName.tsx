@@ -146,7 +146,7 @@ export default function SetName () {
         <Grid
             container
             direction="column"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{
                 overflowX: `hidden`,
@@ -156,7 +156,7 @@ export default function SetName () {
                 container
                 item
                 direction="column"
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
                 spacing={2}
             >
@@ -211,7 +211,7 @@ export default function SetName () {
                     container
                     item
                     direction="row"
-                    justify="center"
+                    justifyContent="center"
                     spacing={1}
                 >
                     <Grid
@@ -225,7 +225,7 @@ export default function SetName () {
                                 <Grid
                                     container
                                     direction="row"
-                                    justify="space-between"
+                                    justifyContent="space-between"
                                     alignItems="center"
                                 >
                                     <Grid item>
@@ -263,7 +263,7 @@ export default function SetName () {
                             <Grid
                                 container
                                 item
-                                justify="flex-end"
+                                justifyContent="flex-end"
                                 alignItems="center"
                                 style={{
                                     marginRight: theme.spacing(1),
@@ -278,7 +278,7 @@ export default function SetName () {
             <Grid
                 container
                 item
-                justify="center"
+                justifyContent="center"
                 alignContent="center"
                 style={{
                     paddingTop: theme.spacing(4),

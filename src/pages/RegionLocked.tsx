@@ -1,6 +1,6 @@
 import config from "../config";
+import { useCookies } from "@/hooks/useCookies";
 import React from "react";
-import { useCookies } from "react-cookie";
 import { Redirect } from "react-router";
 
 function RegionLocked () {

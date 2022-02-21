@@ -155,7 +155,7 @@ export default function SetBirthday () {
         <Grid
             container
             direction="column"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{
                 overflowX: `hidden`,
@@ -165,7 +165,7 @@ export default function SetBirthday () {
                 container
                 item
                 direction="column"
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
                 spacing={2}
             >
@@ -224,7 +224,7 @@ export default function SetBirthday () {
             <Grid
                 container
                 item
-                justify="center"
+                justifyContent="center"
                 alignContent="center"
                 style={{
                     paddingTop: theme.spacing(4),

@@ -15,6 +15,7 @@ import {
     usePlatform,
     useURLContext,
 } from "@/hooks";
+import { useCookies } from "@/hooks/useCookies";
 import Checkbox from "@material-ui/core/Checkbox";
 import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -36,7 +37,6 @@ import {
     useEffect,
     useState,
 } from "react";
-import { useCookies } from "react-cookie";
 import { FormattedMessage } from "react-intl";
 import {
     Link as RouterLink,
@@ -272,7 +272,7 @@ export function SignIn () {
                 />
                 <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     style={{
                         paddingTop: theme.spacing(1),
                     }}>
@@ -313,7 +313,7 @@ export function SignIn () {
                 </Grid>
                 <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     style={{
                         padding: theme.spacing(1, 0),
                     }}>
