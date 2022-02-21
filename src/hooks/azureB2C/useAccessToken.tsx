@@ -1,5 +1,9 @@
+import { useRedirectRequest } from "@/hooks";
 import { loginRequest } from "@/utils/azureB2C/client";
-import { InteractionStatus } from "@azure/msal-browser";
+import {
+    InteractionRequiredAuthError,
+    InteractionStatus,
+} from "@azure/msal-browser";
 import {
     MsalAuthenticationResult,
     useMsal,
@@ -60,6 +64,9 @@ function reducer (state: State, action: Action): State {
  * In this scenario, we must use `MsalClientInstance.acquireTokenSilent` to retrieve the same payload
  * as the initial login (including the accessToken).
  *
+ * If B2C returns an `InteractionRequiredAuthError` error, we need a full redirect to get the `accessToken`
+ * See https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-acquire-token?tabs=react
+ *
  * NB: `useMsalAuthentication` is called internally by the `MsalAuthenticationTemplate` component
  *
  * @param authenticationResult Output of `useMsalAuthentication` hook
@@ -82,6 +89,7 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
         },
         dispatch,
     ] = useReducer(reducer, existingToken, buildInitialState);
+    const redirectRequest = useRedirectRequest();
 
     useEffect(() => {
         // No fetch necessary if we already have a token
@@ -94,22 +102,31 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
             dispatch({
                 type: Actions.FETCHING,
             });
+            const tokenRequest = {
+                account: accounts[0],
+                ...loginRequest,
+            };
             try {
-                const response = await instance.acquireTokenSilent({
-                    account: accounts[0],
-                    ...loginRequest,
-                });
+                const response = await instance.acquireTokenSilent(tokenRequest);
                 dispatch({
                     type: Actions.FETCHED,
                     token: response.accessToken || undefined,
                 });
             } catch (e) {
-                dispatch({
-                    type: Actions.ERROR,
-                    error: e instanceof Error ? e : Error(JSON.stringify(e)),
-                });
+                if (e instanceof InteractionRequiredAuthError) {
+                    await instance.acquireTokenRedirect({
+                        account: accounts[0],
+                        ...redirectRequest,
+                    });
+                } else {
+                    dispatch({
+                        type: Actions.ERROR,
+                        error: e instanceof Error ? e : Error(JSON.stringify(e)),
+                    });
+                }
             }
         };
+
         fetchAccessToken();
     }, [
         inProgress,
@@ -118,6 +135,7 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
         authenticationResult,
         dispatch,
         existingToken,
+        redirectRequest,
     ]);
 
     return {

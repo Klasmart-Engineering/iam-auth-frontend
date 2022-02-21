@@ -1,7 +1,12 @@
 import useAccessToken from './useAccessToken';
+import {
+    URLContext,
+    URLContextProvider,
+} from '@/hooks';
 import { loginRequest } from '@/utils/azureB2C';
 import {
     AuthenticationResult,
+    InteractionRequiredAuthError,
     InteractionStatus,
     PublicClientApplication,
 } from '@azure/msal-browser';
@@ -10,17 +15,22 @@ import {
     MsalAuthenticationResult,
     useMsal,
 } from '@azure/msal-react';
+import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import {
     testAccount,
     testConfig,
 } from '@tests/mocks/azureB2C';
+import { defaultURLContext } from '@tests/providers';
+import React from "react";
 
 jest.mock(`@azure/msal-react`, () => ({
     useMsal: jest.fn(),
 }));
 
 describe(`useAccessToken`, () => {
+    const wrapper = ({ children, value = defaultURLContext }: {children: React.ReactNode; value: URLContext}) => <URLContextProvider value={value}>{children}</URLContextProvider>;
+
     const initialState = {
         isLoading: true,
         token: undefined,
@@ -30,12 +40,14 @@ describe(`useAccessToken`, () => {
     const testAccessToken = `some-JWT`;
 
     let acquireTokenSilentSpy: jest.SpyInstance<Promise<AuthenticationResult>>;
+    let acquireTokenRedirectSpy: jest.SpyInstance<Promise<void>>;
     let mockUseMsal: jest.MockedFunction<typeof useMsal>;
 
     beforeAll(() => {
         acquireTokenSilentSpy = jest.spyOn(PublicClientApplication.prototype, `acquireTokenSilent`).mockResolvedValue({
             accessToken: testAccessToken,
         } as AuthenticationResult);
+        acquireTokenRedirectSpy = jest.spyOn(PublicClientApplication.prototype, `acquireTokenRedirect`).mockResolvedValue();
         mockUseMsal = useMsal as jest.MockedFunction<typeof useMsal>;
         mockUseMsal.mockReturnValue({
             instance: new PublicClientApplication(testConfig),
@@ -57,7 +69,9 @@ describe(`useAccessToken`, () => {
 
         const { result } = renderHook(() => useAccessToken({
             accessToken: existingToken,
-        } as MsalAuthenticationResult["result"]));
+        } as MsalAuthenticationResult["result"]), {
+            wrapper,
+        });
 
         expect(result.current).toEqual({
             isLoading: false,
@@ -75,14 +89,18 @@ describe(`useAccessToken`, () => {
             inProgress: InteractionStatus.Login,
         } as unknown as IMsalContext);
 
-        const { result } = renderHook(() => useAccessToken());
+        const { result } = renderHook(() => useAccessToken(), {
+            wrapper,
+        });
 
         expect(result.current).toEqual(initialState);
         expect(acquireTokenSilentSpy).not.toHaveBeenCalled();
     });
 
     test.each([ null, undefined ])(`returns a new token from acquireTokenSilent if no existing token`, async (authenticationResult) => {
-        const { result, waitForNextUpdate } = renderHook(() => useAccessToken(authenticationResult));
+        const { result, waitForNextUpdate } = renderHook(() => useAccessToken(authenticationResult), {
+            wrapper,
+        });
 
         expect(result.current).toEqual(initialState);
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
@@ -108,7 +126,9 @@ describe(`useAccessToken`, () => {
             throw error;
         });
 
-        const { result, waitForNextUpdate } = renderHook(() => useAccessToken());
+        const { result, waitForNextUpdate } = renderHook(() => useAccessToken(), {
+            wrapper,
+        });
 
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
         expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
@@ -126,6 +146,27 @@ describe(`useAccessToken`, () => {
             error,
         });
 
+    });
+
+    test(`calls acquireTokenRedirect if acquireTokenSilent throws an InteractionRequiredAuthError`, async () => {
+        // eslint-disable-next-line require-await
+        acquireTokenSilentSpy.mockImplementationOnce(async () => {
+            throw new InteractionRequiredAuthError();
+        });
+
+        const { result } = renderHook(() => useAccessToken(), {
+            wrapper,
+        });
+
+        expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
+        expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
+            account: testAccount,
+            ...loginRequest,
+        });
+
+        expect(result.current).toEqual(initialState);
+
+        await waitFor(() => expect(acquireTokenRedirectSpy).toHaveBeenCalledTimes(1));
     });
 
 });

@@ -2,6 +2,7 @@ export {
     useAccessToken,
     useConditionalLogoutFromB2C,
     useOAuthState,
+    useRedirectRequest,
     useUpdateLocale,
 } from "./azureB2C";
 export { useInterval } from "./useInterval";

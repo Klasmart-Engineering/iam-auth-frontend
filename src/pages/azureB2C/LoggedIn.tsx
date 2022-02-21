@@ -46,7 +46,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         if (isLoading) return;
 
         if (!token || accessTokenError) {
-            console.error(`Azure B2C response did not include an accessToken, missing scope in login request`);
+            console.error(`Unexpected error retrieving accessToken from B2C`);
             console.error(accessTokenError);
             history.push(`/error`);
             return;

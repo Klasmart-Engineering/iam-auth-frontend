@@ -1,20 +1,9 @@
 
 import { AuthenticationFailed } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
-import {
-    useLocale,
-    usePlatform,
-} from "@/hooks";
+import { useRedirectRequest } from "@/hooks";
 import LoggedIn from "@/pages/azureB2C/LoggedIn";
-import {
-    encodeState,
-    loginRequest,
-} from "@/utils/azureB2C";
-import { mapKidsloopLocaleToAzureB2CLocale } from "@/utils/azureB2C/locale";
-import {
-    InteractionType,
-    RedirectRequest,
-} from "@azure/msal-browser";
+import { InteractionType } from "@azure/msal-browser";
 import {
     MsalAuthenticationResult,
     MsalAuthenticationTemplate,
@@ -22,18 +11,7 @@ import {
 import React from "react";
 
 export default function Login () {
-    const platform = usePlatform();
-    const [ locale ] = useLocale();
-
-    const authenticationRequest: RedirectRequest = {
-        ...loginRequest,
-        state: encodeState({
-            platform,
-        }),
-        extraQueryParameters: {
-            ui_locales: mapKidsloopLocaleToAzureB2CLocale(locale),
-        },
-    };
+    const authenticationRequest = useRedirectRequest();
 
     return (
         <MsalAuthenticationTemplate
