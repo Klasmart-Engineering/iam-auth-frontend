@@ -10,26 +10,24 @@ definitions:
               name: Install npm dependencies (with cache)
               caches:
                   - node
-                  - cypress
               script:
                   - npm i --no-progress --no-audit
+              artifacts:
+                  - node_modules/**
         - step: &install-dependencies-strict
               name: Install npm dependencies (no cache)
               caches:
                   - node
-                  - cypress
               script:
                   - npm ci --no-progress --no-audit
+              artifacts:
+                  - node_modules/**
         - step: &checks
               name: Check JS
-              caches:
-                  - node
               script:
                   - npm run check
         - step: &test
               name: Test
-              caches:
-                  - node
               script:
                   - npm test -- --coverage
         - step: &load-alpha-env
@@ -42,15 +40,12 @@ definitions:
                       - ./.env
         - step: &build
               name: Build
-              caches:
-                  - node
               script:
                   - npm run build
         - step: &cypress-tests
               name: "UI Cypress Regression Tests - Chrome Browser - $ENVIRONMENT environment - $VIEWPORT viewport"
               image: cypress/browsers:node16.5.0-chrome97-ff96
               script:
-                  - npx cypress install
                   - npm run test:$ENVIRONMENT:$VIEWPORT
                   - npm run e2e:reports
               caches:
@@ -92,14 +87,6 @@ pipelines:
                   - name: KIDSLOOP_PASS_ENV
 
             - step:
-                  name: "Clone Kidsloop Pass"
-                  image: node:lts
-                  script:
-                      - git submodule update --init --recursive --force
-                  artifacts:
-                      - src/pages/account/kidsloop-pass-frontend/**
-
-            - step:
                   name: "Build NPM"
                   image: node:lts
                   script:
@@ -110,30 +97,12 @@ pipelines:
                       - nodemodules
                   artifacts:
                       - dist/*
-                      - src/pages/account/kidsloop-pass-frontend/**
-
-            - step:
-                  name: "Build Kidsloop Pass"
-                  image: node:lts
-                  script:
-                      - cd src/pages/account/kidsloop-pass-frontend/client
-                      # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
-                      # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
-                      - git init
-                      - npm i
-                      - npm run build:$KIDSLOOP_PASS_ENV
-                  caches:
-                      - accountnodemodules
-                  artifacts:
-                      - dist/*
-                      - src/pages/account/kidsloop-pass-frontend/client/dist/*
 
             - step:
                   name: "Build & Push Docker image"
                   image: python:3.9-alpine
                   script:
                       - pip3 install -U awscli
-                      - mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
                       - mv dist deploy/
 
                       - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
