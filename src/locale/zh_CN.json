@@ -72,7 +72,13 @@
     "ERROR_INPUT_INVALID_FORMAT": "您没有输入有效的电子邮件/电话号码",
     "authentication.error.generic.title": "糟糕!",
     "authentication.error.generic.body": "出错了,请重试或联系您的组织管理员。",
-    "selectProfile.noProfiles.title": "Hi cadet!",
-    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "退出登录"
+    "selectProfile.noProfiles.title": "学员你好！",
+    "selectProfile.noProfiles.body": "由于您的账户尚未关联任何组织，请等待到您的学校为你注册后才能访问主页。",
+    "generic.signOut": "退出登录",
+    "generic.oops": "糟糕!",
+    "generic.retry": "重试",
+    "signOut.error": "登出遇到了问题，请重试或联系您的管理员",
+    "signOut.inProgress": "您已登出KidsLoop平台",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }

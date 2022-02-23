@@ -74,5 +74,11 @@
     "authentication.error.generic.body": "Something went wrong on our side!\nPlease try again or contact your organization admin.",
     "selectProfile.noProfiles.title": "Hi cadet!",
     "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "Sign out"
+    "generic.signOut": "Sign out",
+    "generic.oops": "Oops!",
+    "generic.retry": "Retry",
+    "signOut.error": "Something went wrong signing you out!\nPlease retry or contact your organization admin.",
+    "signOut.inProgress": "You are being signed out from KidsLoop",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }

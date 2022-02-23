@@ -72,7 +72,13 @@
     "ERROR_INPUT_INVALID_FORMAT": "Email/nomor telepon yang dimasukkan tidak valid",
     "authentication.error.generic.title": "Ups!",
     "authentication.error.generic.body": "Kami mengalami sedikit kendala!\nSilakan coba lagi atau hubungi admin organisasi Anda.",
-    "selectProfile.noProfiles.title": "Hi cadet!",
-    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "Keluar"
+    "selectProfile.noProfiles.title": "Hai kadet!",
+    "selectProfile.noProfiles.body": "Karena akun Anda tidak terhubung ke organisasi, silakan tunggu sekolah Anda mendaftarkan Anda untuk mengakses hub.",
+    "generic.signOut": "Keluar",
+    "generic.oops": "Ups!",
+    "generic.retry": "Coba lagi",
+    "signOut.error": "Terjadi kendala saat mengakhiri sesi Anda!\nYuk coba lagi atau hubungi admin organisasi.",
+    "signOut.inProgress": "Sesi KidsLoop Anda sudah habis",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }
