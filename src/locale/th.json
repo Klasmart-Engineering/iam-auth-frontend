@@ -72,7 +72,13 @@
     "ERROR_INPUT_INVALID_FORMAT": "คุณไม่ได้ป้อนอีเมล/หมายเลขโทรศัพท์ที่ถูกต้อง",
     "authentication.error.generic.title": "อ๊ะ!",
     "authentication.error.generic.body": "มีบางอย่างผิดปกติเกิดขึ้นกับเรา!\n โปรดลองอีกครั้งหรือติดต่อผู้ดูแลระบบองค์กรของคุณ",
-    "selectProfile.noProfiles.title": "Hi cadet!",
-    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "Sign out"
+    "selectProfile.noProfiles.title": "สวัสดีนักเรียนนายร้อย!",
+    "selectProfile.noProfiles.body": "เนื่องจากบัญชีของคุณไม่ได้เชื่อมโยงกับองค์กร โปรดรอจนกว่าโรงเรียนของคุณจะลงทะเบียนให้คุณเข้าถึงฮับ",
+    "generic.signOut": "ออกจากระบบ",
+    "generic.oops": "อ๊ะ!",
+    "generic.retry": "Retry",
+    "signOut.error": "Something went wrong signing you out!\nPlease retry or contact your organization admin.",
+    "signOut.inProgress": "You are being signed out from KidsLoop",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }

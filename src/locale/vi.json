@@ -72,7 +72,13 @@
     "ERROR_INPUT_INVALID_FORMAT": "Bạn đã nhập email/số điện thoại không hợp lệ",
     "authentication.error.generic.title": "Rất tiếc!",
     "authentication.error.generic.body": "Đã xảy ra sự cố về phía chúng tôi!\nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn.",
-    "selectProfile.noProfiles.title": "Hi cadet!",
-    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "Thoát"
+    "selectProfile.noProfiles.title": "Xin chào sĩ quan quân đội!",
+    "selectProfile.noProfiles.body": "Vì tài khoản của bạn chưa được liên kết với tổ chức, vui lòng đợi cho đến khi trường đăng ký cho bạn quyền truy cập vào hệ thống.",
+    "generic.signOut": "Thoát",
+    "generic.oops": "Rất tiếc!",
+    "generic.retry": "Thử lại",
+    "signOut.error": "Đã xảy ra lỗi khi bạn đăng xuất! \nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn.",
+    "signOut.inProgress": "Bạn đang đăng xuất khỏi KidsLoop",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }
