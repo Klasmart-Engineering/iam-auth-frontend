@@ -74,5 +74,11 @@
     "authentication.error.generic.body": "¡Ocurrió un error en nuestro lado!\nPor favor vuelva a intentar más tarde o póngase en contacto con el administrador de su organización.",
     "selectProfile.noProfiles.title": "¡Hola cadete!",
     "selectProfile.noProfiles.body": "Como su cuenta no está vinculada a una organización, por favor espere a que su escuela lo registre para acceder al sistema.",
-    "generic.signOut": "Cerrar sesión"
+    "generic.signOut": "Cerrar sesión",
+    "generic.oops": "¡Ups!",
+    "generic.retry": "Intentar de nuevo",
+    "signOut.error": "¡Algo salió mal al cerrar sesión!\n Vuelva a intentarlo o comuníquese con el administrador de su organización.",
+    "signOut.inProgress": "Cerrando sesión de KidsLoop",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }

@@ -72,7 +72,13 @@
     "ERROR_INPUT_INVALID_FORMAT": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다.",
     "authentication.error.generic.title": "이런!",
     "authentication.error.generic.body": "일시적인 문제가 발생했습니다.\n다시 시도하시거나 조직 관리자에게 문의해 주세요.",
-    "selectProfile.noProfiles.title": "Hi cadet!",
-    "selectProfile.noProfiles.body": "As your account is not linked to an organization, please wait until your school registers you to access the hub.",
-    "generic.signOut": "로그아웃"
+    "selectProfile.noProfiles.title": "안녕 카뎃!",
+    "selectProfile.noProfiles.body": "회원님의 정보가 기관에 아직 등록되지 않았습니다.\n기관에서 회원님을 등록할 때까지 기다려 주세요.",
+    "generic.signOut": "로그아웃",
+    "generic.oops": "이런!",
+    "generic.retry": "다시 시도하세요.",
+    "signOut.error": "로그아웃하는 동안 문제가 발생했습니다!\n다시 시도하거나 담당자(조직 관리자)에게 문의하세요.",
+    "signOut.inProgress": "키즈룹에서 로그아웃 중입니다.",
+    "signOut.success.title": "Signed out!",
+    "signOut.success.body": "You have been signed out of KidsLoop."
 }
