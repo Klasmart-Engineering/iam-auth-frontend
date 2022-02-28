@@ -10,13 +10,13 @@ Scenario: Login with deactivated phone number account
 Given I login to kidsloop with phone number "7713162000" with country code "United Kingdom(+44)"
 Then I should see an invalid login error "Your account is deactivated. Please contact your organization."
 
-@alpha
+@focus @alpha
 Scenario: Login with invalid phone number
 Given I enter phone number as "swapnali"
 Then I should see an error on kidsloop page "One or more fields are filled out incorrectly. Please check your entries and try again."
 And I should see an error on kidsloop page "Invalid number format. Please ensure that the phone number does not contain any special characters such as []{}()."
 
-@alpha
+@focus @alpha
 Scenario: Invalid password error verification
 Given I enter phone number as "7728727046"
 And I enter wrong password

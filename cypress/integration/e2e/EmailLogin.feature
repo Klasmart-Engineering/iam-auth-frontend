@@ -61,18 +61,21 @@ Then I should see an invalid login error "Due to a system upgrade you will have 
 
   Scenario: Login with student account
   Given I login to kidsloop with a valid user "automationStudent@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "Welcome Student, how are you doing today?"
+  Then I should see "Student" under the user name 
   When I sign out 
   And I am redirected to the home page
+
   Scenario: Login with parent account
   Given I login to kidsloop with a valid user "automationParent@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "how are you doing today?"
+  And  I should see "Parent" under the user name 
   When I sign out 
   And I am redirected to the home page
 
   Scenario: Login with school admin account
   Given I login to kidsloop with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "how are you doing today?"
+  And  I should see "School Admin" under the user name 
   When I sign out 
   And I am redirected to the home page
  

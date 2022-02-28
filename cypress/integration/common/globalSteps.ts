@@ -20,6 +20,13 @@ Then(`I should see the welcome message {string}`, async (text: string) => {
     await homePage.getWelcomeText(text);
 });
 
+Then(`I should see {string} under the user name`, (word: string) => {
+    cy.wait(1000).then(() => {
+        cy.log(`waited for 1 seconds`);
+    });
+    cy.contains(word).should(`be.visible`);
+});
+
 Then(`I am taken to {string}`, (text: string) => {
     homePage.getNotPartOfOrgText().should(`have.text`, text);
 });
