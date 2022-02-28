@@ -2,7 +2,7 @@
 // i.e. refreshToken called internally by switchUser
 import * as refreshTokenModule from "./refreshToken";
 import { switchUser } from "./switchUser";
-import { RetryError } from "@/api/rest";
+import { RetryError } from "@/api/methods";
 
 describe(`switchUser`, () => {
     const successfulResponse = {

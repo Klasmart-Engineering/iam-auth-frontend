@@ -1,5 +1,5 @@
 import { refreshToken } from "./refreshToken";
-import { post } from "@/api/rest";
+import { post } from "@/api/methods";
 
 export const switchUser = async (userId: string): Promise<boolean> => {
     try {

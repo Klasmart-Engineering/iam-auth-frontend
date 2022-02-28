@@ -3,14 +3,19 @@ import Loading,
 import {
     Box,
     Button as Btn,
-    createStyles,
-    makeStyles,
-    Theme,
     Tooltip,
     Typography,
     useTheme,
-} from "@material-ui/core";
-import { SvgIconComponent } from "@material-ui/icons";
+} from "@mui/material"
+
+import {
+    createStyles,
+    makeStyles,
+} from "@mui/styles";
+import {
+    Theme
+} from "@mui/material/styles"
+import { SvgIconComponent } from "@mui/icons-material";
 import clsx from "clsx";
 import React,
 { useState } from "react";

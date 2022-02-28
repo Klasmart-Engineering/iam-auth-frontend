@@ -1,9 +1,11 @@
 import {
     CircularProgress,
     createStyles,
-    makeStyles,
-} from "@material-ui/core";
-import { Close as CloseIcon } from "@material-ui/icons";
+} from "@mui/material";
+import {
+    makeStyles
+} from "@mui/styles"
+import { Close as CloseIcon } from "@mui/icons-material";
 import React from "react";
 
 const useStyles = makeStyles(() => createStyles({

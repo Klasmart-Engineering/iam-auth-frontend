@@ -18,6 +18,7 @@ export default function useConditionalLogoutFromB2C () {
                 setLoading(true);
 
                 const isAuthenticated = await refreshToken();
+                
                 if (!isAuthenticated) {
                     const accounts = client.getAllAccounts();
 

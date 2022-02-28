@@ -1,4 +1,4 @@
-import { get } from "@/api/rest";
+import { get } from "@/api/methods";
 
 export const signOut = async (): Promise<boolean> => {
     try {

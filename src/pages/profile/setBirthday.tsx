@@ -1,19 +1,18 @@
-import Birthday from "../../../assets/img/create_profile/birthday.svg";
-import { User } from '../../api/queries/user';
-import { useGetUserInformation } from '../../api/useGetUser';
-import { useUpdateUser } from '../../api/useUpdateUser';
-import config from '../../config';
+import Birthday from "@/assets/img/create_profile/birthday.svg";
+import { User } from '@/api/queries/user';
+import { useGetUserInformation } from '@/api/useGetUser';
+import { useUpdateUser } from '@/api/useUpdateUser';
+import config from '@/config';
 import { Button } from "@/lib/kidsloop-px";
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { DatePicker } from "@material-ui/pickers";
+} from '@mui/styles';
+import { Theme } from '@mui/material/styles'
+import Typography from '@mui/material/Typography';
+import DatePicker from '@mui/lab/DatePicker'
 import dayjs from "dayjs";
-import QueryString from "query-string";
 import React,
 {
     useEffect,
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function SetBirthday () {
+export const SetBirthday = () => {
     const classes = useStyles();
     const history = useHistory();
     const theme = useTheme();
@@ -86,7 +85,7 @@ export default function SetBirthday () {
     const [ canSkip, setSkip ] = useState(false);
 
     const userId = useMemo(() => {
-        const parsed = QueryString.parse(location.search);
+        const parsed = Object.fromEntries(new URLSearchParams(location.search));
         const userId = Array.isArray(parsed.userId) ? parsed.userId[0] : parsed.userId;
 
         return userId;

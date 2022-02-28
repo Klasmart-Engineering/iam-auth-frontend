@@ -13,6 +13,7 @@ import {
     Configuration,
     EnvironmentPlugin,
 } from "webpack";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 
 config();
 
@@ -39,7 +40,7 @@ const webpackConfig: Configuration = {
     mode: nodeEnv,
     devtool: isDev ? `eval-cheap-module-source-map` : `source-map`,
     entry: {
-        ui: `./src/entry.tsx`,
+        ui: `./src/index.tsx`,
     },
     module: {
         rules: [
@@ -105,6 +106,7 @@ const webpackConfig: Configuration = {
     },
     output: {
         filename: `[name].[fullhash].js`,
+        asyncChunks: true,
         path: path.resolve(__dirname, `dist`),
         // Subroutes (e.g. createprofile) don't render correctly unless this is set
         publicPath: `/`,
@@ -130,11 +132,13 @@ const webpackConfig: Configuration = {
                 },
         }),
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [ /runtime.+[.]js/ ]),
-    ].concat(isDev ? [] : [
+    ].concat(isDev ? [
+    ] : [
         new MiniCssExtractPlugin({
             filename: `[name].[contenthash].css`,
             chunkFilename: `[id].[contenthash].css`,
         }),
+        new BundleAnalyzerPlugin()
     ]),
     optimization: {
         moduleIds: `deterministic`,
@@ -143,6 +147,11 @@ const webpackConfig: Configuration = {
         splitChunks: {
             chunks: `all`,
             cacheGroups: {
+                common: {
+                    test: /[\\/]src[\\/]components[\\/]/,
+                    chunks: "all",
+                    minSize: 0,
+                },
                 mui: {
                     test: /[\\/]node_modules[\\/](@material-ui)[\\/]/,
                     name: `mui`,
@@ -154,7 +163,7 @@ const webpackConfig: Configuration = {
                     chunks: `all`,
                 },
                 react: {
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-cookie|react-dom|react-intl|react-router|react-router-dom)[\\/]/,
                     name: `react`,
                     chunks: `all`,
                 },
@@ -171,10 +180,11 @@ const webpackConfig: Configuration = {
             },
         },
     },
-    stats: {
-        errorDetails: true,
-    },
+    stats: "minimal",
     devServer: {
+        client: {
+            logging: "error"
+        },
         host: DEV_SERVER_DOMAIN,
         port: DEV_SERVER_PORT,
         https: true,

@@ -1,20 +1,22 @@
-import SetBirthday from './setBirthday';
+import { SetBirthday } from './setBirthday';
 import SetName from './setName';
-import BackgroundImage from "@/../assets/img/background.png";
+import BackgroundImage from "@/assets/img/background.png";
 import config from "@/config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import dayjsUtils from "@date-io/dayjs";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Grid from '@material-ui/core/Grid';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Grid from '@mui/material/Grid';
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+} from '@mui/styles';
+import {
+    Theme
+} from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import React from 'react';
 import {
     Route,
@@ -73,7 +75,7 @@ export default function SetProfile () {
     const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
 
     return (
-        <MuiPickersUtilsProvider utils={dayjsUtils}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Grid
                 container
                 direction="column"
@@ -125,6 +127,6 @@ export default function SetProfile () {
                     </Card>
                 </Container>
             </Grid>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
     );
 }

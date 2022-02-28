@@ -1,10 +1,10 @@
 import {
     createStyles,
     makeStyles,
-    Theme,
-} from "@material-ui/core/styles";
+} from "@mui/styles";
+import { Theme } from "@mui/material/styles"
 import TextField,
-{ StandardTextFieldProps } from "@material-ui/core/TextField";
+{ StandardTextFieldProps } from "@mui/material/TextField";
 import * as React from "react";
 
 type Props = Omit<StandardTextFieldProps, "children" | "className">

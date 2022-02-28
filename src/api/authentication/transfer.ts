@@ -1,7 +1,7 @@
 import {
     DEFAULT_HEADERS,
     post,
-} from "@/api/rest";
+} from "@/api/methods";
 
 export const transferAMSToken = async (token: string): Promise<boolean> => {
     try {

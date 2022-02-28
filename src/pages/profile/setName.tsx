@@ -1,19 +1,20 @@
-import Name from "../../../assets/img/create_profile/name.svg";
-import { User } from '../../api/queries/user';
-import { useGetUserInformation } from '../../api/useGetUser';
-import { useUpdateUser } from '../../api/useUpdateUser';
+import Name from "@/assets/img/create_profile/name.svg";
+import { User } from '@/api/queries/user';
+import { useGetUserInformation } from '@/api/useGetUser';
+import { useUpdateUser } from '@/api/useUpdateUser';
 import { Button } from "@/lib/kidsloop-px";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import QueryString from "query-string";
+} from '@mui/styles';
+import {
+    Theme
+} from '@mui/material/styles'
+import Switch from '@mui/material/Switch';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import React,
 {
     useEffect,
@@ -63,7 +64,7 @@ export default function SetName () {
     const [ userInfo, setUserInfo ] = useState<User>();
 
     const userId = useMemo(() => {
-        const parsed = QueryString.parse(location.search);
+        const parsed = Object.fromEntries(new URLSearchParams(location.search));
         const userId = Array.isArray(parsed.userId) ? parsed.userId[0] : parsed.userId;
 
         return userId;

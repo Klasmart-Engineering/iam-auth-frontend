@@ -1,51 +1,72 @@
-import BadanamuLook from "@/../assets/img/badanamu_look.png";
-import {
-    Background,
-    Body,
-    Title,
-} from "@/components/banadamu";
-import HomeButton from "@/components/HomeButton";
-import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useIntl } from "react-intl";
+import {
+    Stack,
+    Typography,
+    Button,
+    colors,
+} from "@mui/material"
+import { useHistory } from 'react-router';
 
-const commonTextStyles = {
-    color: `#669bd2`,
-    fontWeight: 900,
-};
-
-const useStyles = makeStyles(() => {
-    return {
-        background: {
-            "@media (max-height: 700px), (max-width: 650px)": {
-                backgroundSize: `364px 307px;`,
-            },
-        },
-        button: {
-            margin: `24px auto`,
-        },
-    };
-});
-
-export default function GenericError () {
+export const GenericError = () => {
     const intl = useIntl();
-    const styles = useStyles();
+    const history = useHistory();
 
     return (
-        <Background
-            className={styles.background}
-            image={BadanamuLook}>
-            <Title
+        <Stack sx={{
+            height: "100vh",
+            position: "relative",
+            backgroundColor: colors.grey[100],
+            textAlign: "center",
+            pt: 20,
+            ":before": {
+                content: "''",
+                position: "absolute",
+                pointerEvents: "none",
+                left: 0,
+                bottom: 0,
+                width: "100%",
+                height: "100%",
+                backgroundImage: `url(${require("@/assets/img/badanamu_look.png").default})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center bottom",
+            }
+        }} alignItems="center" spacing={4}> 
+            <Typography
                 data-testid="error-title"
-                text={intl.formatMessage({
+                variant="h2"
+                sx={{
+                    color: "#669bd2",
+                    fontSize: [96, 144],
+                    fontWeight: 900,
+                }}
+            >
+                {intl.formatMessage({
                     id: `authentication.error.generic.title`,
-                })}/>
-            <Body
+                })}
+            </Typography>
+            <Typography
                 data-testid="error-body"
-                text={intl.formatMessage({
+                sx={{
+                    color: "#669bd2",
+                    maxWidth: 512,
+                    fontSize: 20,
+                    fontWeight: 900,
+                }}
+            >
+                {intl.formatMessage({
                     id: `authentication.error.generic.body`,
-                })} />
-            <HomeButton className={styles.button}/>
-        </Background>
+                })}
+            </Typography>
+            <Button
+                data-testid="home-button"
+                variant="contained"
+                onClick={() => { history.push(`/`);}}
+            >
+                {intl.formatMessage({
+                    id: `button_home`,
+                })}
+            </Button>
+        </Stack>
     );
-}
+};

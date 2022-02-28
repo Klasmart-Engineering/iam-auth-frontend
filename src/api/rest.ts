@@ -1,88 +1,63 @@
-export const DEFAULT_HEADERS = {
-    Accept: `application/json`,
-    'Content-Type': `application/json`,
-};
+import {
+    RestAPIError,
+    RestAPIErrorType,
+} from "./errors";
 
-export type RetryConditionCallback = (result: {response: Response; error?: undefined} | {response?: undefined; error: Error}) => Promise<boolean>
+export async function login (id: string, password: string) {
+    const { phoneNr, email } = phoneOrEmail(id);
+    const response = await authCall(`/v1/login`, JSON.stringify({
+        deviceId: `webpage`,
+        deviceName: navigator.userAgent,
+        email,
+        phoneNr,
+        pw: password,
+    }));
+    if (response.status !== 200) {
+        return false;
+    }
+    const body = await response.json();
+    console.log(body);
+    return body;
+}
 
-/**
- * Specify either:
- * - no retry options
- * - `retries` only (by default only retried on network errors)
- * - `retries` and `retryCondition`
- */
-type RetryOptions = {retries?: undefined; retryCondition?: undefined} | {retries: number; retryCondition?: undefined} | {retries: number; retryCondition: RetryConditionCallback}
-
-type RequestOptions = RequestInit & RetryOptions
-
-export class RetryError extends Error {
-    constructor (attempts: number) {
-        super(`Retry attempts=${attempts} exceeded`);
-        this.name = `RetryError`;
+function phoneOrEmail (str: string): { phoneNr?: string; email?: string } {
+    if (str.indexOf(`@`) === -1) {
+        return {
+            phoneNr: str,
+        };
+    } else {
+        return {
+            email: str,
+        };
     }
 }
 
-/**
- * By default only handle network errors
- */
-const defaultRetryCondition: RetryConditionCallback = ({ response, error }) => Promise.resolve(error !== undefined || (response !== undefined && response.status >= 400));
+function authCall (route: string, body: string) {
+    return fetchRoute(`POST`, process.env.AUTH_ENDPOINT_BADANAMU || `https://ams-auth.badanamu.net`, route, body);
+}
 
-const attemptRequest = async (input: RequestInfo, options: RequestOptions) => {
-    try {
-        const response = await fetch(input, options);
-        return {
-            response,
-            error: undefined,
-        };
-    } catch (e) {
-        return {
-            response: undefined,
-            error: e as Error,
-        };
-    }
-};
-
-export const request = async (input: RequestInfo, options: RequestOptions = {}): Promise<Response> =>  {
-    const {
+async function fetchRoute (method: string, prefix: string, route: string, body?: string) {
+    const headers = new Headers();
+    headers.append(`Accept`, `application/json`);
+    headers.append(`Content-Type`, `application/json`);
+    const url = prefix + route;
+    const response = await fetch(url, {
+        body,
         headers,
-        retries,
-        retryCondition,
-        ...rest
-    } = options;
+        method,
+    });
 
-    const fetchOptions = {
-        headers: headers ?? new Headers(DEFAULT_HEADERS),
-        ...rest,
-    };
+    if (response.status === 200) { return response; }
 
-    if (retries === undefined || retries < 1) {
-        return fetch(input, fetchOptions);
+    const responseBody = await response.json();
+    let errCode = RestAPIErrorType.UNKNOWN;
+    let errParams;
+    if (typeof responseBody.errCode === `number`) {
+        errCode = responseBody.errCode;
     }
-
-    // Limit retry attempts to 5
-    const maxAttempts = Math.min(retries, 5);
-    const shouldRetry = retryCondition ?? defaultRetryCondition;
-
-    for (let attempt = 0; attempt <= maxAttempts; attempt++) {
-        const fetchResult = await attemptRequest(input, fetchOptions);
-        if (await shouldRetry(fetchResult)) {
-            continue;
-        }
-
-        if (fetchResult.error) throw fetchResult.error;
-
-        return fetchResult.response;
+    if (typeof responseBody.errParams === `object`) {
+        errParams = responseBody.errParams;
     }
+    throw new RestAPIError(errCode, errParams);
 
-    throw new RetryError(maxAttempts);
-};
-
-export const get = (input: RequestInfo, options?: RequestOptions) => request(input, {
-    method: `GET`,
-    ...options,
-});
-
-export const post = (input: RequestInfo, options?: RequestOptions) => request(input, {
-    method: `POST`,
-    ...options,
-});
+}
