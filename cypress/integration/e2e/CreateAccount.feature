@@ -47,7 +47,7 @@ Feature: Create account via email
     Scenario: Verify 5 min code expiry with email account and login successfully with new code
         Given I am on the create account page & I send the code to the new email address
         When I wait for 5 mins for the code to expire
-        Then I should see code expired error "The code has expired."
+        Then I should see code expired error "The code has expired"
         When I click on send code again button
         And I enter the new verification code
         And I enter the password and click on Create Account
