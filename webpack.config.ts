@@ -10,9 +10,17 @@ import InlineChunkHtmlPlugin from "inline-chunk-html-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import {
-    Configuration,
+    Configuration as WebpackConfiguration,
     EnvironmentPlugin,
+    Module,
 } from "webpack";
+import type { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+
+// Fix Webpack devServer typing
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27570#issuecomment-474628163
+interface Configuration extends WebpackConfiguration {
+    devServer?: WebpackDevServerConfiguration;
+}
 
 config();
 
@@ -104,7 +112,8 @@ const webpackConfig: Configuration = {
         },
     },
     output: {
-        filename: `[name].[fullhash].js`,
+        filename: `[name].[contenthash].js`,
+        chunkFilename: `[name].[contenthash].js`,
         path: path.resolve(__dirname, `dist`),
         // Subroutes (e.g. createprofile) don't render correctly unless this is set
         publicPath: `/`,
@@ -143,30 +152,24 @@ const webpackConfig: Configuration = {
         splitChunks: {
             chunks: `all`,
             cacheGroups: {
-                mui: {
-                    test: /[\\/]node_modules[\\/](@material-ui)[\\/]/,
-                    name: `mui`,
-                    chunks: `all`,
-                },
-                azure: {
-                    test: /[\\/]node_modules[\\/](@azure)[\\/]/,
-                    name: `azure`,
-                    chunks: `all`,
-                },
-                react: {
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                    name: `react`,
-                    chunks: `all`,
-                },
-                apollo: {
-                    test: /[\\/]node_modules[\\/](@apollo)[\\/]/,
-                    name: `apollo`,
-                    chunks: `all`,
-                },
                 vendor: {
-                    test: /[\\/]node_modules[\\/](!react|react-dom)(!@apollo)(!@azure)(!@material-ui)(!@apollo)[\\/]/,
+                    test: /[\\/]node_modules[\\/]/,
+                    name (module: Module) {
+                        // Typescript version of
+                        // https://gist.github.com/davidgilbertson/838312f0a948423e4c4da30e29600b16?permalink_comment_id=3078438#gistcomment-3078438
+
+                        const matches = module.context ? module.context.match(/[\\/]node_modules[\\/](?:(@[\w-]*?[\\/].*?|.*?)([\\/]|$))/): null;
+
+                        // npm package names are URL-safe, but some servers don't like @ symbols
+                        // "/" replaced for flat file structure
+                        return matches ? matches[1].replace(`@`, ``).replace(`/`, `-`) : `vendor`;
+                    },
+                },
+                defaultVendors: {
+                    test: /[\\/]node_modules[\\/]/,
                     name: `vendor`,
                     chunks: `all`,
+                    priority: -10,
                 },
             },
         },
@@ -177,7 +180,7 @@ const webpackConfig: Configuration = {
     devServer: {
         host: DEV_SERVER_DOMAIN,
         port: DEV_SERVER_PORT,
-        https: true,
+        server: `spdy`,
         historyApiFallback: true,
         proxy: {
             "/user": {
