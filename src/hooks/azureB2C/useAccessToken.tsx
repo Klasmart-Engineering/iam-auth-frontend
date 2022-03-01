@@ -102,12 +102,10 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
             dispatch({
                 type: Actions.FETCHING,
             });
-            const tokenRequest = {
-                account: accounts[0],
-                ...loginRequest,
-            };
+            // We don't specify a specific account so we can fall back on the default of `activeAccount` (IAM-241)
+            // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/aeb1dfbd83a1b60323025e772656fcc91cf388df/lib/msal-browser/docs/accounts.md#active-account-apis
             try {
-                const response = await instance.acquireTokenSilent(tokenRequest);
+                const response = await instance.acquireTokenSilent(loginRequest);
                 dispatch({
                     type: Actions.FETCHED,
                     token: response.accessToken || undefined,
@@ -115,7 +113,6 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
             } catch (e) {
                 if (e instanceof InteractionRequiredAuthError) {
                     await instance.acquireTokenRedirect({
-                        account: accounts[0],
                         ...redirectRequest,
                     });
                 } else {

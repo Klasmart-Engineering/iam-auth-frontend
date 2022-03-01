@@ -1,6 +1,9 @@
 import GenericError from "@/components/GenericError";
-import * as React from "react";
+import { useIsFederatedAccount } from "@/hooks";
+import React from "react";
 
 export function Error () {
-    return <GenericError />;
+    const isFederatedAccount = useIsFederatedAccount();
+
+    return <GenericError hideHomeButton={isFederatedAccount} />;
 }

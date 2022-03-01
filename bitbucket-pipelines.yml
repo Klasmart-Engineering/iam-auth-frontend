@@ -7,13 +7,6 @@ definitions:
         cypress: $HOME/.cache/Cypress
     steps:
         - step: &install-dependencies
-              name: Install npm dependencies (with cache)
-              caches:
-                  - node
-                  - cypress
-              script:
-                  - npm i --no-progress --no-audit
-        - step: &install-dependencies-strict
               name: Install npm dependencies (no cache)
               caches:
                   - node
@@ -33,42 +26,42 @@ definitions:
               script:
                   - npm test -- --coverage
         - step: &load-env-sso
-            name: Load sso .env file
-            script:
-                - cp deploy/config/internal/.env.sso .env
-            artifacts:
-                download: false
-                paths:
-                    - .env 
+              name: Load sso .env file
+              script:
+                  - cp deploy/config/internal/.env.sso .env
+              artifacts:
+                  download: false
+                  paths:
+                      - .env
         - step: &load-env-alpha
-            name: Load alpha .env file
-            script:
-                - cp deploy/config/internal/.env.alpha .env
-            artifacts:
-                download: false
-                paths:
-                    - .env
+              name: Load alpha .env file
+              script:
+                  - cp deploy/config/internal/.env.alpha .env
+              artifacts:
+                  download: false
+                  paths:
+                      - .env
         - step: &build
-            name: Build
-            caches:
+              name: Build
+              caches:
                   - node
-            script:
-                - npm run build
-            artifacts:
-                paths:
-                    - dist/*
+              script:
+                  - npm run build
+              artifacts:
+                  paths:
+                      - dist/*
         - step: &deploy-to-alpha
-            name: "Deploy to alpha"  
-            image: python:3.9-alpine
-            script:
-                - pip3 install -U awscli
-                - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_ALPHA_OLD
-                - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_ALPHA_OLD
-                - aws s3 sync dist s3://$S3_BUCKET/latest
-                - aws cloudfront create-invalidation --paths "/*" --distribution-id $DISTRIBUTION_ID
-            deployment: internal-alpha
-            caches:
-                - pip
+              name: "Deploy to alpha"
+              image: python:3.9-alpine
+              script:
+                  - pip3 install -U awscli
+                  - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_ALPHA_OLD
+                  - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_ALPHA_OLD
+                  - aws s3 sync dist s3://$S3_BUCKET/latest
+                  - aws cloudfront create-invalidation --paths "/*" --distribution-id $DISTRIBUTION_ID
+              deployment: internal-alpha
+              caches:
+                  - pip
         - step: &cypress-tests
               name: "UI Cypress Regression Tests - Chrome Browser - $ENVIRONMENT environment - $VIEWPORT viewport"
               image: cypress/browsers:node16.5.0-chrome97-ff96
@@ -109,14 +102,14 @@ clone:
 pipelines:
     branches:
         dev:
-            - step: *install-dependencies-strict
+            - step: *install-dependencies
             - step: *checks
             - step: *test
             - step: *load-env-alpha
             - step: *build
             - step: *deploy-to-alpha
             - step: *cypress-tests-alpha
-        
+
     pull-requests:
         "**":
             - step: *install-dependencies

@@ -1,13 +1,9 @@
 import config from "@/config";
 import { isSupportedLocale } from "@/locale";
-import { IdTokenClaims as BaseIdTokenClaims } from "@azure/msal-common";
+import { IdTokenClaims } from "@/utils/azureB2C/claims";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import { useEffect } from "react";
 import { Cookies } from "react-cookie";
-
-interface IdTokenClaims extends BaseIdTokenClaims {
-    locale?: string;
-}
 
 const useUpdateLocale = (authenticationResult: MsalAuthenticationResult["result"]) => {
     useEffect(() => {

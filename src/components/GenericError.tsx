@@ -9,10 +9,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useIntl } from "react-intl";
 
-const commonTextStyles = {
-    color: `#669bd2`,
-    fontWeight: 900,
-};
+interface Props {
+    hideHomeButton?: boolean;
+}
 
 const useStyles = makeStyles(() => {
     return {
@@ -27,7 +26,9 @@ const useStyles = makeStyles(() => {
     };
 });
 
-export default function GenericError () {
+export default function GenericError (props: Props) {
+    const { hideHomeButton } = props;
+
     const intl = useIntl();
     const styles = useStyles();
 
@@ -45,7 +46,7 @@ export default function GenericError () {
                 text={intl.formatMessage({
                     id: `authentication.error.generic.body`,
                 })} />
-            <HomeButton className={styles.button}/>
+            {!hideHomeButton && <HomeButton className={styles.button}/>}
         </Background>
     );
 }

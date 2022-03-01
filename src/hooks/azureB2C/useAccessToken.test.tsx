@@ -105,7 +105,6 @@ describe(`useAccessToken`, () => {
         expect(result.current).toEqual(initialState);
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
         expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            account: testAccount,
             ...loginRequest,
         });
 
@@ -132,7 +131,6 @@ describe(`useAccessToken`, () => {
 
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
         expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            account: testAccount,
             ...loginRequest,
         });
 
@@ -160,7 +158,6 @@ describe(`useAccessToken`, () => {
 
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
         expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            account: testAccount,
             ...loginRequest,
         });
 
