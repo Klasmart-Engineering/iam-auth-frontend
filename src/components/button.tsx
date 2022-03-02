@@ -3,11 +3,10 @@ import Button,
 import Hidden from "@material-ui/core/Hidden";
 import { withStyles } from "@material-ui/core/styles";
 import SendIcon from "@material-ui/icons/Send";
-import React from "react";
+import React,
+{ ElementType } from "react";
 
-interface Props extends ButtonProps {
-    children?: React.ReactNode;
-    className?: string;
+type Props<T extends ElementType<any> = "button"> = ButtonProps<T> & {
     extendedOnly?: boolean;
 }
 
@@ -27,7 +26,7 @@ const StyledBtn = withStyles({
     },
 })(Button);
 
-export default function StyledButton (props: Props) {
+export default function StyledButton<T extends ElementType<any> = "button"> (props: Props<T>) {
     const {
         children,
         extendedOnly,

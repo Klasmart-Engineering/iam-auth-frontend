@@ -1,4 +1,3 @@
-export { Background } from "./Background";
 export {
     Body,
     Title,

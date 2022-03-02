@@ -1,9 +1,8 @@
-import BadanamuLook from "@/../assets/img/badanamu_look.png";
 import {
-    Background,
     Body,
     Title,
 } from "@/components/banadamu";
+import { BadanamuLookBackground } from "@/components/banadamu/backgrounds";
 import HomeButton from "@/components/HomeButton";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -15,11 +14,6 @@ interface Props {
 
 const useStyles = makeStyles(() => {
     return {
-        background: {
-            "@media (max-height: 700px), (max-width: 650px)": {
-                backgroundSize: `364px 307px;`,
-            },
-        },
         button: {
             margin: `24px auto`,
         },
@@ -33,9 +27,7 @@ export default function GenericError (props: Props) {
     const styles = useStyles();
 
     return (
-        <Background
-            className={styles.background}
-            image={BadanamuLook}>
+        <BadanamuLookBackground>
             <Title
                 data-testid="error-title"
                 text={intl.formatMessage({
@@ -47,6 +39,6 @@ export default function GenericError (props: Props) {
                     id: `authentication.error.generic.body`,
                 })} />
             {!hideHomeButton && <HomeButton className={styles.button}/>}
-        </Background>
+        </BadanamuLookBackground>
     );
 }
