@@ -187,7 +187,9 @@ export function SelectUser () {
             <Header>
                 <Typography
                     variant="h4"
-                    align="center">
+                    align="center"
+                    data-testid="select_profile-title"
+                >
                     <FormattedMessage id="selectProfile_title" />
                 </Typography>
             </Header>
@@ -196,6 +198,7 @@ export function SelectUser () {
                     <ListItem
                         key={user.id}
                         button
+                        data-testid="profile"
                         onClick={() => handleSelectUser(user)}
                     >
                         <ListItemAvatar>

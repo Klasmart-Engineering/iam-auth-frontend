@@ -57,12 +57,16 @@ export function NotFound () {
                 xs={12}>
                 <Typography
                     variant="h4"
-                    align="center">
+                    align="center"
+                    data-testid="404-title"
+                >
                     <FormattedMessage id={`notFound_notFoundPrompt`} />
                 </Typography>
                 <Typography
                     variant="h6"
-                    align="center">
+                    align="center"
+                    data-testid="404-body"
+                >
                     <FormattedMessage id={`notFound_notFoundDescription`} />
                 </Typography>
             </Grid>
