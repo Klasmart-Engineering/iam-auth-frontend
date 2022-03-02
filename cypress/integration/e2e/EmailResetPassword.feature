@@ -1,3 +1,4 @@
+@alpha
 Feature: Reset password via email
 
 I want to be able to reset my password via email 

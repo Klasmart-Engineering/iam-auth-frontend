@@ -69,11 +69,11 @@ Feature: Create account via email
         Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
-@phone
+
     Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page with phone number
         Given I am on the kidsloop create account with phone number page
         When I click on Log in link
-        And I login to kidsloop with phone number "15342032290" with country code "United States(+1)"
+        And I login to kidsloop with phone number "0743808281" with country code "Romania(+40)"
         Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
