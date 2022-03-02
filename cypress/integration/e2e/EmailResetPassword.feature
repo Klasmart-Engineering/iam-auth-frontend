@@ -16,6 +16,7 @@ Then I should see an error on kidsloop page "The verification has failed, please
 And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "You've made too many incorrect attempts. Please try again later."
+
 Scenario: Reset password and login with new passwrod
 Given I delete all the emails from test mail box
 When I go to reset password page

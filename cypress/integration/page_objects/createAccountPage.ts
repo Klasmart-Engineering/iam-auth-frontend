@@ -183,7 +183,7 @@ class CreateAccountPage {
         cy.get(this.codeExpiredErrorText).should(`have.text`, errorText);
     }
     checkGenericError (errorText: string) {
-        cy.wait(2000).then(() => {
+        cy.wait(3000).then(() => {
             cy.log(`waited for 1 seconds`);
         });
         cy.contains(errorText).should(`exist`);
