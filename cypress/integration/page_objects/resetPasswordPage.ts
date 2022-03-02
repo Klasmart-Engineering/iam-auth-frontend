@@ -91,6 +91,9 @@ class ResetPasswordPage {
         cy.get(this.createOrContinueButton).click({
             force: true,
         });
+        cy.wait(1000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
 
     }
 
