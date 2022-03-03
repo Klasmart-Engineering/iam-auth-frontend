@@ -41,6 +41,7 @@ When(`I create a new account with a new email address with upper case letters`, 
 });
 
 And(`I login to kidsloop via SSO with a valid user created before`, ()=> {
+    cy.wait(1000)
     loginPage.goToHomePage();
     loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.password);
     loginPage.clickOnLogInButton();

@@ -14,8 +14,8 @@ Feature: Create account via email
         When I create a new account with a new email address with upper case letters
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
-       And I login to kidsloop via SSO with a valid user created before
-       Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I login to kidsloop via SSO with a valid user created before
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
 
 
@@ -29,7 +29,7 @@ Feature: Create account via email
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
 
- @phone
+ 
     Scenario: create duplicate account with phone number and verify error message
         Given I am on the kidsloop create account with phone number page
         When I enter an existing account phone number as a new account phone number

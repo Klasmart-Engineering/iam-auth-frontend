@@ -1,7 +1,7 @@
 @alpha
 Feature: Reset password for accounts associated with phone numbers 
 User with phone number accounts should be able to reset their passwords 
- 
+
 Scenario: Reset password for phone number and login with new passwrod
 Given I delete all the emails from test mail box
 When I reset password for a phone number

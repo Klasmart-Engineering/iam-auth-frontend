@@ -38,7 +38,7 @@ Then(`I sign out`, async () => {
 
 And(`I click on sign out button on account not linked page`,()=> {
     homePage.clickOnSignoutButtonFromNotAssociatedWithOrgPage();
-    loginPage.verifyIfOnLoginPage();
+   // loginPage.verifyIfOnLoginPage();
 });
 
 When(`I go to {string} page directly`, (errorPage: string) => {

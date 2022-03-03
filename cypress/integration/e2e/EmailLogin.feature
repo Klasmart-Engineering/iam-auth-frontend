@@ -21,11 +21,13 @@ Scenario: Logging with email with multiple profiles + spaces in email address
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
+
 Scenario: Login with an invalid account
 Given I am on the kidsloop login page
 When I enter invalid email for logging in as "qa+stress_t1@calmid.com"
 And I enter the password and login
 Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+
 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
@@ -78,7 +80,7 @@ Then I should see an invalid login error "Due to a system upgrade you will have 
   And  I should see "School Admin" under the user name 
   When I sign out 
   And I am redirected to the home page
- 
+
 Scenario: 15 mins timeout on select profile screen multiple profiles 
 # Removing the access cookie which is valid for 15 mins. It will simulate the expiry. 
   Given I login to kidsloop with a valid user "loginautomationusermultipleprofiles@geqtbdzt.mailosaur.net"
