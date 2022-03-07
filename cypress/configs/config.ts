@@ -4,6 +4,4 @@ export default {
     duplicateAccountEmailAddress: `duplicateAccount@${Cypress.env(`mailosaurServerId`)}.mailosaur.net`,
     sendNewCodeResetPasswordTestEmail: `AUTOmation1643277162371@${Cypress.env(`mailosaurServerId`)}.mailosaur.net`,
     deactivatedAccountEmailAddress:`deactivatedAccount@${Cypress.env(`mailosaurServerId`)}.mailosaur.net`
-    
-    
 };
