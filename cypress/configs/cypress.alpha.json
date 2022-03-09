@@ -12,6 +12,12 @@
     },
     "video": false,
     "screenshotOnFailure": true,
-    "reporter": "cypress-multi-reporters"
+    "reporter": "cypress-multi-reporters",
+    "retries": {
+
+      "runMode": 1,
+    
+      "openMode": 1
+    }
 
 }

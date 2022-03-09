@@ -1,4 +1,4 @@
-@alpha
+
 Feature: Reset password for accounts associated with phone numbers 
 User with phone number accounts should be able to reset their passwords 
 @phone

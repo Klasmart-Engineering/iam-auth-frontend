@@ -19,7 +19,7 @@
     "test:sso:samsung:note": "cypress run -e TAGS=\"not @phone\" --config-file=cypress/configs/cypress.sso.json --browser chrome --env VIEWPORT=samsung-note9 --spec \"**/*.feature\" ",
     "test:sso:samsung-s10": "cypress run -e TAGS=\"not @phone\" --config-file=cypress/configs/cypress.sso.json --browser chrome --env VIEWPORT=samsung-s10 --spec \"**/*.feature\" ",
     "test:sso:nightly": "cypress run -e TAGS=\"@phone\" --config-file=cypress/configs/cypress.sso.json --browser chrome --env VIEWPORT=samsung-s10 --spec \"**/*.feature\" ",
-    "test:alpha:default": "cypress  run -e TAGS=\"@alpha\" --config-file=cypress/configs/cypress.alpha.json --browser chrome --spec \"**/*.feature\" ",
+    "test:alpha:default": "cypress  run -e TAGS=\"not @phone\" --config-file=cypress/configs/cypress.alpha.json --browser chrome --spec \"**/*.feature\" ",
     "e2e:reports": "node cypress/cucumber-html-report.js",
     "graphql:codegen": "graphql-codegen --config graphql-codegen.yml"
   },
