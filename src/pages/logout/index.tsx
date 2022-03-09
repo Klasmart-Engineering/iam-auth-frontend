@@ -56,7 +56,7 @@ const Logout = () => {
         inProgress,
         accounts,
     } = useMsal();
-    const account = useAccount(accounts[0] || {});
+    const activeAccount = useAccount();
     const [ state, setState ] = useState<State>(State.IN_PROGRESS);
     const [ attempt, setAttempt ] = useState(1);
 
@@ -77,15 +77,19 @@ const Logout = () => {
                 return;
             }
 
-            if (account === null) {
+            if (!accounts.length) {
                 console.log(`No active B2C session`);
                 history.push(`/`);
                 return;
             }
 
+            if (activeAccount === null) {
+                console.log(`B2C session found, but no active account set. Defaulting to using first account for post_redirect_logout_uri`);
+            }
+
             try {
                 await instance.logoutRedirect({
-                    postLogoutRedirectUri: buildRedirectUri(account),
+                    postLogoutRedirectUri: buildRedirectUri(activeAccount ?? accounts[0]),
                 });
             } catch (e) {
                 console.error(e);
@@ -100,7 +104,8 @@ const Logout = () => {
         history,
         instance,
         inProgress,
-        account,
+        activeAccount,
+        accounts,
     ]);
 
     switch (state) {

@@ -5,7 +5,6 @@ import {
     IPublicClientApplication,
     PublicClientApplication,
 } from "@azure/msal-browser";
-import * as msalReact from "@azure/msal-react";
 import {
     act,
     render as rtlRender,
@@ -31,19 +30,25 @@ jest.mock(`@/api/authentication`, () => ({
 }));
 
 describe(`Logout`, () => {
-    const render = () => {
+    const createMockMsalClient = () => {
+        const msalClient = new PublicClientApplication(testConfig);
+        msalClient.logoutRedirect = jest.fn().mockImplementation(() => Promise.resolve());
+
+        return msalClient as PublicClientApplication & {logoutRedirect: jest.MockedFunction<IPublicClientApplication["logoutRedirect"]>};
+    };
+
+    const render = (client?: PublicClientApplication) => {
         const history = createMemoryHistory({
             initialEntries: [ `/logout` ],
         });
 
-        const msalClient = new PublicClientApplication(testConfig);
-        msalClient.logoutRedirect = jest.fn().mockImplementation(() => Promise.resolve());
+        const msalClient = client ?? createMockMsalClient();
 
         const view = rtlRender(withMsalProvider(withRouter(withIntlProvider(<Logout/>), history), msalClient));
         return {
             ...view,
             history,
-            msalClient: msalClient as PublicClientApplication & {logoutRedirect: jest.MockedFunction<IPublicClientApplication["logoutRedirect"]>},
+            msalClient,
         };
     };
 
@@ -129,9 +134,11 @@ describe(`Logout`, () => {
 
             it(`redirects to /`, async () => {
                 mockSignOut.mockResolvedValue(true);
-                jest.spyOn(msalReact, `useAccount`).mockReturnValue(null);
+                const client = createMockMsalClient();
+                client.getAllAccounts = () => [];
+                client.setActiveAccount(null);
 
-                const { history } = render();
+                const { history } = render(client);
 
                 await act(flushPromises);
 
@@ -151,9 +158,11 @@ describe(`Logout`, () => {
                     mockSignOut.mockResolvedValue(true);
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     const { idTokenClaims, ...account } = testAccount;
-                    jest.spyOn(msalReact, `useAccount`).mockReturnValue(account);
+                    const msalClient = createMockMsalClient();
+                    msalClient.getAllAccounts = () => [ account ];
+                    msalClient.setActiveAccount(account);
 
-                    const { msalClient } = render();
+                    render(msalClient);
 
                     await act(flushPromises);
 
@@ -167,9 +176,11 @@ describe(`Logout`, () => {
                 describe(`and there is no ?continue QueryParam`, () => {
                     it(`logs out of B2C, with the post_redirect_logout_uri set to /`, async () => {
                         mockSignOut.mockResolvedValue(true);
-                        jest.spyOn(msalReact, `useAccount`).mockReturnValue(testAccount);
+                        const msalClient = createMockMsalClient();
+                        msalClient.getAllAccounts = () => [ testAccount ];
+                        msalClient.setActiveAccount(testAccount);
 
-                        const { msalClient } = render();
+                        render(msalClient);
 
                         await act(flushPromises);
 
@@ -193,9 +204,11 @@ describe(`Logout`, () => {
 
                     it(`logs out of B2C, with the post_redirect_logout_uri set to /?continue={continueParam}`, async () => {
                         mockSignOut.mockResolvedValue(true);
-                        jest.spyOn(msalReact, `useAccount`).mockReturnValue(testAccount);
+                        const msalClient = createMockMsalClient();
+                        msalClient.getAllAccounts = () => [ testAccount ];
+                        msalClient.setActiveAccount(testAccount);
 
-                        const { msalClient } = render();
+                        render(msalClient);
 
                         await act(flushPromises);
 
@@ -208,9 +221,11 @@ describe(`Logout`, () => {
             describe(`and the user is logged in with a 3rd party IDP`, () => {
                 it(`logs out of B2C, with the post_redirect_logout_uri set to /logout/success`, async () => {
                     mockSignOut.mockResolvedValue(true);
-                    jest.spyOn(msalReact, `useAccount`).mockReturnValue(testFederatedAccount);
+                    const msalClient = createMockMsalClient();
+                    msalClient.getAllAccounts = () => [ testFederatedAccount ];
+                    msalClient.setActiveAccount(testFederatedAccount);
 
-                    const { msalClient } = render();
+                    render(msalClient);
 
                     await act(flushPromises);
 
@@ -227,10 +242,12 @@ describe(`Logout`, () => {
 
                 it(`shows the retry page`, async () => {
                     mockSignOut.mockResolvedValue(true);
-                    jest.spyOn(msalReact, `useAccount`).mockReturnValue(testAccount);
-
-                    const { msalClient } = render();
+                    const msalClient = createMockMsalClient();
+                    msalClient.getAllAccounts = () => [ testAccount ];
+                    msalClient.setActiveAccount(testAccount);
                     msalClient.logoutRedirect.mockImplementationOnce(() => {throw new Error(`Something went wrong`);});
+
+                    render(msalClient);
 
                     await act(flushPromises);
 

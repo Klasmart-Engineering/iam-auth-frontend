@@ -1,11 +1,13 @@
 export {
     useAccessToken,
     useConditionalLogoutFromB2C,
+    useForceAuthentication,
     useIsFederatedAccount,
     useOAuthState,
     useRedirectRequest,
     useUpdateLocale,
 } from "./azureB2C";
+export { useSearchParams } from "./router";
 export { useInterval } from "./useInterval";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useLocale } from "./useLocale";

@@ -2,93 +2,166 @@
 import { createPreserveQueryHistory } from './createPreserveQueryHistory';
 import { createBrowserHistory } from 'history';
 
-describe(`createPreserveQueryHistory push`, () => {
+describe(`createPreserveQueryHistory`, () => {
+    const createHistory = () => {
+        return createPreserveQueryHistory(createBrowserHistory, new Set([ `continue` ]))();
+    };
 
-    describe(`when using history.push('/path?param=x&param=y) syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continues` ]))();
-
-            history.push({
-                pathname:`/hellos`,
-                search: `?name=bob&continues=john`,
-            });
-            history.push(`/hello-again`);
-
-            expect(history.location.search).toEqual(`?continues=john`);
-        });
+    beforeEach(() => {
+        // Reset history
+        window.history.replaceState(null, ``, `/`);
     });
 
-    describe(`when using history.push('/path?param=x') syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue` ]))();
+    // NB: require casting as string literals to override default `string` type, which throws a TS error
+    // when you try `history[action]`
+    describe.each([ `push` as `push`, `replace` as `replace` ])(`#%s`, (action: `push` | `replace`) => {
 
-            history.push(`/hello?continue=world`);
+        describe(`when using a location object`, () => {
+            describe(`without a preserved QueryParam`, () => {
+                it(`should have an empty 'search' field`, () => {
+                    const history = createHistory();
 
-            history.push(`/goodbye`);
+                    history.push(`/hello`);
+                    history[action]({
+                        pathname: `/goodbye`,
+                    });
 
-            expect(history.location.search).toEqual(`?continue=world`);
-        });
-    });
-
-    describe(`when using history.push({pathname: '/path', search='?param=x'}) syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue` ]))();
-
-            history.push({
-                pathname: `/hello`,
-                search: `?continue=world`,
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(``);
+                });
             });
 
-            history.push(`/goodbye`);
+            describe(`with no other QueryParams`, () => {
+                it(`should add the preserved QueryParam`, () => {
+                    const history = createHistory();
 
-            expect(history.location.search).toEqual(`?continue=world`);
-        });
-    });
+                    history.push(`/hello?continue=x`);
+                    history[action]({
+                        pathname: `/goodbye`,
+                    });
 
-});
-
-describe(`createPreserveQueryHistory replace`, () => {
-
-    describe(`when using history.replace('/path?param=x') syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue1` ]))();
-
-            history.replace({
-                pathname: `/hello`,
-                search: `?name=bob&continue1=john`,
-            });
-            history.replace(`/hello-again`);
-
-            expect(history.location.search).toEqual(`?continue1=john`);
-        });
-    });
-
-    describe(`when using history.replace('/path?param=x') and history.push('/path') syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue2` ]))();
-
-            history.replace({
-                pathname: `/hello`,
-                search: `?continue2=john`,
-            });
-            history.push(`/hello-again`);
-
-            expect(history.location.search).toEqual(`?continue2=john`);
-        });
-    });
-
-    describe(`when using history.push('/path?param=x') and history.replace('/path') syntax`, () => {
-        it(`QueryParam selected for preservation is copied from the previous history.location`, () => {
-            const history = createPreserveQueryHistory(createBrowserHistory, new Set([ `continue3` ]))();
-
-            history.push({
-                pathname: `/hello`,
-                search: `?continue3=john`,
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                });
             });
 
-            history.replace(`/hello-again`);
+            describe(`with an unpreserved QueryParam`, () => {
+                it(`should add the preserved QueryParam, and the other QueryParam`, () => {
+                    const history = createHistory();
 
-            expect(history.location.search).toEqual(`?continue3=john`);
+                    history.push(`/hello?continue=x`);
+                    history[action]({
+                        pathname: `/goodbye`,
+                        search: `?another=y`,
+                    });
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?another=y&continue=x`);
+                });
+            });
+
+            describe(`with a hash fragment`, () => {
+                it(`should add the preserved QueryParam, and the hash`, () => {
+                    const history = createHistory();
+
+                    history.push(`/hello?continue=x`);
+                    history[action]({
+                        pathname: `/goodbye`,
+                        hash: `#foo`,
+                    });
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                    expect(history.location.hash).toEqual(`#foo`);
+                });
+            });
+
+            describe(`with state`, () => {
+                it(`should add the preserved QueryParam, and the state`, () => {
+                    const history = createHistory();
+
+                    const state = {
+                        foo: `bar`,
+                    };
+                    history.push(`/hello?continue=x`);
+                    history[action]({
+                        pathname: `/goodbye`,
+                        state,
+                    });
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                    expect(history.location.state).toEqual(state);
+                });
+            });
+
+        });
+
+        describe(`when using a path string`, () => {
+            describe(`without a preserved QueryParam`, () => {
+                it(`should have an empty 'search' field`, () => {
+                    const history = createHistory();
+
+                    history.push(`/hello`);
+                    history[action](`/goodbye`);
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(``);
+                });
+            });
+
+            describe(`with no other QueryParams`, () => {
+                it(`should add the preserved QueryParam`, () => {
+                    const history = createHistory();
+
+                    history.push(`/hello?continue=x`);
+                    history[action](`/goodbye`);
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                });
+            });
+
+            describe(`with an unpreserved QueryParam`, () => {
+                it(`should add the preserved QueryParam, and the other QueryParam`, () => {
+                    const history = createHistory();
+
+                    history.push(`/hello?continue=x`);
+                    history[action](`/goodbye?another=y`);
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?another=y&continue=x`);
+                });
+            });
+
+            describe(`with a hash fragment`, () => {
+                it(`should add the preserved QueryParam, and the hash`, () => {
+                    const history = createHistory();
+
+                    history.push(`/hello?continue=x`);
+                    history[action](`/goodbye#foo`);
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                    expect(history.location.hash).toEqual(`#foo`);
+                });
+            });
+
+            describe(`with state`, () => {
+                it(`should add the preserved QueryParam, and the state`, () => {
+                    const history = createHistory();
+
+                    const state = {
+                        foo: `bar`,
+                    };
+                    history.push(`/hello?continue=x`);
+                    history[action](`/goodbye`, state);
+
+                    expect(history.location.pathname).toEqual(`/goodbye`);
+                    expect(history.location.search).toEqual(`?continue=x`);
+                    expect(history.location.state).toEqual(state);
+                });
+            });
         });
     });
 });
