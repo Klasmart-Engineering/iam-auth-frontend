@@ -49,7 +49,6 @@ export type Domain = typeof DOMAINS[number];
 export interface Region {
     img: string;
     domain: Domain;
-    path: string;
     primaryText: string;
     secondaryText: string | React.ReactElement;
 }
@@ -58,63 +57,54 @@ export const regions: Region[] = [
     {
         img: UnitedKingdom,
         domain: `auth.kidsloop.co.uk`,
-        path: `/signin`,
         primaryText: `United Kingdom`,
         secondaryText: ``,
     },
     {
         img: India,
         domain: `auth.kidsloop.in`,
-        path: `/signin`,
         primaryText: `India`,
         secondaryText: ``,
     },
     {
         img: SriLanka,
         domain: `auth.kidsloop.lk`,
-        path: `/signin`,
         primaryText: `Sri Lanka`,
         secondaryText: ``,
     },
     {
         img: Pakistan,
         domain: `auth.kidsloop.pk`,
-        path: `/signin`,
         primaryText: `اِسلامی جمہوریہ پاكِستان`,
         secondaryText: ``,
     },
     {
         img: UnitedStates,
         domain: `auth.kidsloop.live`,
-        path: `/signin`,
         primaryText: `United States`,
         secondaryText: ``,
     },
     {
         img: Indonesia,
         domain: `auth.kidsloop.id`,
-        path: `/signin`,
         primaryText: `Republik Indonesia`,
         secondaryText: ``,
     },
     {
         img: Korea,
         domain: `auth.kidsloop.live`,
-        path: `/signin`,
         primaryText: `대한민국`,
         secondaryText: ``,
     },
     {
         img: Thailand,
         domain: `auth.kidsloop.co.th`,
-        path: `/signin`,
         primaryText: `ประเทศไทย`,
         secondaryText: ``,
     },
     {
         img: Vietnam,
         domain: `auth.kidsloop.vn`,
-        path: `/signin`,
         primaryText: `Việt Nam`,
         secondaryText: ``,
     },
@@ -165,13 +155,13 @@ export function RegionSelect () {
 
     const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
-    const handleRegionSelect = (domain = window.location.host, path = `/signin`) => {
+    const handleRegionSelect = (domain = window.location.host) => {
         const protocol = window.location.protocol;
         const port = window.location.port;
         const urlHostName = port === `` ? url.hostName : `${url.hostName}:${port}`;
 
         if (domain === urlHostName) {
-            history.push(path);
+            history.push(`/signin`);
         } else {
             const queries = {
                 ua: url.uaParam,
@@ -182,7 +172,7 @@ export function RegionSelect () {
             });
             // TODO: convert to /${path}?${queryString} once regions are migrated to Azure B2C
             // (and no longer use HashRouter)
-            window.location.assign(`${protocol}//${domain}/?${queryString}#${path}`);
+            window.location.assign(`${protocol}//${domain}/?${queryString}#/signin`);
         }
     };
 
@@ -223,7 +213,7 @@ export function RegionSelect () {
                                 style={{
                                     height: 72,
                                 }}
-                                onClick={() => handleRegionSelect(region.domain, region.path)}
+                                onClick={() => handleRegionSelect(region.domain)}
                             >
                                 <img
                                     src={region.img}
