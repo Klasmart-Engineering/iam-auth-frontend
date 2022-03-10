@@ -7,11 +7,11 @@ import Thailand from "@/../assets/img/region/th.svg";
 import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
-import config from "@/config";
 import {
     useConditionalLogoutFromB2C,
     useURLContext,
 } from "@/hooks";
+import { omitNullish } from "@/utils/object";
 import {
     CircularProgress,
     Grid,
@@ -27,7 +27,6 @@ import {
     makeStyles,
     useTheme,
 } from "@mui/styles";
-import QueryString from "qs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
@@ -155,7 +154,7 @@ export function RegionSelect () {
 
     const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
-    const handleRegionSelect = (domain = window.location.host) => {
+    const handleRegionSelect = (domain: string) => {
         const protocol = window.location.protocol;
         const port = window.location.port;
         const urlHostName = port === `` ? url.hostName : `${url.hostName}:${port}`;
@@ -163,16 +162,14 @@ export function RegionSelect () {
         if (domain === urlHostName) {
             history.push(`/signin`);
         } else {
-            const queries = {
+            const redirectTo = new URL(`${protocol}//${domain}`);
+            redirectTo.search = new URLSearchParams(omitNullish({
                 ua: url.uaParam,
                 continue: url.continueParam,
-            };
-            const queryString = QueryString.stringify(queries, {
-                skipNulls: true,
-            });
-            // TODO: convert to /${path}?${queryString} once regions are migrated to Azure B2C
-            // (and no longer use HashRouter)
-            window.location.assign(`${protocol}//${domain}/?${queryString}#/signin`);
+            })).toString();
+            redirectTo.pathname = `/signin`;
+
+            window.location.assign(redirectTo);
         }
     };
 
@@ -235,7 +232,7 @@ export function RegionSelect () {
                 <List>
                     <ListItem
                         button
-                        onClick={() => handleRegionSelect()}>
+                        onClick={() => handleRegionSelect(window.location.host)}>
                         <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
                     </ListItem>
                 </List>
