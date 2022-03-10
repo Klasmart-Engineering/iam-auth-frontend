@@ -4,6 +4,7 @@ import { DeepLink } from "./pages/deeplink";
 import { Error } from "./pages/error";
 import HealthPage from "./pages/health";
 import { Layout } from "./pages/layout";
+import Logout from "./pages/logout";
 import { NotFound } from "./pages/notFound";
 import SetProfile from "./pages/profile/setProfileLayout";
 import RegionLocked from "./pages/RegionLocked";
@@ -21,6 +22,7 @@ import {
 } from "@/hooks";
 import { isSupportedLocale } from "@/locale";
 import { Login } from "@/pages/azureB2C";
+import LogoutSuccess from "@/pages/logout/Success";
 import NoProfiles from "@/pages/NoProfiles";
 import {
     ApolloProvider,
@@ -165,6 +167,16 @@ function ClientSide () {
                                     exact
                                     path="/no-profiles">
                                     <NoProfiles />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/logout">
+                                    <Logout />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/logout/success">
+                                    <LogoutSuccess />
                                 </Route>
                                 {routes.map(({
                                     path,

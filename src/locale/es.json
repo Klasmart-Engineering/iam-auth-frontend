@@ -79,6 +79,6 @@
     "generic.retry": "Intentar de nuevo",
     "signOut.error": "¡Algo salió mal al cerrar sesión!\n Vuelva a intentarlo o comuníquese con el administrador de su organización.",
     "signOut.inProgress": "Cerrando sesión de KidsLoop",
-    "signOut.success.title": "Signed out!",
+    "signOut.success.title": "Success!",
     "signOut.success.body": "You have been signed out of KidsLoop."
 }

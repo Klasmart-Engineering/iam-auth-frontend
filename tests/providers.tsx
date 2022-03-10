@@ -7,6 +7,8 @@ import {
     MockedProvider,
     MockedProviderProps,
 } from '@apollo/client/testing';
+import { IPublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
 import { createMemoryHistory } from "history";
 import React from "react";
 import { RawIntlProvider } from "react-intl";
@@ -17,7 +19,6 @@ export const defaultURLContext: URLContext = {
     continueParam: null,
     uaParam: null,
     testing: false,
-
 };
 
 export const withURLContext = (ui: React.ReactNode, value = defaultURLContext) => {
@@ -36,4 +37,8 @@ export const withApolloProvider = (ui: React.ReactNode, props: Omit<MockedProvid
     addTypename: false,
 }) => {
     return <MockedProvider {...props}>{ui}</MockedProvider>;
+};
+
+export const withMsalProvider = (ui: React.ReactNode, instance: IPublicClientApplication) => {
+    return <MsalProvider instance={instance}>{ui}</MsalProvider>;
 };

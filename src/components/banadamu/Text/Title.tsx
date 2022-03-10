@@ -19,6 +19,11 @@ const useStyles = makeStyles({
             marginTop: `5rem`,
             marginBottom: `3rem`,
         },
+        "@media (max-height: 600px), (max-width: 450px)": {
+            fontSize: `4rem`,
+            marginTop: `4rem`,
+            marginBottom: `2.5rem`,
+        },
     },
 });
 

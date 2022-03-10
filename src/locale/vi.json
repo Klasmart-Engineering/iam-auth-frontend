@@ -79,6 +79,6 @@
     "generic.retry": "Thử lại",
     "signOut.error": "Đã xảy ra lỗi khi bạn đăng xuất! \nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn.",
     "signOut.inProgress": "Bạn đang đăng xuất khỏi KidsLoop",
-    "signOut.success.title": "Signed out!",
+    "signOut.success.title": "Success!",
     "signOut.success.body": "You have been signed out of KidsLoop."
 }

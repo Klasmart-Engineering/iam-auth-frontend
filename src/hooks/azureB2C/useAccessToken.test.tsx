@@ -9,6 +9,7 @@ import {
     InteractionRequiredAuthError,
     InteractionStatus,
     PublicClientApplication,
+    SilentRequest,
 } from '@azure/msal-browser';
 import {
     IMsalContext,
@@ -38,6 +39,12 @@ describe(`useAccessToken`, () => {
     };
 
     const testAccessToken = `some-JWT`;
+
+    const expectedTokenRequest: SilentRequest = {
+        // jest defaults window.location.origin to "http://localhost/"
+        redirectUri: `http://localhost/blank.html`,
+        ...loginRequest,
+    };
 
     let acquireTokenSilentSpy: jest.SpyInstance<Promise<AuthenticationResult>>;
     let acquireTokenRedirectSpy: jest.SpyInstance<Promise<void>>;
@@ -104,9 +111,7 @@ describe(`useAccessToken`, () => {
 
         expect(result.current).toEqual(initialState);
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
-        expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            ...loginRequest,
-        });
+        expect(acquireTokenSilentSpy).toHaveBeenCalledWith(expectedTokenRequest);
 
         await waitForNextUpdate();
 
@@ -130,9 +135,7 @@ describe(`useAccessToken`, () => {
         });
 
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
-        expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            ...loginRequest,
-        });
+        expect(acquireTokenSilentSpy).toHaveBeenCalledWith(expectedTokenRequest);
 
         expect(result.current).toEqual(initialState);
 
@@ -157,9 +160,7 @@ describe(`useAccessToken`, () => {
         });
 
         expect(acquireTokenSilentSpy).toHaveBeenCalledTimes(1);
-        expect(acquireTokenSilentSpy).toHaveBeenCalledWith({
-            ...loginRequest,
-        });
+        expect(acquireTokenSilentSpy).toHaveBeenCalledWith(expectedTokenRequest);
 
         expect(result.current).toEqual(initialState);
 

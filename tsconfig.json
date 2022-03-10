@@ -1,36 +1,28 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "jsx": "react",
-    "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@branding/*": ["node_modules/kidsloop-branding/dist/brands/kidsloop/*"],
-      "@/*": [
-        "src/*"
-      ],
-      "@tests/*": [
-        "tests/*"
-      ]
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "jsx": "react",
+        "strict": true,
+        "baseUrl": ".",
+        "paths": {
+            "@branding/*": [
+                "node_modules/kidsloop-branding/dist/brands/kidsloop/*"
+            ],
+            "@/*": ["src/*"],
+            "@tests/*": ["tests/*"]
+        },
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node"
     },
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
- },
-  "files": [
-    "assets/css/index.min.css.d.ts",
-    "assets/img/img.d.ts"
-  ],
-  "include": [
-    "src",
-    "tests",
-    "**.js",
-    "**.ts"
-  ],
-  "exclude": [
-      "src/pages/account/**"
-  ]
+    "files": [
+        "assets/css/index.min.css.d.ts",
+        "assets/img/img.d.ts",
+        "assets/video/index.d.ts"
+    ],
+    "include": ["src", "tests", "**.js", "**.ts"],
+    "exclude": ["src/pages/account/**"]
 }

@@ -38,6 +38,16 @@ const { loadBrandingOptions } = require(`kidsloop-branding`);
 
 const brandingOptions = loadBrandingOptions(process.env.BRAND);
 
+const newRelicOptions = isDev
+    ? {}
+    : {
+        newRelicAccountID: `3286825`,
+        newRelicAgentID: `322534651`,
+        newRelicTrustKey: `3286825`,
+        newRelicLicenseKey: `NRJS-eff8c9c844416a5083f`,
+        newRelicApplicationID: `322534651`,
+    };
+
 const API_ENDPOINT = process.env.API_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
 const AUTH_ENDPOINT = process.env.AUTH_ENDPOINT ?? `https://api.alpha.kidsloop.net/`;
 const DEV_SERVER_DOMAIN = process.env.DEV_SERVER_DOMAIN ?? `fe.alpha.kidsloop.net`;
@@ -93,7 +103,7 @@ const webpackConfig: Configuration = {
                 use: [ `file-loader` ],
             },
             {
-                test: /\.mp4$/,
+                test: /\.(mp4|webm)$/,
                 use: `file-loader?name=videos/[name].[ext]`,
             },
         ],
@@ -128,15 +138,18 @@ const webpackConfig: Configuration = {
         new HtmlWebpackPlugin({
             template: `./index.html`,
             ...brandingOptions.webpack.html,
-            ...isDev
-                ? {}
-                : {
-                    newRelicAccountID: `3286825`,
-                    newRelicAgentID: `322534651`,
-                    newRelicTrustKey: `3286825`,
-                    newRelicLicenseKey: `NRJS-eff8c9c844416a5083f`,
-                    newRelicApplicationID: `322534651`,
-                },
+            ...newRelicOptions,
+        }),
+        // ATH-238
+        // Empty HTML page to use as redirectUri with B2C silent token acquisition, as per MS documentation
+        // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/98bb2b791e54bc9c5c168cc2c7a49dc9e819409b/lib/msal-browser/docs/errors.md?plain=1#L159
+        new HtmlWebpackPlugin({
+            template: `./index.html`,
+            filename: `blank.html`,
+            // Avoid loading our React app, as we don't need any JS
+            inject: false,
+            ...brandingOptions.webpack.html,
+            ...newRelicOptions,
         }),
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [ /runtime.+[.]js/ ]),
     ].concat(isDev ? [] : [

@@ -79,6 +79,6 @@
     "generic.retry": "Coba lagi",
     "signOut.error": "Terjadi kendala saat mengakhiri sesi Anda!\nYuk coba lagi atau hubungi admin organisasi.",
     "signOut.inProgress": "Sesi KidsLoop Anda sudah habis",
-    "signOut.success.title": "Signed out!",
-    "signOut.success.body": "You have been signed out of KidsLoop."
+    "signOut.success.title": "Berhasil!",
+    "signOut.success.body": "Sesi KidsLoop Anda sudah habis"
 }

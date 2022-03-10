@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const Background = (props: Props): JSX.Element => {
+const Base = (props: Props): JSX.Element => {
     const {
         children,
         image,
@@ -38,3 +38,5 @@ export const Background = (props: Props): JSX.Element => {
 
     return <div className={clsx(styles.background, className)}><div className={styles.container}>{children}</div></div>;
 };
+
+export default Base;

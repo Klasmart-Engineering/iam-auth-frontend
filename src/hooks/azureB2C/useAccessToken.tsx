@@ -1,3 +1,4 @@
+import config from "@/config";
 import { useRedirectRequest } from "@/hooks";
 import { loginRequest } from "@/utils/azureB2C/client";
 import {
@@ -105,7 +106,13 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
             // We don't specify a specific account so we can fall back on the default of `activeAccount` (IAM-241)
             // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/aeb1dfbd83a1b60323025e772656fcc91cf388df/lib/msal-browser/docs/accounts.md#active-account-apis
             try {
-                const response = await instance.acquireTokenSilent(loginRequest);
+                const response = await instance.acquireTokenSilent({
+                    ...loginRequest,
+                    // ATH-238
+                    // Set redirectUri to empty page as recommended by MS documentation
+                    // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/98bb2b791e54bc9c5c168cc2c7a49dc9e819409b/lib/msal-browser/docs/errors.md?plain=1#L159
+                    redirectUri: `${config.server.origin}/blank.html`,
+                });
                 dispatch({
                     type: Actions.FETCHED,
                     token: response.accessToken || undefined,
