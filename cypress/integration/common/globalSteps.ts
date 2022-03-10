@@ -21,10 +21,7 @@ Then(`I should see the welcome message {string}`, async (text: string) => {
 });
 
 Then(`I should see {string} under the user name`, (word: string) => {
-    cy.wait(1000).then(() => {
-        cy.log(`waited for 1 seconds`);
-    });
-    cy.contains(word).should(`be.visible`);
+    cy.contains(word,{timeout:7000}).should(`be.visible`);
 });
 
 Then(`I am taken to {string}`, (text: string) => {
@@ -37,8 +34,9 @@ Then(`I sign out`, async () => {
 });
 
 And(`I click on sign out button on account not linked page`,()=> {
+    cy.intercept('GET',Cypress.config('baseUrl')).as('logOut')
     homePage.clickOnSignoutButtonFromNotAssociatedWithOrgPage();
-   // loginPage.verifyIfOnLoginPage();
+cy.wait('@logOut')
 });
 
 When(`I go to {string} page directly`, (errorPage: string) => {

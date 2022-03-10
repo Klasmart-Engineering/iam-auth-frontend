@@ -10,6 +10,7 @@ import {
     When,
 } from "cypress-cucumber-preprocessor/steps";
 
+
 When(`I create a new account with a new email address`, ()=> {
     createAccountPage.createNewEmail();
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
@@ -41,7 +42,6 @@ When(`I create a new account with a new email address with upper case letters`, 
 });
 
 And(`I login to kidsloop via SSO with a valid user created before`, ()=> {
-    cy.wait(1000)
     loginPage.goToHomePage();
     loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.password);
     loginPage.clickOnLogInButton();
