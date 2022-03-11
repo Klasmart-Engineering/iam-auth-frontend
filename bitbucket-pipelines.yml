@@ -126,16 +126,9 @@ pipelines:
                   - name: KIDSLOOP_PASS_ENV
 
             - step:
-                  name: "Clone Kidsloop Pass"
-                  image: node:lts
-                  script:
-                      - git submodule update --init --recursive --force
-                  artifacts:
-                      - src/pages/account/kidsloop-pass-frontend/**
-
-            - step:
                   name: "Build NPM"
                   image: node:lts
+                  size: 2x
                   script:
                       - npm ci
                       - cp deploy/config/$KIDSLOOP_REGION/.env.$KIDSLOOP_ENV ./.env
@@ -144,30 +137,12 @@ pipelines:
                       - nodemodules
                   artifacts:
                       - dist/*
-                      - src/pages/account/kidsloop-pass-frontend/**
-
-            - step:
-                  name: "Build Kidsloop Pass"
-                  image: node:lts
-                  script:
-                      - cd src/pages/account/kidsloop-pass-frontend/client
-                      # `npm install` runs git clone for `kidsloop-branding`, without `git init` it fails with
-                      # "npm ERR! fatal: Not a git repository: ../../../../.git/modules/src/pages/account/kidsloop-pass-frontend"
-                      - git init
-                      - npm i
-                      - npm run build:$KIDSLOOP_PASS_ENV
-                  caches:
-                      - accountnodemodules
-                  artifacts:
-                      - dist/*
-                      - src/pages/account/kidsloop-pass-frontend/client/dist/*
 
             - step:
                   name: "Build & Push Docker image"
                   image: python:3.9-alpine
                   script:
                       - pip3 install -U awscli
-                      - mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
                       - mv dist deploy/
 
                       - export BRANCH_TAG=$(echo "$BITBUCKET_BRANCH" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
