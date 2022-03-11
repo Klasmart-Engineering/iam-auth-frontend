@@ -85,16 +85,9 @@ class ResetPasswordPage {
     }
 
     clickOnCreateOrContinueButton () {
-        cy.wait(1000).then(() => {
-            cy.log(`waited for 1 seconds`);
-        });
-        cy.get(this.createOrContinueButton).should('exist').click({
+        cy.get(this.createOrContinueButton,{timeout:7000}).should('exist').click({
             force: true,
         });
-        cy.wait(1000).then(() => {
-            cy.log(`waited for 1 seconds`);
-        });
-
     }
 
     clickOnSendNewCodeButtonPhoneNumber () {
