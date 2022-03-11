@@ -3,12 +3,15 @@ import NotFound2 from "../../assets/img/not_found/2.png";
 import NotFound3 from "../../assets/img/not_found/3.png";
 import NotFound4 from "../../assets/img/not_found/4.png";
 import HomeButton from "@/components/HomeButton";
-import Grid from "@material-ui/core/Grid";
+import {
+    Grid,
+    Theme,
+    Typography,
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
-} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+} from "@mui/styles";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -19,7 +22,7 @@ const NOT_FOUND_IMAGES = [
     NotFound4,
 ];
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
         alignItems: `center`,
         display: `flex`,

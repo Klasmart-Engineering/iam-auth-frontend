@@ -1,6 +1,6 @@
 import Base from "./Base";
 import PogoImage from "@/../assets/img/pogo.png";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 interface Props {

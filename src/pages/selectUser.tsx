@@ -6,6 +6,10 @@ import {
 } from "@/api/user-service/operations";
 import { utils } from "@/lib/kidsloop-px";
 import {
+    EventRounded as EventRoundedIcon,
+    WarningRounded as WarningRoundedIcon,
+} from "@mui/icons-material";
+import {
     Avatar,
     Grid,
     IconButton,
@@ -14,14 +18,10 @@ import {
     ListItemAvatar,
     ListItemSecondaryAction,
     ListItemText,
+    Skeleton,
     Tooltip,
     Typography,
-} from "@material-ui/core";
-import {
-    EventRounded as EventRoundedIcon,
-    WarningRounded as WarningRoundedIcon,
-} from "@material-ui/icons";
-import Skeleton from "@material-ui/lab/Skeleton";
+} from "@mui/material";
 import QueryString from "query-string";
 import React,
 {
@@ -71,7 +71,7 @@ const LoadingSkeleton = (): JSX.Element => {
                     <ListItemAvatar>
                         <Skeleton
                             animation="wave"
-                            variant="circle">
+                            variant="circular">
                             <Avatar />
                         </Skeleton>
                     </ListItemAvatar>

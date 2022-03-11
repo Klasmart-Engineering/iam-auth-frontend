@@ -3,16 +3,18 @@ import { User } from '../../api/queries/user';
 import { useGetUserInformation } from '../../api/useGetUser';
 import { useUpdateUser } from '../../api/useUpdateUser';
 import { Button } from "@/lib/kidsloop-px";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
+import {
+    FormControlLabel,
+    Grid,
+    Switch,
+    TextField,
+    Theme,
+    Typography,
+} from "@mui/material";
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+} from '@mui/styles';
 import QueryString from "query-string";
 import React,
 {
@@ -34,13 +36,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     imgHeader: {
         width: `60%`,
         padding: theme.spacing(4, 0),
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             width: `40%`,
         },
     },
     textSpacing: {
         padding: theme.spacing(0, 2),
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: 0,
         },
     },
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function SetName () {
     const classes = useStyles();
     const history = useHistory();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const location = useLocation();
 
     const [ name, setName ] = useState<string | null>(null);
@@ -145,8 +147,7 @@ export default function SetName () {
     return (
         <Grid
             container
-            direction="column"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{
                 overflowX: `hidden`,
@@ -155,8 +156,7 @@ export default function SetName () {
             <Grid
                 container
                 item
-                direction="column"
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
                 spacing={2}
             >
@@ -210,8 +210,7 @@ export default function SetName () {
                 <Grid
                     container
                     item
-                    direction="row"
-                    justify="center"
+                    justifyContent="center"
                     spacing={1}
                 >
                     <Grid
@@ -224,8 +223,7 @@ export default function SetName () {
                             helperText={isUsername ?
                                 <Grid
                                     container
-                                    direction="row"
-                                    justify="space-between"
+                                    justifyContent="space-between"
                                     alignItems="center"
                                 >
                                     <Grid item>
@@ -263,7 +261,7 @@ export default function SetName () {
                             <Grid
                                 container
                                 item
-                                justify="flex-end"
+                                justifyContent="flex-end"
                                 alignItems="center"
                                 style={{
                                     marginRight: theme.spacing(1),
@@ -278,7 +276,7 @@ export default function SetName () {
             <Grid
                 container
                 item
-                justify="center"
+                justifyContent="center"
                 alignContent="center"
                 style={{
                     paddingTop: theme.spacing(4),

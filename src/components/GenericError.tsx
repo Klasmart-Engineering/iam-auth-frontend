@@ -4,7 +4,7 @@ import {
 } from "@/components/banadamu";
 import { BadanamuLookBackground } from "@/components/banadamu/backgrounds";
 import HomeButton from "@/components/HomeButton";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 import { useIntl } from "react-intl";
 

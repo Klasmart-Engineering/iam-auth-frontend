@@ -14,17 +14,19 @@ import {
 } from "@/hooks";
 import {
     CircularProgress,
-    createStyles,
-    makeStyles,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
     Theme,
     Typography,
     useMediaQuery,
+} from "@mui/material";
+import {
+    createStyles,
+    makeStyles,
     useTheme,
-} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+} from "@mui/styles";
 import QueryString from "qs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
@@ -121,8 +123,10 @@ export const regions: Region[] = [
 const useStyles = makeStyles((theme: Theme) => createStyles({
     list: {
         width: `100%`,
+        marginTop: 16,
+        marginLeft: 16,
         backgroundColor: theme.palette.background.paper,
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             maxHeight: `200px`,
             overflow: `auto`,
             boxShadow: `inset 2px 2px 10px #eaf5f8, inset -2px -2px 10px #c4c4c4`,
@@ -146,16 +150,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         flexGrow: 1,
         height: `100vh`,
     },
+    button: {
+        marginLeft: 32,
+        marginBottom: -16,
+    },
 }));
 
 export function RegionSelect () {
     const classes = useStyles();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const history = useHistory();
     const url = useURLContext();
     const { loading } = useConditionalLogoutFromB2C();
 
-    const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
+    const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
     const handleRegionSelect = (domain = window.location.host, path = `/signin`) => {
         const protocol = window.location.protocol;
@@ -199,7 +207,7 @@ export function RegionSelect () {
                     wrap="wrap"
                     className={classes.list}
                     style={{
-                        maxHeight: isXsDown ? window.innerHeight - 320 : undefined,
+                        maxHeight: isSmDown ? window.innerHeight - 320 : undefined,
                         overflow: `auto`,
                     }}
                 >
@@ -207,7 +215,7 @@ export function RegionSelect () {
                         <Grid
                             key={region.primaryText}
                             item
-                            xs={isXsDown ? 12 : 6}
+                            xs={isSmDown ? 12 : 6}
                         >
                             <ListItem
                                 button
@@ -233,7 +241,7 @@ export function RegionSelect () {
                     ))}
                 </Grid>
             </List>
-            <Grid>
+            <Grid className={classes.button}>
                 <List>
                     <ListItem
                         button

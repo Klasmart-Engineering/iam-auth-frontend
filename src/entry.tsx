@@ -29,7 +29,8 @@ import {
     IntlProvider,
     ThemeProvider,
 } from "@/providers";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline } from "@mui/material";
+import { StyledEngineProvider } from '@mui/material/styles';
 import React,
 {
     useEffect,
@@ -56,14 +57,14 @@ const routes: RouteDetails[] = [
         path: `/deeplink`,
         Component: DeepLink,
         RouteComponent: Route,
-        size: `xs`,
+        size: `sm`,
         centerLogo: true,
     },
     {
         path: [ `/selectprofile`, `/signinselect` ],
         Component: SelectUser,
         RouteComponent: ProtectedRoute,
-        size: `xs`,
+        size: `sm`,
         centerLogo: true,
     },
     {
@@ -72,7 +73,7 @@ const routes: RouteDetails[] = [
         // Must be unprotected while we have both B2C and KidsLoop sessions,
         // as at this point we only have a B2C session (so the `isAuthenticated` check fails)
         RouteComponent: Route,
-        size: `xs`,
+        size: `sm`,
         centerLogo: true,
     },
 ];
@@ -82,7 +83,7 @@ if (!config.azureB2C.enabled) {
         path: [ `/signin`, `/login` ],
         Component: SignIn,
         RouteComponent: Route,
-        size: `xs`,
+        size: `sm`,
         centerLogo: false,
     });
 }
@@ -145,91 +146,93 @@ function ClientSide () {
             <ApolloProvider>
                 <AzureB2CProvider>
                     <IntlProvider locale={locale}>
-                        <ThemeProvider locale={locale}>
-                            <CssBaseline />
-                            <Switch>
-                                <Route
-                                    exact
-                                    path="/version">
-                                    <VersionPage />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/health">
-                                    <HealthPage />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/error">
-                                    <Error />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/no-profiles">
-                                    <NoProfiles />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/logout">
-                                    <Logout />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/logout/success">
-                                    <LogoutSuccess />
-                                </Route>
-                                {routes.map(({
-                                    path,
-                                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                                    Component,
-                                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                                    RouteComponent,
-                                    size,
-                                    centerLogo,
-                                }) => (
-                                    <RouteComponent
-                                        key={Array.isArray(path) ? path[0] : path}
-                                        path={path}>
-                                        {() => (
-                                            <Layout
-                                                maxWidth={size}
-                                                centerLogo={centerLogo}
-                                            >
-                                                <Component />
+                        <StyledEngineProvider injectFirst>
+                            <ThemeProvider locale={locale}>
+                                <CssBaseline />
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path="/version">
+                                        <VersionPage />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/health">
+                                        <HealthPage />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/error">
+                                        <Error />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/no-profiles">
+                                        <NoProfiles />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/logout">
+                                        <Logout />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/logout/success">
+                                        <LogoutSuccess />
+                                    </Route>
+                                    {routes.map(({
+                                        path,
+                                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                                        Component,
+                                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                                        RouteComponent,
+                                        size,
+                                        centerLogo,
+                                    }) => (
+                                        <RouteComponent
+                                            key={Array.isArray(path) ? path[0] : path}
+                                            path={path}>
+                                            {() => (
+                                                <Layout
+                                                    maxWidth={size}
+                                                    centerLogo={centerLogo}
+                                                >
+                                                    <Component />
+                                                </Layout>
+                                            )}
+                                        </RouteComponent>
+                                    ))}
+                                    {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
+                                    {config.azureB2C.enabled && <Route
+                                        path={[ `/login`, `/signin` ]}
+                                        component={Login}/>}
+                                    {config.azureB2C.enabled && <Route
+                                        path="/authentication-callback"
+                                        component={Loading}/>}
+                                    <ProtectedRoute path="/createprofile">
+                                        <SetProfile />
+                                    </ProtectedRoute>
+                                    <Route
+                                        exact
+                                        path="/">
+                                        {config.branding.auth.showRegionSelect ? (
+                                            <Layout maxWidth={`sm`}>
+                                                <RegionSelect />
                                             </Layout>
+                                        ) : (
+                                            <RegionLocked />
                                         )}
-                                    </RouteComponent>
-                                ))}
-                                {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
-                                {config.azureB2C.enabled && <Route
-                                    path={[ `/login`, `/signin` ]}
-                                    component={Login}/>}
-                                {config.azureB2C.enabled && <Route
-                                    path="/authentication-callback"
-                                    component={Loading}/>}
-                                <ProtectedRoute path="/createprofile">
-                                    <SetProfile />
-                                </ProtectedRoute>
-                                <Route
-                                    exact
-                                    path="/">
-                                    {config.branding.auth.showRegionSelect ? (
-                                        <Layout maxWidth={`sm`}>
-                                            <RegionSelect />
+                                    </Route>
+                                    <Route>
+                                        <Layout
+                                            maxWidth={`sm`}
+                                            centerLogo={true}>
+                                            <NotFound />
                                         </Layout>
-                                    ) : (
-                                        <RegionLocked />
-                                    )}
-                                </Route>
-                                <Route>
-                                    <Layout
-                                        maxWidth={`xs`}
-                                        centerLogo={true}>
-                                        <NotFound />
-                                    </Layout>
-                                </Route>
-                            </Switch>
-                        </ThemeProvider>
+                                    </Route>
+                                </Switch>
+                            </ThemeProvider>
+                        </StyledEngineProvider>
                     </IntlProvider>
                 </AzureB2CProvider>
             </ApolloProvider>

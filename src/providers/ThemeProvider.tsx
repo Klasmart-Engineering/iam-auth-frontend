@@ -1,14 +1,16 @@
 import "node-source-han-sans-sc/SourceHanSansSC-Regular-all.css";
-import "typeface-nanum-square-round";
-import "inter-ui";
+import "typeface-nanum-square-round/nanumsquareround.css";
+import "inter-ui/inter.css";
 import { Locale } from "@/locale";
 import {
+    Components,
     createTheme,
+    PaletteOptions,
     responsiveFontSizes,
     Theme,
     ThemeProvider as MUIThemeProvider,
-} from "@material-ui/core/styles";
-import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+} from "@mui/material";
+import { TypographyOptions } from "@mui/material/styles/createTypography";
 import React from "react";
 
 interface Props {
@@ -63,7 +65,7 @@ const buildTheme = (locale: Locale): Theme => {
     }
 
     const localeTypography = setTypography();
-    const typography = {
+    const typography: TypographyOptions = {
         button: {
             textTransform: `none`,
         },
@@ -72,50 +74,64 @@ const buildTheme = (locale: Locale): Theme => {
         fontWeightLight: localeTypography.localeWeightLight,
         fontWeightMedium: localeTypography.localeWeightMedium,
         fontWeightRegular: localeTypography.localeWeightRegular,
-    } as any;
+    };
 
-    const overrides = {
+    const components: Components = {
         MuiAppBar: {
-            root: {
-                backgroundColor: themeMode === `light` ? `#fafafa` : `#041125`,
+            styleOverrides: {
+                root: {
+                    backgroundColor: themeMode === `light` ? `#fafafa` : `#041125`,
+                },
             },
         },
         MuiTable: {
-            root: {
-                backgroundColor: themeMode === `light` ? `#fff` : `#05152e`,
+            styleOverrides: {
+                root: {
+                    backgroundColor: themeMode === `light` ? `#fff` : `#05152e`,
+                },
             },
         },
         MuiTableCell: {
-            stickyHeader: {
-                backgroundColor: themeMode === `light` ? `#fafafa` : `#041125`,
+            styleOverrides: {
+                stickyHeader: {
+                    backgroundColor: themeMode === `light` ? `#fafafa` : `#041125`,
+                },
             },
         },
         MuiTabs: {
-            root: {
-                backgroundColor: themeMode === `light` ? `#FFF` : `#030D1C`,
+            styleOverrides: {
+                root: {
+                    backgroundColor: themeMode === `light` ? `#FFF` : `#030D1C`,
+                },
             },
         },
         MuiTab: {
-            root: {
-                backgroundColor: themeMode === `light` ? `#fafafa` : `#030D1C !important`,
+            styleOverrides: {
+                root: {
+                    backgroundColor: themeMode === `light` ? `#fafafa` : `#030D1C !important`,
+                },
             },
         },
         MuiIconButton: {
-            colorPrimary: {
-                color: themeMode === `light` ? `#0E78D5` : `#fafafa !important`, // TODO: Confirm color
-                backgroundColor: themeMode === `light` ? `#f6fafe` : `#0E78D5 !important`, // TODO: Confirm color
+            styleOverrides: {
+                colorPrimary: {
+                    color: themeMode === `light` ? `#0E78D5` : `#fafafa !important`, // TODO: Confirm color
+                    backgroundColor: themeMode === `light` ? `#f6fafe` : `#0E78D5 !important`, // TODO: Confirm color
+                },
             },
         },
         MuiToggleButton: {
-            root: {
-                color: themeMode === `light` ? `#1B365D` : `#FFF`,
-                backgroundColor: themeMode === `light` ? `#FFF` : `#1B365D`,
-                "&:hover": {
-                    "-webkit-transition": `all .4s ease`,
-                    color: themeMode === `light` ? `#FFF` : `#030D1C`,
-                    backgroundColor: themeMode === `light` ? `#1B365D` : `#FFF`,
-                    "box-shadow": `0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)`,
-                    transition: `all .4s ease`,
+            styleOverrides: {
+                root: {
+                    color: themeMode === `light` ? `#1B365D` : `#FFF`,
+                    backgroundColor: themeMode === `light` ? `#FFF` : `#1B365D`,
+                    "&:hover": {
+                        "-webkit-transition": `all .4s ease`,
+                        color: themeMode === `light` ? `#FFF` : `#030D1C`,
+                        backgroundColor: themeMode === `light` ? `#1B365D` : `#FFF`,
+                        "box-shadow": `0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)`,
+                        transition: `all .4s ease`,
+                    },
                 },
             },
         },
@@ -136,23 +152,23 @@ const buildTheme = (locale: Locale): Theme => {
 
     let theme: Theme;
     if (themeMode === `light`) {
-        palette.type = `light`;
         palette.background = {
             default: `#FFF`,
         };
         theme = createTheme({
-            overrides,
+            components,
             palette,
             typography,
         });
     } else {
-        palette.type = `dark`;
         theme = createTheme({
-            overrides,
+            components,
             palette,
-            typography,
+            typography: {
+                fontSize: 12,
+            },
         });
     }
 
-    return theme = responsiveFontSizes(theme);
+    return responsiveFontSizes(theme);
 };

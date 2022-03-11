@@ -2,6 +2,7 @@ import {
     defaultURLContext,
     withIntlProvider,
     withRouter,
+    withThemeProvider,
     withURLContext,
 } from "../../tests/providers";
 import {
@@ -20,10 +21,10 @@ import { createMemoryHistory } from "history";
 import React from 'react';
 
 describe(`RegionSelect`, () => {
-    const ui = (urlContext?: Partial<URLContext>) => withIntlProvider(withURLContext(<RegionSelect/>, {
+    const ui = (urlContext?: Partial<URLContext>) => withThemeProvider(withIntlProvider(withURLContext(<RegionSelect/>, {
         ...defaultURLContext,
         ...urlContext,
-    }));
+    })));
 
     test(`displays Region.primaryText for each region`, () => {
         render(ui());

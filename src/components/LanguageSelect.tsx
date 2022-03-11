@@ -4,22 +4,22 @@ import {
     Locale,
 } from "@/locale";
 import {
+    ExpandMore as ExpandMoreIcon,
+    Translate as LanguageIcon,
+} from "@mui/icons-material";
+import {
     Button,
     Menu,
     MenuItem,
     MenuProps,
+    Theme,
     Tooltip,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
-    Theme,
     withStyles,
-} from "@material-ui/core/styles";
-import {
-    ExpandMore as ExpandMoreIcon,
-    Translate as LanguageIcon,
-} from "@material-ui/icons";
+} from "@mui/styles";
 import clsx from "clsx";
 import React,
 { useState } from "react";
@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const StyledMenu = withStyles({})((props: MenuProps) => (
     <Menu
         elevation={4}
-        getContentAnchorEl={null}
         anchorOrigin={{
             vertical: `bottom`,
             horizontal: `center`,

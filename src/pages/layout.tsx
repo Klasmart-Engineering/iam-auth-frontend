@@ -3,19 +3,22 @@ import PolicyLink from "../components/policyLinks";
 import config from "../config";
 import { default as LanguageSelect } from "@/components/LanguageSelect";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import {
+    Card,
+    CardContent,
+    Container,
+    Grid,
+    Theme,
+    useMediaQuery,
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
     useTheme,
-} from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+} from "@mui/styles";
 import React from "react";
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
         boxShadow: `8px 8px 20px #c4c4c4, -8px -8px 20px #eaf5f8`,
         borderRadius: 12,
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => createStyles({
         alignItems: `center`,
         display: `flex`,
         padding: `48px 40px !important`,
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `24px 20px !important`,
         },
     },
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => createStyles({
         display: `flex`,
         flexGrow: 1,
         // height: "100vh",
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `0 !important`,
         },
         '&::before': {
@@ -47,7 +50,7 @@ const useStyles = makeStyles((theme) => createStyles({
             backgroundSize: `cover`,
             filter: `blur(8px)`,
             WebkitFilter: `blur(8px)`,
-            [theme.breakpoints.down(`xs`)]: {
+            [theme.breakpoints.down(`sm`)]: {
                 background: `white`,
             },
         },
@@ -63,28 +66,26 @@ interface Props {
 
 export function Layout (props: Props) {
     const classes = useStyles();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const logo = props.logo ?? true;
 
-    const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
+    const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
     return (
         <Grid
             container
-            direction="column"
-            justify="space-around"
+            justifyContent="space-around"
             alignItems="center"
             className={classes.pageWrapper}
         >
             <Container maxWidth={props.maxWidth}>
                 <Card
-                    elevation={ isXsDown ? 0 : 1 }
-                    className={ isXsDown ? `` : classes.card}>
+                    elevation={ isSmDown ? 0 : 1 }
+                    className={ isSmDown ? `` : classes.card}>
                     <CardContent className={classes.cardContent}>
                         <Grid
                             container
-                            direction="row"
-                            justify="center"
+                            justifyContent="center"
                             alignItems="center"
                             spacing={4}>
                             { logo &&
@@ -107,8 +108,7 @@ export function Layout (props: Props) {
                 </Card>
                 <Grid
                     container
-                    direction="row"
-                    justify="space-between"
+                    justifyContent="space-between"
                     alignItems="center">
                     <Grid
                         item

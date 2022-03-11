@@ -1,19 +1,21 @@
 import DialogAppBar from "./dialogAppBar";
 import { PrivacyPolicy } from "@branding/index";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import Grid from "@material-ui/core/Grid";
-import Grow from "@material-ui/core/Grow";
-import Link from "@material-ui/core/Link";
+import {
+    Dialog,
+    DialogContent,
+    DialogContentText,
+    Grid,
+    Grow,
+    GrowProps,
+    Link,
+    Theme,
+    useMediaQuery,
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
-    Theme,
     useTheme,
-} from "@material-ui/core/styles";
-import { TransitionProps } from "@material-ui/core/transitions";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+} from "@mui/styles";
 import * as React from "react";
 import {
     useEffect,
@@ -39,7 +41,7 @@ function LinkContainer ({ children }: { children: React.ReactNode }) {
         <Grid
             container
             spacing={2}
-            justify="flex-end"
+            justifyContent="flex-end"
             className={classes.links}
         >
             {children}
@@ -47,8 +49,9 @@ function LinkContainer ({ children }: { children: React.ReactNode }) {
     );
 }
 
-const Motion = React.forwardRef(function Transition (props: TransitionProps & { children?: React.ReactElement },
-    ref: React.Ref<unknown>) {
+const Motion = React.forwardRef(function Transition (props: GrowProps & { children?: React.ReactElement },
+    ref: React.Ref<HTMLDivElement>) {
+
     return <Grow
         ref={ref}
         style={{
@@ -58,7 +61,7 @@ const Motion = React.forwardRef(function Transition (props: TransitionProps & { 
 });
 
 export default function PolicyLinks () {
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
     const [ open, setOpen ] = useState(false);
@@ -82,7 +85,15 @@ export default function PolicyLinks () {
             <LinkContainer>
                 <Grid
                     item
-                    xs={4}>
+                    xs={4}
+                    sx={{
+                        a: {
+                            textDecoration: `none`,
+                            "&:hover": {
+                                textDecoration: `underline`,
+                            },
+                        },
+                    }}>
                     <PrivacyPolicy>
                         <FormattedMessage id="privacy_privacyLink" />
                     </PrivacyPolicy>
@@ -96,6 +107,14 @@ export default function PolicyLinks () {
             <LinkContainer>
                 <Grid
                     item
+                    sx={{
+                        a: {
+                            textDecoration: `none`,
+                            "&:hover": {
+                                textDecoration: `underline`,
+                            },
+                        },
+                    }}
                     xs={4}>
                     <Link
                         color="inherit"

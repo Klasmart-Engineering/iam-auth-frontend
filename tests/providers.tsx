@@ -3,6 +3,7 @@ import {
     URLContextProvider,
 } from "@/hooks";
 import { fallbackLocale } from "@/locale";
+import ThemeProvider from "@/providers/ThemeProvider";
 import {
     MockedProvider,
     MockedProviderProps,
@@ -41,4 +42,8 @@ export const withApolloProvider = (ui: React.ReactNode, props: Omit<MockedProvid
 
 export const withMsalProvider = (ui: React.ReactNode, instance: IPublicClientApplication) => {
     return <MsalProvider instance={instance}>{ui}</MsalProvider>;
+};
+
+export const withThemeProvider = (ui: React.ReactNode) => {
+    return <ThemeProvider locale="en">{ui}</ThemeProvider>;
 };

@@ -6,14 +6,17 @@ import {
     useLocale,
     usePlatform,
 } from "@/hooks";
-import Grid from "@material-ui/core/Grid";
+import {
+    Alert,
+    Grid,
+    Theme,
+    Typography,
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
-} from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
-import Typography from "@material-ui/core/Typography";
-import Alert from "@material-ui/lab/Alert";
+    useTheme,
+} from "@mui/styles";
 import * as React from "react";
 import {
     useEffect,
@@ -24,7 +27,7 @@ import { useLocation } from "react-router";
 
 const DEFAULT_REDIRECT_LINK = config.endpoints.hub;
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
             alignItems: `center`,
@@ -55,7 +58,7 @@ const useStyles = makeStyles((theme) =>
 
 export function Continue () {
     const classes = useStyles();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const location: any = useLocation();
     const platform = usePlatform();
 

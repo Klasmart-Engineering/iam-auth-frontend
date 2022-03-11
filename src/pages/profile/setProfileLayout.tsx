@@ -3,18 +3,20 @@ import SetName from './setName';
 import BackgroundImage from "@/../assets/img/background.png";
 import config from "@/config";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
-import dayjsUtils from "@date-io/dayjs";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Grid from '@material-ui/core/Grid';
+import DateAdapter from '@mui/lab/AdapterDayjs';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import {
+    Card,
+    CardContent,
+    Container,
+    Grid,
+    Theme,
+    useMediaQuery,
+} from "@mui/material";
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+} from '@mui/styles';
 import React from 'react';
 import {
     Route,
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: `center`,
         display: `flex`,
         padding: `48px 40px !important`,
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `24px 20px !important`,
         },
     },
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: `flex`,
         flexGrow: 1,
         // height: "100vh",
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `0 !important`,
         },
         '&::before': {
@@ -58,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             backgroundSize: `cover`,
             filter: `blur(8px)`,
             WebkitFilter: `blur(8px)`,
-            [theme.breakpoints.down(`xs`)]: {
+            [theme.breakpoints.down(`sm`)]: {
                 background: `white`,
             },
         },
@@ -67,29 +69,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function SetProfile () {
     const classes = useStyles();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
 
     const { path } = useRouteMatch();
-    const isXsDown = useMediaQuery(theme.breakpoints.down(`xs`));
+    const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
     return (
-        <MuiPickersUtilsProvider utils={dayjsUtils}>
+        <LocalizationProvider dateAdapter={DateAdapter}>
             <Grid
                 container
-                direction="column"
-                justify="space-around"
+                justifyContent="space-around"
                 alignItems="center"
                 className={classes.pageWrapper}
             >
                 <Container maxWidth="sm">
                     <Card
-                        elevation={ isXsDown ? 0 : 1 }
-                        className={ isXsDown ? `` : classes.card}>
+                        elevation={ isSmDown ? 0 : 1 }
+                        className={ isSmDown ? `` : classes.card}>
                         <CardContent className={classes.cardContent}>
                             <Grid
                                 container
-                                direction="row"
-                                justify="center"
+                                justifyContent="center"
                                 alignItems="center"
                                 spacing={4}>
                                 <Grid
@@ -125,6 +125,6 @@ export default function SetProfile () {
                     </Card>
                 </Container>
             </Grid>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
     );
 }

@@ -4,14 +4,17 @@ import { useGetUserInformation } from '../../api/useGetUser';
 import { useUpdateUser } from '../../api/useUpdateUser';
 import config from '../../config';
 import { Button } from "@/lib/kidsloop-px";
-import Grid from '@material-ui/core/Grid';
+import { DatePicker } from "@mui/lab";
+import {
+    Grid,
+    TextField,
+    Theme,
+    Typography,
+} from "@mui/material";
 import {
     makeStyles,
-    Theme,
     useTheme,
-} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { DatePicker } from "@material-ui/pickers";
+} from '@mui/styles';
 import dayjs from "dayjs";
 import QueryString from "query-string";
 import React,
@@ -34,14 +37,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     card: {
         alignItems: `center`,
         padding: `48px 40px !important`,
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `0 !important`,
         },
     },
     imgHeader: {
         width: `60%`,
         padding: theme.spacing(4, 0),
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             width: `40%`,
         },
     },
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: `flex`,
         flexGrow: 1,
         height: `100vh`,
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: `0 !important`,
         },
     },
@@ -64,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     textSpacing: {
         padding: theme.spacing(0, 2),
-        [theme.breakpoints.down(`xs`)]: {
+        [theme.breakpoints.down(`sm`)]: {
             padding: 0,
         },
     },
@@ -76,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function SetBirthday () {
     const classes = useStyles();
     const history = useHistory();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const location = useLocation();
 
     const today = new Date();
@@ -154,8 +157,7 @@ export default function SetBirthday () {
     return (
         <Grid
             container
-            direction="column"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{
                 overflowX: `hidden`,
@@ -164,8 +166,7 @@ export default function SetBirthday () {
             <Grid
                 container
                 item
-                direction="column"
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
                 spacing={2}
             >
@@ -211,20 +212,21 @@ export default function SetBirthday () {
                 }}/>
                 <Grid item>
                     <DatePicker
-                        defaultValue={null}
                         value={date}
                         maxDate={today}
-                        inputVariant="outlined"
                         views={[ `year`, `month` ]}
-                        helperText={<FormattedMessage id="birthday_datePickerHelper" />}
-                        onChange={newDate => setDate(newDate?.toDate())}
+                        renderInput={(params) => <TextField
+                            variant="outlined"
+                            helperText={<FormattedMessage id="birthday_datePickerHelper" />}
+                            {...params} /> }
+                        onChange={newDate => setDate(newDate)}
                     />
                 </Grid>
             </Grid>
             <Grid
                 container
                 item
-                justify="center"
+                justifyContent="center"
                 alignContent="center"
                 style={{
                     paddingTop: theme.spacing(4),

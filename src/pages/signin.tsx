@@ -15,22 +15,27 @@ import {
     usePlatform,
     useURLContext,
 } from "@/hooks";
-import Checkbox from "@material-ui/core/Checkbox";
-import { CheckboxProps } from "@material-ui/core/Checkbox/Checkbox";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import {
+    CheckBox as CheckBoxIcon,
+    CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
+    Error as ErrorIcon,
+} from "@mui/icons-material";
+import {
+    Checkbox,
+    CheckboxProps,
+    CircularProgress,
+    FormControlLabel,
+    Grid,
+    Link,
+    Theme,
+    Typography,
+    useTheme,
+} from "@mui/material";
 import {
     createStyles,
     makeStyles,
-} from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Typography from "@material-ui/core/Typography";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import ErrorIcon from "@material-ui/icons/Error";
+    withStyles,
+} from "@mui/styles";
 import * as React from "react";
 import {
     useEffect,
@@ -43,7 +48,7 @@ import {
     useHistory,
 } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
         alignItems: `center`,
         display: `flex`,
@@ -272,7 +277,7 @@ export function SignIn () {
                 />
                 <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     style={{
                         paddingTop: theme.spacing(1),
                     }}>
@@ -313,7 +318,7 @@ export function SignIn () {
                 </Grid>
                 <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     style={{
                         padding: theme.spacing(1, 0),
                     }}>

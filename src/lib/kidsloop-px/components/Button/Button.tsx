@@ -1,21 +1,23 @@
 import Loading,
 { useLoadingStyles } from "./Loading";
+import { SvgIconComponent } from "@mui/icons-material";
 import {
     Box,
     Button as Btn,
-    createStyles,
-    makeStyles,
     Theme,
     Tooltip,
     Typography,
+} from "@mui/material";
+import {
+    createStyles,
+    makeStyles,
     useTheme,
-} from "@material-ui/core";
-import { SvgIconComponent } from "@material-ui/icons";
+} from "@mui/styles";
 import clsx from "clsx";
 import React,
 { useState } from "react";
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     extendedText: {
         marginLeft: theme.spacing(1),
     },
@@ -91,7 +93,7 @@ export default function Button (props: Props) {
     } = props;
     const classes = useStyles();
     const loadingClasses = useLoadingStyles();
-    const theme = useTheme();
+    const theme = useTheme<Theme>();
     const [ loading, setLoading ] = useState(false);
 
     const textColor_ = getTextColor(color, variant, theme);
