@@ -1,4 +1,4 @@
-@alpha
+
 Feature: Login in with different phone number formats 
 
 I want ensure that the phone number normalisation method used by AMS and User Service is matched by B2C when creating an account or logging in

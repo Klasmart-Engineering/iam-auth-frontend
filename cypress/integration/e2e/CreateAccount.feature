@@ -1,4 +1,3 @@
-@alpha
 Feature: Create account via email
 
    # Scenario: Create account via phone number and login

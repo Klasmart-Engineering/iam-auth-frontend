@@ -1,4 +1,3 @@
-@alpha
 Feature: Login functionality at Kidsloop
 
 I want to login to kidsloop

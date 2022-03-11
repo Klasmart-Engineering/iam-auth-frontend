@@ -1,4 +1,3 @@
-@alpha
 Feature: Ability to change the language
 
 As an User 

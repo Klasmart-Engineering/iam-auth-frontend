@@ -1,4 +1,3 @@
-@alpha
 Feature: Test error pages
 
 I want to check the UI for 404 
