@@ -17,6 +17,7 @@ And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "You've made too many incorrect attempts. Please try again later."
 
+ @stage 
 Scenario: Reset password and login with new passwrod
 Given I delete all the emails from test mail box
 When I go to reset password page
@@ -29,6 +30,7 @@ Then I should see the welcome message "how are you doing today"
 And I sign out
 And I am redirected to the home page
 
+ @stage 
 Scenario: Reset password with send new code functionality
 Given I delete all the emails from test mail box
 When I go to reset password page
@@ -42,11 +44,13 @@ And I verify code and confirm the password
 Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 And I click on sign out button on account not linked page
 
+ 
 Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
 Given I go to reset password page
 When I enter an email with kidsloop domain 'anything@kidsloop.live'
 Then I should see a message on kidsloop page "It is not possible to reset the password for an account with a KidsLoop email address. Please sign-in instead."
 
+ @stage 
 Scenario: Check error message when user is trying to reset password with an deactivated email account
 Given I go to reset password page
 And I enter deactivated email and verification code

@@ -14,10 +14,7 @@
     "screenshotOnFailure": true,
     "reporter": "cypress-multi-reporters",
     "retries": {
-
       "runMode": 1,
-    
       "openMode": 0
     }
-
 }

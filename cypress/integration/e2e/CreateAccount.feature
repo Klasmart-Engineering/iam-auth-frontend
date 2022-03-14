@@ -1,9 +1,9 @@
 Feature: Create account via email
-
+ 
    # Scenario: Create account via phone number and login
    # Given I create a new account with a new phone number "5342032290"
    # Then I am taken to "You are not part of an organization."
-
+ @stage 
     Scenario: create account with email and login successfully
         When I create a new account with a new email address
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
@@ -16,8 +16,8 @@ Feature: Create account via email
         And I login to kidsloop via SSO with a valid user created before
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
-
-
+        
+@stage 
     Scenario: create account via resend code functionality with email and login successfully
         Given I am on the kidsloop create account page
         And I enter a new email and click on send verification code
@@ -53,14 +53,16 @@ Feature: Create account via email
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
 
+ @stage 
     Scenario: Error messages on create account with email page
         Given I am on the kidsloop create account page
         When I enter invalid format email address as "abc"
         Then I should see an error on kidsloop page "Please enter a valid email address"
         When I enter password on create account with phone number page as "abcd"
-        Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"
+        Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"      
     #And I should see an error above the policy box "This information is required."
 
+ @stage 
     Scenario: Verify if user is able to login by email when pressing 'Log in' link from create account page with email
         Given I am on the kidsloop create account page
         When I click on Log in link
@@ -68,7 +70,8 @@ Feature: Create account via email
         Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
-
+        
+ @stage 
     Scenario: Verify if user is able to login by phone when pressing 'Log in' link from create account page with phone number
         Given I am on the kidsloop create account with phone number page
         When I click on Log in link
@@ -76,6 +79,7 @@ Feature: Create account via email
         Then I should see the welcome message "how are you doing today?"
         And I sign out
         And I am redirected to the home page
+
 
         Scenario: Check error message when creating an account with kidsloop domain email 
          Given I am on the kidsloop create account page

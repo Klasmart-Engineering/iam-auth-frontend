@@ -1,7 +1,7 @@
 Feature: Test error pages
 
 I want to check the UI for 404 
-
+ @stage 
 Scenario Outline: Verify error pages on UI
   Given I set the locale cookie to "<locale>"    
   When I go to "<errorPage>" page directly 

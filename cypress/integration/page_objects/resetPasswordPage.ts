@@ -85,7 +85,10 @@ class ResetPasswordPage {
     }
 
     clickOnCreateOrContinueButton () {
-        cy.get(this.createOrContinueButton,{timeout:7000}).should('exist').click({
+        cy.wait(2000).then(() => {
+            cy.log(`waited for 1 seconds`);
+        });
+        cy.get(this.createOrContinueButton).should('exist').click({
             force: true,
         });
     }
