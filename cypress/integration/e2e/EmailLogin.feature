@@ -46,6 +46,7 @@ Scenario: Multiple wrong password attempts
   When I enter wrong password 
   Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
 
+@stage
 Scenario: Login with a deactivated account 
   Given I am on the kidsloop login page 
   When I enter invalid email as "deactivatedAccount@geqtbdzt.mailosaur.net"
