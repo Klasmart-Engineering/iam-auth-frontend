@@ -30,7 +30,6 @@ Then I should see the welcome message "how are you doing today"
 And I sign out
 And I am redirected to the home page
 
- @stage 
 Scenario: Reset password with send new code functionality
 Given I delete all the emails from test mail box
 When I go to reset password page
@@ -44,7 +43,6 @@ And I verify code and confirm the password
 Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
 And I click on sign out button on account not linked page
 
- 
 Scenario: Check error message when creating an account with kidsloop domain email on reset password page 
 Given I go to reset password page
 When I enter an email with kidsloop domain 'anything@kidsloop.live'

@@ -14,13 +14,12 @@ Given I enter phone number as "swapnali"
 Then I should see an error on kidsloop page "One or more fields are filled out incorrectly. Please check your entries and try again."
 And I should see an error on kidsloop page "Invalid number format. Please ensure that the phone number does not contain any special characters such as []{}()."
 
- @stage 
+ 
 Scenario: Invalid password error verification
 Given I enter phone number as "7728727046"
 And I enter wrong password
 Then I should see an error on kidsloop page "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
 
- @stage 
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number login
 Given I login to kidsloop with phone number "<phoneNumber>" with country code "<countryCode>"
 Then I should see the welcome message "how are you doing today?"

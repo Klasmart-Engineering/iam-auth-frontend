@@ -3,7 +3,7 @@ Feature: Ability to change the language
 As an User 
 I would like to change my language from english to other supported languages
 so I can read the translations when I am not a native english speaker 
- @stage 
+
 Scenario Outline: Load translations based on the language selected
 Given I set the locale cookie to '<Language>'
 When I am on the kidsloop login page

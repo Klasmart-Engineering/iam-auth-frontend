@@ -13,7 +13,6 @@ And I click on send code for phone and verify the code
 And I enter the password and confirm password and click on Create Account
 Then I should see an error on kidsloop page "An account with this email address or number already exists."
 
-@alpha
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number 
 Given I am on the kidsloop create account with phone number page 
 When I select a country as "US" 

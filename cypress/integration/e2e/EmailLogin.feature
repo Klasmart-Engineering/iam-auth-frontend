@@ -6,15 +6,13 @@ Scenario: Logging with email not associated with any organization
   Given I login to kidsloop with a valid user "automation1643015189914@geqtbdzt.mailosaur.net"
   Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
   And I click on sign out button on account not linked page
-
- @stage 
+ 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
   Then I should see the welcome message "how are you doing today?"
   When I sign out 
   And I am redirected to the home page
 
- @stage 
 Scenario: Logging with email with multiple profiles + spaces in email address
   Given I login to kidsloop with a valid user " loginautomationusermultipleprofiles@geqtbdzt.mailosaur.net "
   When I select the first profile from the list
