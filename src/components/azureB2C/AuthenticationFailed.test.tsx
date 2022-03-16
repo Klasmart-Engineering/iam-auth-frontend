@@ -11,7 +11,7 @@ import React from "react";
 describe(`AuthenticationFailed`, () => {
     const testError = new AuthError(`some-code`, `Something went wrong`);
 
-    const render = () => renderWithIntl(<AuthenticationFailed error={testError}/>);
+    const render = () => renderWithIntl(<AuthenticationFailed error={testError} />);
 
     let consoleSpy: jest.SpyInstance;
 

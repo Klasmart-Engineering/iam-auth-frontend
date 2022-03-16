@@ -114,9 +114,10 @@ export default function Button (props: Props) {
         if (error) throw error;
     };
 
-    return <Tooltip title={tooltip ?? ``}>
-        <span>
-            <Btn
+    return (
+        <Tooltip title={tooltip ?? ``}>
+            <span>
+                <Btn
                 variant={variant}
                 type={type}
                 style={{
@@ -131,28 +132,29 @@ export default function Button (props: Props) {
                 })}
                 onClick={handleClick}
                 {...rest}
-            >
-                <Box
+                >
+                    <Box
                     display="flex"
                     flexDirection="row"
                     className={clsx({
                         [loadingClasses.buttonLoadingContent]: loading,
                     })}
-                >
+                    >
 
-                    {Icon && <Icon />}
-                    <Typography
+                        {Icon && <Icon />}
+                        <Typography
                         noWrap
                         variant="inherit"
                         className={clsx({
                             [classes.extendedText]: Icon && label,
                         })}
-                    >
-                        {label}
-                    </Typography>
-                </Box>
-                {loading && <Loading />}
-            </Btn>
-        </span>
-    </Tooltip>;
+                        >
+                            {label}
+                        </Typography>
+                    </Box>
+                    {loading && <Loading />}
+                </Btn>
+            </span>
+        </Tooltip>
+    );
 }

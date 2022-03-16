@@ -26,7 +26,7 @@ export default function Login () {
             loadingComponent={Loading}
             authenticationRequest={authenticationRequest}
             // eslint-disable-next-line react/no-children-prop
-            children={(response: MsalAuthenticationResult) => {return <LoggedIn {...response}/>;}}
+            children={(response: MsalAuthenticationResult) => {return <LoggedIn {...response} />;}}
         />
     );
 }

@@ -30,8 +30,11 @@ export const Body = (props: Props): JSX.Element => {
 
     const styles = useStyles();
 
-    return <Typography
+    return (
+        <Typography
         className={clsx(styles.body, className)}
         align="center"
-        data-testid={testId}>{text}</Typography>;
+        data-testid={testId}
+        >{text}</Typography>
+    );
 };

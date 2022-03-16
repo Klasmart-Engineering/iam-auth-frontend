@@ -29,18 +29,20 @@ const RetryButton = (props: RetryButtonProps) => {
     const styles = useButtonStyles();
     const intl = useIntl();
 
-    return <StyledButton
+    return (
+        <StyledButton
         extendedOnly
         data-testid="retry-button"
         size="medium"
         type="button"
         className={styles.button}
         onClick={onClick}
-    >
-        {intl.formatMessage({
-            id:`generic.retry`,
-        })}
-    </StyledButton>;
+        >
+            {intl.formatMessage({
+                id:`generic.retry`,
+            })}
+        </StyledButton>
+    );
 };
 
 const Error = (props: Props) => {
@@ -52,12 +54,14 @@ const Error = (props: Props) => {
                 data-testid="error-title"
                 text={intl.formatMessage({
                     id: `generic.oops`,
-                })}/>
+                })}
+            />
             <Body
                 data-testid="error-body"
                 text={intl.formatMessage({
                     id: `signOut.error`,
-                })} />
+                })}
+            />
             <RetryButton onClick={onRetryClick} />
         </BadanamuLookBackground>
     );

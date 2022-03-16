@@ -25,7 +25,7 @@ const InProgress = () => {
 
     return (
         <div className={styles.container}>
-            <Spinner/>
+            <Spinner />
             <Typography className={styles.text}>{intl.formatMessage({
                 id: `signOut.inProgress`,
             })}</Typography>

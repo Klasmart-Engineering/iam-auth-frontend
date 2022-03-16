@@ -18,9 +18,11 @@ const ProtectedRoute = (props: Props) => {
     } = props;
     const { isAuthenticated, isLoading } = useIsAuthenticated();
 
-    return <Route {...routeProps}>
-        {isLoading ? <Loading/> : isAuthenticated === false ? <Redirect to="/"/> : children}
-    </Route>;
+    return (
+        <Route {...routeProps}>
+            {isLoading ? <Loading /> : isAuthenticated === false ? <Redirect to="/" /> : children}
+        </Route>
+    );
 };
 
 export default ProtectedRoute;

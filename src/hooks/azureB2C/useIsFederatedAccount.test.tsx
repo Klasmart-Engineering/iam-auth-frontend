@@ -1,5 +1,3 @@
-/* eslint-disable testing-library/await-async-utils */
-// waitForInitialization gives a false positive
 import { useIsFederatedAccount } from "@/hooks/azureB2C";
 import {
     AccountInfo,

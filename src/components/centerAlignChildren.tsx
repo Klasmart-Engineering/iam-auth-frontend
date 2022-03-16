@@ -19,7 +19,8 @@ export default function CenterAlignChildren (props: Props) {
                 alignItems: `center`,
             }}
             className={className}
-            {...other}>
+            {...other}
+        >
             { children || null}
         </span>
     );

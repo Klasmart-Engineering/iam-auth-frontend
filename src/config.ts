@@ -71,18 +71,18 @@ const msalLogger: ILoggerCallback = (level: MsalLogLevel,
     if (containsPii) return;
 
     switch (level) {
-    case MsalLogLevel.Error:
-        console.error(message);
-        return;
-    case MsalLogLevel.Info:
-        console.info(message);
-        return;
-    case MsalLogLevel.Verbose:
-        console.debug(message);
-        return;
-    case MsalLogLevel.Warning:
-        console.warn(message);
-        return;
+        case MsalLogLevel.Error:
+            console.error(message);
+            return;
+        case MsalLogLevel.Info:
+            console.info(message);
+            return;
+        case MsalLogLevel.Verbose:
+            console.debug(message);
+            return;
+        case MsalLogLevel.Warning:
+            console.warn(message);
+            return;
     }
 };
 

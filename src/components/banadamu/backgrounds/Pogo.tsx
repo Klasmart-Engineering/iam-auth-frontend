@@ -22,7 +22,8 @@ const Pogo = (props: Props) => {
     return (
         <Base
             className={styles.background}
-            image={PogoImage}>
+            image={PogoImage}
+        >
             {children}
         </Base>
     );

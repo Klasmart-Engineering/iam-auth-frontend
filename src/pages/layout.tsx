@@ -80,28 +80,31 @@ export function Layout (props: Props) {
         >
             <Container maxWidth={props.maxWidth}>
                 <Card
-                    elevation={ isSmDown ? 0 : 1 }
-                    className={ isSmDown ? `` : classes.card}>
+                    elevation={isSmDown ? 0 : 1}
+                    className={isSmDown ? `` : classes.card}
+                >
                     <CardContent className={classes.cardContent}>
                         <Grid
                             container
                             justifyContent="center"
                             alignItems="center"
-                            spacing={4}>
-                            { logo &&
-                                    <Grid
+                            spacing={4}
+                        >
+                            { logo && (
+                            <Grid
                                         item
                                         xs={12}
                                         style={{
                                             textAlign: props.centerLogo ? `center` : `left`,
                                         }}
-                                    >
-                                        <img
+                            >
+                                <img
                                             alt={`${config.branding.company.name} Logo`}
                                             src={PrimaryLogo}
-                                            height="50px" />
-                                    </Grid>
-                            }
+                                            height="50px"
+                                />
+                            </Grid>
+                            )}
                             { props.children }
                         </Grid>
                     </CardContent>
@@ -109,15 +112,18 @@ export function Layout (props: Props) {
                 <Grid
                     container
                     justifyContent="space-between"
-                    alignItems="center">
+                    alignItems="center"
+                >
                     <Grid
                         item
-                        xs={5}>
+                        xs={5}
+                    >
                         <LanguageSelect />
                     </Grid>
                     <Grid
                         item
-                        xs={6}>
+                        xs={6}
+                    >
                         <PolicyLink />
                     </Grid>
                 </Grid>

@@ -41,21 +41,24 @@ export default function StyledButton<T extends ElementType<any> = "button"> (pro
     ));
 
     return (
-        extendedOnly ?
+        extendedOnly ? (
             <StyledBtn
                 style={{
                     minWidth: 120,
                 }}
-                {...other}>
+                {...other}
+            >
                 { children || <SendIcon />}
-            </StyledBtn> :
+            </StyledBtn>
+        ) : (
             <>
                 <Hidden smDown>
                     <StyledBtn
                         style={{
                             minWidth: 120,
                         }}
-                        {...other}>
+                        {...other}
+                    >
                         { children || <SendIcon />}
                     </StyledBtn>
                 </Hidden>
@@ -64,10 +67,12 @@ export default function StyledButton<T extends ElementType<any> = "button"> (pro
                         style={{
                             minWidth: 80,
                         }}
-                        {...other}>
+                        {...other}
+                    >
                         { sibling || <SendIcon /> }
                     </StyledBtn>
                 </Hidden>
             </>
+        )
     );
 }

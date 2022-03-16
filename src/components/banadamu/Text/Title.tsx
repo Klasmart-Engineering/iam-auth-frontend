@@ -32,9 +32,12 @@ export const Title = (props: Props): JSX.Element => {
 
     const styles = useStyles();
 
-    return <Typography
+    return (
+        <Typography
         className={styles.title}
         variant="h2"
         align="center"
-        data-testid={testId}>{text}</Typography>;
+        data-testid={testId}
+        >{text}</Typography>
+    );
 };

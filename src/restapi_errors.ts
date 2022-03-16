@@ -1,22 +1,22 @@
 export class RestAPIError extends Error {
-  private type: RestAPIErrorType;
-  private body: { [key: string]: any };
-  constructor (type: RestAPIErrorType, body: { [key: string]: any }) {
-      super();
-      if (typeof RestAPIErrorType[type] === `undefined`) {
-          this.type = RestAPIErrorType.UNKNOWN;
-      } else {
-          this.type = type;
-      }
-      this.body = body;
-  }
-  public getBody () { return this.body; }
-  public getErrorMessageType () {
-      return this.type;
-  }
-  public getErrorMessageID () {
-      return errorCodeToMessageID[this.type];
-  }
+    private type: RestAPIErrorType;
+    private body: { [key: string]: any };
+    constructor (type: RestAPIErrorType, body: { [key: string]: any }) {
+        super();
+        if (typeof RestAPIErrorType[type] === `undefined`) {
+            this.type = RestAPIErrorType.UNKNOWN;
+        } else {
+            this.type = type;
+        }
+        this.body = body;
+    }
+    public getBody () { return this.body; }
+    public getErrorMessageType () {
+        return this.type;
+    }
+    public getErrorMessageID () {
+        return errorCodeToMessageID[this.type];
+    }
 }
 export enum RestAPIErrorType {
   MOCK = -2,

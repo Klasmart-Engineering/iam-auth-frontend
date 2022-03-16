@@ -43,13 +43,17 @@ const buildDisplayName = ({
 };
 
 const Header = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-    return <Grid
+    return (
+        <Grid
         item
-        xs={12}>{children}</Grid>;
+        xs={12}
+        >{children}</Grid>
+    );
 };
 
 const ListContainer = ({ "data-testid": testId, children }: { children?: React.ReactNode; ["data-testid"]?: string }): JSX.Element => {
-    return <Grid
+    return (
+        <Grid
         item
         xs={12}
         data-testid={testId}
@@ -57,26 +61,28 @@ const ListContainer = ({ "data-testid": testId, children }: { children?: React.R
             paddingLeft: 0,
             paddingRight: 0,
         }}
-    >
-        <List>{children }</List>
-    </Grid>;
+        >
+            <List>{children }</List>
+        </Grid>
+    );
 };
 
 const LoadingSkeleton = (): JSX.Element => {
     return (
         <>
-            <Header/>
+            <Header />
             <ListContainer data-testid="select_user-skeleton-list">
                 <ListItem>
                     <ListItemAvatar>
                         <Skeleton
                             animation="wave"
-                            variant="circular">
+                            variant="circular"
+                        >
                             <Avatar />
                         </Skeleton>
                     </ListItemAvatar>
                     <ListItemText
-                        primary={
+                        primary={(
                             <Skeleton
                                 animation="wave"
                                 height={10}
@@ -85,14 +91,14 @@ const LoadingSkeleton = (): JSX.Element => {
                                     marginBottom: 6,
                                 }}
                             />
-                        }
-                        secondary={
+                          )}
+                        secondary={(
                             <Skeleton
                                 animation="wave"
                                 height={10}
                                 width="40%"
                             />
-                        }
+                          )}
                     />
                 </ListItem>
             </ListContainer>
@@ -179,7 +185,7 @@ export function SelectUser () {
 
     if (!users || users?.length === 0) {
         // useEffect will redirect to `NoProfiles` page`
-        return <LoadingSkeleton/>;
+        return <LoadingSkeleton />;
     }
 
     return (

@@ -22,7 +22,8 @@ const BadanamuLook = (props: Props) => {
     return (
         <Base
             className={styles.background}
-            image={BadanamuLookImage}>
+            image={BadanamuLookImage}
+        >
             {children}
         </Base>
     );

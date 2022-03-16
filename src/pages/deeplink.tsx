@@ -56,37 +56,44 @@ export function DeepLink () {
         <React.Fragment>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography
                     variant="h4"
-                    align="center">
+                    align="center"
+                >
                     Portal to the Deep
                 </Typography>
                 <Typography
                     variant="h6"
-                    align="center">
+                    align="center"
+                >
                     Who are you? Where are you going?
                 </Typography>
             </Grid>
             <Grid
                 item
-                xs={12}>
-            </Grid>
+                xs={12}
+            />
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <img
                     src={NOT_FOUND_IMAGES[((Math.floor(Math.random() * 10)) % NOT_FOUND_IMAGES.length)]}
-                    width="80%" />
-            </Grid>
-            <Grid
-                item
-                xs={12}>
+                    width="80%"
+                    alt=""
+                />
             </Grid>
             <Grid
                 item
                 xs={12}
-                className={classes.link}>
+            />
+            <Grid
+                item
+                xs={12}
+                className={classes.link}
+            >
                 <StyledButton
                     extendedOnly
                     size="medium"

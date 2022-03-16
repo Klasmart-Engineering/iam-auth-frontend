@@ -152,32 +152,38 @@ function ClientSide () {
                                 <Switch>
                                     <Route
                                         exact
-                                        path="/version">
+                                        path="/version"
+                                    >
                                         <VersionPage />
                                     </Route>
                                     <Route
                                         exact
-                                        path="/health">
+                                        path="/health"
+                                    >
                                         <HealthPage />
                                     </Route>
                                     <Route
                                         exact
-                                        path="/error">
+                                        path="/error"
+                                    >
                                         <Error />
                                     </Route>
                                     <Route
                                         exact
-                                        path="/no-profiles">
+                                        path="/no-profiles"
+                                    >
                                         <NoProfiles />
                                     </Route>
                                     <Route
                                         exact
-                                        path="/logout">
+                                        path="/logout"
+                                    >
                                         <Logout />
                                     </Route>
                                     <Route
                                         exact
-                                        path="/logout/success">
+                                        path="/logout/success"
+                                    >
                                         <LogoutSuccess />
                                     </Route>
                                     {routes.map(({
@@ -191,7 +197,8 @@ function ClientSide () {
                                     }) => (
                                         <RouteComponent
                                             key={Array.isArray(path) ? path[0] : path}
-                                            path={path}>
+                                            path={path}
+                                        >
                                             {() => (
                                                 <Layout
                                                     maxWidth={size}
@@ -203,18 +210,25 @@ function ClientSide () {
                                         </RouteComponent>
                                     ))}
                                     {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
-                                    {config.azureB2C.enabled && <Route
+                                    {config.azureB2C.enabled && (
+                                    <Route
                                         path={[ `/login`, `/signin` ]}
-                                        component={Login}/>}
-                                    {config.azureB2C.enabled && <Route
+                                        component={Login}
+                                    />
+                                    )}
+                                    {config.azureB2C.enabled && (
+                                    <Route
                                         path="/authentication-callback"
-                                        component={Loading}/>}
+                                        component={Loading}
+                                    />
+                                    )}
                                     <ProtectedRoute path="/createprofile">
                                         <SetProfile />
                                     </ProtectedRoute>
                                     <Route
                                         exact
-                                        path="/">
+                                        path="/"
+                                    >
                                         {config.branding.auth.showRegionSelect ? (
                                             <Layout maxWidth={`sm`}>
                                                 <RegionSelect />
@@ -225,8 +239,9 @@ function ClientSide () {
                                     </Route>
                                     <Route>
                                         <Layout
+                                            centerLogo
                                             maxWidth={`sm`}
-                                            centerLogo={true}>
+                                        >
                                             <NotFound />
                                         </Layout>
                                     </Route>

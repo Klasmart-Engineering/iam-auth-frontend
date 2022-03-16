@@ -22,7 +22,8 @@ const JessCadet = (props: Props) => {
     return (
         <Base
             className={styles.background}
-            image={JessCadetImage}>
+            image={JessCadetImage}
+        >
             {children}
         </Base>
     );

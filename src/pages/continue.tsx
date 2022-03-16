@@ -78,7 +78,7 @@ export function Continue () {
             style={{
                 padding: theme.spacing(1, 2),
             }}
-        >
+                         >
             <FormattedMessage
                 id={`error_invalidRedirectLink`}
                 values={{
@@ -127,10 +127,12 @@ export function Continue () {
         <React.Fragment>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography
                     variant="h4"
-                    align="center">
+                    align="center"
+                >
                     <FormattedMessage id={`continue_signInSuccess`} />
                 </Typography>
             </Grid>
@@ -138,10 +140,12 @@ export function Continue () {
                 <>
                     <Grid
                         item
-                        xs={12}>
+                        xs={12}
+                    >
                         <Typography
                             variant="body2"
-                            align="center">
+                            align="center"
+                        >
                             <FormattedMessage
                                 id={`continue_continuePrompt`}
                                 values={{
@@ -153,10 +157,12 @@ export function Continue () {
                     </Grid>
                     <Grid
                         item
-                        xs={12}>
+                        xs={12}
+                    >
                         <Typography
                             variant="body2"
-                            align="center">
+                            align="center"
+                        >
                             <FormattedMessage
                                 id={`continue_countdownToContinue`}
                                 values={{
@@ -167,11 +173,13 @@ export function Continue () {
                     </Grid>
                     <Grid
                         item
-                        xs={12}>
+                        xs={12}
+                    >
                         {continueError === null ? null : (
                             <Typography
                                 align="left"
-                                variant="body2">
+                                variant="body2"
+                            >
                                 {continueError}
                             </Typography>
                         )}
@@ -181,7 +189,8 @@ export function Continue () {
             <Grid
                 item
                 xs={12}
-                className={classes.link}>
+                className={classes.link}
+            >
                 <StyledButton
                     extendedOnly
                     size="medium"

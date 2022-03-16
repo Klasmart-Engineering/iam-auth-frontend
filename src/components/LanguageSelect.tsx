@@ -61,7 +61,7 @@ const StyledMenu = withStyles({})((props: MenuProps) => (
     />
 ));
 
-const getLanguageText = (locale: Locale): string =>  {
+const getLanguageText = (locale: Locale): string => {
     return LANGUAGES.find(l => l.code === locale)?.text ?? ``;
 };
 
@@ -86,7 +86,8 @@ export default function LanguageSelect () {
         <>
             <Tooltip
                 title={`Change Language`}
-                enterDelay={300}>
+                enterDelay={300}
+            >
                 <Button
                     color="inherit"
                     aria-owns={languageMenuElement ? `language-menu` : undefined}
