@@ -16,6 +16,7 @@ jobs:
               with:
                   node-version: 16
                   cache: npm
+                  registry-url: https://npm.pkg.github.com/
 
             - run: npm i --no-progress --no-audit
               env:
