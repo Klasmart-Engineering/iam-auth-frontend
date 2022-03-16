@@ -7,11 +7,11 @@ import Thailand from "@/../assets/img/region/th.svg";
 import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
-import config from "@/config";
 import {
     useConditionalLogoutFromB2C,
     useURLContext,
 } from "@/hooks";
+import { omitNullish } from "@/utils/object";
 import {
     CircularProgress,
     Grid,
@@ -27,7 +27,6 @@ import {
     makeStyles,
     useTheme,
 } from "@mui/styles";
-import QueryString from "qs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
@@ -49,7 +48,6 @@ export type Domain = typeof DOMAINS[number];
 export interface Region {
     img: string;
     domain: Domain;
-    path: string;
     primaryText: string;
     secondaryText: string | React.ReactElement;
 }
@@ -58,63 +56,54 @@ export const regions: Region[] = [
     {
         img: UnitedKingdom,
         domain: `auth.kidsloop.co.uk`,
-        path: `/signin`,
         primaryText: `United Kingdom`,
         secondaryText: ``,
     },
     {
         img: India,
         domain: `auth.kidsloop.in`,
-        path: `/signin`,
         primaryText: `India`,
         secondaryText: ``,
     },
     {
         img: SriLanka,
         domain: `auth.kidsloop.lk`,
-        path: `/signin`,
         primaryText: `Sri Lanka`,
         secondaryText: ``,
     },
     {
         img: Pakistan,
         domain: `auth.kidsloop.pk`,
-        path: `/signin`,
         primaryText: `اِسلامی جمہوریہ پاكِستان`,
         secondaryText: ``,
     },
     {
         img: UnitedStates,
         domain: `auth.kidsloop.live`,
-        path: `/signin`,
         primaryText: `United States`,
         secondaryText: ``,
     },
     {
         img: Indonesia,
         domain: `auth.kidsloop.id`,
-        path: `/signin`,
         primaryText: `Republik Indonesia`,
         secondaryText: ``,
     },
     {
         img: Korea,
         domain: `auth.kidsloop.live`,
-        path: `/signin`,
         primaryText: `대한민국`,
         secondaryText: ``,
     },
     {
         img: Thailand,
         domain: `auth.kidsloop.co.th`,
-        path: `/signin`,
         primaryText: `ประเทศไทย`,
         secondaryText: ``,
     },
     {
         img: Vietnam,
         domain: `auth.kidsloop.vn`,
-        path: `/signin`,
         primaryText: `Việt Nam`,
         secondaryText: ``,
     },
@@ -165,24 +154,22 @@ export function RegionSelect () {
 
     const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
 
-    const handleRegionSelect = (domain = window.location.host, path = `/signin`) => {
+    const handleRegionSelect = (domain: string) => {
         const protocol = window.location.protocol;
         const port = window.location.port;
         const urlHostName = port === `` ? url.hostName : `${url.hostName}:${port}`;
 
         if (domain === urlHostName) {
-            history.push(path);
+            history.push(`/signin`);
         } else {
-            const queries = {
+            const redirectTo = new URL(`${protocol}//${domain}`);
+            redirectTo.search = new URLSearchParams(omitNullish({
                 ua: url.uaParam,
                 continue: url.continueParam,
-            };
-            const queryString = QueryString.stringify(queries, {
-                skipNulls: true,
-            });
-            // TODO: convert to /${path}?${queryString} once regions are migrated to Azure B2C
-            // (and no longer use HashRouter)
-            window.location.assign(`${protocol}//${domain}/?${queryString}#${path}`);
+            })).toString();
+            redirectTo.pathname = `/signin`;
+
+            window.location.assign(redirectTo);
         }
     };
 
@@ -223,7 +210,7 @@ export function RegionSelect () {
                                 style={{
                                     height: 72,
                                 }}
-                                onClick={() => handleRegionSelect(region.domain, region.path)}
+                                onClick={() => handleRegionSelect(region.domain)}
                             >
                                 <img
                                     src={region.img}
@@ -245,7 +232,7 @@ export function RegionSelect () {
                 <List>
                     <ListItem
                         button
-                        onClick={() => handleRegionSelect()}>
+                        onClick={() => handleRegionSelect(window.location.host)}>
                         <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
                     </ListItem>
                 </List>

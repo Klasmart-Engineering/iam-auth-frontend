@@ -74,8 +74,7 @@ describe(`RegionSelect`, () => {
             const url = new URL((window.location.assign as jest.MockedFunction<(url: string) => void>).mock.calls[0][0]);
             expect(url.protocol).toBe(`https:`);
             expect(url.hostname).toBe(`auth.kidsloop.co.uk`);
-            // TODO: convert to url.pathname once HashRouter has been removed
-            expect(url.hash).toBe(`#/signin`);
+            expect(url.pathname).toBe(`/signin`);
 
             const params = new URLSearchParams(url.search);
             expect(params.get(`ua`)).toBe(uaParam);
