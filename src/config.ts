@@ -8,7 +8,7 @@ import {
 } from "@azure/msal-browser";
 import { ILoggerCallback } from "@azure/msal-common";
 import { brandingConfig } from "@branding/index";
-import { BrandingOptions } from "kidsloop-branding";
+import { BrandingOptions } from "@kl-engineering/kidsloop-branding";
 
 const ENVIRONMENTS = [ `production`, `development` ] as const;
 

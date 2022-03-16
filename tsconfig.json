@@ -7,7 +7,7 @@
         "baseUrl": ".",
         "paths": {
             "@branding/*": [
-                "node_modules/kidsloop-branding/dist/brands/kidsloop/*"
+                "node_modules/@kl-engineering/kidsloop-branding/dist/brands/kidsloop/*"
             ],
             "@/*": ["src/*"],
             "@tests/*": ["tests/*"]

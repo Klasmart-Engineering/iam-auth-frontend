@@ -53,12 +53,12 @@ sudo -- sh -c -e "echo '127.0.0.1\tfe.alpha.kidsloop.net' >> /etc/hosts";
 ## Branding
 
 Branded assets and React components, such as the `PrivacyPolicy` component and logo,
-are imported from the `kidsloop-branding` package.
+are imported from the `@kl-engineering/kidsloop-branding` package.
 
 Any brand specific text, assets, components etc. should not be added to this repository,
 and instead should be added to the `kidsloop-branding` package and imported from there.
 
-For background information, see [kidsloop-branding](https://bitbucket.org/calmisland/kidsloop-branding).
+For background information, see [kidsloop-branding](https://github.com/KL-Engineering/kidsloop-branding).
 
 To see non-Kidsloop branding, set the `BRAND` environment variable to the desired brand e.g.
 
