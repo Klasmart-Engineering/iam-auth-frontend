@@ -1,4 +1,4 @@
-@alpha
+
 Feature: Login in with different phone number formats 
 
 I want ensure that the phone number normalisation method used by AMS and User Service is matched by B2C when creating an account or logging in
@@ -12,7 +12,7 @@ And I enter the phone number as "015342032290"
 And I click on send code for phone and verify the code 
 And I enter the password and confirm password and click on Create Account
 Then I should see an error on kidsloop page "An account with this email address or number already exists."
- 
+
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number 
 Given I am on the kidsloop create account with phone number page 
 When I select a country as "US" 
@@ -30,6 +30,7 @@ Examples:
     | 0534-203-2290.|
     | 0534-203-2290.|
 
+@stage
 Scenario Outline: Invalid Phone numbers 
 Given I am on the kidsloop create account with phone number page 
 When I select a country as "US" 

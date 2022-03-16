@@ -4,7 +4,7 @@ class HomePage {
     dashboardWelcomeText = `.jss118`;
     youAreNotAPartOfOrgPage = `:nth-child(2) > .MuiTypography-root`;
     profileButton = `[data-testid=profile-icon]`;
-    signOutButton = `[data-testid="logout-button"] > .MuiButton-label`;
+    signOutButton = `[data-testid="logout-button"]`;
     signOutButtonFromNotAssociatedWithOrgPage = `[data-testid="signout-button"]`;
 
     async getWelcomeText (errorText: string) {

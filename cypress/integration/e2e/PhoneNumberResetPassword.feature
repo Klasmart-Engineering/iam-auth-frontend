@@ -1,6 +1,7 @@
+
 Feature: Reset password for accounts associated with phone numbers 
 User with phone number accounts should be able to reset their passwords 
- @phone
+@phone
 Scenario: Reset password for phone number and login with new passwrod
 Given I delete all the emails from test mail box
 When I reset password for a phone number
@@ -14,7 +15,7 @@ And I click on sign out button on account not linked page
 Scenario: Errors and send new code functionality
 Given I enter phone number on reset password page
 And I enter wrong passcode for reset
-Then I should see an error on kidsloop page "Wrong code entered, please try again."
+Then I should see an error on kidsloop page "The code is incorrect, please try again"
 And I click on send new code for phone number reset password
 And I enter the new passcode from phone number
 And I verify code for phone number and confirm the password

@@ -10,6 +10,7 @@ import {
     When,
 } from "cypress-cucumber-preprocessor/steps";
 
+
 When(`I create a new account with a new email address`, ()=> {
     createAccountPage.createNewEmail();
     resetPasswordPage.deleteAllEmail(); // All the emails come to the same account

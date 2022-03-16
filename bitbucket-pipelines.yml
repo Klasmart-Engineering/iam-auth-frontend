@@ -84,7 +84,7 @@ definitions:
               image: cypress/browsers:node16.5.0-chrome97-ff96
               script:
                   - npx cypress install
-                  - npm run test:alpha:default
+                  - npm run test:alpha
                   - npm run e2e:reports
               caches:
                   - cypress

@@ -16,6 +16,8 @@ Then I should see an error on kidsloop page "The verification has failed, please
 And I enter wrong verification code
 When I click on verify code button 
 Then I should see an error on kidsloop page "You've made too many incorrect attempts. Please try again later."
+
+ @stage 
 Scenario: Reset password and login with new passwrod
 Given I delete all the emails from test mail box
 When I go to reset password page
@@ -46,6 +48,7 @@ Given I go to reset password page
 When I enter an email with kidsloop domain 'anything@kidsloop.live'
 Then I should see a message on kidsloop page "It is not possible to reset the password for an account with a KidsLoop email address. Please sign-in instead."
 
+ @stage 
 Scenario: Check error message when user is trying to reset password with an deactivated email account
 Given I go to reset password page
 And I enter deactivated email and verification code

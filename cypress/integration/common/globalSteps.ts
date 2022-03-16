@@ -20,6 +20,10 @@ Then(`I should see the welcome message {string}`, async (text: string) => {
     await homePage.getWelcomeText(text);
 });
 
+Then(`I should see {string} under the user name`, (word: string) => {
+    cy.contains(word,{timeout:7000}).should(`be.visible`);
+});
+
 Then(`I am taken to {string}`, (text: string) => {
     homePage.getNotPartOfOrgText().should(`have.text`, text);
 });
@@ -30,8 +34,9 @@ Then(`I sign out`, async () => {
 });
 
 And(`I click on sign out button on account not linked page`,()=> {
+    cy.intercept('GET',Cypress.config('baseUrl')).as('logOut')
     homePage.clickOnSignoutButtonFromNotAssociatedWithOrgPage();
-    loginPage.verifyIfOnLoginPage();
+cy.wait('@logOut')
 });
 
 When(`I go to {string} page directly`, (errorPage: string) => {
