@@ -1,6 +1,6 @@
 # kidsloop-auth-frontend
 
-Frontend counterpart to backend [kidsloop-auth-server](https://bitbucket.org/calmisland/kidsloop-auth-server/).
+Frontend counterpart to backend [iam-auth-server](https://github.com/KL-Engineering/iam-auth-server).
 
 Contains pages:
 
@@ -9,7 +9,7 @@ Contains pages:
 -   select profile
 -   edit profile (set birthday and name)
 
-Includes git submodule of [kidsloop-pass-frontend](https://bitbucket.org/calmisland/kidsloop-pass-frontend),
+Includes git submodule of [kidsloop-pass-frontend](https://github.com/KL-Engineering/kidsloop-pass-frontend),
 which contains pages:
 
 -   creating an account
@@ -74,14 +74,21 @@ There are the following dependencies:
 
 -   git submodule pointing at `src/pages/account/kidsloop-pass-frontend` (remotes/origin/kidsloop/master)
 
--   npm package dependency on package json on:
-    -   "kidsloop-branding": "bitbucket:calmisland/kidsloop-branding"
-    -   "@kidsloop/eslint-config": "bitbucket:calmisland/kidsloop-eslint-config"
+-   internal GitHub npm packages
+    -   `@kl-engineering/kidsloop-branding`
+    -   `@kl-engineering/eslint-config`
 
-Both packages are not on NPM, and only available on Bitbucket.
-To install these successfully, you will need to setup SSH keys.
+To install the private npm packages:
 
-NB: If you haven't already setup SSH keys with Bitbucket, follow the Bitbucket [instructions](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/).
+1. On Github go to Settings > Developer settings (at the bottom) > Personal access tokens, create a new Github Access Token (your token must have the `repo` and `read:packages` scopes). Make sure to authorize SSO on it so that you can use it with the KidsLoop org
+
+2. In a terminal, login to the private npm registry by running
+
+```shell
+npm login --scope=@kl-engineering --registry=https://npm.pkg.github.com
+```
+
+and enter your username, Github Access token for password, and work email when prompted.
 
 #### kidsloop-px
 
@@ -103,19 +110,6 @@ Enable submodule configuration
 > git submodule update --init --recursive --force
 ```
 
-Assuming you have an ssh key with passphrase, running NPM successfully can be tricky.
-Test the following lines by replacing your current ssh key,
-and add the desired tag (prefixed with "#") after the `.git` links for each kidsloop package e.g. `...kidsloop-branding.git#1.0.0`.
-
-```shell
-eval `ssh-agent -s`
-ssh-add ~/.ssh/id_ecdsa
-npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-px.git --verbose
-npm install --no-progress ssh://git@bitbucket.org/calmisland/kidsloop-branding.git --verbose
-```
-
-Once the prerequisites are sorted, you can successfully run an npm install.
-Npm install will trigger some post install script.
 As of now you will require on ubuntu:
 
 ```
