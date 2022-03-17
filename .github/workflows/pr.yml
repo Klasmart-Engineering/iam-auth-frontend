@@ -17,7 +17,7 @@ jobs:
 
             - run: npm i --no-progress --no-audit
               env:
-                  NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
             - name: Lint JS
               run: npm run check
