@@ -1,0 +1,42 @@
+name: Build
+
+on:
+    workflow_call:
+        inputs:
+            region:
+                required: true
+                type: string
+            environment:
+                required: true
+                type: string
+        secrets:
+            NODE_AUTH_TOKEN:
+                required: true
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 16
+                  cache: npm
+                  registry-url: https://npm.pkg.github.com/
+
+            - run: npm ci --no-progress --no-audit
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+            - name: Lint JS
+              run: npm run check
+
+            - name: Unit tests
+              run: npm run test
+
+            - name: Build
+              run: |
+                  cp deploy/config/${{ inputs.region }}/.env.${{ inputs.environment }} .env
+                  npm run build
