@@ -9,6 +9,9 @@ on:
             environment:
                 required: true
                 type: string
+            save:
+                required: false
+                type: boolean
         secrets:
             NODE_AUTH_TOKEN:
                 required: true
@@ -29,6 +32,7 @@ jobs:
             - run: npm ci --no-progress --no-audit
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+                  CYPRESS_INSTALL_BINARY: 0
 
             - name: Lint JS
               run: npm run check
@@ -40,3 +44,12 @@ jobs:
               run: |
                   cp deploy/config/${{ inputs.region }}/.env.${{ inputs.environment }} .env
                   npm run build
+
+            - name: Store build
+              uses: actions/upload-artifact@v3
+              if: ${{ success() && inputs.save }}
+              with:
+                  name: build-${{ inputs.region }}-${{ inputs.environment }}
+                  path: dist
+                  retention-days: 1
+                  if-no-files-found: error

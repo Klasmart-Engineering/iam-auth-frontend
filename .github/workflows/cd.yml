@@ -12,6 +12,7 @@ jobs:
         with:
             environment: alpha
             region: internal
+            save: true
         secrets:
             NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
@@ -19,9 +20,17 @@ jobs:
         needs: build
         uses: ./.github/workflows/deploy-aws.yml
         with:
+            environment: alpha
+            region: internal
             aws-region: ap-northeast-2
             aws-s3-bucket: kidsloop-alpha-auth-rested-mackerel/alpha
             aws-cloudfront-distribution-id: ELJUEQIM62ZJZ
         secrets:
             aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+
+    integration-tests:
+        needs: deploy
+        uses: ./.github/workflows/cypress.yml
+        with:
+            environment: alpha
