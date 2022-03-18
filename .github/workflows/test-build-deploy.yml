@@ -48,28 +48,29 @@ jobs:
             matrix:
                 envfile:
                     - dev/.env.alpha
-                    - global/.env.loadtest
-                    - global/.env.loadtest-k8s
-                    - global/.env.onboarding
-                    - global/.env.prod
-                    - global/.env.stage
-                    - id/.env.beta
-                    - id/.env.prod
-                    - id/.env.rk_beta
-                    - id/.env.rk_prod
-                    - in/.env.prod
-                    - internal/.env.alpha
-                    - internal/.env.sso
-                    - lk/.env.prod
-                    - pk/.env.prod
-                    - scoe/.env.poc
-                    - sre/.env.alpha
-                    - sre/.env.beta
-                    - uk/.env.prod
                     - uk/.env.landingzone
-                    - vn/.env.alpha
-                    - vn/.env.beta
-                    - vn/.env.prod
+                    # Uncomment to enable any of the others
+                    # - global/.env.loadtest
+                    # - global/.env.loadtest-k8s
+                    # - global/.env.onboarding
+                    # - global/.env.prod
+                    # - global/.env.stage
+                    # - id/.env.beta
+                    # - id/.env.prod
+                    # - id/.env.rk_beta
+                    # - id/.env.rk_prod
+                    # - in/.env.prod
+                    # - internal/.env.alpha
+                    # - internal/.env.sso
+                    # - lk/.env.prod
+                    # - pk/.env.prod
+                    # - scoe/.env.poc
+                    # - sre/.env.alpha
+                    # - sre/.env.beta
+                    # - uk/.env.prod
+                    # - vn/.env.alpha
+                    # - vn/.env.beta
+                    # - vn/.env.prod
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v2
