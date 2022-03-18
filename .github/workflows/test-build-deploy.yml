@@ -100,14 +100,14 @@ jobs:
                   echo ${GITHUB_REF_NAME}
                   export ENV_TAG=$(echo "${{ matrix.node }}" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
                   export BRANCH_TAG=$(echo "${GITHUB_REF_NAME}" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
-                  docker build -t $ECR_REPOSITORY .
+                  docker build -t $ECR_REPOSITORY -f deploy/Dockerfile .
                   docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-$ENV_TAG-latest
                   docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-$ENV_TAG-${GITHUB_SHA::7}
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-$ENV_TAG-latest
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-$ENV_TAG-${GITHUB_SHA::7}
               env:
                   ECR_REGISTRY: 942095822719.dkr.ecr.eu-west-2.amazonaws.com
-                  ECR_REPOSITORY: kidsloop-auth-backend
+                  ECR_REPOSITORY: kidsloop-auth-frontend
 
     deploy-landing-zone:
         # deploy-landing-zone - this Github Actions job will deploy images created on `main` to the Kidsloop landing zone.
