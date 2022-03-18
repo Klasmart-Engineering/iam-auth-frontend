@@ -32,13 +32,15 @@ export default function GenericError (props: Props) {
                 data-testid="error-title"
                 text={intl.formatMessage({
                     id: `authentication.error.generic.title`,
-                })}/>
+                })}
+            />
             <Body
                 data-testid="error-body"
                 text={intl.formatMessage({
                     id: `authentication.error.generic.body`,
-                })} />
-            {!hideHomeButton && <HomeButton className={styles.button}/>}
+                })}
+            />
+            {!hideHomeButton && <HomeButton className={styles.button} />}
         </BadanamuLookBackground>
     );
 }

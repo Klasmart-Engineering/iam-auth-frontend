@@ -21,7 +21,7 @@ import { createMemoryHistory } from "history";
 import React from 'react';
 
 describe(`RegionSelect`, () => {
-    const ui = (urlContext?: Partial<URLContext>) => withThemeProvider(withIntlProvider(withURLContext(<RegionSelect/>, {
+    const ui = (urlContext?: Partial<URLContext>) => withThemeProvider(withIntlProvider(withURLContext(<RegionSelect />, {
         ...defaultURLContext,
         ...urlContext,
     })));

@@ -18,7 +18,7 @@ import React from "react";
 test(`if the account has no associated Users, redirect to the "No Users" page`, async () => {
     const history = createMemoryHistory();
 
-    render(withApolloProvider(withRouter(<SelectUser/>, history), {
+    render(withApolloProvider(withRouter(<SelectUser />, history), {
         mocks: [
             {
                 request: {

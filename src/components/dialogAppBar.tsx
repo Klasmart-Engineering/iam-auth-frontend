@@ -48,34 +48,39 @@ export default function DialogAppBar (props: Props) {
         <>
             <AppBar
                 color="inherit"
-                className={classes.appBar}>
+                className={classes.appBar}
+            >
                 <Toolbar>
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="close"
-                        onClick={handleClose}>
+                        onClick={handleClose}
+                    >
                         <CloseIcon />
                     </IconButton>
                     <Grid
                         container
                         item
-                        wrap="nowrap">
+                        wrap="nowrap"
+                    >
                         <img
                             alt={`${config.branding.company.name} Logo`}
                             className={classes.title}
                             src={PrimaryLogo}
-                            height={32} />
+                            height={32}
+                        />
                         <Typography
                             id="nav-menu-title"
-                            variant="h6">
+                            variant="h6"
+                        >
                             {titleID}
                         </Typography>
                     </Grid>
                     { toolbarBtn ? toolbarBtn : null }
                 </Toolbar>
             </AppBar>
-            { subtitleID ?
+            { subtitleID ? (
                 <Grid
                     container
                     direction="row"
@@ -85,16 +90,19 @@ export default function DialogAppBar (props: Props) {
                         style={{
                             flex: 1,
                             height: `100%`,
-                        }}>
+                        }}
+                    >
                         <Toolbar variant="dense">
                             <Typography
                                 id="nav-menu-description"
-                                variant="body2">
+                                variant="body2"
+                            >
                                 <FormattedMessage id={subtitleID} />
                             </Typography>
                         </Toolbar>
                     </Paper>
-                </Grid> : null
+                </Grid>
+            ) : null
             }
         </>
     );

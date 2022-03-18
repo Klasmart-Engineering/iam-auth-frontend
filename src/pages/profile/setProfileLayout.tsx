@@ -84,32 +84,38 @@ export default function SetProfile () {
             >
                 <Container maxWidth="sm">
                     <Card
-                        elevation={ isSmDown ? 0 : 1 }
-                        className={ isSmDown ? `` : classes.card}>
+                        elevation={isSmDown ? 0 : 1}
+                        className={isSmDown ? `` : classes.card}
+                    >
                         <CardContent className={classes.cardContent}>
                             <Grid
                                 container
                                 justifyContent="center"
                                 alignItems="center"
-                                spacing={4}>
+                                spacing={4}
+                            >
                                 <Grid
                                     item
                                     xs={12}
                                     style={{
                                         textAlign: `center`,
-                                    }}>
+                                    }}
+                                >
                                     <img
                                         alt={`${config.branding.company.name} Logo`}
                                         src={PrimaryLogo}
-                                        height="24px" />
+                                        height="24px"
+                                    />
                                 </Grid>
                                 <Grid
                                     item
-                                    xs={12}>
+                                    xs={12}
+                                >
                                     <Switch>
                                         <Route
                                             exact
-                                            path={path}>
+                                            path={path}
+                                        >
                                             <SetName />
                                         </Route>
                                         <Route path={`${path}/:orgId?/birthday`}>

@@ -19,21 +19,21 @@ type Action = {type: Actions.FETCHING} | {type: Actions.FETCHED; isAuthenticated
 
 function reducer (state: State, action: Action): State {
     switch (action.type) {
-    case Actions.FETCHING:
-        return {
-            isLoading: true,
-            isAuthenticated: undefined,
-        };
-    case Actions.FETCHED:
-        return {
-            isLoading: false,
-            isAuthenticated: action.isAuthenticated,
-        };
-    case Actions.ERROR:
-        return {
-            isLoading: false,
-            isAuthenticated: false,
-        };
+        case Actions.FETCHING:
+            return {
+                isLoading: true,
+                isAuthenticated: undefined,
+            };
+        case Actions.FETCHED:
+            return {
+                isLoading: false,
+                isAuthenticated: action.isAuthenticated,
+            };
+        case Actions.ERROR:
+            return {
+                isLoading: false,
+                isAuthenticated: false,
+            };
     }
 }
 

@@ -14,7 +14,8 @@ const LogoutLinkButton = () => {
     const styles = useStyles();
     const intl = useIntl();
 
-    return <StyledButton
+    return (
+        <StyledButton
         <Link>
         extendedOnly
         component={Link}
@@ -22,10 +23,12 @@ const LogoutLinkButton = () => {
         data-testid="signout-button"
         size="medium"
         type="submit"
-        className={styles.button}>{intl.formatMessage({
+        className={styles.button}
+        >{intl.formatMessage({
             id: `generic.signOut`,
         })}
-    </StyledButton>;
+        </StyledButton>
+    );
 };
 
 export default LogoutLinkButton;

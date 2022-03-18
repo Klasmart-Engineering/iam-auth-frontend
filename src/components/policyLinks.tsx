@@ -52,12 +52,15 @@ function LinkContainer ({ children }: { children: React.ReactNode }) {
 const Motion = React.forwardRef(function Transition (props: GrowProps & { children?: React.ReactElement },
     ref: React.Ref<HTMLDivElement>) {
 
-    return <Grow
+    return (
+        <Grow
         ref={ref}
         style={{
             transformOrigin: `0 0 0`,
         }}
-        {...props} />;
+        {...props}
+        />
+    );
 });
 
 export default function PolicyLinks () {
@@ -93,7 +96,8 @@ export default function PolicyLinks () {
                                 textDecoration: `underline`,
                             },
                         },
-                    }}>
+                    }}
+                >
                     <PrivacyPolicy>
                         <FormattedMessage id="privacy_privacyLink" />
                     </PrivacyPolicy>
@@ -115,7 +119,8 @@ export default function PolicyLinks () {
                             },
                         },
                     }}
-                    xs={4}>
+                    xs={4}
+                >
                     <Link
                         color="inherit"
                         variant="caption"
@@ -141,7 +146,8 @@ export default function PolicyLinks () {
             >
                 <DialogAppBar
                     handleClose={handleClose}
-                    titleID={title} />
+                    titleID={title}
+                />
                 <DialogContent dividers>
                     <DialogContentText
                         ref={descriptionElementRef}

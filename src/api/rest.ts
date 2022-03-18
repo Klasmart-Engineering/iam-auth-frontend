@@ -42,7 +42,7 @@ const attemptRequest = async (input: RequestInfo, options: RequestOptions) => {
     }
 };
 
-export const request = async (input: RequestInfo, options: RequestOptions = {}): Promise<Response> =>  {
+export const request = async (input: RequestInfo, options: RequestOptions = {}): Promise<Response> => {
     const {
         headers,
         retries,

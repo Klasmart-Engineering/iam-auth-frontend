@@ -1,0 +1,12 @@
+name: PR
+
+on: pull_request
+
+jobs:
+    build:
+        uses: ./.github/workflows/build.yml
+        with:
+            environment: alpha
+            region: internal
+        secrets:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

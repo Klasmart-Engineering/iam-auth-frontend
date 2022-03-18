@@ -13,9 +13,12 @@ function RegionLocked () {
         path: `/`,
         domain: config.server.domain,
     });
-    return <Redirect to={{
-        pathname: `/signin`,
-    }} />;
+    return (
+        <Redirect to={{
+            pathname: `/signin`,
+        }}
+        />
+    );
 }
 
 export default RegionLocked;

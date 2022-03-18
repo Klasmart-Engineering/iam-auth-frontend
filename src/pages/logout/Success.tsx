@@ -15,12 +15,14 @@ const LogoutSuccess = () => {
                 data-testid="success-title"
                 text={intl.formatMessage({
                     id: `signOut.success.title`,
-                })} />
+                })}
+            />
             <Body
                 data-testid="success-body"
                 text={intl.formatMessage({
                     id: `signOut.success.body`,
-                })} />
+                })}
+            />
         </Pogo>
     );
 };

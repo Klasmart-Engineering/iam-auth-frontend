@@ -44,7 +44,7 @@ describe(`Logout`, () => {
 
         const msalClient = client ?? createMockMsalClient();
 
-        const view = rtlRender(withMsalProvider(withRouter(withIntlProvider(<Logout/>), history), msalClient));
+        const view = rtlRender(withMsalProvider(withRouter(withIntlProvider(<Logout />), history), msalClient));
         return {
             ...view,
             history,

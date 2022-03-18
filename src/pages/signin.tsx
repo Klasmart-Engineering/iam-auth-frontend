@@ -76,9 +76,12 @@ const StyledCheckbox = withStyles({
         },
     },
     checked: {},
-})((props: CheckboxProps) => <Checkbox
+})((props: CheckboxProps) => (
+    <Checkbox
     color="default"
-    {...props} />);
+    {...props}
+    />
+));
 
 export function SignIn () {
     const classes = useStyles();
@@ -180,7 +183,8 @@ export function SignIn () {
                 setEmailError(<span style={{
                     display: `flex`,
                     alignItems: `center`,
-                }}>
+                }}
+                              >
                     <ErrorIcon className={classes.errorIcon} />
                     <FormattedMessage id="emailOrPhone.empty" />
                 </span>);
@@ -198,23 +202,23 @@ export function SignIn () {
         const id = e.getErrorMessageID();
         const errorMessage = <FormattedMessage id={id} />;
         switch (e.getErrorMessageType()) {
-        case RestAPIErrorType.INVALID_LOGIN:
-        case RestAPIErrorType.INPUT_INVALID_FORMAT:
-            setEmailError(errorMessage);
-            break;
-        case RestAPIErrorType.INVALID_PASSWORD:
-            setPasswordError(errorMessage);
-            break;
-        case RestAPIErrorType.EMAIL_NOT_VERIFIED:
-            history.push(`/verify-email`);
-            break;
-        case RestAPIErrorType.PHONE_NUMBER_NOT_VERIFIED:
-            history.push(`/verify-phone`);
-            break;
-        case RestAPIErrorType.ACCOUNT_BANNED:
-        default:
-            setGeneralError(errorMessage);
-            break;
+            case RestAPIErrorType.INVALID_LOGIN:
+            case RestAPIErrorType.INPUT_INVALID_FORMAT:
+                setEmailError(errorMessage);
+                break;
+            case RestAPIErrorType.INVALID_PASSWORD:
+                setPasswordError(errorMessage);
+                break;
+            case RestAPIErrorType.EMAIL_NOT_VERIFIED:
+                history.push(`/verify-email`);
+                break;
+            case RestAPIErrorType.PHONE_NUMBER_NOT_VERIFIED:
+                history.push(`/verify-phone`);
+                break;
+            case RestAPIErrorType.ACCOUNT_BANNED:
+            default:
+                setGeneralError(errorMessage);
+                break;
         }
     }
 
@@ -233,7 +237,8 @@ export function SignIn () {
         <React.Fragment>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography variant="h4">
                     <FormattedMessage
                         id={`login_loginPrompt`}
@@ -245,7 +250,8 @@ export function SignIn () {
             </Grid>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <StyledTextField
                     autoFocus
                     fullWidth
@@ -280,7 +286,8 @@ export function SignIn () {
                     justifyContent="space-between"
                     style={{
                         paddingTop: theme.spacing(1),
-                    }}>
+                    }}
+                >
                     <Grid item>
                         <Link
                             href="#"
@@ -321,16 +328,18 @@ export function SignIn () {
                     justifyContent="space-between"
                     style={{
                         padding: theme.spacing(1, 0),
-                    }}>
+                    }}
+                >
                     <Grid
                         item
                         xs={12}
                         style={{
                             paddingTop: 0,
                             paddingBottom: 0,
-                        }}>
+                        }}
+                    >
                         <FormControlLabel
-                            control={
+                            control={(
                                 <StyledCheckbox
                                     checked={checked}
                                     checkedIcon={<CheckBoxIcon fontSize="small" />}
@@ -340,8 +349,8 @@ export function SignIn () {
                                     }}
                                     onChange={() => handleCheckbox()}
                                 />
-                            }
-                            label={
+                              )}
+                            label={(
                                 <Typography variant="caption">
                                     <FormattedMessage
                                         id="login_acceptPrivacyPolicy"
@@ -351,19 +360,21 @@ export function SignIn () {
                                         }}
                                     />
                                 </Typography>
-                            }
+                              )}
                         />
                         <Grid
                             item
-                            xs={12}>
-                            {checkmarkError === null ? null :
+                            xs={12}
+                        >
+                            {checkmarkError === null ? null : (
                                 <Typography
                                     align="left"
                                     color="error"
-                                    variant="caption">
+                                    variant="caption"
+                                >
                                     {checkmarkError}
                                 </Typography>
-                            }
+                            )}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -386,15 +397,17 @@ export function SignIn () {
             </Grid>
             <Grid
                 item
-                xs={12}>
-                {generalError === null ? null :
+                xs={12}
+            >
+                {generalError === null ? null : (
                     <Typography
                         align="left"
                         color="error"
-                        variant="body2">
+                        variant="body2"
+                    >
                         {generalError}
                     </Typography>
-                }
+                )}
             </Grid>
         </React.Fragment>
     );

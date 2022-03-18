@@ -109,10 +109,10 @@ const Logout = () => {
     ]);
 
     switch (state) {
-    case State.IN_PROGRESS:
-        return <InProgress/>;
-    case State.ERROR:
-        return <Error onRetryClick={useRetry}/>;
+        case State.IN_PROGRESS:
+            return <InProgress />;
+        case State.ERROR:
+            return <Error onRetryClick={useRetry} />;
     }
 };
 

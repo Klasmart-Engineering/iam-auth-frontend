@@ -125,19 +125,19 @@ export default function SetName () {
         return (
             <Grid item>
                 <FormControlLabel
-                    control={
+                    control={(
                         <Switch
                             color="primary"
                             checked={isUsername}
                             size="small"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsUsername(e.target.checked)}
                         />
-                    }
-                    label={
+                      )}
+                    label={(
                         <Typography variant="caption">
                             { isUsername ? `Switch to Name` : `Switch to Username` }
                         </Typography>
-                    }
+                      )}
                     labelPlacement="start"
                 />
             </Grid>
@@ -164,15 +164,19 @@ export default function SetName () {
                     item
                     style={{
                         textAlign: `center`,
-                    }}>
+                    }}
+                >
                     <img
                         src={Name}
-                        className={classes.imgHeader} />
+                        className={classes.imgHeader}
+                        alt=""
+                    />
                 </Grid>
                 <Grid item>
                     <Typography
                         variant="h4"
-                        align="center">
+                        align="center"
+                    >
                         { userId ? <FormattedMessage id="name_titleUpdate" /> : <FormattedMessage id="name_titleCreate" />}
                     </Typography>
                 </Grid>
@@ -180,18 +184,20 @@ export default function SetName () {
                     <Typography
                         variant="subtitle2"
                         align="center"
-                        className={classes.textSpacing}>
+                        className={classes.textSpacing}
+                    >
                         { userId &&
-                            loadingUserInfo ?
-                            <FormattedMessage
+                            loadingUserInfo ? (
+                                <FormattedMessage
                                 id="name_prompt"
                                 values={{
                                     name: isUsername ?
                                         <FormattedMessage id="username" /> :
                                         <FormattedMessage id="name" />,
                                 }}
-                            /> :
-                            <FormattedMessage
+                                />
+                            ) : (
+                                <FormattedMessage
                                 id="name_promptUpdate"
                                 values={{
                                     name: isUsername ?
@@ -199,14 +205,15 @@ export default function SetName () {
                                         <FormattedMessage id="name" />,
                                     account: userInfo?.email ?? userInfo?.phone,
                                 }}
-                            />
-                        }
+                                />
+                            )}
                         {` `}<FormattedMessage id="name_promptEnd" />
                     </Typography>
                 </Grid>
                 <div style={{
                     height: theme.spacing(2),
-                }}/>
+                }}
+                />
                 <Grid
                     container
                     item
@@ -216,11 +223,12 @@ export default function SetName () {
                     <Grid
                         item
                         xs={12}
-                        sm={6}>
+                        sm={6}
+                    >
                         <TextField
                             fullWidth
                             required
-                            helperText={isUsername ?
+                            helperText={isUsername ? (
                                 <Grid
                                     container
                                     justifyContent="space-between"
@@ -230,7 +238,8 @@ export default function SetName () {
                                         <FormattedMessage id="name_fieldUsername" />
                                     </Grid>
                                     { usernameSwitcher() }
-                                </Grid> :
+                                </Grid>
+                            ) :
                                 <FormattedMessage id="name_fieldGivenName" />
                             }
                             value={name}
@@ -240,12 +249,13 @@ export default function SetName () {
                             }
                         />
                     </Grid>
-                    { !isUsername &&
+                    { !isUsername && (
                         <>
                             <Grid
                                 item
                                 xs={12}
-                                sm={6}>
+                                sm={6}
+                            >
                                 <TextField
                                     fullWidth
                                     helperText={
@@ -270,7 +280,7 @@ export default function SetName () {
                                 { usernameSwitcher() }
                             </Grid>
                         </>
-                    }
+                    )}
                 </Grid>
             </Grid>
             <Grid
@@ -289,12 +299,12 @@ export default function SetName () {
                         rounded
                         color="primary"
                         disabled={name === ``}
-                        label={ userId ? <FormattedMessage id="name_buttonSave" /> : <FormattedMessage id="name_buttonNext" /> }
+                        label={userId ? <FormattedMessage id="name_buttonSave" /> : <FormattedMessage id="name_buttonNext" />}
                         variant="contained"
                         size="medium"
                         onClick={() => handlePrimaryAction()}
                     />
-                    { !userId &&
+                    { !userId && (
                         <Button
                             fullWidth
                             label={<FormattedMessage id="name_buttonBack" />}
@@ -304,7 +314,7 @@ export default function SetName () {
                             size="small"
                             onClick={() => history.goBack()}
                         />
-                    }
+                    )}
                 </Grid>
             </Grid>
         </Grid>

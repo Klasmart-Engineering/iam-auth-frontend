@@ -174,15 +174,19 @@ export default function SetBirthday () {
                     item
                     style={{
                         textAlign: `center`,
-                    }}>
+                    }}
+                >
                     <img
                         src={Birthday}
-                        className={classes.imgHeader} />
+                        className={classes.imgHeader}
+                        alt=""
+                    />
                 </Grid>
                 <Grid item>
                     <Typography
                         variant="h4"
-                        align="center">
+                        align="center"
+                    >
                         { userId ? <FormattedMessage id="birthday_titleUpdate" /> : <FormattedMessage id="birthday_titleCreate" />}
                     </Typography>
                 </Grid>
@@ -190,35 +194,42 @@ export default function SetBirthday () {
                     <Typography
                         variant="subtitle2"
                         align="center"
-                        className={classes.textSpacing}>
+                        className={classes.textSpacing}
+                    >
                         { userId &&
                             loadingUserInfo ?
-                            <FormattedMessage id="birthday_prompt" /> :
-                            <FormattedMessage
+                                <FormattedMessage id="birthday_prompt" /> : (
+                                    <FormattedMessage
                                 id="birthday_promptUpdate"
                                 values={{
                                     account: userInfo?.email ?? userInfo?.phone,
-                                }}/>
-                        }
+                                }}
+                                    />
+                                )}
                         {` `}<FormattedMessage
                             id="birthday_promptCreate"
                             values={{
                                 platformName: config.branding.company.name,
-                            }}/>
+                            }}
+                             />
                     </Typography>
                 </Grid>
                 <div style={{
                     height: theme.spacing(2),
-                }}/>
+                }}
+                />
                 <Grid item>
                     <DatePicker
                         value={date}
                         maxDate={today}
                         views={[ `year`, `month` ]}
-                        renderInput={(params) => <TextField
+                        renderInput={(params) => (
+                            <TextField
                             variant="outlined"
                             helperText={<FormattedMessage id="birthday_datePickerHelper" />}
-                            {...params} /> }
+                            {...params}
+                            />
+                        )}
                         onChange={newDate => setDate(newDate)}
                     />
                 </Grid>
@@ -238,7 +249,7 @@ export default function SetBirthday () {
                         fullWidth
                         rounded
                         color="primary"
-                        label={ !date ?
+                        label={!date ?
                             <FormattedMessage id="birthday_buttonSkip" /> :
                             userId ?
                                 <FormattedMessage id="birthday_buttonSave" /> :
@@ -248,7 +259,7 @@ export default function SetBirthday () {
                         size="medium"
                         onClick={() => handlePrimaryAction()}
                     />
-                    { !userId &&
+                    { !userId && (
                         <Button
                             fullWidth
                             label={<FormattedMessage id="birthday_buttonBack" />}
@@ -258,7 +269,7 @@ export default function SetBirthday () {
                             size="small"
                             onClick={() => history.goBack()}
                         />
-                    }
+                    )}
                 </Grid>
             </Grid>
         </Grid>

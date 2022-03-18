@@ -17,7 +17,7 @@ describe(`NoProfiles`, () => {
             initialEntries: [ `/no-profiles` ],
         });
 
-        render(withRouter(withIntlProvider(<NoProfiles/>), history));
+        render(withRouter(withIntlProvider(<NoProfiles />), history));
 
         userEvent.click(screen.getByTestId(`signout-button`));
 

@@ -175,7 +175,7 @@ export function RegionSelect () {
 
     if (loading) {
         return (
-            <CircularProgress size={`5rem`}/>
+            <CircularProgress size={`5rem`} />
         );
     }
 
@@ -183,7 +183,8 @@ export function RegionSelect () {
         <React.Fragment>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography variant="h5">
                     <FormattedMessage id="region_selectCountryRegion" />
                 </Typography>
@@ -215,6 +216,7 @@ export function RegionSelect () {
                                 <img
                                     src={region.img}
                                     height={32}
+                                    alt=""
                                 />
                                 <ListItemText
                                     primary={region.primaryText}
@@ -232,7 +234,8 @@ export function RegionSelect () {
                 <List>
                     <ListItem
                         button
-                        onClick={() => handleRegionSelect(window.location.host)}>
+                        onClick={() => handleRegionSelect(window.location.host)}
+                    >
                         <ListItemText primary={<FormattedMessage id="region_cantFind" />} />
                     </ListItem>
                 </List>

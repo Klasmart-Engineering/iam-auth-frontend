@@ -19,10 +19,12 @@ const Spinner = () => {
         >
             <source
                 src={webmSpinner}
-                type="video/webm"/ >
+                type="video/webm"
+            />
             <source
                 src={mp4Spinner}
-                type="video/mp4"/ >
+                type="video/mp4"
+            />
         </video>
     );
 };

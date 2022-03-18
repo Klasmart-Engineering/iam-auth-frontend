@@ -57,7 +57,8 @@ export function NotFound () {
         <React.Fragment>
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography
                     variant="h4"
                     align="center"
@@ -75,24 +76,28 @@ export function NotFound () {
             </Grid>
             <Grid
                 item
-                xs={12}>
-            </Grid>
+                xs={12}
+            />
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <img
                     src={NOT_FOUND_IMAGES[((Math.floor(Math.random() * 10)) % NOT_FOUND_IMAGES.length)]}
-                    width="80%" />
-            </Grid>
-            <Grid
-                item
-                xs={12}>
+                    width="80%"
+                    alt=""
+                />
             </Grid>
             <Grid
                 item
                 xs={12}
-                className={classes.link}>
-                <HomeButton/>
+            />
+            <Grid
+                item
+                xs={12}
+                className={classes.link}
+            >
+                <HomeButton />
             </Grid>
         </React.Fragment>
     );

@@ -38,24 +38,24 @@ function buildInitialState (existingToken: string | undefined): State {
 
 function reducer (state: State, action: Action): State {
     switch (action.type) {
-    case Actions.FETCHING:
-        return {
-            token: undefined,
-            isLoading: true,
-            error: undefined,
-        };
-    case Actions.FETCHED:
-        return {
-            token: action.token,
-            isLoading: false,
-            error: undefined,
-        };
-    case Actions.ERROR:
-        return {
-            token: undefined,
-            isLoading: false,
-            error: action.error,
-        };
+        case Actions.FETCHING:
+            return {
+                token: undefined,
+                isLoading: true,
+                error: undefined,
+            };
+        case Actions.FETCHED:
+            return {
+                token: action.token,
+                isLoading: false,
+                error: undefined,
+            };
+        case Actions.ERROR:
+            return {
+                token: undefined,
+                isLoading: false,
+                error: action.error,
+            };
     }
 }
 

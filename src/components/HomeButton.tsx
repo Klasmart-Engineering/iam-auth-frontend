@@ -11,16 +11,18 @@ const HomeButton = (props: Props) => {
     const { className } = props;
     const history = useHistory();
 
-    return <StyledButton
+    return (
+        <StyledButton
         extendedOnly
         data-testid="home-button"
         size="medium"
         type="submit"
         className={className}
         onClick={() => { history.push(`/`);}}
-    >
-        <FormattedMessage id="button_home" />
-    </StyledButton>;
+        >
+            <FormattedMessage id="button_home" />
+        </StyledButton>
+    );
 };
 
 export default HomeButton;

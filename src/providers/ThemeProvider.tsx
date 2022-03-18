@@ -34,19 +34,19 @@ const buildTheme = (locale: Locale): Theme => {
         const localeWeightBold = 700;
 
         switch (locale) {
-        case `en`:
-            localeFontFamily = `Inter`;
-            localeWeightRegular = 500;
-            break;
-        case `ko`:
-            localeFontFamily = `NanumSquareRound`;
-            localeWeightRegular = 600;
-            break;
-        case `zh-CN`:
-            localeFontFamily = `Source Han Sans SC`;
-            break;
-        default:
-            break;
+            case `en`:
+                localeFontFamily = `Inter`;
+                localeWeightRegular = 500;
+                break;
+            case `ko`:
+                localeFontFamily = `NanumSquareRound`;
+                localeWeightRegular = 600;
+                break;
+            case `zh-CN`:
+                localeFontFamily = `Source Han Sans SC`;
+                break;
+            default:
+                break;
         }
         localeFontFamily = [
             localeFontFamily,

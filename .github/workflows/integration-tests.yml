@@ -1,0 +1,15 @@
+name: Integration tests
+
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: Environment to run Cypress tests on
+                required: true
+                type: string
+
+jobs:
+    integration-tests:
+        uses: ./.github/workflows/cypress.yml
+        with:
+            environment: ${{ github.event.inputs.environment }}
