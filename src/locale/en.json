@@ -80,5 +80,5 @@
     "signOut.error": "Something went wrong signing you out!\nPlease retry or contact your organization admin.",
     "signOut.inProgress": "You are being signed out from KidsLoop",
     "signOut.success.title": "Success!",
-    "signOut.success.body": "You have been signed out of KidsLoop."
+    "signOut.success.body": "You have been signed out of KidsLoop. Please close this window."
 }

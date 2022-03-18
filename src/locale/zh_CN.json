@@ -79,6 +79,6 @@
     "generic.retry": "重试",
     "signOut.error": "登出遇到了问题，请重试或联系您的管理员",
     "signOut.inProgress": "您已登出KidsLoop平台",
-    "signOut.success.title": "Success!",
-    "signOut.success.body": "You have been signed out of KidsLoop."
+    "signOut.success.title": "成功！",
+    "signOut.success.body": "您已登出KidsLoop平台"
 }

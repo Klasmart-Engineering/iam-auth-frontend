@@ -80,5 +80,5 @@
     "signOut.error": "로그아웃하는 동안 문제가 발생했습니다!\n다시 시도하거나 담당자(조직 관리자)에게 문의하세요.",
     "signOut.inProgress": "키즈룹에서 로그아웃 중입니다.",
     "signOut.success.title": "Success!",
-    "signOut.success.body": "You have been signed out of KidsLoop."
+    "signOut.success.body": "You have been signed out of KidsLoop. Please close this window."
 }
