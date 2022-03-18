@@ -106,7 +106,7 @@ jobs:
         # ENV required: [ARGOCD_APP, ARGOCD_APP_CHART_TAG_PATH]
         # SECRETS required: [TOOLS_KUBECONFIG_CONTENT_B64, ARGOCD_AUTH_USERNAME, ARGOCD_AUTH_PASSWORD]
         runs-on: ubuntu-latest
-        needs: build
+        needs: build-env
         # Put any deploy conditions in here.
         if: github.ref == 'refs/heads/master'
         env:
