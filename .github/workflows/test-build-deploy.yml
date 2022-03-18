@@ -91,9 +91,9 @@ jobs:
                   aws-region: eu-west-2
             - name: Login to Amazon ECR
               uses: aws-actions/amazon-ecr-login@v1
-            - name: Run NPM build with ${{ matrix.node }} dot-env file
+            - name: Run NPM build with ${{ matrix.envfile }} dot-env file
               run: |
-                  cp ${{ matrix.node }} .env
+                  cp ${{ matrix.envfile }} .env
                   source .env
                   npm run build
                   echo ${GITHUB_REF_NAME}
