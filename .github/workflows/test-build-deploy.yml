@@ -1,4 +1,4 @@
-name: CI Pipeline for Branches
+name: Test, Build, Deploy
 
 env:
     ARGOCD_APP: uk-landingzone-auth-frontend
