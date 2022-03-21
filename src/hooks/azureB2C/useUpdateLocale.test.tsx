@@ -1,4 +1,6 @@
 import useUpdateLocale from './useUpdateLocale';
+import { localeCodes } from '@/locale';
+import { mapKidsloopLocaleToAzureB2CLocale } from '@/utils/azureB2C/locale';
 import { MsalAuthenticationResult } from '@azure/msal-react';
 import { renderHook } from '@testing-library/react-hooks';
 import { Cookies } from 'react-cookie';
@@ -8,8 +10,10 @@ describe(`useUpdateLocale`, () => {
     let cookieSetSpy: jest.SpyInstance<void>;
 
     beforeEach(() => {
+        jest.clearAllMocks();
         cleanCookies();
         cookieSetSpy = jest.spyOn(Cookies.prototype, `set`);
+        console.warn = jest.fn();
     });
 
     afterAll(() => {
@@ -22,23 +26,30 @@ describe(`useUpdateLocale`, () => {
         expect(cookieSetSpy).not.toHaveBeenCalled();
     });
 
-    test(`if AuthenticationResult.idTokenClaims includes a supported locale, does nothing`, () => {
+    test(`if AuthenticationResult.idTokenClaims includes an unsupported locale, doesn't update cookie and logs a warning`, () => {
+        // Define object separately to ensure reference equality, and avoid react-testing-library
+        // running the useEffect twice
+        const idTokenClaims = {
+            locale: `invalid-locale`,
+        };
+
         renderHook(() => useUpdateLocale({
-            idTokenClaims: {
-                locale: `invalid-locale`,
-            },
+            idTokenClaims,
         } as MsalAuthenticationResult["result"]));
 
         expect(cookieSetSpy).not.toHaveBeenCalled();
+        expect(console.warn).toHaveBeenCalledTimes(1);
     });
 
-    test(`if AuthenticationResult.idTokenClaims includes a supported locale, updates the "locale" cookie`, () => {
-        const locale = `th`;
+    test.each(localeCodes)(`if AuthenticationResult.idTokenClaims includes supported locale "%s", updates the "locale" cookie`, (locale) => {
+        // Define object separately to ensure reference equality, and avoid react-testing-library
+        // running the useEffect twice
+        const idTokenClaims = {
+            locale: mapKidsloopLocaleToAzureB2CLocale(locale),
+        };
 
         renderHook(() => useUpdateLocale({
-            idTokenClaims: {
-                locale,
-            },
+            idTokenClaims,
         } as MsalAuthenticationResult["result"]));
 
         expect(cookieSetSpy).toHaveBeenCalledTimes(1);

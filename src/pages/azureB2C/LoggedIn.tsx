@@ -25,7 +25,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         error: accessTokenError,
     } = useAccessToken(result);
 
-    useUpdateLocale(result);
+    const isUpdatingLocale = useUpdateLocale(result);
 
     // We render this component when:
     //      1. You have just created an account/logged into B2C, and been sent back to the app via the OAuth2 `redirect_uri`
@@ -43,7 +43,14 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     const platform: Platform = oauthState?.platform ?? currentPlatform;
 
     useEffect(() => {
-        if (isLoading) return;
+        // Need to wait for the following before we can open the mobile app or /transfer:
+        // - an `accessToken` to be fetched (if required)
+        // - `locale` to be updated
+        //     - For mobile app, ensure the latest `locale` is provided
+        //     - For browser, when `useUpdateLocale` completes, the react-intl Provider rerenders,
+        //       which causes a rerender of this component, which would abort any in-progress
+        //       "/transfer" call
+        if (isLoading || isUpdatingLocale) return;
 
         if (!token || accessTokenError) {
             console.error(`Unexpected error retrieving accessToken from B2C`);
@@ -93,6 +100,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         accessTokenError,
         token,
         isLoading,
+        isUpdatingLocale,
         history,
         locale,
         platform,
