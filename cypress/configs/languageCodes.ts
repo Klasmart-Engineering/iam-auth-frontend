@@ -50,6 +50,7 @@ export default {
         [ `Korean`, `로그인` ],[ `Chinese`, `登录` ], 
         [ `Vietnamese`, `Đăng nhập` ],
         [ `Indonesia`, `Masuk` ], 
+        [ `Chinese`, `登录` ],
         [ `Thai`, `เข้าสู่ระบบ` ],
     ]),
 };
