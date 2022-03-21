@@ -73,6 +73,7 @@ jobs:
                     # - vn/.env.prod
         steps:
             - uses: actions/checkout@v2
+
             - uses: actions/setup-node@v2
               with:
                   node-version: 16
@@ -90,8 +91,10 @@ jobs:
                   aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
                   aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
                   aws-region: eu-west-2
+
             - name: Login to Amazon ECR
               uses: aws-actions/amazon-ecr-login@v1
+
             - name: Run NPM build with ${{ matrix.envfile }} dot-env file
               run: |
                   set +x
