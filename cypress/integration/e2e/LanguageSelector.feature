@@ -32,6 +32,7 @@ Feature: Ability to change the language
             | locale           | language   | textMessage              |
             | Español          | Spanish    | Biblioteca de contenidos |
             | 한국어           | Korean     | 콘텐츠 라이브러리        |
+            | 汉语 (简体)       | Chinese  | 内容资源库                  |
             | Tiếng Việt       | Vietnamese | Thư Viện Nội Dung        |
             | bahasa Indonesia | Indonesia  | Pustaka Konten           |
             | ภาษาไทย          | Thai       | ไลบรารีเนื้อหา           |
