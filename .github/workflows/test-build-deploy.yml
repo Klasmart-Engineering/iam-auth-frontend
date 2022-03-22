@@ -7,12 +7,12 @@ env:
 on:
     push:
         branches:
-            - '**'
+            - "**"
         tags:
-            - 'v*'
+            - "v*"
     pull_request:
         branches-ignore:
-            - '**'
+            - "**"
 
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
@@ -124,7 +124,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         env:
             # Due to a Teleport bug, we are using K8 port forwarding to connect to ArgoCD for now.
-            TOOLS_KUBECONFIG: '${{ github.workspace }}/.kube/tools-kubeconfig.yml'
+            TOOLS_KUBECONFIG: "${{ github.workspace }}/.kube/tools-kubeconfig.yml"
             ARGOCD_SERVER: localhost:8080
             ARGOCD_OPTS: --grpc-web --insecure --plaintext
         name: Deploy to Landing Zone
@@ -136,7 +136,7 @@ jobs:
                     && echo '${{ secrets.TOOLS_KUBECONFIG_CONTENT_B64 }}' | base64 -d > $TOOLS_KUBECONFIG
 
             - name: Test kubernetes connection
-              run: 'kubectl version --kubeconfig $TOOLS_KUBECONFIG'
+              run: "kubectl version --kubeconfig $TOOLS_KUBECONFIG"
 
             - name: Configure ArgoCD CLI
               uses: clowdhaus/argo-cd-action@v1.9.0
@@ -146,7 +146,7 @@ jobs:
                   options: --client
 
             - name: Set up kubernetes port-forwarding connection to tools cluster
-              run: 'kubectl port-forward -n argocd svc/argocd-server 8080:80 --kubeconfig $TOOLS_KUBECONFIG &'
+              run: "kubectl port-forward -n argocd svc/argocd-server 8080:80 --kubeconfig $TOOLS_KUBECONFIG &"
 
             - name: Configure tags
               run: |
@@ -195,20 +195,19 @@ jobs:
               if: always()
               uses: ouzi-dev/commit-status-updater@v1.1.0
               with:
-                  status: '${{ job.status }}'
+                  status: "${{ job.status }}"
                   url: https://argocd.kidsloop.teleport.sh/applications/${{ env.ARGOCD_APP }}
-                  description: 'Click to view the app in ArgoCD'
-                  name: 'ArgoCD'
+                  description: "Click to view the app in ArgoCD"
+                  name: "ArgoCD"
 
             - name: Status - target url
               if: always()
               uses: ouzi-dev/commit-status-updater@v1.1.0
               with:
-                  status: '${{ job.status }}'
+                  status: "${{ job.status }}"
                   url: https://hub.landing-zone.kidsloop.live
                   description: "Click to test in the 'Landing Zone' environment"
-                  name: 'Landing Zone'
-
+                  name: "Landing Zone"
 
     deploy-alpha-dev:
         # deploy-landing-zone - this Github Actions job will deploy images created on `main` to the Kidsloop landing zone.
