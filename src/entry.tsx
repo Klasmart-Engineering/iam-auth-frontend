@@ -14,13 +14,13 @@ import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
-import Loading from "@/components/Loading";
 import { ProtectedRoute } from "@/components/router";
 import {
     URLContextProvider,
     useLocale,
 } from "@/hooks";
 import { isSupportedLocale } from "@/locale";
+import AuthenticationCallback from "@/pages/AuthenticationCallback";
 import { Login } from "@/pages/azureB2C";
 import LogoutSuccess from "@/pages/logout/Success";
 import NoProfiles from "@/pages/NoProfiles";
@@ -219,7 +219,7 @@ function ClientSide () {
                                     {config.azureB2C.enabled && (
                                     <Route
                                         path="/authentication-callback"
-                                        component={Loading}
+                                        component={AuthenticationCallback}
                                     />
                                     )}
                                     <ProtectedRoute path="/createprofile">

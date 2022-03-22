@@ -1,6 +1,7 @@
 export {
     useAccessToken,
     useConditionalLogoutFromB2C,
+    useForceAuthentication,
     useIsFederatedAccount,
     useOAuthState,
     useRedirectRequest,

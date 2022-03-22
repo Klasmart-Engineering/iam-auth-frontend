@@ -1,5 +1,5 @@
-
 import { AuthenticationFailed } from "@/components/azureB2C";
+import ForceAuthenticationTemplate from "@/components/azureB2C/ForceAuthenticationTemplate";
 import Loading from "@/components/Loading";
 import {
     useRedirectRequest,
@@ -13,20 +13,36 @@ import {
 } from "@azure/msal-react";
 import React from "react";
 
+const renderChildren = (response: MsalAuthenticationResult) => {return <LoggedIn {...response} />;};
+
 export default function Login () {
     const [ params ] = useSearchParams();
+    const idp = params.get(`idp`) || undefined;
+
     const authenticationRequest = useRedirectRequest({
-        idp: params.get(`idp`) || undefined,
+        idp,
     });
 
+    if (!idp) {
+        return (
+            <MsalAuthenticationTemplate
+                interactionType={InteractionType.Redirect}
+                errorComponent={AuthenticationFailed}
+                loadingComponent={Loading}
+                authenticationRequest={authenticationRequest}
+                // eslint-disable-next-line react/no-children-prop
+                children={renderChildren}
+            />
+        );
+    }
+
     return (
-        <MsalAuthenticationTemplate
-            interactionType={InteractionType.Redirect}
+        <ForceAuthenticationTemplate
             errorComponent={AuthenticationFailed}
             loadingComponent={Loading}
             authenticationRequest={authenticationRequest}
             // eslint-disable-next-line react/no-children-prop
-            children={(response: MsalAuthenticationResult) => {return <LoggedIn {...response} />;}}
+            children={renderChildren}
         />
     );
 }
