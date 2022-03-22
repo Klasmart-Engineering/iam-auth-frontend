@@ -1,9 +1,5 @@
 name: Test, Build, Deploy
 
-env:
-    ARGOCD_APP: uk-landingzone-auth-frontend
-    ARGOCD_APP_CHART_TAG_PATH: authFrontend.tag
-
 on:
     push:
         branches:
@@ -127,6 +123,8 @@ jobs:
             TOOLS_KUBECONFIG: "${{ github.workspace }}/.kube/tools-kubeconfig.yml"
             ARGOCD_SERVER: localhost:8080
             ARGOCD_OPTS: --grpc-web --insecure --plaintext
+            ARGOCD_APP: uk-landingzone-auth-frontend
+            ARGOCD_APP_CHART_TAG_PATH: authFrontend.tag
         name: Deploy to Landing Zone
         steps:
             # Set up the kubeconfig file in GHA secrets first
