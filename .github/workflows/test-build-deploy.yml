@@ -127,6 +127,7 @@ jobs:
             TOOLS_KUBECONFIG: '${{ github.workspace }}/.kube/tools-kubeconfig.yml'
             ARGOCD_SERVER: localhost:8080
             ARGOCD_OPTS: --grpc-web --insecure --plaintext
+        name: Deploy to Landing Zone
         steps:
             # Set up the kubeconfig file in GHA secrets first
             - name: Set up kubernetes config file
