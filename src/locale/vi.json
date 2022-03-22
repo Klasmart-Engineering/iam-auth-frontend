@@ -80,5 +80,5 @@
     "signOut.error": "Đã xảy ra lỗi khi bạn đăng xuất! \nVui lòng thử lại hoặc liên hệ với quản trị viên tổ chức của bạn.",
     "signOut.inProgress": "Bạn đang đăng xuất khỏi KidsLoop",
     "signOut.success.title": "Success!",
-    "signOut.success.body": "You have been signed out of KidsLoop. Please close this window."
+    "signOut.success.body": "You have been signed out of KidsLoop.\nPlease close this window."
 }
