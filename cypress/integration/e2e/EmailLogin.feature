@@ -9,14 +9,14 @@ Scenario: Logging with email not associated with any organization
  
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   When I sign out 
   And I am redirected to the home page
 
 Scenario: Logging with email with multiple profiles + spaces in email address
   Given I login to kidsloop with a valid user " loginautomationusermultipleprofiles@geqtbdzt.mailosaur.net "
   When I select the first profile from the list
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   When I sign out 
   And I am redirected to the home page
 
@@ -30,7 +30,7 @@ Then I should see an invalid login error "Due to a system upgrade you will have 
  @stage 
 Scenario: Logging with email associated with an organization 
   Given I login to kidsloop with a valid user "AutoMatIon1643014708387@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   When I sign out 
    And I am redirected to the home page
 
@@ -73,7 +73,7 @@ Then I should see an invalid login error "Due to a system upgrade you will have 
 @stage
   Scenario: Login with parent account
   Given I login to kidsloop with a valid user "automationParent@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   And  I should see "Parent" under the user name 
   When I sign out 
   And I am redirected to the home page
@@ -81,7 +81,7 @@ Then I should see an invalid login error "Due to a system upgrade you will have 
 @stage
   Scenario: Login with school admin account
   Given I login to kidsloop with a valid user "automationSchoolAdmin@geqtbdzt.mailosaur.net"
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   And  I should see "School Admin" under the user name 
   When I sign out 
   And I am redirected to the home page
@@ -93,6 +93,6 @@ Scenario: 15 mins timeout on select profile screen multiple profiles
   And I wait for the select profile page to be visible 
   When I delete "access" cookie  
   And I select the first profile from the list
-  Then I should see the welcome message "how are you doing today?"
+  Then I should see the welcome message "Home"
   When I sign out 
   And I am redirected to the home page

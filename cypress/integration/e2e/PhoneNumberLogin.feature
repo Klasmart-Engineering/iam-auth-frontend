@@ -22,7 +22,7 @@ Then I should see an error on kidsloop page "Due to a system upgrade you will ha
 
 Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number login
 Given I login to kidsloop with phone number "<phoneNumber>" with country code "<countryCode>"
-Then I should see the welcome message "how are you doing today?"
+Then I should see the welcome message "Home"
 When I sign out 
 And I am redirected to the home page
 Examples:

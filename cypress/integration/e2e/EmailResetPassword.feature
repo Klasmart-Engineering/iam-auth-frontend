@@ -22,11 +22,11 @@ Scenario: Reset password and login with new passwrod
 Given I delete all the emails from test mail box
 When I go to reset password page
 And I enter email , verification code and new password
-Then I should see the welcome message "how are you doing today"
+Then I should see the welcome message "Home"
 And I sign out
 And I am redirected to the home page
 When I login with the email for which we have reset the password 
-Then I should see the welcome message "how are you doing today"
+Then I should see the welcome message "Home"
 And I sign out
 And I am redirected to the home page
 

@@ -67,7 +67,7 @@ Feature: Create account via email
         Given I am on the kidsloop create account page
         When I click on Log in link
         And I login to kidsloop with a valid user "loginautomatioauserwitharg@geqtbdzt.mailosaur.net"
-        Then I should see the welcome message "how are you doing today?"
+        Then I should see the welcome message "Home"
         And I sign out
         And I am redirected to the home page
         
@@ -76,7 +76,7 @@ Feature: Create account via email
         Given I am on the kidsloop create account with phone number page
         When I click on Log in link
         And I login to kidsloop with phone number "0743808281" with country code "Romania(+40)"
-        Then I should see the welcome message "how are you doing today?"
+        Then I should see the welcome message "Home"
         And I sign out
         And I am redirected to the home page
 
