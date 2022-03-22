@@ -211,7 +211,7 @@ jobs:
 
     deploy-alpha-dev:
         runs-on: ubuntu-latest
-        needs: build
+        needs: test
         # Put any deploy conditions in here.
         if: github.ref == 'refs/heads/master'
         env:
