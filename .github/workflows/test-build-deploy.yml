@@ -226,7 +226,6 @@ jobs:
             AWS_CLOUDFRONT_DISTRIBUTION_ID: ELJUEQIM62ZJZ
 
         name: Deploy to alpha-dev
-        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
 
