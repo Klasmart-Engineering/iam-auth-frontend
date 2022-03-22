@@ -255,9 +255,9 @@ jobs:
                   aws-region: ${{ env.AWS_REGION }}
 
             - name: Upload to S3
-              run: aws s3 sync dist s3://${{ env.AWS_S3_BUCKET }}/latest
+              run: aws s3 sync dist s3://${{ env.AWS_S3_BUCKET }}/latest --delete
 
             - name: Cloudfront cache invalidation
-              run: aws cloudfront create-invalidation --paths "/index.html" --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+              run: aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
               env:
                   AWS_PAGER: ""
