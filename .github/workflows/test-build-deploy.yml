@@ -43,30 +43,8 @@ jobs:
         strategy:
             matrix:
                 envfile:
-                    - dev/.env.alpha
                     - uk/.env.landingzone
-                    # Uncomment to enable any of the others
-                    # - global/.env.loadtest
-                    # - global/.env.loadtest-k8s
-                    # - global/.env.onboarding
-                    # - global/.env.prod
-                    # - global/.env.stage
-                    # - id/.env.beta
-                    # - id/.env.prod
-                    # - id/.env.rk_beta
-                    # - id/.env.rk_prod
-                    # - in/.env.prod
-                    # - internal/.env.alpha
-                    # - internal/.env.sso
-                    # - lk/.env.prod
-                    # - pk/.env.prod
-                    # - scoe/.env.poc
-                    # - sre/.env.alpha
-                    # - sre/.env.beta
-                    # - uk/.env.prod
-                    # - vn/.env.alpha
-                    # - vn/.env.beta
-                    # - vn/.env.prod
+                    # Add more environments here if required
         steps:
             - uses: actions/checkout@v2
 
