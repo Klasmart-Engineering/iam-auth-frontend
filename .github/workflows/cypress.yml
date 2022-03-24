@@ -6,6 +6,9 @@ on:
             environment:
                 required: true
                 type: string
+        secrets:
+            NODE_AUTH_TOKEN:
+                required: true
 
 jobs:
     integration-tests:
@@ -19,6 +22,8 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   command: npm run test:${{ inputs.environment }}
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
             - name: Generate reports
               run: npm run e2e:reports
