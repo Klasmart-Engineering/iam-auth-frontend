@@ -14,7 +14,7 @@ export default {
         [ `Korean`, `한국어` ],
         [ `Vietnamese`, `Tiếng Việt` ],
         [ `Thai`, `ภาษาไทย` ],
-        [ `Indonesia`, `bahasa Indonesia` ],
+        [ `Indonesia`, `Bahasa Indonesia` ],
     ]),
     emailAddressOrPhoneNumberText: new Map<string, string>([
         [ `English`, `Email Address or Phone Number` ],
@@ -23,7 +23,7 @@ export default {
         [ `Korean`, `한국어` ],
         [ `Vietnamese`, `Tiếng Việt` ],
         [ `Thai`, `ภาษาไทย` ],
-        [ `Indonesia`, `bahasa Indonesia` ],
+        [ `Indonesia`, `Bahasa Indonesia` ],
     ]),
     passwordText: new Map<string, string>([ 
         [ `English`, `Password` ],
@@ -32,7 +32,7 @@ export default {
         [ `Chinese`, `密码` ],
         [ `Vietnamese`, `Mật khẩu` ],
         [ `Indonesia`, `Kata Sandi` ],
-        [ `Thai`, `รีเซ็ตรหัสผ่าน` ],
+        [ `Thai`, `รหัสผ่าน` ],
 
     ]),
     forgotYourPasswordText: new Map<string, string>([ 

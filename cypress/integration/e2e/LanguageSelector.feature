@@ -1,17 +1,17 @@
 Feature: Ability to change the language
 
-    Scenario Outline: Load translations based on the language selected
-        Given I set the locale cookie to '<Language>'
-        When I am on the kidsloop login page
-        Then the default language selected should be '<Language>'
-        Examples:
-            | Language   |
-            | Spanish    |
-            | Korean     |
-            | Thai       |
-            | Vietnamese |
-            | Indonesia  |
-            | Chinese    |
+     Scenario Outline: Load translations based on the language selected
+         Given I set the locale cookie to '<Language>'
+         When I am on the kidsloop login page
+         Then the default language selected should be '<Language>'
+         Examples:
+             | Language   |
+             | Spanish    |
+             | Korean     |
+             | Thai       |
+             | Vietnamese |
+             | Indonesia  |
+             | Chinese    |
 
     @stage
     Scenario Outline: Language selection should be carried over to hub
@@ -30,5 +30,5 @@ Feature: Ability to change the language
             | 한국어           | Korean     | 콘텐츠 라이브러리        |
             | 汉语 (简体)      | Chinese    | 内容资源库               |
             | Tiếng Việt       | Vietnamese | Thư Viện Nội Dung        |
-            | bahasa Indonesia | Indonesia  | Pustaka Konten           |
+            | Bahasa Indonesia | Indonesia  | Pustaka Konten           |
             | ภาษาไทย          | Thai       | ไลบรารีเนื้อหา           |
