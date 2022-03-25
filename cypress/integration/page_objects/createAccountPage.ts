@@ -25,6 +25,7 @@ class CreateAccountPage {
     errorOnEmailBox = `.email_li > .attrEntry > .error`;
     errorOnPasswordBox = `.Password > .attrEntry > .error`;
     loginLink=`#signin`;
+    changeNameEmail=`#emailControl_but_change_claims`;
 
     newEmail = ``;
 
@@ -202,6 +203,15 @@ class CreateAccountPage {
             .click({
                 force: true,
             });
+    }
+
+    clickOnChangeEmailbttn(){
+        cy.get(this.changeNameEmail).should('exist')
+        .click();
+    }
+
+    verifyEmailFieldIsEmpty(){
+        cy.get(this.emailOrPhoneFieLd).should('have.value','')
     }
 }
 

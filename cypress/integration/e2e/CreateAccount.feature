@@ -85,3 +85,10 @@ Feature: Create account via email
         Given I am on the kidsloop create account page
         When  I enter an email with kidsloop domain 'anything@kidsloop.live'
         Then I should see a message on kidsloop page "It is not possible to create an account with a KidsLoop email address. Please sign-in instead."
+
+
+    Scenario: Create account with email and change email name from create account page 
+        Given I create a new account with a new email address and change email name from create account screen
+        When I create a new account with a new email address
+        Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
+        And I click on sign out button on account not linked page
