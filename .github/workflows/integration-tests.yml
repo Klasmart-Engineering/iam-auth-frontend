@@ -13,3 +13,5 @@ jobs:
         uses: ./.github/workflows/cypress.yml
         with:
             environment: ${{ github.event.inputs.environment }}
+        secrets:
+            NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

@@ -26,11 +26,13 @@ jobs:
             aws-s3-bucket: kidsloop-alpha-auth-rested-mackerel/alpha
             aws-cloudfront-distribution-id: ELJUEQIM62ZJZ
         secrets:
-            aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_ALPHA_DEV }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ALPHA_DEV }}
 
     integration-tests:
         needs: deploy
         uses: ./.github/workflows/cypress.yml
         with:
             environment: alpha
+        secrets:
+            NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
