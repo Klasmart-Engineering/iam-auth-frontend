@@ -177,3 +177,15 @@ When(`I enter an email with kidsloop domain {string}`, (email:string)=>{
     createAccountPage.enterEmailOrPhone(email);
 });
 
+Given(`I create a new account with a new email address and change email name from create account screen`, ()=> {
+    createAccountPage.createNewEmail();
+    resetPasswordPage.deleteAllEmail(); // All the emails come to the same account
+    loginPage.goToHomePage();
+    loginPage.clickOnsignupWithEmail();
+    createAccountPage.enterEmailOrPhone(createAccountPage.getNewEmail());
+    createAccountPage.clickOnSendVerificationCodeCreateAccount();
+    passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
+    resetPasswordPage.clickOnVerfiyCodeButton();
+    createAccountPage.clickOnChangeEmailbttn()
+    createAccountPage.verifyEmailFieldIsEmpty()
+});
