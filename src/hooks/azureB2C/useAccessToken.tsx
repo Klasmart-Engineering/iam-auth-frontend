@@ -1,5 +1,8 @@
 import config from "@/config";
-import { useRedirectRequest } from "@/hooks";
+import {
+    useIdentityProvider,
+    useRedirectRequest,
+} from "@/hooks";
 import { loginRequest } from "@/utils/azureB2C/client";
 import {
     InteractionRequiredAuthError,
@@ -90,7 +93,10 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
         },
         dispatch,
     ] = useReducer(reducer, existingToken, buildInitialState);
-    const redirectRequest = useRedirectRequest();
+    const idp = useIdentityProvider();
+    const redirectRequest = useRedirectRequest({
+        idp,
+    });
 
     useEffect(() => {
         // No fetch necessary if we already have a token
@@ -119,9 +125,7 @@ export default function useAccessToken (authenticationResult?: MsalAuthenticatio
                 });
             } catch (e) {
                 if (e instanceof InteractionRequiredAuthError) {
-                    await instance.acquireTokenRedirect({
-                        ...redirectRequest,
-                    });
+                    await instance.acquireTokenRedirect(redirectRequest);
                 } else {
                     dispatch({
                         type: Actions.ERROR,

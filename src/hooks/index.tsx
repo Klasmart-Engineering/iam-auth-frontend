@@ -7,6 +7,7 @@ export {
     useUpdateLocale,
 } from "./azureB2C";
 export { useSearchParams } from "./router";
+export { default as useIdentityProvider } from "./useIdentityProvider";
 export { useInterval } from "./useInterval";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useLocale } from "./useLocale";
