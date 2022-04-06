@@ -27,6 +27,7 @@ import React from "react";
 
 jest.mock(`@azure/msal-react`, () => ({
     useMsal: jest.fn(),
+    useAccount: jest.fn(),
 }));
 
 describe(`useAccessToken`, () => {
