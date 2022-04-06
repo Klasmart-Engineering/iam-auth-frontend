@@ -2,6 +2,7 @@
 import { AuthenticationFailed } from "@/components/azureB2C";
 import Loading from "@/components/Loading";
 import {
+    useIdentityProvider,
     useRedirectRequest,
     useSearchParams,
 } from "@/hooks";
@@ -15,8 +16,10 @@ import React from "react";
 
 export default function Login () {
     const [ params ] = useSearchParams();
+    const identityProvider = useIdentityProvider();
     const authenticationRequest = useRedirectRequest({
-        idp: params.get(`idp`) || undefined,
+        // Active account takes priority, followed by initial login attempt
+        idp: identityProvider || params.get(`idp`) || undefined,
     });
 
     return (
