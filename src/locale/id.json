@@ -80,5 +80,6 @@
     "signOut.error": "Terjadi kendala saat mengakhiri sesi Anda!\nYuk coba lagi atau hubungi admin organisasi.",
     "signOut.inProgress": "Sesi KidsLoop Anda sudah habis",
     "signOut.success.title": "Berhasil!",
-    "signOut.success.body": "Sesi KidsLoop Anda sudah habis"
+    "signOut.success.body": "Sesi KidsLoop Anda sudah habis",
+    "signOut.success.body.withIdentityProvider": "You have been signed out of KidsLoop.\nPlease close this window and return to {identityProvider}."
 }

@@ -20,7 +20,7 @@
     "login_loginPrompt": "เข้าสู่ระบบ",
     "notFound_notFoundPrompt": "อ๊ะ! ลิงค์เสีย.",
     "notFound_notFoundDescription": "มาพาคุณกลับบ้านกันเถอะ",
-    "button_home": "บ้าน",
+    "button_home": "หน้าหลัก",
     "signup_signIn": "เข้าสู่ระบบแทน",
     "signup_signUpNextButton": "ต่อไป",
     "signup_signUpPrompt": "ลงชื่อ",
@@ -80,5 +80,6 @@
     "signOut.error": "มีบางอย่างผิดพลาดในการลงชื่อคุณออก!\n  โปรดลองอีกครั้งหรือติดต่อผู้ดูแลระบบองค์กรของคุณ",
     "signOut.inProgress": "คุณกำลังถูกลงชื่อออกจาก KidsLoop",
     "signOut.success.title": "สำเร็จ!",
-    "signOut.success.body": "คุณได้ลงชื่อออกจาก KidsLoop แล้ว"
+    "signOut.success.body": "คุณได้ลงชื่อออกจาก KidsLoop แล้ว",
+    "signOut.success.body.withIdentityProvider": "You have been signed out of KidsLoop.\nPlease close this window and return to {identityProvider}."
 }
