@@ -80,5 +80,6 @@
     "signOut.error": "登出遇到了问题，请重试或联系您的管理员",
     "signOut.inProgress": "您已登出KidsLoop平台",
     "signOut.success.title": "成功！",
-    "signOut.success.body": "您已登出KidsLoop平台"
+    "signOut.success.body": "您已登出KidsLoop平台",
+    "signOut.success.body.withIdentityProvider": "You have been signed out of KidsLoop.\nPlease close this window and return to {identityProvider}."
 }
