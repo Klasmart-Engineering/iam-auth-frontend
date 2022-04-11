@@ -1,8 +1,6 @@
 import useClaim from '@/hooks/azureB2C/useClaim';
-import { IdTokenClaims } from '@/utils/azureB2C/claims';
+import { isKidsloopIdp } from '@/utils/azureB2C/idp';
 import React from 'react';
-
-const isKidsloopIdp = (idp: IdTokenClaims["idp"]) => idp.toLowerCase().startsWith(`kidsloop`);
 
 /**
  * Check IDP in ID Token of active B2C session:

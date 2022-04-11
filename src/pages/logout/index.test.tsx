@@ -1,6 +1,8 @@
 import Logout from "./index";
 import { signOut } from "@/api/authentication";
 import config from "@/config";
+import { encodeState } from "@/utils/azureB2C";
+import { IdTokenClaims } from "@/utils/azureB2C/claims";
 import {
     IPublicClientApplication,
     PublicClientApplication,
@@ -173,6 +175,20 @@ describe(`Logout`, () => {
             });
 
             describe(`and the user is logged in with the Kidsloop IDP`, () => {
+                it(`sets the OAuth state as undefined`, async () => {
+                    mockSignOut.mockResolvedValue(true);
+                    const msalClient = createMockMsalClient();
+                    msalClient.getAllAccounts = () => [ testAccount ];
+                    msalClient.setActiveAccount(testAccount);
+
+                    render(msalClient);
+
+                    await act(flushPromises);
+
+                    expect(msalClient.logoutRedirect).toHaveBeenCalledTimes(1);
+                    expect(msalClient.logoutRedirect.mock.calls[0][0]?.state).toBeUndefined();
+                });
+
                 describe(`and there is no ?continue QueryParam`, () => {
                     it(`logs out of B2C, with the post_redirect_logout_uri set to /`, async () => {
                         mockSignOut.mockResolvedValue(true);
@@ -202,7 +218,7 @@ describe(`Logout`, () => {
                         });
                     });
 
-                    it(`logs out of B2C, with the post_redirect_logout_uri set to /?continue={continueParam}`, async () => {
+                    it(`logs out of B2C, with the post_redirect_logout_uri set to /?continue={continueParam} and encodes the idp in OAuth state`, async () => {
                         mockSignOut.mockResolvedValue(true);
                         const msalClient = createMockMsalClient();
                         msalClient.getAllAccounts = () => [ testAccount ];
@@ -230,7 +246,12 @@ describe(`Logout`, () => {
                     await act(flushPromises);
 
                     expect(msalClient.logoutRedirect).toHaveBeenCalledTimes(1);
-                    expect(msalClient.logoutRedirect.mock.calls[0][0]?.postLogoutRedirectUri).toBe(`${config.server.origin}/logout/success`);
+
+                    const logoutRequest = msalClient.logoutRedirect.mock.calls[0][0];
+                    expect(logoutRequest?.postLogoutRedirectUri).toBe(`${config.server.origin}/logout/success`);
+                    expect(logoutRequest?.state).toBe(encodeState({
+                        identityProvider: (testFederatedAccount.idTokenClaims as IdTokenClaims).idp,
+                    }));
                 });
             });
 

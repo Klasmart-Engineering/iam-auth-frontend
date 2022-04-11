@@ -3,6 +3,7 @@ export {
     useConditionalLogoutFromB2C,
     useIsFederatedAccount,
     useOAuthLoginState,
+    useOAuthLogoutState,
     useRedirectRequest,
     useUpdateLocale,
 } from "./azureB2C";

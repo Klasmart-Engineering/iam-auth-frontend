@@ -1,5 +1,5 @@
 import {
-    decodeState,
+    decodeLoginState,
     OAuthLoginState,
 } from "@/utils/azureB2C";
 import { MsalAuthenticationResult } from "@azure/msal-react";
@@ -11,6 +11,6 @@ export default function useOAuthLoginState (authenticationResult: MsalAuthentica
     return useMemo(() => {
         const encodedState = authenticationResult?.state;
 
-        return encodedState ? decodeState<OAuthLoginState>(encodedState) : undefined;
+        return encodedState ? decodeLoginState(encodedState) : undefined;
     }, [ authenticationResult?.state ]);
 }

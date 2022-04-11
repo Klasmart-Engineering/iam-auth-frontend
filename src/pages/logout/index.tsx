@@ -2,9 +2,15 @@ import { signOut } from '@/api/authentication';
 import { Error } from '@/components/logout';
 import InProgress from '@/components/logout/InProgress';
 import config from '@/config';
+import { encodeState } from '@/utils/azureB2C';
 import { IdTokenClaims } from '@/utils/azureB2C/claims';
 import {
+    DEFAULT_IDP,
+    isKidsloopIdp,
+} from '@/utils/azureB2C/idp';
+import {
     AccountInfo,
+    EndSessionRequest,
     InteractionStatus,
 } from '@azure/msal-browser';
 import {
@@ -24,19 +30,23 @@ enum State {
     ERROR,
 }
 
-const hasKidsloopIDP = (account: AccountInfo): boolean => {
+const buildLogoutRequest = (account: AccountInfo): EndSessionRequest => {
     const idp = (account.idTokenClaims as IdTokenClaims | undefined)?.idp;
 
     if (!idp) {
-        console.warn(`idp claim missing from token, defaulting to hasKidsloopIDP=true`);
-        return true;
+        console.warn(`idp claim missing from token, defaulting to ${DEFAULT_IDP}`);
     }
 
-    return idp.toLowerCase().startsWith(`kidsloop`);
+    const identityProvider = idp || DEFAULT_IDP;
+
+    return {
+        postLogoutRedirectUri: buildRedirectUri(identityProvider),
+        state: buildState(identityProvider),
+    };
 };
 
-const buildRedirectUri = (account: AccountInfo): string => {
-    if (!hasKidsloopIDP(account)) {
+const buildRedirectUri = (identityProvider: string): string => {
+    if (!isKidsloopIdp(identityProvider)) {
         return `${config.server.origin}/logout/success`;
     }
 
@@ -47,6 +57,16 @@ const buildRedirectUri = (account: AccountInfo): string => {
     }
 
     return `${config.server.origin}?continue=${encodeURIComponent(continueParam)}`;
+};
+
+const buildState = (identityProvider: string): string | undefined => {
+    if (isKidsloopIdp(identityProvider)) {
+        return undefined;
+    }
+
+    return encodeState({
+        identityProvider,
+    });
 };
 
 const Logout = () => {
@@ -88,9 +108,7 @@ const Logout = () => {
             }
 
             try {
-                await instance.logoutRedirect({
-                    postLogoutRedirectUri: buildRedirectUri(activeAccount ?? accounts[0]),
-                });
+                await instance.logoutRedirect(buildLogoutRequest(activeAccount ?? accounts[0]));
             } catch (e) {
                 console.error(e);
                 setState(State.ERROR);
