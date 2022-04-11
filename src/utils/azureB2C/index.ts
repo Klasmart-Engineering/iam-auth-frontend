@@ -2,7 +2,7 @@ export {
     default as client,
     loginRequest,
 } from "./client";
-export type { OAuthState } from "./state";
+export type { OAuthLoginState } from "./state";
 export {
     decodeState,
     encodeState,

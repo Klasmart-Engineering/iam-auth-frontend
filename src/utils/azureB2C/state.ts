@@ -4,10 +4,10 @@ import {
     base64Encode,
 } from "@/utils/encoding";
 
-export type OAuthState = {
+export type OAuthLoginState = {
     platform: Platform;
 }
 
-export const encodeState = (state: OAuthState) => base64Encode(JSON.stringify(state));
+export const encodeState = (state: OAuthLoginState) => base64Encode(JSON.stringify(state));
 
-export const decodeState = (encodedState: string): OAuthState => JSON.parse(base64Decode(encodedState));
+export const decodeState = <T extends OAuthLoginState>(encodedState: string): T => JSON.parse(base64Decode(encodedState));
