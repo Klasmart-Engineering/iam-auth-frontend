@@ -1,7 +1,6 @@
-import { IdTokenClaims } from '@/utils/azureB2C/claims';
+import { IdTokenClaims } from '@/utils/azureB2C';
 import { useAccount } from '@azure/msal-react';
-import React,
-{ useMemo } from 'react';
+import { useMemo } from 'react';
 
 const useClaim = <Claim extends keyof IdTokenClaims>(claim: Claim): IdTokenClaims[Claim] | undefined => {
     const activeAccount = useAccount();
