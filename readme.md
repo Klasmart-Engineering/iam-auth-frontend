@@ -119,7 +119,7 @@ The root cause of blocked tree-shaking appears to be Material UI's [useStyles](h
 
 install WSL2, ubuntu 20+ and carry on with the rest.
 
-### Linix/Osx
+### Linux/Osx
 
 Enable submodule configuration
 
