@@ -1,6 +1,6 @@
 import useUpdateLocale from './useUpdateLocale';
 import { localeCodes } from '@/locale';
-import { mapKidsloopLocaleToAzureB2CLocale } from '@/utils/azureB2C/locale';
+import { mapKidsloopLocaleToAzureB2CLocale } from '@/utils/azureB2C';
 import { MsalAuthenticationResult } from '@azure/msal-react';
 import { renderHook } from '@testing-library/react-hooks';
 import { Cookies } from 'react-cookie';

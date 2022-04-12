@@ -2,12 +2,12 @@ import { signOut } from '@/api/authentication';
 import { Error } from '@/components/logout';
 import InProgress from '@/components/logout/InProgress';
 import config from '@/config';
-import { encodeState } from '@/utils/azureB2C';
-import { IdTokenClaims } from '@/utils/azureB2C/claims';
 import {
     DEFAULT_IDP,
+    encodeState,
+    IdTokenClaims,
     isKidsloopIdp,
-} from '@/utils/azureB2C/idp';
+} from '@/utils/azureB2C';
 import {
     AccountInfo,
     EndSessionRequest,

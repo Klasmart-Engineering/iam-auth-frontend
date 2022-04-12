@@ -1,4 +1,4 @@
-import { IdTokenClaims } from '@/utils/azureB2C/claims';
+import { IdTokenClaims } from '@/utils/azureB2C';
 import { useAccount } from '@azure/msal-react';
 import { useMemo } from 'react';
 

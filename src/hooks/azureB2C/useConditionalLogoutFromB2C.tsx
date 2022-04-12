@@ -1,7 +1,9 @@
 import { refreshToken } from "@/api/authentication";
 import config from "@/config";
-import { client } from "@/utils/azureB2C";
-import { buildB2CRedirectUri } from "@/utils/azureB2C/logout";
+import {
+    buildB2CRedirectUri,
+    client,
+} from "@/utils/azureB2C";
 import {
     useEffect,
     useState,

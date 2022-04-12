@@ -1,8 +1,10 @@
 import Logout from "./index";
 import { signOut } from "@/api/authentication";
 import config from "@/config";
-import { encodeState } from "@/utils/azureB2C";
-import { IdTokenClaims } from "@/utils/azureB2C/claims";
+import {
+    encodeState,
+    IdTokenClaims,
+} from "@/utils/azureB2C";
 import {
     IPublicClientApplication,
     PublicClientApplication,

@@ -7,8 +7,8 @@ import { Locale } from "@/locale";
 import {
     encodeState,
     loginRequest,
+    mapKidsloopLocaleToAzureB2CLocale,
 } from "@/utils/azureB2C";
-import { mapKidsloopLocaleToAzureB2CLocale } from "@/utils/azureB2C/locale";
 import type { RedirectRequest } from "@azure/msal-browser";
 import { useMemo } from "react";
 
