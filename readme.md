@@ -30,18 +30,35 @@ which contains pages:
     -   Create `.env` (which is gitignored)
     -   Copy the contents of `.env.example` into `.env`, making changes as required
 
+#### General
+
 | Variable               | Example                          | Explanation                                                                                                        |
-| :--------------------- | -------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| ---------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | API_ENDPOINT           | https://api.alpha.kidsloop.net/  | Base URL for user-service instance (NB: no `/user` URL suffix required)                                            |
 | AUTH_ENDPOINT          | https://auth.alpha.kidsloop.net/ | Base URL for `auth-server` instance (i.e backend counterpart to this frontend)                                     |
 | HUB_ENDPOINT           | https://hub.alpha.kidsloop.net/  | Base URL for `hub-frontend` instance, which will be redirected to upon logging in and selecting a User             |
 | AUTH_ENDPOINT_BADANAMU | https://ams-auth.badanamu.net    | Base URL for "AMS" instance, which holds account credentials                                                       |
 | SLD                    | alpha.kidsloop                   | [Second Level Domain](https://en.wikipedia.org/wiki/Second-level_domain) (NB: used with TLD to form cookie domain) |
 | TLD                    | net                              | [Top Level Domain](https://en.wikipedia.org/wiki/Top-level_domain) (NB: see above)                                 |
+| DEFAULT_LANGUAGE       | en                               | Default language code if no `locale` cookie, and user has no `navigator.languages` set                             |
 | DEV_SERVER_DOMAIN      | fe.alpha.kidsloop.net            | Webpack dev server domain                                                                                          |
 | DEV_SERVER_PORT        | 8081                             | Webpack dev server port                                                                                            |
 
 Note, generally you will want all `_ENDPOINT` and domain related variables to point to the same base domain. This is to prevent issues with CORS, and also to ensure your authentication cookies allow you to access the correct downstream services (e.g. you will need authentication cookies for the `kidsloop.net` domain to successfully talk to the `user-service` on `api.kidsloop.net`).
+
+#### B2C specific
+
+| Variable                             | Example                              | Explanation                                                                                                             |
+| ------------------------------------ | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| AZURE_B2C_ENABLED                    | true                                 | Azure B2C feature flag (if false, uses `AMS` for authentication)                                                        |
+| AZURE_B2C_CLIENT_ID                  | 3c75ad44-010c-4b2e-88c3-8148abf00d21 | Client ID of the "Hub" Azure application                                                                                |
+| AZURE_B2C_TENANT_ID                  | 8dc632b7-4df1-4904-a155-7c4663e345bb | Tenant ID                                                                                                               |
+| AZURE_B2C_DOMAIN                     | login.sso.kidsloop.live              | B2C [custom domain](https://docs.microsoft.com/en-us/azure/active-directory-b2c/custom-domain?pivots=b2c-custom-policy) |
+| AZURE_B2C_POLICY                     | B2C_1A_RELYING_PARTY_SIGN_UP_LOG_IN  | Name of target B2C policy                                                                                               |
+| AZURE_B2C_AUTH_SERVER_APPLICATION_ID | 010eb29e-d42b-4ca3-9c16-1961a528ce77 | Client ID of `auth-server` Azure application                                                                            |
+
+Note, all variables will need to be from the same B2C tenant, and to avoid issues with CORS, should use the same domain as the `_ENDPOINT` environment variables.
+Additionally, if you're using a local version of [iam-auth-server](https://github.com/KL-Engineering/iam-auth-server), ensure the `AZURE_B2C_CLIENT_ID` environment variable for that service matches the `AZURE_B2C_AUTH_SERVER_APPLICATION_ID` here, otherwise all access tokens will be rejected due to the mismatched `scopes` property.
 
 2.  Map `DEV_SERVER_DOMAIN` environment variable (defaults to `fe.alpha.kidsloop.net`) to `localhost` by editing your hosts file [manually](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/),
     or on Mac/Linux run the following command (replacing `fe.alpha.kidsloop.net` with your desired domain)
