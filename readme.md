@@ -344,9 +344,36 @@ mv src/pages/account/kidsloop-pass-frontend/client/dist ./dist/account
 
 Now you have a full build in the dist folder for the India region with a production build.
 
-# Run Cypress tests
+## Tests
 
+### Unit tests
+
+Unit tests use [Jest](https://www.jestjs.io/).
+
+To run all tests, use:
+
+```sh
+npm run test
 ```
-npm install
-npm test:sso
+
+To run a single test, use:
+
+```sh
+npm run test -- {partial path to file e.g. Logout for src/pages/logout/index.tsx}
+```
+
+### Integration tests
+
+Integration tests use [Cypress](https://www.cypress.io/), and are found in the [cypress](./cypress/) directory.
+
+To run the standard test suite, use:
+
+```sh
+npm run test:alpha
+```
+
+To generate a coverage report after running the test suite, use:
+
+```sh
+npm run e2e:reports
 ```
