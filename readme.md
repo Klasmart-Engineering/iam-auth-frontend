@@ -290,29 +290,41 @@ The root cause of blocked tree-shaking appears to be Material UI's [useStyles](h
 
 ### Windows
 
-install WSL2, ubuntu 20+ and carry on with the rest.
+Install WSL2, Ubuntu 20+ and carry on with the rest.
 
 ### Linux/Osx
 
 Enable submodule configuration
 
-```
-> git submodule update --init --recursive --force
+```sh
+git submodule update --init --recursive --force
 ```
 
 As of now you will require on ubuntu:
 
-```
-> sudo apt-get install autoconf automake g++ make
+```sh
+sudo apt-get install autoconf automake g++ make
 ```
 
 This is the minimum set of packages required from a fresh install to build successfully all the dependencies at the time of writing.
 
 ### Building
 
+#### With B2C
+
+The following example is a full build for India production.
+
+```sh
+npm ci --no-progress --no-audit
+cp deploy/config/in/.env.prod ./.env
+npm run build
+```
+
+#### With AMS (legacy)
+
 This is a bit of a convoluted process, we will need to build the main project, followed by the `kidsloop-pass-frontend`.
 
-Following example is a full build for India (production)
+The following example is a full build for India production.
 
 ```
 # basic dependencies installation
