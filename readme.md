@@ -377,3 +377,29 @@ To generate a coverage report after running the test suite, use:
 ```sh
 npm run e2e:reports
 ```
+
+## CI
+
+### PRs
+
+[pr.yml](.github/workflows/pr.yml) verifies the following:
+
+-   TypeScript compiles
+-   No ESLint errors
+-   No Prettier errors
+-   Webpack build has no errors
+
+### Push to master
+
+[cd.yml](.github/workflows/cd.yml) performs the same static checks as the [PR](#prs) workflow, followed by:
+
+-   upload Webpack build to alpha (https://auth.alpha.kidsloop.net) S3 bucket
+-   Cloudfront cache invalidation
+-   run Cypress tests
+
+[build-deploy-containers.yml](.github/workflows/build-deploy-containers.yml), which runs on push to master and tags creation:
+
+-   performs static checks
+-   creates a Webpack build for each active environment
+-   creates a Docker image with the Webpack build and pushes to Docker hub
+-   deploys to UK Landingzone environment (future replacement for alpha environment)
