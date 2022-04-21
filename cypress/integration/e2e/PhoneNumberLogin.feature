@@ -18,7 +18,7 @@ Feature: Login with phone number
     Scenario: Invalid password error verification
         Given I enter phone number as "7728727046"
         And I enter wrong password
-        Then I should see an error on kidsloop page "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+        Then I should see an error on kidsloop page "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
 
     Scenario Outline: Spaces , Zeros , Round brackets , dots in the phone number login
         Given I login to kidsloop with phone number "<phoneNumber>" with country code "<countryCode>"
