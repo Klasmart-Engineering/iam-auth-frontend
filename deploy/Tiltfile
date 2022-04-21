@@ -1,0 +1,8 @@
+docker_build('iam-auth-frontend-tilt', '.', 
+    dockerfile='./Dockerfile')
+k8s_yaml('./kubernetes/kidsloop-iam-auth-frontend-deployment.yaml')
+
+k8s_resource('iam-auth-frontend', labels=['iam-auth-frontend'], port_forwards=3001)
+
+# appears to fix issues with not being able to communicate with local registry
+# https://github.com/docker/for-mac/issues/3611

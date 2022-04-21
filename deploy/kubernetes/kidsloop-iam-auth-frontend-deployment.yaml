@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iam-auth-frontend
+spec:
+  selector:
+    matchLabels:
+      app: iam-auth-frontend
+  template:
+    metadata:
+      labels:
+        app: iam-auth-frontend
+    spec:
+      containers:
+      - name: iam-auth-frontend
+        env:
+          - name: AUTH_ENDPOINT_BADANAMU
+            value: https://kidsloop-auth-lambda/auth-lam/
+          - name: ACCOUNT_ENDPOINT_BADANAMU
+            value: https://kidsloop-account-lambda/account-lam/ 
+          - name: AUTH_ENDPOINT
+            value: https://auth-server/auth-server/
+          - name: API_ENDPOINT
+            value: https://kidsloop-user-service/user-service/
+        image: iam-auth-frontend-tilt
+        resources: {}
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iam-auth-frontend
+spec:
+  selector:
+    app: iam-auth-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: local-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - '*'
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: kidsloop-local-tls-secret
+      hosts:
+        - '*'
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: iam-auth-frontend
+spec:
+  hosts:
+    - '*'
+  gateways:
+    - local-gateway
+  http:
+    - route:
+      - destination:
+          host: iam-auth-frontend.default.svc.cluster.local
+          port:
+            number: 80
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: iam-auth-frontend-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: "istio"
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: iam-auth-frontend-ingress
+#             port:
+#               number: 80

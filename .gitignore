@@ -13,3 +13,6 @@ cypress/reports/*
 cypress/videos
 xunit.xml
 **/test-reports/*
+scripts/istio*
+scripts/.certs
+scripts/*.pem
