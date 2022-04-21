@@ -53,13 +53,13 @@ Feature: Create account via email
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
 
-    @stage
+@focus     @stage
     Scenario: Error messages on create account with email page
         Given I am on the kidsloop create account page
         When I enter invalid format email address as "abc"
         Then I should see an error on kidsloop page "Please enter a valid email address"
         When I enter password on create account with phone number page as "abcd"
-        Then I should see an error on the password box as "8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits"
+        Then I should see an error on the password box as "The password must be between 8 and 256 characters."
     #And I should see an error above the policy box "This information is required."
 
     @stage
