@@ -53,7 +53,7 @@ Feature: Create account via email
         Then I should see a message on kidsloop page "As your account is not linked to an organization, please wait until your school registers you to access the hub."
         And I click on sign out button on account not linked page
 
-@focus     @stage
+    @stage
     Scenario: Error messages on create account with email page
         Given I am on the kidsloop create account page
         When I enter invalid format email address as "abc"

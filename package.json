@@ -13,7 +13,7 @@
     "test": "jest",
     "preversion": "git checkout master && git pull origin master && npm i",
     "postversion": "git push && git push --tags",
-    "test:alpha": "cypress  run -e TAGS=\"not @phone\" --config-file=cypress/configs/cypress.alpha.json --browser chrome --spec \"**/*.feature\" ",
+    "test:alpha": "cypress  run --config-file=cypress/configs/cypress.alpha.json --browser chrome --spec \"**/*.feature\" ",
     "test:stage": "cypress run -e TAGS=\"@stage\" --config-file=cypress/configs/cypress.stage.json --browser chrome --spec \"**/*.feature\"",
     "e2e:reports": "node cypress/cucumber-html-report.js",
     "graphql:codegen": "graphql-codegen --config graphql-codegen.yml"
