@@ -51,7 +51,7 @@ And(`I login with the phone Number for which we have reset the password`, ()=> {
     createAccountPage.selectCountry(`United States(+1)`);
     loginPage.enterPhone(config.mailosaurPhoneNumber.substring(1));
     loginPage.clickContinue();
-    loginPage.enterPassword(config.password);
+    loginPage.enterPassword(config.newPassword);
     loginPage.clickOnLogInButton();
 });
 
@@ -159,8 +159,8 @@ When(`I reset password for a phone number`, ()=> {
     resetPasswordPage.clickOnVerfiyCodeButtonForPhoneNumber();
     resetPasswordPage.clickOnCreateOrContinueButton();
     resetPasswordPage.setNewPassword();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
 });
 
 And(`I click on continue button`, ()=> {

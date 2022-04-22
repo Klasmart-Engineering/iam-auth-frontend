@@ -20,8 +20,8 @@ When(`I create a new account with a new email address`, ()=> {
     createAccountPage.clickOnSendVerificationCodeCreateAccount();
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
@@ -35,15 +35,15 @@ When(`I create a new account with a new email address with upper case letters`, 
     createAccountPage.clickOnSendVerificationCodeCreateAccount();
     passcodeUtils.generatePasscode(createAccountPage.getNewEmail(), resetPasswordPage.getVerificationcodeText());
     resetPasswordPage.clickOnVerfiyCodeButton();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
 
 And(`I login to kidsloop via SSO with a valid user created before`, ()=> {
     loginPage.goToHomePage();
-    loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.password);
+    loginPage.enterEmailAndPassword(createAccountPage.getNewEmail(), config.newPassword);
     loginPage.clickOnLogInButton();
 });
 
@@ -104,8 +104,8 @@ And(`I enter the password and confirm password and click on Create Account`, () 
     cy.wait(1000).then(() => {
         cy.log(`waited for 2 seconds`);
     });
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.enterConfirmNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.enterConfirmNewPassword(config.newPassword);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
 });
