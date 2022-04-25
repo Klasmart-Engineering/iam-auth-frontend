@@ -1,6 +1,6 @@
 #!/bin/zsh
 # deploy k3d cluster with extra memory (8G) for Istio install
-k3d cluster create local-cluster --servers 1 --agents 1 --api-port 6443 --k3s-arg "--disable=traefik@server:0" --port 8080:80@loadbalancer --port 8443:443@loadbalancer --agents-memory=8G --registry-create local-registry
+k3d cluster create local-cluster --servers 1 --agents 1 --api-port 6443 --k3s-arg "--disable=traefik@server:0" --port 80:80@loadbalancer --port 8081:443@loadbalancer --agents-memory=8G --registry-create local-registry
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION sh -
 cd "$PWD/istio-$ISTIO_VERSION/"
 export PATH=$PWD/bin:$PATH
@@ -37,12 +37,8 @@ kubectl label namespace default istio-injection=enabled
 # certificate creaton for SSL/TLS termination
 echo "Setting up local TLS"
 kubectl -n istio-system create secret tls kidsloop-local-tls-secret --key=key.pem --cert=cert.pem
-# kubectl -n istio-system create secret tls kidsloop-local-tls-secret --key=.certs/rootCA-key.pem --cert=.certs/rootCA.pem
-# kubectl -n default create secret tls kidsloop-local-tls-secret --key=.certs/rootCA-key.pem --cert=.certs/rootCA.pem
 
-echo "Application via Istio Ingress (https): https://fe.alpha.kidsloop.net:8443"
-echo "Application via Istio Ingress (http):  http://fe.alpha.kidsloop.net:8080"
+echo "Application via Istio Ingress (https): https://fe.sso.kidsloop.live:8443"
+echo "Application via Istio Ingress (http):  http://fe.sso.kidsloop.live:8080"
 #launch/verify application via Istio
-echo "Launching application..."
-sleep 5
-open https://fe.alpha.kidsloop.net:8443
+echo "Cluster ready"

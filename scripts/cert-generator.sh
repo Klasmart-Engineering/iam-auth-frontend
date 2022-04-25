@@ -14,5 +14,5 @@ mkdir -p ${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV}
 CAROOT=${CA_CERTS_FOLDER}/${ENVIRONMENT_DEV} mkcert -install
 
 echo "Creating K8S secrets with the CA private keys (will be used by the cert-manager CA Issuer)"
-mkcert -key-file=key.pem -cert-file=cert.pem 'fe.alpha.kidsloop.net' 
+mkcert -key-file=key.pem -cert-file=cert.pem 'fe.sso.kidsloop.live' 
 
