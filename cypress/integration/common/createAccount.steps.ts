@@ -94,10 +94,13 @@ And(`I enter the password and click on Create Account`, () => {
     cy.wait(1000).then(() => {
         cy.log(`waited for 2 seconds`);
     });
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.enterConfirmNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.enterConfirmNewPassword(config.newPassword);
     createAccountPage.acceptPrivacyPolicy();
     resetPasswordPage.clickOnCreateOrContinueButton();
+    cy.wait(1000).then(() => {
+        cy.log(`waited for 10 seconds`);
+    });
 });
 
 And(`I enter the password and confirm password and click on Create Account`, () => {

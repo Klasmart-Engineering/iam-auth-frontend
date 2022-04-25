@@ -129,8 +129,8 @@ And(`I verify code for phone number and confirm the password`, ()=> {
     resetPasswordPage.clickOnVerfiyCodeButtonForPhoneNumber();
     resetPasswordPage.clickOnCreateOrContinueButton();
     resetPasswordPage.setNewPassword();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
 });
 
 And(`I enter wrong passcode for reset`, ()=> {
