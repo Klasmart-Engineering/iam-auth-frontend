@@ -66,7 +66,7 @@ Given(`I login to kidsloop with phone number {string} with country code {string}
     createAccountPage.selectCountry(country);
     loginPage.enterPhone(phoneNumber);
     loginPage.clickContinue();
-    loginPage.enterPassword(config.password);
+    loginPage.enterPassword(config.newPassword);
     loginPage.clickOnLogInButton();
 });
 
