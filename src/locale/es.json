@@ -80,5 +80,6 @@
     "signOut.error": "¡Algo salió mal al cerrar sesión!\n Vuelva a intentarlo o comuníquese con el administrador de su organización.",
     "signOut.inProgress": "Cerrando sesión de KidsLoop",
     "signOut.success.title": "¡Bien!",
-    "signOut.success.body": "Se ha cerrado la sesión de KidsLoop.\nPor favor cierra esta ventana."
+    "signOut.success.body": "Se ha cerrado la sesión de KidsLoop.\nPor favor cierra esta ventana.",
+    "signOut.success.body.withIdentityProvider": "You have been signed out of KidsLoop.\nPlease close this window and return to {identityProvider}."
 }

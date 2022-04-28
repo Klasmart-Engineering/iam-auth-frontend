@@ -1,5 +1,4 @@
 import useClaim from '@/hooks/azureB2C/useClaim';
-import React from 'react';
 
 /**
  * Return IDP from ID Token of active B2C session, or `undefined` if no active B2C session

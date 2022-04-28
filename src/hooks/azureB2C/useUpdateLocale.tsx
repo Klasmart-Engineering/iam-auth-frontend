@@ -1,6 +1,8 @@
 import config from "@/config";
-import { IdTokenClaims } from "@/utils/azureB2C/claims";
-import { mapAzureB2CLocaleToKidsloopLocale } from "@/utils/azureB2C/locale";
+import {
+    IdTokenClaims,
+    mapAzureB2CLocaleToKidsloopLocale,
+} from "@/utils/azureB2C";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import {
     useEffect,

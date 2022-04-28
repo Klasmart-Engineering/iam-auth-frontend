@@ -3,7 +3,7 @@ import {
     useIdentityProvider,
     useRedirectRequest,
 } from "@/hooks";
-import { loginRequest } from "@/utils/azureB2C/client";
+import { loginRequest } from "@/utils/azureB2C";
 import {
     InteractionRequiredAuthError,
     InteractionStatus,

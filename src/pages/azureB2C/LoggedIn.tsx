@@ -5,7 +5,7 @@ import {
     Platform,
     useAccessToken,
     useLocale,
-    useOAuthState,
+    useOAuthLoginState,
     usePlatform,
     useURLContext,
 } from "@/hooks";
@@ -38,7 +38,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     //
     // In case #2, since we don't perform a redirect, the `ua` QueryParam is preserved, so we can
     // fallback on the output of `usePlatform`
-    const oauthState = useOAuthState(result);
+    const oauthState = useOAuthLoginState(result);
     const currentPlatform = usePlatform();
     const platform: Platform = oauthState?.platform ?? currentPlatform;
 

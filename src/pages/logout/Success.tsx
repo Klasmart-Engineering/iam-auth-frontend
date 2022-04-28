@@ -3,11 +3,13 @@ import {
     Title,
 } from '@/components/banadamu';
 import Pogo from '@/components/banadamu/backgrounds/Pogo';
+import { useOAuthLogoutState } from '@/hooks';
 import React from 'react';
 import { useIntl } from 'react-intl';
 
 const LogoutSuccess = () => {
     const intl = useIntl();
+    const oauthState = useOAuthLogoutState();
 
     return (
         <Pogo>
@@ -19,7 +21,11 @@ const LogoutSuccess = () => {
             />
             <Body
                 data-testid="success-body"
-                text={intl.formatMessage({
+                text={oauthState?.identityProvider ? intl.formatMessage({
+                    id: `signOut.success.body.withIdentityProvider`,
+                }, {
+                    identityProvider: oauthState.identityProvider,
+                }) : intl.formatMessage({
                     id: `signOut.success.body`,
                 })}
             />
