@@ -149,6 +149,7 @@ When(`I reset password for a phone number`, ()=> {
     loginPage.clickOnLoginWithPhoneNumberLink();
     createAccountPage.selectCountry(`United States(+1)`);
     loginPage.enterPhone(config.mailosaurPhoneNumber.substring(1));
+    cy.wait(4000);
     loginPage.clickContinue();
     loginPage.clickForgetPasswordLink();
     resetPasswordPage.clickOnSendCodeButtonOnPhoneNumber();
