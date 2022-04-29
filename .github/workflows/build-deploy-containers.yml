@@ -1,7 +1,8 @@
-name: Test, Build, Deploy
+name: container builds
 
 concurrency:
   group: buildDeployContainers
+  cancel-in-progress: false
 
 on:
   push:
