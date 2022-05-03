@@ -51,7 +51,7 @@ And(`I login with the phone Number for which we have reset the password`, ()=> {
     createAccountPage.selectCountry(`United States(+1)`);
     loginPage.enterPhone(config.mailosaurPhoneNumber.substring(1));
     loginPage.clickContinue();
-    loginPage.enterPassword(config.password);
+    loginPage.enterPassword(config.newPassword);
     loginPage.clickOnLogInButton();
 });
 
@@ -129,8 +129,8 @@ And(`I verify code for phone number and confirm the password`, ()=> {
     resetPasswordPage.clickOnVerfiyCodeButtonForPhoneNumber();
     resetPasswordPage.clickOnCreateOrContinueButton();
     resetPasswordPage.setNewPassword();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
 });
 
 And(`I enter wrong passcode for reset`, ()=> {
@@ -149,6 +149,7 @@ When(`I reset password for a phone number`, ()=> {
     loginPage.clickOnLoginWithPhoneNumberLink();
     createAccountPage.selectCountry(`United States(+1)`);
     loginPage.enterPhone(config.mailosaurPhoneNumber.substring(1));
+    cy.wait(4000);
     loginPage.clickContinue();
     loginPage.clickForgetPasswordLink();
     resetPasswordPage.clickOnSendCodeButtonOnPhoneNumber();
@@ -159,8 +160,8 @@ When(`I reset password for a phone number`, ()=> {
     resetPasswordPage.clickOnVerfiyCodeButtonForPhoneNumber();
     resetPasswordPage.clickOnCreateOrContinueButton();
     resetPasswordPage.setNewPassword();
-    createAccountPage.enterNewPassword(config.password);
-    createAccountPage.reenterNewPassword(config.password);
+    createAccountPage.enterNewPassword(config.newPassword);
+    createAccountPage.reenterNewPassword(config.newPassword);
 });
 
 And(`I click on continue button`, ()=> {

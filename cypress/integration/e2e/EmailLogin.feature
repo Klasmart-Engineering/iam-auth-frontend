@@ -25,7 +25,7 @@ Feature: Login functionality at Kidsloop
     Given I am on the kidsloop login page
     When I enter invalid email for logging in as "qa+stress_t1@calmid.com"
     And I enter the password and login
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
 
   @stage
   Scenario: Logging with email associated with an organization
@@ -38,13 +38,13 @@ Feature: Login functionality at Kidsloop
     Given I am on the kidsloop login page
     And I enter a valid email "automation1640099962914@zw6ahich.mailosaur.net"
     When I enter wrong password
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
     When I enter wrong password
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
     When I enter wrong password
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
     When I enter wrong password
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
 
   @stage
   Scenario: Login with a deactivated account
@@ -61,7 +61,7 @@ Feature: Login functionality at Kidsloop
     Then I should see an invalid email error 'Please enter a valid email address'
     And I enter a valid email "swapnali.bhansali@gmail.com"
     When I enter wrong password
-    Then I should see an invalid login error "Due to a system upgrade you will have to reset your account password. If you have already done this and are getting this message, then you have entered an invalid password. Please try again or click on the 'Forgot password' link if you need to reset your password."
+    Then I should see an invalid login error "Sorry, we don’t recognize your login details! Please check that you’ve entered them correctly and try again."
 
   @stage
   Scenario: Login with student account
