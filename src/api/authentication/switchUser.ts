@@ -1,5 +1,10 @@
 import { refreshToken } from "./refreshToken";
+import {
+    HttpError,
+    HttpStatus,
+} from "@/api/http";
 import { post } from "@/api/rest";
+import { tracing } from "@/utils/tracing";
 
 export const switchUser = async (userId: string): Promise<boolean> => {
     try {
@@ -21,9 +26,17 @@ export const switchUser = async (userId: string): Promise<boolean> => {
                 return !fetchResult.response.ok;
             },
         });
+        if (response.status !== HttpStatus.OK) {
+            tracing.error(new HttpError(response.status), {
+                userId,
+            });
+        }
         return response.ok;
     } catch(e) {
         console.error(e);
+        tracing.error(e, {
+            userId,
+        });
         return false;
     }
 };

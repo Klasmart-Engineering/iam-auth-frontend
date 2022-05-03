@@ -1,7 +1,12 @@
 import {
+    HttpError,
+    HttpStatus,
+} from "@/api/http";
+import {
     DEFAULT_HEADERS,
     post,
 } from "@/api/rest";
+import { tracing } from "@/utils/tracing";
 
 export const transferAMSToken = async (token: string): Promise<boolean> => {
     try {
@@ -10,9 +15,13 @@ export const transferAMSToken = async (token: string): Promise<boolean> => {
                 token,
             }),
         });
+        if (response.status !== HttpStatus.OK) {
+            tracing.error(new HttpError(response.status));
+        }
         return response.ok;
     } catch (e) {
         console.error(e);
+        tracing.error(e);
         return false;
     }
 };
@@ -26,9 +35,13 @@ export const transferAzureB2CToken = async (token: string, abortController: Abor
             }),
             signal: abortController.signal,
         });
+        if (response.status !== HttpStatus.OK) {
+            tracing.error(new HttpError(response.status));
+        }
         return response.ok;
     } catch (e) {
         console.error(e);
+        tracing.error(e);
         return false;
     }
 };
