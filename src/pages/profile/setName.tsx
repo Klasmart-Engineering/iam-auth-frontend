@@ -3,6 +3,7 @@ import { User } from '../../api/queries/user';
 import { useGetUserInformation } from '../../api/useGetUser';
 import { useUpdateUser } from '../../api/useUpdateUser';
 import { Button } from "@/lib/kidsloop-px";
+import { tracing } from "@/utils/tracing";
 import {
     FormControlLabel,
     Grid,
@@ -106,6 +107,9 @@ export default function SetName () {
             return response;
         } catch (error) {
             console.error(`Error updating user: `, error);
+            tracing.error(error, {
+                userId: userId ?? `null`,
+            });
         }
     };
 

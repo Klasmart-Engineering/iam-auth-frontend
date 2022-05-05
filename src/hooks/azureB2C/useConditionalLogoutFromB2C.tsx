@@ -4,6 +4,7 @@ import {
     buildB2CRedirectUri,
     client,
 } from "@/utils/azureB2C";
+import { tracing } from "@/utils/tracing";
 import {
     useEffect,
     useState,
@@ -31,6 +32,7 @@ export default function useConditionalLogoutFromB2C () {
                 }
             } catch (error) {
                 console.error(error);
+                tracing.error(error);
 
                 history.push(`/error`);
             } finally {
