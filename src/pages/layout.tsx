@@ -1,5 +1,5 @@
 import BackgroundImage from "../../assets/img/background.png";
-import PolicyLink from "../components/policyLinks";
+import OneTrustPolicy from "../components/oneTrustPolicy";
 import config from "../config";
 import { default as LanguageSelect } from "@/components/LanguageSelect";
 import PrimaryLogo from "@branding/assets/img/primary_logo.svg";
@@ -124,7 +124,7 @@ export function Layout (props: Props) {
                         item
                         xs={6}
                     >
-                        <PolicyLink />
+                        <OneTrustPolicy />
                     </Grid>
                 </Grid>
             </Container>
