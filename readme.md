@@ -53,7 +53,7 @@ Note, generally you will want all `_ENDPOINT` and domain related variables to po
 | AZURE_B2C_ENABLED                    | true                                 | Azure B2C feature flag (if false, uses `AMS` for authentication)                                                        |
 | AZURE_B2C_CLIENT_ID                  | 3c75ad44-010c-4b2e-88c3-8148abf00d21 | Client ID of the "Hub" Azure application                                                                                |
 | AZURE_B2C_TENANT_ID                  | 8dc632b7-4df1-4904-a155-7c4663e345bb | Tenant ID                                                                                                               |
-| AZURE_B2C_DOMAIN                     | login.sso.kidsloop.live              | B2C [custom domain](https://docs.microsoft.com/en-us/azure/active-directory-b2c/custom-domain?pivots=b2c-custom-policy) |
+| AZURE_B2C_DOMAIN                     | login.alpha.kidsloop.live            | B2C [custom domain](https://docs.microsoft.com/en-us/azure/active-directory-b2c/custom-domain?pivots=b2c-custom-policy) |
 | AZURE_B2C_POLICY                     | B2C_1A_RELYING_PARTY_SIGN_UP_LOG_IN  | Name of target B2C policy                                                                                               |
 | AZURE_B2C_AUTH_SERVER_APPLICATION_ID | 010eb29e-d42b-4ca3-9c16-1961a528ce77 | Client ID of `auth-server` Azure application                                                                            |
 
