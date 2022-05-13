@@ -10,6 +10,7 @@ import {
     useURLContext,
 } from "@/hooks";
 import useUpdateLocale from "@/hooks/azureB2C/useUpdateLocale";
+import { tracing } from "@/utils/tracing";
 import { MsalAuthenticationResult } from "@azure/msal-react";
 import React,
 { useEffect } from "react";
@@ -54,7 +55,10 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
 
         if (!token || accessTokenError) {
             console.error(`Unexpected error retrieving accessToken from B2C`);
-            console.error(accessTokenError);
+            if (accessTokenError) {
+                console.error(accessTokenError);
+                tracing.error(accessTokenError);
+            }
             history.push(`/error`);
             return;
         }

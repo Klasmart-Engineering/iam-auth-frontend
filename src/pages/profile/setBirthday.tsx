@@ -4,6 +4,7 @@ import { useGetUserInformation } from '../../api/useGetUser';
 import { useUpdateUser } from '../../api/useUpdateUser';
 import config from '../../config';
 import { Button } from "@/lib/kidsloop-px";
+import { tracing } from "@/utils/tracing";
 import { DatePicker } from "@mui/lab";
 import {
     Grid,
@@ -142,6 +143,9 @@ export default function SetBirthday () {
             return response;
         } catch (error) {
             console.error(`Error updating user: `, error);
+            tracing.error(error, {
+                userId: userId ?? `null`,
+            });
         }
     };
 

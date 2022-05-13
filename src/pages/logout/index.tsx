@@ -8,6 +8,7 @@ import {
     IdTokenClaims,
     isKidsloopIdp,
 } from '@/utils/azureB2C';
+import { tracing } from '@/utils/tracing';
 import {
     AccountInfo,
     EndSessionRequest,
@@ -111,6 +112,7 @@ const Logout = () => {
                 await instance.logoutRedirect(buildLogoutRequest(activeAccount ?? accounts[0]));
             } catch (e) {
                 console.error(e);
+                tracing.error(e);
                 setState(State.ERROR);
             }
 

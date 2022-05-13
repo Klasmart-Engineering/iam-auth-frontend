@@ -3,6 +3,7 @@ import {
     decodeLogoutState,
     OAuthLogoutState,
 } from "@/utils/azureB2C";
+import { tracing } from "@/utils/tracing";
 import { useMemo } from "react";
 
 export default function useOAuthLogoutState (): OAuthLogoutState | undefined {
@@ -19,6 +20,7 @@ export default function useOAuthLogoutState (): OAuthLogoutState | undefined {
             return decodeLogoutState(encodedState);
         } catch (e) {
             console.error(e);
+            tracing.error(e);
             return undefined;
         }
     }, [ params ]);
