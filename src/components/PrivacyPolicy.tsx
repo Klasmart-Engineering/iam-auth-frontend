@@ -53,6 +53,8 @@ const localeMapping: LocaleMappingType = {
     id: `id-id`,
     th: `th-th`,
 };
+const NOTICE_ID = `203699be-5ce4-49be-937d-fa95ecff3043`;
+const TENANT_ID = `812c79ab-b3bb-419e-b08c-2faecc2c78d4`;
 const LinkContainer = ({ children }: { children: React.ReactNode }) => {
     const classes = useStyles();
     return (
@@ -91,7 +93,7 @@ const PrivacyPolicy = () => {
     useEffect(() => {
         if (open) {
             (window as WindowWithOneTrust).OneTrust.NoticeApi.Initialized.then(() => {
-                (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices([ `https://privacyportal-uk-cdn.onetrust.com/812c79ab-b3bb-419e-b08c-2faecc2c78d4/privacy-notices/203699be-5ce4-49be-937d-fa95ecff3043.json` ], false, localeMapping[languageCode]);
+                (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices([ `https://privacyportal-uk-cdn.onetrust.com/${TENANT_ID}/privacy-notices/${NOTICE_ID}.json` ], false, localeMapping[languageCode]);
             });
         }
     }, [ open ]);
@@ -145,7 +147,7 @@ const PrivacyPolicy = () => {
                         />
                     </div>
                     <div
-                        id="otnotice-203699be-5ce4-49be-937d-fa95ecff3043"
+                        id={`otnotice-${NOTICE_ID}`}
                         className="otnotice"
                     />
                 </DialogContent>
