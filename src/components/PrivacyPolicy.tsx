@@ -33,17 +33,20 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: `30px`,
             textAlign: `right`,
         },
-        languageSelectIcon:{
+        languageSelectIcon: {
             marginLeft: `0.8em`,
         },
     }));
-const localeMapping = {
+interface localeMappingType {
+    [key: string]: string;
+}
+const localeMapping: localeMappingType = {
     "en": `en-us`,
-    "es": `en-us`, 
-    "zh-CN": `zh-cn`, 
-    "ko": `ko-kr`, 
-    "vi": `vi-vn`, 
-    "id": `id-id`, 
+    "es": `en-us`,
+    "zh-CN": `zh-cn`,
+    "ko": `ko-kr`,
+    "vi": `vi-vn`,
+    "id": `id-id`,
     "th": `th-th`,
 }
 const LinkContainer = ({ children }: { children: React.ReactNode }) => {
@@ -61,30 +64,30 @@ const LinkContainer = ({ children }: { children: React.ReactNode }) => {
 }
 
 interface OneTrust {
-	NoticeApi: {
-            Initialized: () => Promise<boolean>,
-            LoadNotices: (policyUrls: string[], recordPageEvent?: boolean, language?: string, display?: boolean) => void
-        }
+    NoticeApi: {
+        Initialized: () => Promise<boolean>,
+        LoadNotices: (policyUrls: string[], recordPageEvent?: boolean, language?: string, display?: boolean) => void
+    }
 }
 
 type WindowWithOneTrust = typeof globalThis &
     Window & {
-        OneTrust: OneTrust    
-};
+        OneTrust: OneTrust
+    };
 
 const PrivacyPolicy = () => {
     const classes = useStyles();
-    const [ cookies ] = useCookies([ `locale` ]);
-    const languageCode:string = cookies.locale;
-    const [ open, setOpen ] = useState(false);
+    const [cookies] = useCookies([`locale`]);
+    const languageCode: string = cookies.locale;
+    const [open, setOpen] = useState(false);
     const handleClose = () => {
         setOpen(false);
     };
 
     useEffect(() => {
         if (open) {
-            (window as WindowWithOneTrust).OneTrust.NoticeApi.Initialized.then(() =>  {
-                (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices(["https://privacyportal-uk-cdn.onetrust.com/812c79ab-b3bb-419e-b08c-2faecc2c78d4/privacy-notices/203699be-5ce4-49be-937d-fa95ecff3043.json"],false,localeMapping[languageCode]);
+            (window as any).OneTrust.NoticeApi.Initialized.then(() => {
+                (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices(["https://privacyportal-uk-cdn.onetrust.com/812c79ab-b3bb-419e-b08c-2faecc2c78d4/privacy-notices/203699be-5ce4-49be-937d-fa95ecff3043.json"], false, localeMapping[languageCode]);
             })
         }
     }, [open])
@@ -121,14 +124,13 @@ const PrivacyPolicy = () => {
             <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
                 <DialogContent>
                     <div className="otnotice-language-dropdown-container">
-                        <select id="otnotice-language-dropdown" aria-label="language selector" className={classes.languageSelect}></select><img src={languageSelectIcon} className={classes.languageSelectIcon}/>
+                        <select id="otnotice-language-dropdown" aria-label="language selector" className={classes.languageSelect}></select><img src={languageSelectIcon} className={classes.languageSelectIcon} />
                     </div>
-                        
                     <div id="otnotice-203699be-5ce4-49be-937d-fa95ecff3043" className="otnotice"></div>
                 </DialogContent>
             </Dialog>
         </>
-      );
+    );
 }
 
 export default PrivacyPolicy
