@@ -69,7 +69,7 @@ const LinkContainer = ({ children }: { children: React.ReactNode }) => {
 
 interface OneTrust {
     NoticeApi: {
-        Initialized: () => Promise<boolean>;
+        Initialized: Promise<boolean>;
         LoadNotices: (policyUrls: string[], recordPageEvent?: boolean, language?: string, display?: boolean) => void;
     };
 }
@@ -90,7 +90,7 @@ const PrivacyPolicy = () => {
 
     useEffect(() => {
         if (open) {
-            (window as any).OneTrust.NoticeApi.Initialized.then(() => {
+            (window as WindowWithOneTrust).OneTrust.NoticeApi.Initialized.then(() => {
                 (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices([ `https://privacyportal-uk-cdn.onetrust.com/812c79ab-b3bb-419e-b08c-2faecc2c78d4/privacy-notices/203699be-5ce4-49be-937d-fa95ecff3043.json` ], false, localeMapping[languageCode]);
             });
         }
