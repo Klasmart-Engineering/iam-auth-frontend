@@ -46,7 +46,7 @@ interface LocaleMappingType {
 }
 const localeMapping: LocaleMappingType = {
     en: `en-us`,
-    es: `en-us`,
+    /*es: `en-us`,*/
     "zh-CN": `zh-cn`,
     ko: `ko-kr`,
     vi: `vi-vn`,
@@ -96,7 +96,7 @@ const PrivacyPolicy = () => {
                 (window as WindowWithOneTrust).OneTrust.NoticeApi.LoadNotices([ `https://privacyportal-uk-cdn.onetrust.com/${TENANT_ID}/privacy-notices/${NOTICE_ID}.json` ], false, localeMapping[languageCode]);
             });
         }
-    }, [ open ]);
+    }, [ open, languageCode ]);
 
     return (
         <>
