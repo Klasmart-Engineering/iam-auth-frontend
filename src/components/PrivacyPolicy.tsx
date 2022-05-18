@@ -41,12 +41,15 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: `0.8em`,
         },
     }));
+
 interface LocaleMappingType {
     [key: string]: string;
 }
+
 const localeMapping: LocaleMappingType = {
     en: `en-us`,
-    /*es: `en-us`,*/
+    /*Spanish translations unavailable, using English as a fallback */
+    es: `en-us`,
     "zh-CN": `zh-cn`,
     ko: `ko-kr`,
     vi: `vi-vn`,
