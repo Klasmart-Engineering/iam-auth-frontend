@@ -1,4 +1,5 @@
 import config from "./config";
+import { initializeFirebase } from "./firebase/config";
 import { Continue } from "./pages/continue";
 import { DeepLink } from "./pages/deeplink";
 import { Error } from "./pages/error";
@@ -256,6 +257,7 @@ function ClientSide () {
 }
 
 function main () {
+    initializeFirebase();
     const div = document.getElementById(`app`);
     ReactDOM.render(<Router history={history}>
         <ClientSide />
