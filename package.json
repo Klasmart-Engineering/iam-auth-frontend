@@ -44,6 +44,7 @@
     "core-js": "3.21.0",
     "css-modules-typescript-loader": "4.0.1",
     "dayjs": "1.10.8",
+    "firebase": "^9.8.2",
     "graphql": "15.8.0",
     "history": "4.10.1",
     "inter-ui": "3.19.3",
