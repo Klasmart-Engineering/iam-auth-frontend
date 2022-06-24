@@ -93,11 +93,6 @@ const Logout = () => {
                 return;
             }
 
-            if (!config.azureB2C.enabled) {
-                history.push(`/`);
-                return;
-            }
-
             if (!accounts.length) {
                 console.log(`No active B2C session`);
                 history.push(`/`);

@@ -11,7 +11,6 @@ import SetProfile from "./pages/profile/setProfileLayout";
 import RegionLocked from "./pages/RegionLocked";
 import { RegionSelect } from "./pages/RegionSelect";
 import { SelectUser } from "./pages/selectUser";
-import { SignIn } from "./pages/signin";
 import VersionPage from "./pages/version";
 import { history } from "./utils/createPreserveQueryHistory";
 import { AzureB2CProvider } from "@/components/azureB2C";
@@ -78,16 +77,6 @@ const routes: RouteDetails[] = [
         centerLogo: true,
     },
 ];
-
-if (!config.azureB2C.enabled) {
-    routes.push({
-        path: [ `/signin`, `/login` ],
-        Component: SignIn,
-        RouteComponent: Route,
-        size: `sm`,
-        centerLogo: false,
-    });
-}
 
 if (config.branding.auth.showRegionSelect) {
     routes.push({
@@ -210,19 +199,14 @@ function ClientSide () {
                                             )}
                                         </RouteComponent>
                                     ))}
-                                    {/* NB: must be two separate conditional <Route> expressions, otherwise the Router doesn't recognise them */}
-                                    {config.azureB2C.enabled && (
                                     <Route
                                         path={[ `/login`, `/signin` ]}
                                         component={Login}
                                     />
-                                    )}
-                                    {config.azureB2C.enabled && (
                                     <Route
                                         path="/authentication-callback"
                                         component={Loading}
                                     />
-                                    )}
                                     <ProtectedRoute path="/createprofile">
                                         <SetProfile />
                                     </ProtectedRoute>
