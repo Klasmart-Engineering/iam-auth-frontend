@@ -20,6 +20,17 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from "history";
 import React from 'react';
 
+jest.mock(`@/config`, () => ({
+    ...jest.requireActual(`@/config`),
+    azureB2C: {
+        enabled: false,
+    },
+    server: {
+    // `window.location.origin` is undefined when running in Jest
+        origin: `https://auth.kidsloop.test`,
+    },
+}));
+
 describe(`RegionSelect`, () => {
     const ui = (urlContext?: Partial<URLContext>) => withThemeProvider(withIntlProvider(withURLContext(<RegionSelect />, {
         ...defaultURLContext,

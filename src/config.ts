@@ -26,6 +26,7 @@ interface Config {
         origin: string;
     };
     azureB2C: {
+        enabled: boolean;
         clientId: string | undefined;
         domain: string | undefined;
         tenantId: string | undefined;
@@ -56,6 +57,7 @@ const config: Config = {
     },
     azureB2C: {
         clientId: process.env.AZURE_B2C_CLIENT_ID,
+        enabled: true,
         domain: process.env.AZURE_B2C_DOMAIN,
         tenantId: process.env.AZURE_B2C_TENANT_ID,
         policy: process.env.AZURE_B2C_POLICY,

@@ -1,4 +1,5 @@
 import { refreshToken } from "@/api/authentication";
+import config from "@/config";
 import {
     buildB2CRedirectUri,
     client,
@@ -38,7 +39,9 @@ export default function useConditionalLogoutFromB2C () {
                 setLoading(false);
             }
         };
-        callLogoutFromB2C();
+        if (config.azureB2C.enabled) {
+            callLogoutFromB2C();
+        }
     }, [ history ]);
 
     return {
