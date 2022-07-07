@@ -57,7 +57,7 @@ const config: Config = {
     },
     azureB2C: {
         clientId: process.env.AZURE_B2C_CLIENT_ID,
-        enabled: process.env.AZURE_B2C_ENABLED === `true`,
+        enabled: true,
         domain: process.env.AZURE_B2C_DOMAIN,
         tenantId: process.env.AZURE_B2C_TENANT_ID,
         policy: process.env.AZURE_B2C_POLICY,

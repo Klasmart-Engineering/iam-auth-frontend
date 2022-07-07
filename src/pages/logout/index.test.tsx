@@ -57,12 +57,6 @@ describe(`Logout`, () => {
     };
 
     const mockSignOut = signOut as jest.MockedFunction<() => Promise<boolean>>;
-    let isB2CEnabled: boolean;
-
-    beforeAll(() => {
-        isB2CEnabled = config.azureB2C.enabled;
-        config.azureB2C.enabled = true;
-    });
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -71,10 +65,6 @@ describe(`Logout`, () => {
         Object.defineProperty(HTMLMediaElement.prototype, `muted`, {
             set: jest.fn(),
         });
-    });
-
-    afterAll(() => {
-        config.azureB2C.enabled = isB2CEnabled;
     });
 
     describe(`if auth-server /signout fails`, () => {
@@ -114,12 +104,7 @@ describe(`Logout`, () => {
 
     describe(`if auth-server /signout succeeds`, () => {
         describe(`and B2C is not enabled`, () => {
-            afterEach(() => {
-                config.azureB2C.enabled = true;
-            });
-
             it(`redirects to /`, async () => {
-                config.azureB2C.enabled = false;
                 mockSignOut.mockResolvedValue(true);
 
                 const { history } = render();
