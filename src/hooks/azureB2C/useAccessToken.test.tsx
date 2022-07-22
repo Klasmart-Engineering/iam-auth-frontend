@@ -1,8 +1,4 @@
 import useAccessToken from './useAccessToken';
-import {
-    URLContext,
-    URLContextProvider,
-} from '@/hooks';
 import { loginRequest } from '@/utils/azureB2C';
 import {
     AuthenticationResult,
@@ -22,7 +18,6 @@ import {
     testAccount,
     testConfig,
 } from '@tests/mocks/azureB2C';
-import { defaultURLContext } from '@tests/providers';
 import React from "react";
 
 jest.mock(`@azure/msal-react`, () => ({
@@ -31,7 +26,7 @@ jest.mock(`@azure/msal-react`, () => ({
 }));
 
 describe(`useAccessToken`, () => {
-    const wrapper = ({ children, value = defaultURLContext }: {children: React.ReactNode; value: URLContext}) => <URLContextProvider value={value}>{children}</URLContextProvider>;
+    const wrapper = ({ children }: {children: React.ReactNode}) => <>{children}</>;
 
     const initialState = {
         isLoading: true,

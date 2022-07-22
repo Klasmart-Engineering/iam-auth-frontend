@@ -1,16 +1,15 @@
 import {
-    defaultURLContext,
+    defaultAuthFeStore,
     withIntlProvider,
     withRouter,
     withThemeProvider,
-    withURLContext,
 } from "../../tests/providers";
 import {
     Region,
     regions,
     RegionSelect,
 } from "./RegionSelect";
-import { URLContext } from "@/hooks";
+import { PreserveRedirectLocale, useAuthfeStore } from "@/hooks/authfestore";
 import { fallbackLocale } from "@/locale";
 import {
     render,
@@ -32,10 +31,10 @@ jest.mock(`@/config`, () => ({
 }));
 
 describe(`RegionSelect`, () => {
-    const ui = (urlContext?: Partial<URLContext>) => withThemeProvider(withIntlProvider(withURLContext(<RegionSelect />, {
-        ...defaultURLContext,
-        ...urlContext,
-    })));
+    useAuthfeStore.setState({
+        ...defaultAuthFeStore
+      });
+    const ui = () => withThemeProvider(withIntlProvider(<RegionSelect />));
 
     test(`displays Region.primaryText for each region`, () => {
         render(ui());
@@ -73,11 +72,11 @@ describe(`RegionSelect`, () => {
         test(`if a different region is clicked, navigates to that region passing ?ua and ?continue QueryParams`, () => {
             const uaParam = `cordova`;
             const continueParam = encodeURIComponent(`https://hub.alpha.kidsloop.net/#/admin/users`);
-
-            render(ui({
-                uaParam,
-                continueParam,
-            }));
+            useAuthfeStore.setState({
+                uaParam: uaParam,
+                continueParam: continueParam,
+              });
+            render(ui());
 
             userEvent.click(screen.getByText(`United Kingdom`));
 
@@ -104,9 +103,10 @@ describe(`RegionSelect`, () => {
 
         test(`if the current region is clicked, navigates to /signin on the current domain`, () => {
             const history = createMemoryHistory();
-            render(withRouter(ui({
+            useAuthfeStore.setState({
                 hostName: india.domain,
-            }), history));
+              });
+            render(withRouter(ui(), history));
 
             userEvent.click(screen.getByText(india.primaryText));
 
@@ -134,9 +134,10 @@ describe(`RegionSelect`, () => {
 
         test(`if "Can't find your region" is clicked", navigates to /signin on the current domain`, () => {
             const history = createMemoryHistory();
-            render(withRouter(ui({
+            useAuthfeStore.setState({
                 hostName: domain,
-            }), history));
+              });
+            render(withRouter(ui(), history));
 
             userEvent.click(screen.getByText(fallbackLocale.formatMessage({
                 id: `region_cantFind`,

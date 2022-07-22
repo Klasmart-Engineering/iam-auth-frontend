@@ -1,12 +1,11 @@
 import useConditionalLogoutFromB2C from './useConditionalLogoutFromB2C';
 import * as refreshTokenModule from "@/api/authentication/refreshToken";
 import { client } from "@/utils/azureB2C";
-import { history } from "@/utils/createPreserveQueryHistory";
 import { AccountInfo } from "@azure/msal-browser";
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
-import { Router } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
 
 jest.mock(`react-router-dom`, () => ({
     ...jest.requireActual(`react-router-dom`),
@@ -64,7 +63,7 @@ describe(`useConditionalLogoutFromB2C`, () => {
         logoutRedirectSpy.mockResolvedValue();
 
         renderHook(useConditionalLogoutFromB2C, {
-            wrapper: ({ children }) => <Router history={history}>{children}</Router>,
+            wrapper: ({ children }) => <BrowserRouter>{children}</BrowserRouter>,
         });
 
         expect(refreshTokenSpy).toHaveBeenCalled();
@@ -78,7 +77,7 @@ describe(`useConditionalLogoutFromB2C`, () => {
         getAllAccountsSpy.mockReturnValue([]);
 
         renderHook(useConditionalLogoutFromB2C, {
-            wrapper: ({ children }) => <Router history={history}>{children}</Router>,
+            wrapper: ({ children }) => <BrowserRouter>{children}</BrowserRouter>,
         });
 
         expect(logoutRedirectSpy).not.toHaveBeenCalled();
@@ -103,7 +102,7 @@ describe(`useConditionalLogoutFromB2C`, () => {
         logoutRedirectSpy.mockRejectedValue(`Something went wrong.`);
 
         renderHook(useConditionalLogoutFromB2C, {
-            wrapper: ({ children }) => <Router history={history}>{children}</Router>,
+            wrapper: ({ children }) => <BrowserRouter>{children}</BrowserRouter>,
         });
 
         expect(refreshTokenSpy).toHaveBeenCalled();

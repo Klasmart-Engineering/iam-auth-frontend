@@ -4,10 +4,11 @@ import Loading from "@/components/Loading";
 import {
     Platform,
     useAccessToken,
+    useAuthfeStore,
     useLocale,
     useOAuthLoginState,
     usePlatform,
-    useURLContext,
+    /*useURLContext,*/
 } from "@/hooks";
 import useUpdateLocale from "@/hooks/azureB2C/useUpdateLocale";
 import { tracing } from "@/utils/tracing";
@@ -19,7 +20,7 @@ import { useHistory } from "react-router-dom";
 export default function LoggedIn ({ result }: MsalAuthenticationResult) {
     const history = useHistory();
     const [ locale ] = useLocale();
-    const urlContext = useURLContext();
+    const feStore = useAuthfeStore();
     const {
         token,
         isLoading,
@@ -66,7 +67,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         if (platform === `Android`) {
             openLiveApp({
                 token,
-                domain: urlContext.hostName,
+                domain: /*urlContext.hostName*/feStore.hostName,
                 locale,
             });
             return;
@@ -108,7 +109,7 @@ export default function LoggedIn ({ result }: MsalAuthenticationResult) {
         history,
         locale,
         platform,
-        urlContext.hostName,
+        feStore.hostName,
     ]);
 
     return <Loading />;

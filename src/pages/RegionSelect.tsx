@@ -8,8 +8,9 @@ import UnitedKingdom from "@/../assets/img/region/uk.svg";
 import UnitedStates from "@/../assets/img/region/us.svg";
 import Vietnam from "@/../assets/img/region/vn.svg";
 import {
+    useAuthfeStore,
     useConditionalLogoutFromB2C,
-    useURLContext,
+    /*useURLContext,*/
 } from "@/hooks";
 import { omitNullish } from "@/utils/object";
 import {
@@ -149,7 +150,7 @@ export function RegionSelect () {
     const classes = useStyles();
     const theme = useTheme<Theme>();
     const history = useHistory();
-    const url = useURLContext();
+    const feStore = useAuthfeStore();
     const { loading } = useConditionalLogoutFromB2C();
 
     const isSmDown = useMediaQuery(theme.breakpoints.down(`sm`));
@@ -157,15 +158,14 @@ export function RegionSelect () {
     const handleRegionSelect = (domain: string) => {
         const protocol = window.location.protocol;
         const port = window.location.port;
-        const urlHostName = port === `` ? url.hostName : `${url.hostName}:${port}`;
-
+        const urlHostName = port === `` ? feStore.hostName : `${feStore.hostName}:${port}`;
         if (domain === urlHostName) {
             history.push(`/signin`);
         } else {
             const redirectTo = new URL(`${protocol}//${domain}`);
             redirectTo.search = new URLSearchParams(omitNullish({
-                ua: url.uaParam,
-                continue: url.continueParam,
+                ua: feStore.uaParam,
+                continue: feStore.continueParam,
             })).toString();
             redirectTo.pathname = `/signin`;
 

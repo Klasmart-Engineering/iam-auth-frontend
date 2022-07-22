@@ -1,7 +1,4 @@
-import {
-    URLContext,
-    URLContextProvider,
-} from "@/hooks";
+import { PreserveRedirectLocale } from "@/hooks/authfestore";
 import { fallbackLocale } from "@/locale";
 import ThemeProvider from "@/providers/ThemeProvider";
 import {
@@ -15,15 +12,12 @@ import React from "react";
 import { RawIntlProvider } from "react-intl";
 import { Router } from "react-router";
 
-export const defaultURLContext: URLContext = {
+export const defaultAuthFeStore: PreserveRedirectLocale = {
     hostName: `auth.alpha.kidsloop.net`,
     continueParam: null,
     uaParam: null,
     testing: false,
-};
-
-export const withURLContext = (ui: React.ReactNode, value = defaultURLContext) => {
-    return <URLContextProvider value={value}>{ui}</URLContextProvider>;
+    locale:`en_us`,
 };
 
 export const withIntlProvider = (ui: React.ReactNode, value = fallbackLocale) => {
